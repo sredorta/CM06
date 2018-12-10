@@ -70,15 +70,29 @@ import { TermsDialogComponent } from './_library/auth/terms-dialog/terms-dialog.
 import { NiceDateFormatPipe } from './_library/pipes/nice-date-format.pipe';
 //SERVICES
 import {ApiService} from './_library/services/api.service';
+//COMPONENTS
+import { LoginComponent } from './_library/auth/login/login.component';
+import { SignupComponent } from './_library/auth/signup/signup.component';
+import {InputImageComponent} from './_library/input-image/input-image.component';
 /////////////////// END LIBRARY //////////////////////////////////////////////
 
 //COMPONENTS
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    //Library part
+    LoginComponent,
+    ErrorSheetComponent,
+    SignupComponent,
+    TermsDialogComponent,
+    InputImageComponent,
+    NiceDateFormatPipe,
+    HomeComponent
+    //End of library
   ],
   imports: [
     BrowserModule,
@@ -89,7 +103,6 @@ import { AppComponent } from './app.component';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NiceDateFormatPipe,
     [PasswordModule, //PRIME-NG modules
     InputTextModule,
     ListboxModule,

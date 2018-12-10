@@ -1,4 +1,4 @@
-@import "../../../themes.scss"; //Import general themeing
+@import "../../../../themes.scss"; //Import general themeing
 
 $warn: map-get($main-app-theme,warn);
 $accent: map-get($main-app-theme,accent);
