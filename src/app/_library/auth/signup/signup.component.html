@@ -1,24 +1,24 @@
 <div fxLayoutAlign="center center" style="min-height:90vh">
     <mat-card style="min-width:300px;margin:5px">
         <mat-card-header>
-          <mat-card-title style="font-size:16px;" >Creer un compte</mat-card-title>
-          <mat-card-subtitle>Creer votre espace</mat-card-subtitle>
+          <mat-card-title style="font-size:16px;" >{{'signup.title' | translate}}</mat-card-title>
+          <mat-card-subtitle>{{'signup.subtitle' | translate}}</mat-card-subtitle>
         </mat-card-header>
         <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate> 
         <mat-card-content>   
           <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px" fxLayoutGap.xs="0px">
                 <mat-form-field appearance="outline" class="field">
-                  <mat-label>Prénom</mat-label>
-                  <input matInput formControlName="firstName" placeholder="Prénom" required>
-                  <mat-hint>Écrivez votre prénom</mat-hint>
+                  <mat-label>{{'input.firstname.label' | translate}}</mat-label>
+                  <input matInput formControlName="firstName" placeholder="{{'input.firstname.label' | translate}}" required>
+                  <mat-hint>{{'input.firstname.hint' | translate}}</mat-hint>
                   <mat-error *ngFor="let validation of validation_messages">
                       <mat-error class="error-message" *ngIf="myForm.get('firstName').hasError(validation.type) && (myForm.get('firstName').dirty || myForm.get('firstName').touched)">{{validation.message | translate}}</mat-error>
                   </mat-error>                 
                 </mat-form-field>          
               <mat-form-field appearance="outline" class="field">
-                <mat-label>Nom</mat-label>
-                <input matInput formControlName="lastName" placeholder="Nom" required>
-                <mat-hint>Écrivez votre nom</mat-hint>
+                <mat-label>{{'input.lastname.label' | translate}}</mat-label>
+                <input matInput formControlName="lastName" placeholder="{{'input.lastname.label' | translate}}" required>
+                <mat-hint>{{'input.lastname.hint' | translate}}</mat-hint>
                 <mat-error *ngFor="let validation of validation_messages">
                     <mat-error class="error-message" *ngIf="myForm.get('lastName').hasError(validation.type) && (myForm.get('lastName').dirty || myForm.get('lastName').touched)">{{validation.message | translate}}</mat-error>
                 </mat-error>                 
@@ -26,17 +26,17 @@
           </div>
           <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px" fxLayoutGap.xs="0px">
               <mat-form-field appearance="outline" class="field">
-                <mat-label>Portable</mat-label>
+                <mat-label>{{'input.phone.label' | translate}}</mat-label>
                 <input matInput formControlName="mobile" placeholder="06XXXXXXXX" required OnlyNumber="true">
-                <mat-hint>Écrivez votre numero de portable</mat-hint>
+                <mat-hint>{{'input.phone.hint' | translate}}</mat-hint>
                 <mat-error *ngFor="let validation of validation_messages">
                     <mat-error class="error-message" *ngIf="myForm.get('mobile').hasError(validation.type) && (myForm.get('mobile').dirty || myForm.get('mobile').touched)">{{validation.message | translate}}</mat-error>
                 </mat-error>
               </mat-form-field>      
                 <mat-form-field appearance="outline" class="field">
-                  <mat-label>email</mat-label>
-                  <input matInput formControlName="email" placeholder="email" required>
-                  <mat-hint>Votre addresse email</mat-hint>
+                  <mat-label>{{'input.email.label' | translate}}</mat-label>
+                  <input matInput formControlName="email" placeholder="{{'input.email.label' | translate}}" required>
+                  <mat-hint>{{'input.email.hint' | translate}}</mat-hint>
                   <mat-error *ngFor="let validation of validation_messages">
                       <mat-error class="error-message" *ngIf="myForm.get('email').hasError(validation.type) && (myForm.get('email').dirty || myForm.get('email').touched)">{{validation.message | translate}}</mat-error>
                   </mat-error>                 
@@ -45,17 +45,17 @@
           <div formGroupName="matching_passwords_group">
             <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px" fxLayoutGap.xs="0px"> 
               <mat-form-field appearance="outline" class="field">
-                  <mat-label>Mot de passe</mat-label>
-                <input matInput formControlName="password" placeholder="Mot de passe" required type="password">
-                <mat-hint>Écrivez votre mot de passe</mat-hint>
+                  <mat-label>{{'input.password.label' | translate}}</mat-label>
+                <input matInput formControlName="password" placeholder="{{'input.password.label' | translate}}" required type="password">
+                <mat-hint>{{'input.password.hint' | translate}}</mat-hint>
                 <mat-error *ngFor="let validation of validation_messages">
                     <mat-error class="error-message" *ngIf="myForm.get('matching_passwords_group').get('password').hasError(validation.type) && (myForm.get('matching_passwords_group').get('password').dirty || myForm.get('matching_passwords_group').get('password').touched)">{{validation.message | translate}}</mat-error>
                 </mat-error>                 
               </mat-form-field>  
                 <mat-form-field appearance="outline" class="field">
-                    <mat-label>Confirmation mot de passe</mat-label>
-                  <input matInput formControlName="confirm_password" placeholder="Confirmation mot de passe" required type="password" [errorStateMatcher]="parentErrorStateMatcher">
-                  <mat-hint>Confirmez votre mot de passe</mat-hint>
+                    <mat-label>{{'input.passwordconfirm.label' | translate}}</mat-label>
+                  <input matInput formControlName="confirm_password" placeholder="{{'input.passwordconfirm.label' | translate}}" required type="password" [errorStateMatcher]="parentErrorStateMatcher">
+                  <mat-hint>{{'input.passwordconfirm.hint' | translate}}</mat-hint>
                   <mat-error *ngFor="let validation of validation_messages">
                       <mat-error class="error-message" *ngIf="(myForm.get('matching_passwords_group').hasError(validation.type)||myForm.get('matching_passwords_group').get('confirm_password').hasError(validation.type)) && (myForm.get('matching_passwords_group').get('confirm_password').dirty || myForm.get('matching_passwords_group').get('confirm_password').touched)">{{validation.message | translate}}</mat-error>
                   </mat-error>                 
@@ -67,13 +67,13 @@
           </div>-->
           <p fxLayoutAlign="center center" [ngClass]="{'is-highlight' : highlight}">
               <mat-checkbox formControlName="terms"></mat-checkbox>
-              <small style="margin-left:10px"> J'accepte les <a href="javascript:void(0)" (click)="openTermsAndConditionsDialog()">conditions d'utilization des données</a></small>
+              <small style="margin-left:10px"> {{'signup.terms1' | translate}} <a href="javascript:void(0)" (click)="openTermsAndConditionsDialog()">{{'signup.terms2' | translate}}</a></small>
           </p>   
         </mat-card-content>
         <mat-card-actions>
           <div fxLayoutAlign="center center" fxLayoutGap="20px">
-            <button mat-button type="reset" (click)="resetForm()" color="primary" [disabled]="loading">ANNULER</button>
-            <button mat-raised-button type="submit" color="primary" [disabled]="loading">OK</button>
+            <button mat-button type="reset" (click)="resetForm()" color="primary" [disabled]="loading">{{'cancel' | translate}}</button>
+            <button mat-raised-button type="submit" color="primary" [disabled]="loading">{{'signup.submit' | translate}}</button>
           </div>
         </mat-card-actions>
         </form>

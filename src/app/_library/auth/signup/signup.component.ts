@@ -84,14 +84,18 @@ export class SignupComponent implements OnInit {
     this._subscriptions.push(this.myForm.get("matching_passwords_group").get("password").valueChanges.subscribe(val=> {
       this.myForm.get("matching_passwords_group").get("confirm_password").reset();
     }));
+    //Reset terms highlight on any input
+    this._subscriptions.push(this.myForm.statusChanges.subscribe(val=> {
+      this.highlight = false;
+    }));
   }
 
   //Terms and conditions dialog  
   openTermsAndConditionsDialog(): void {
     let dialogRef = this.dialog.open(TermsDialogComponent, {
       panelClass: 'big-dialog',
-      width: '80%',
-      height: '80%',
+      width: '95%',
+      height: '95%',
       data:  null 
     });
   }
