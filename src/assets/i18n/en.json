@@ -1,0 +1,12 @@
+{
+    "app.title" : "kubiiks in english",
+    "validator.required"            : "Required field",
+    "validator.minlength"           : "Too short",
+    "validator.maxlength"           : "Too long",
+    "validator.email"               : "Invalid email format",
+    "validator.validMobile"         : "Invalid mobile number",
+    "validator.areEqual"            : "Passwords are different",    
+    "validator.tooShortPassword"    : "Password too short",
+    "validator.validPassword"       : "Password must have a number, a lower case and a upper case"
+
+}

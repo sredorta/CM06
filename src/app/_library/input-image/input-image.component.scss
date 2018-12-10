@@ -1,0 +1,15 @@
+//Make input very small so that we don't see it
+input {
+    width:0px;
+    height:0px;
+}
+.shadow {
+    display:none;
+}
+.wrapper {
+    max-width: 280px;
+}
+
+.hide {
+    opacity:0;
+}

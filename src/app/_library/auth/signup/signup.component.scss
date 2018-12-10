@@ -1,0 +1,23 @@
+@import "../../../themes.scss"; //Import general themeing
+
+$warn: map-get($main-app-theme,warn);
+$accent: map-get($main-app-theme,accent);
+
+.field {
+    //width:40%;
+    padding:5px;
+}
+  //On small screens change table font-size
+  @media only screen and (max-width: 600px) {
+    .field {
+        width:100%;
+    }
+  }
+
+  .is-highlight {
+     transition: all .4s ease-in-out;
+      //transform:scale(1.1);
+      padding:5px;
+      border-radius: 5px;
+      border: 2px solid mat-color($warn);
+  }

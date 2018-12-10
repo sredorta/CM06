@@ -1,0 +1,12 @@
+{
+    "app.title" : "kubiiks en francais",
+    "validator.required"            : "Champ obligatoire",
+    "validator.minlength"           : "Champ trop court",
+    "validator.maxlength"           : "Champ trop long",
+    "validator.email"               : "Format d'email incorrecte",
+    "validator.validMobile"         : "Mobile pas correcte",
+    "validator.areEqual"            : "Passwords différents",    
+    "validator.tooShortPassword"    : "Password trop court",
+    "validator.validPassword"       : "Password doit avoir une minuscule, une majuscule et un numero"
+
+}

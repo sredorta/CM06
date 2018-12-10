@@ -1,0 +1,94 @@
+
+<div fxLayoutAlign="center center" style="min-height:90vh">
+<mat-card style="max-width:300px;margin:5px">
+    <mat-card-header>
+      <mat-card-title style="font-size:16px;" >Login</mat-card-title>
+      <mat-card-subtitle>Acceder a votre espace</mat-card-subtitle>
+    </mat-card-header>
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate> 
+    <mat-card-content>     
+
+        <p>
+            <mat-form-field appearance="outline" style="width:100%">
+              <mat-label>email</mat-label>
+              <input matInput formControlName="email" placeholder="email" required (change)="emailChange($event)">
+              <mat-hint>Votre addresse email</mat-hint>
+              <mat-error *ngFor="let validation of validation_messages">
+                  <mat-error class="error-message" *ngIf="myForm.get('email').hasError(validation.type) && (myForm.get('email').dirty || myForm.get('email').touched)">{{validation.message | translate}}</mat-error>
+              </mat-error>                 
+            </mat-form-field>
+      </p>   
+      <p>  
+          <mat-form-field appearance="outline" style="width:100%">
+              <mat-label>Mot de passe</mat-label>
+            <input matInput formControlName="password" placeholder="Mot de passe" required type="password">
+            <mat-hint>Écrivez votre mot de passe</mat-hint>
+            <mat-error *ngFor="let validation of validation_messages">
+                <mat-error class="error-message" *ngIf="myForm.get('password').hasError(validation.type) && (myForm.get('password').dirty || myForm.get('password').touched)">{{validation.message | translate}}</mat-error>
+            </mat-error>                 
+          </mat-form-field>
+        </p>       
+        
+        <p>
+            <mat-checkbox formControlName="keepconnected">Gardez la connexión</mat-checkbox>
+        </p>
+        <div *ngIf="accounts.length > 0" class="multiple-accounts">
+            <p>Selectioner un compte</p>
+            <mat-radio-group formControlName="access" fxLayout="column" fxLayoutGap="5px">
+                <mat-radio-button *ngFor="let account of accounts; let i = index" value="{{account}}" >{{account}}</mat-radio-button></mat-radio-group>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <div fxLayoutAlign="center center" fxLayoutGap="20px">
+        <button mat-button type="reset" (click)="resetForm()" color="primary" [disabled]="loading">ANNULER</button>
+        <button mat-raised-button type="submit" color="primary" [disabled]="loading" >OK</button>
+      </div>
+    </mat-card-actions>
+
+    </form>
+    <mat-card-footer>
+        <button mat-button style="width:50%" routerLink="/resetpassword" [disabled]="loading">Mot de passe oublié ?</button>
+        <button mat-button style="width:50%" routerLink="/signup" [disabled]="loading">S'inscrire</button>
+        <mat-progress-bar *ngIf="loading" mode="indeterminate" color="accent"></mat-progress-bar>
+      </mat-card-footer>        
+    </mat-card>
+  </div>
+
+<!--<form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" autocomplete="off" > 
+
+  <span class="ui-float-label" style="margin-top:20px">
+    <input matInput id="email" formControlName="email" type="text" size="30" pInputText  style="width:100%" autocomplete="off" novalidate> 
+    <label for="email">Email</label>
+  </span>
+
+  <span class="ui-float-label" style="margin-top:25px;margin-bottom:20px">
+    <input id="password" formControlName="password" type="password" pPassword [feedback]="true"  style="width:100%" autocomplete="off" novalidate/>
+    <label for="password">Password</label>     
+  </span>
+
+
+  <p-checkbox  [formControl]="myForm.controls['keepconnected']"   label="Keep connected" binary="true"></p-checkbox>
+  <p-listbox [formControl]="myForm.controls['access']" [options]="accounts"  checkbox="true" [style]="{'width':'100%'}"></p-listbox>
+  <button pButton type="button" label="Click" (click)="handleClick($event)"></button>
+
+  <div fxLayoutAlign="stretch center" fxLayoutGap="20px" style="width:100%">
+    <button style="width:100%"  mat-button type="reset" (click)="resetForm()" color="primary" [disabled]="loading">ANNULER</button>
+    <button style="width:100%" mat-raised-button type="submit" color="primary" [disabled]="loading">OK</button>
+  </div>
+</form>-->
+
+
+<!--
+<h1>{{'app.title' | translate}}</h1>
+<h3>Float Label</h3>
+<span class="ui-float-label">
+    <input id="float-input" type="text" size="30" pInputText> 
+    <label for="float-input">Username</label>
+</span>
+<input type="password" pPassword [feedback]="true"/>
+<input type="text" pInputText />
+<p-colorPicker [(ngModel)]="color"></p-colorPicker>
+<p>A little bit of text to see how it shows !</p>-->
+<!--<p-editor [(ngModel)]="text" [style]="{'height':'320px'}"></p-editor>-->
+<!--<quill-editor></quill-editor>-->
+

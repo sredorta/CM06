@@ -1,0 +1,19 @@
+
+<div class="wrapper" style="text-align:center;margin:5px" [formGroup]="parentForm">
+    <img class="shadow" alt="shadow" #shadowImg style="display:none">
+    <canvas class="shadow" #shadowCanvas></canvas>
+    <input  class="shadow" type="file" #fileInput (change)="loadImage($event)">  
+    <img  alt="profile picture" #realImg style="min-width:60px;max-width:60px;width:60px;height:60px;margin-right:10px;object-fit:scale-down">
+    <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px" fxLayoutGap.xs="5px" fxFlex="100%" style="margin-bottom:10px">
+      <button mat-mini-fab color="default" type="button" (click)="openFileViewer()">
+          <mat-icon aria-label="Example icon-button with a heart icon">camera_alt</mat-icon>
+      </button>
+      <button  mat-mini-fab color="default" type="button" (click)="resetImage()" [disabled]="!isImgLoaded">
+          <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
+      </button>
+      <button  *ngIf="crop" mat-mini-fab color="default" type="button" (click)="rotateImage()" [disabled]="!isImgLoaded">
+          <mat-icon aria-label="Example icon-button with a heart icon">rotate_right</mat-icon>
+      </button>
+    </div>  
+  
+  </div>
