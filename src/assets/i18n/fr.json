@@ -17,6 +17,20 @@
     "terms.options.4"               : "par voie postale au :",
     "terms.accept"                  : "D'accord",
 
+    "login.title"                   : "Se connecter",
+    "login.subtitle"                : "Acceder a mon espace personnel",
+    "login.keepconnected"           : "Gardez la connexión",
+    "login.forgot"                  : "Mot de passe oublié ?",
+    "login.submit"                  : "Acceder",
+    "login.signup"                  : "S'inscrire",
+    "login.select"                  : "Selectioner un compte",
+
+    "forgot.title"                  : "Mot de passe oublié",
+    "forgot.subtitle"               : "Demander un nouveau mot de passe",
+    "forgot.select"                 : "Selectioner un compte",    
+    "forgot.back"                   : "Rétour à la page précedente",
+    "forgot.submit"                 : "Nouveau mot de passe",
+
     "input.firstname.label"         : "Prénom",
     "input.firstname.hint"          : "Écrivez votre prénom",
     "input.lastname.label"          : "Nom",
@@ -35,8 +49,8 @@
     "validator.maxlength"           : "Champ trop long",
     "validator.email"               : "Format d'email incorrecte",
     "validator.validMobile"         : "Mobile pas correcte",
-    "validator.areEqual"            : "Passwords différents",    
-    "validator.tooShortPassword"    : "Password trop court",
-    "validator.validPassword"       : "Password doit avoir une minuscule, une majuscule et un numero"
+    "validator.areEqual"            : "Mot de passe différents",    
+    "validator.tooShortPassword"    : "Mot de passe trop court",
+    "validator.validPassword"       : "Le mot de passe doit avoir une minuscule, une majuscule et un numero"
 
 }

@@ -2,8 +2,8 @@
   <mat-toolbar  class="toolbar" [class.mat-elevation-z8]="true">
     <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
     <div fxFlex="1 1 auto" fxLayoutAlign="end center">
-          <div *ngIf="user.isAvailable()" fxLayout="row" fxLayoutGap="20px">
-          <button  mat-mini-fab color="white" class="scaled">
+        <div *ngIf="user.isAvailable()" fxLayout="row" fxLayoutGap="20px">
+          <!--<button  mat-mini-fab color="white" class="scaled">
                   <div *ngIf="user.notifications>0">
                     <mat-icon [matBadge]="user.notifications" matBadgeColor="accent" aria-label="Notifications" routerLink='/notifications' >notifications</mat-icon>
                   </div>
@@ -18,18 +18,18 @@
                   <div *ngIf="user.messages==0">
                       <mat-icon  aria-label="Messages"  routerLink='/messages'>mail_outline</mat-icon>
                   </div>
-          </button>   
+          </button>   -->
           <div  fxLayout="column" fxLayoutAlign="center center">
-              <button mat-mini-fab color="white" [style.backgroundImage]="user.getAvatar(avatarSize)" style="background-size:cover;" routerLink='/profile' class="scaled"></button>           
+              <button mat-mini-fab color="white" style="background-size:cover;" routerLink='/profile' class="scaled"></button>           
               <small style="font-size:10px;line-height:10px">{{user.account}}</small>
           </div>
-          </div>  
-          <div *ngIf="!user.isAvailable()" fxLayout="column" fxLayoutAlign="center center">
+        </div>  
+        <div *ngIf="!user.isAvailable()" fxLayout="column" fxLayoutAlign="center center">
                 <button  mat-mini-fab color="white" routerLink='/login' class="scaled">
                   <mat-icon matBadge="x" matBadgeColor="accent" aria-label="Déconnecté">person</mat-icon>
                 </button> 
                 <small style="font-size:10px;line-height:10px">Deconnecte</small>
-          </div>                                
+        </div>                                
     </div>
   </mat-toolbar>
 

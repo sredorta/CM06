@@ -73,6 +73,8 @@ import {ApiService} from './_library/services/api.service';
 //COMPONENTS
 import { LoginComponent } from './_library/auth/login/login.component';
 import { SignupComponent } from './_library/auth/signup/signup.component';
+import {ResetpasswordComponent} from './_library/auth/resetpassword/resetpassword.component';
+
 import {InputImageComponent} from './_library/input-image/input-image.component';
 /////////////////// END LIBRARY //////////////////////////////////////////////
 
@@ -86,9 +88,10 @@ import { HomeComponent } from './home/home.component';
     AppComponent,
     //Library part
     LoginComponent,
-    ErrorSheetComponent,
     SignupComponent,
     TermsDialogComponent,
+    ResetpasswordComponent,
+    ErrorSheetComponent,
     InputImageComponent,
     NiceDateFormatPipe,
     HomeComponent

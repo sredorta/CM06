@@ -1,9 +1,9 @@
 
 import {IApiUserAuth} from '../services/api.service';
 
-export enum avatarSizes  {
+/*export enum avatarSizes  {
     full = 0, large = 1, big = 2, medium = 3, small = 4, thumbnail = 5, tinythumbnail = 6
-  }
+  }*/
 
 export class User {
     id : number;
@@ -15,11 +15,11 @@ export class User {
     updated_at:string;
     created_at:string;
     account:string;   
-    notifications:number;
+/*    notifications:number;
     messages:number;
     roles:Array<String>;
     groups:Array<String>;
-    avatar:any;
+    avatar:any;*/
     constructor(user: IApiUserAuth) {
         if (user !== null) {
             this.id = user.id;
@@ -30,11 +30,11 @@ export class User {
             this.updated_at = user.updated_at;
             this.created_at = user.created_at;
             this.account = user.account;
-            this.notifications = user.notifications;
+/*            this.notifications = user.notifications;
             this.messages = user.messages;
             this.roles = user.roles;
             this.groups = user.groups;
-            this.avatar = user.avatar;
+            this.avatar = user.avatar;*/
         } else {
             this.id = null;
         }
@@ -48,7 +48,7 @@ export class User {
         return false;
     }
 
-    getAvatar(size:avatarSizes) : string {
+/*    getAvatar(size:avatarSizes) : string {
         let avatar;
         switch (size) {
             case avatarSizes.full:
@@ -77,7 +77,7 @@ export class User {
         }
         if (avatar == null) avatar = this.avatar.full.url; //Case of default
         return "url(" + avatar + ")";
-    }
+    }*/
 
     /////////////////////////////////////////////////////////////////////////
     // Token related

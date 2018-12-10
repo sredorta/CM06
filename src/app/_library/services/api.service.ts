@@ -100,8 +100,12 @@ export class ApiService {
     return this.http.post<any>(environment.apiURL +'/auth/logout', {});
   }
 
+  //Resets password and send email to user
+  public resetPassword(email:string,access:string) : Observable<any> {
+    return this.http.post<any>(environment.apiURL +'/auth/resetpassword', {email,access});
+  }  
 
-  //Gets the notifications
+/*  //Gets the notifications
   public getNotifs() : Observable<IApiNotif[]> {
     return this.http.get<IApiNotif[]>(environment.apiURL+'/notifications').map(res => <IApiNotif[]>res);
   }
@@ -112,5 +116,5 @@ export class ApiService {
   //Mark a notification as read
   public notificationDelete(id:number) :Observable<IApiNotif[]> {
     return this.http.post<IApiNotif[]>(environment.apiURL +'/notifications/delete', {'id': id}).map(res => <IApiNotif[]>res);
-  }
+  }*/
 }

@@ -4,7 +4,7 @@ import { Router, Event, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import {LoginComponent} from './_library/auth/login/login.component';
 import { TranslateService } from '@ngx-translate/core'; //NGX-TRANSLATE
-import {User, avatarSizes} from './_library/models/user';
+import {User} from './_library/models/user';
 import {ApiService, IApiUserAuth} from './_library/services/api.service';
 
 
@@ -18,7 +18,7 @@ export class AppComponent {
   loading : boolean = true;
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
-  avatarSize: avatarSizes = avatarSizes.thumbnail;
+
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
   constructor(private api: ApiService, private router : Router, private translate: TranslateService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
@@ -49,6 +49,13 @@ export class AppComponent {
        voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`);
 
+  logout() {
+    this._subscriptions.push(this.api.logout().subscribe(res=> {
+        this.api.setCurrent( null);
+        User.removeToken();
+        this.router.navigate([""]); //Go back home
+    }));
+  }       
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);

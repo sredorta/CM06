@@ -2,17 +2,17 @@
 <div fxLayoutAlign="center center" style="min-height:90vh">
 <mat-card style="max-width:300px;margin:5px">
     <mat-card-header>
-      <mat-card-title style="font-size:16px;" >Login</mat-card-title>
-      <mat-card-subtitle>Acceder a votre espace</mat-card-subtitle>
+      <mat-card-title style="font-size:16px;" >{{'login.title' | translate}}</mat-card-title>
+      <mat-card-subtitle>{{'login.subtitle' | translate}}</mat-card-subtitle>
     </mat-card-header>
     <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate> 
     <mat-card-content>     
 
         <p>
             <mat-form-field appearance="outline" style="width:100%">
-              <mat-label>email</mat-label>
-              <input matInput formControlName="email" placeholder="email" required (change)="emailChange($event)">
-              <mat-hint>Votre addresse email</mat-hint>
+              <mat-label>{{'input.email.label' | translate}}</mat-label>
+              <input matInput formControlName="email" placeholder="{{'input.email.label' | translate}}" required (change)="emailChange($event)">
+              <mat-hint>{{'input.email.hint' | translate}}</mat-hint>
               <mat-error *ngFor="let validation of validation_messages">
                   <mat-error class="error-message" *ngIf="myForm.get('email').hasError(validation.type) && (myForm.get('email').dirty || myForm.get('email').touched)">{{validation.message | translate}}</mat-error>
               </mat-error>                 
@@ -20,9 +20,9 @@
       </p>   
       <p>  
           <mat-form-field appearance="outline" style="width:100%">
-              <mat-label>Mot de passe</mat-label>
-            <input matInput formControlName="password" placeholder="Mot de passe" required type="password">
-            <mat-hint>Écrivez votre mot de passe</mat-hint>
+              <mat-label>{{'input.password.label' | translate}}</mat-label>
+            <input matInput formControlName="password" placeholder="{{'input.password.label' | translate}}" required type="password">
+            <mat-hint>{{'input.password.hint' | translate}}</mat-hint>
             <mat-error *ngFor="let validation of validation_messages">
                 <mat-error class="error-message" *ngIf="myForm.get('password').hasError(validation.type) && (myForm.get('password').dirty || myForm.get('password').touched)">{{validation.message | translate}}</mat-error>
             </mat-error>                 
@@ -30,25 +30,25 @@
         </p>       
         
         <p>
-            <mat-checkbox formControlName="keepconnected">Gardez la connexión</mat-checkbox>
+            <mat-checkbox formControlName="keepconnected"> {{'login.keepconnected' | translate}}</mat-checkbox>
         </p>
         <div *ngIf="accounts.length > 0" class="multiple-accounts">
-            <p>Selectioner un compte</p>
+            <p>{{'login.select' | translate}}</p>
             <mat-radio-group formControlName="access" fxLayout="column" fxLayoutGap="5px">
                 <mat-radio-button *ngFor="let account of accounts; let i = index" value="{{account}}" >{{account}}</mat-radio-button></mat-radio-group>
         </div>
     </mat-card-content>
     <mat-card-actions>
       <div fxLayoutAlign="center center" fxLayoutGap="20px">
-        <button mat-button type="reset" (click)="resetForm()" color="primary" [disabled]="loading">ANNULER</button>
-        <button mat-raised-button type="submit" color="primary" [disabled]="loading" >OK</button>
+        <button mat-button type="reset" (click)="resetForm()" color="primary" [disabled]="loading">{{'cancel' | translate}}</button>
+        <button mat-raised-button type="submit" color="primary" [disabled]="loading" >{{'login.submit' | translate}}</button>
       </div>
     </mat-card-actions>
 
     </form>
     <mat-card-footer>
-        <button mat-button style="width:50%" routerLink="/resetpassword" [disabled]="loading">Mot de passe oublié ?</button>
-        <button mat-button style="width:50%" routerLink="/signup" [disabled]="loading">S'inscrire</button>
+        <button mat-button style="width:50%" routerLink="/resetpassword" [disabled]="loading">{{'login.forgot' | translate}}</button>
+        <button mat-button style="width:50%" routerLink="/signup" [disabled]="loading">{{'login.signup' | translate}}</button>
         <mat-progress-bar *ngIf="loading" mode="indeterminate" color="accent"></mat-progress-bar>
       </mat-card-footer>        
     </mat-card>
