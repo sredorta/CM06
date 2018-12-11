@@ -1,5 +1,5 @@
 
-import { HostListener, Component, OnInit,ViewChild, ElementRef, Input, Output, EventEmitter } from '@angular/core';
+import { HostListener, Component, OnInit,ViewChild, ElementRef, Input, Output, EventEmitter, SimpleChanges} from '@angular/core';
 import { FlexLayoutModule  } from "@angular/flex-layout";
 import { FormControlName } from '@angular/forms';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
@@ -21,7 +21,7 @@ export class InputImageComponent implements OnInit {
 
   //Inputs
   @Input() parentForm : FormGroup;
-  @Input() fieldName : string = "image22";
+  @Input() fieldName : string = "image";
   @Input() defaultImage : string;
   @Input() maxSize : number = 200;
   @Input() crop : boolean = true;
@@ -37,6 +37,11 @@ export class InputImageComponent implements OnInit {
     this.realImgElem.nativeElement.src = this.defaultImage;
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes.parentForm.currentValue);
+
+    console.log("changes !!!");
+  }
   //Sets the form field as specified in fieldName input
   setFormField(data) {
     var field = this.fieldName;

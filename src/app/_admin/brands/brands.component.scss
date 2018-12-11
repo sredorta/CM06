@@ -30,6 +30,10 @@ $accent: map-get($admin-theme,accent);
   .element-row td {
     border-bottom-width: 0;
   }
+  .mat-column-id {
+      width:50px;
+      //width:50px;
+  }
 
   .element-detail {
     overflow: hidden;

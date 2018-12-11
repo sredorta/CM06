@@ -61,7 +61,7 @@ export enum EApiImageSizes  {
   big = "big", 
   medium = "medium", 
   small = "small", 
-  thumbnail = "tumbnail", 
+  thumbnail = "thumbnail", 
   tinythumbnail = "tinythumbnail"
 }
 
@@ -137,13 +137,15 @@ export class ApiService {
   }  
 
   //Brands
-  public createBrand(name:string, description:string, image:File)  {
+  public createBrand(name:string, description:string, image:File, size:EApiImageSizes) : Observable<IApiBrand>  {
     const fd = new FormData();
     fd.append('name' , name);
     fd.append('description', description);
+    fd.append('size', size);
+    console.log("Required size is: " + size);
     if (image !== null)
       fd.append('image', image, image.name);  
-    return this.http.post<any>(environment.apiURL +'/brands/create', fd);
+    return this.http.post<IApiBrand>(environment.apiURL +'/brands/create', fd).map(res => <IApiBrand>res);
   }
   public getBrands(size: EApiImageSizes) : Observable<IApiBrand[]> {
     return this.http.post<IApiBrand[]>(environment.apiURL +'/brands', {'size': size}).map(res => <IApiBrand[]>res);

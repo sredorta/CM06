@@ -1,115 +1,131 @@
 <div style="padding:20px" class="admin-theme">  
-
-  <mat-accordion>
-    <mat-expansion-panel #expansion style="margin-bottom:5px">
-      <mat-expansion-panel-header>
-        <mat-panel-title fxLayoutAlign="start center"><mat-icon style="margin-right:10px">add_box</mat-icon>Creer</mat-panel-title>
-        <mat-panel-description fxLayoutAlign="start center">Ajouter une marque</mat-panel-description>
-      </mat-expansion-panel-header>
-      <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate> 
-        <div fxLayout="row wrap" fxLayoutAlign="center stretch" fxLayoutGap="20px">
-          <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
-              <div>
+  <ng-container *ngIf="loadingTableBrands">
+        <div fxLayout="column" fxLayoutAlign="center center" style="width:100%;min-height:80vh;">
+            <mat-spinner [diameter]="100"></mat-spinner>
+        </div>
+  </ng-container>
+  <div *ngIf="!loadingTableBrands">
+    <div style="width:100%" fxLayoutAlign="space-between center" style="padding-right:20px">
+        <mat-form-field appearance="outline" style="padding-top:10px">
+            <mat-label>Chercher</mat-label>
+            <input matInput  (keyup)="applyFilter($event.target.value)" placeholder="Chercher" autocomplete="off">
+            <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field> 
+        <p class="total">TOTAL : {{brandsDisplayed}} / <span style="font-weight:bold">{{brandsCount}}</span></p> 
+    </div>    
+    <mat-accordion>
+      <mat-expansion-panel #expansion style="margin-bottom:5px">
+        <mat-expansion-panel-header>
+          <mat-panel-title fxLayoutAlign="start center"><mat-icon style="margin-right:10px">add_box</mat-icon>Creer</mat-panel-title>
+          <mat-panel-description fxLayoutAlign="start center">Ajouter une marque</mat-panel-description>
+        </mat-expansion-panel-header>
+        <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate> 
+          <div fxLayout="row wrap" fxLayoutAlign="center stretch" fxLayoutGap="20px">
+            <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
+                <div>
+                      <mat-form-field appearance="outline" style="width:100%">
+                        <mat-label>Marque</mat-label>
+                        <input matInput formControlName="name" placeholder="marque" required autocomplete="off">
+                        <mat-hint>Écrivez le nom de la marque</mat-hint>
+                        <mat-error *ngFor="let validation of validation_messages">
+                            <mat-error class="error-message" *ngIf="myForm.get('idGMA').hasError(validation.type) && (myForm.get('idGMA').dirty || myForm.get('idGMA').touched)">{{validation.message}}</mat-error>
+                        </mat-error>                 
+                      </mat-form-field>
+                </div>            
+                <div>
                     <mat-form-field appearance="outline" style="width:100%">
-                      <mat-label>Marque</mat-label>
-                      <input matInput formControlName="name" placeholder="marque" required minlength="2" autocomplete="off">
-                      <mat-hint>Écrivez le nom de la marque</mat-hint>
+                      <mat-label>Déscription</mat-label>
+                      <textarea matInput formControlName="description" placeholder="Déscritpion" autocomplete="off"></textarea>
+                      <mat-hint>Écrivez une description de la marque</mat-hint>
                       <mat-error *ngFor="let validation of validation_messages">
-                          <mat-error class="error-message" *ngIf="myForm.get('idGMA').hasError(validation.type) && (myForm.get('idGMA').dirty || myForm.get('idGMA').touched)">{{validation.message}}</mat-error>
+                          <mat-error class="error-message" *ngIf="myForm.get('serialNumber').hasError(validation.type) && (myForm.get('serialNumber').dirty || myForm.get('serialNumber').touched)">{{validation.message}}</mat-error>
                       </mat-error>                 
                     </mat-form-field>
-              </div>            
-              <div>
-                  <mat-form-field appearance="outline" style="width:100%">
-                    <mat-label>Déscription</mat-label>
-                    <textarea matInput formControlName="description" placeholder="Déscritpion" autocomplete="off"></textarea>
-                    <mat-hint>Écrivez une description de la marque</mat-hint>
-                    <mat-error *ngFor="let validation of validation_messages">
-                        <mat-error class="error-message" *ngIf="myForm.get('serialNumber').hasError(validation.type) && (myForm.get('serialNumber').dirty || myForm.get('serialNumber').touched)">{{validation.message}}</mat-error>
-                    </mat-error>                 
-                  </mat-form-field>
-              </div>
-              <div fxLayoutAlign="center center" style="width:100%">
-                <app-input-image maxSize="300" [crop]="true" fieldName="image" [parentForm]="myForm" defaultImage="./assets/images/no-photo-available.jpg" style="margin:5px"></app-input-image>
-              </div>
-        </div> 
-        <div fxLayoutAlign="center center" fxLayoutGap="20px">
-          <button mat-button type="reset" color="primary">ANNULER</button>
-          <button mat-raised-button type="submit" color="primary">OK</button>
-        </div>
-        </div>  
-      </form>      
-      </mat-expansion-panel>
-    </mat-accordion>
-    <table #myTable mat-table [dataSource]="dataSource" multiTemplateDataRows class="table">
-      <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef>#</th>
-            <td mat-cell *matCellDef="let row">{{row.id}}</td>
-      </ng-container> 
-
-      <ng-container matColumnDef="image">
-          <th mat-header-cell *matHeaderCellDef>Photo</th>
-          <td mat-cell *matCellDef="let row">
-              <div fxLayoutAlign="end start" mat-card-avatar [style.backgroundImage]="row.image.url" class="image">
-              </div>
-          </td>
-      </ng-container>
-
-      <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Name</th>
-          <td mat-cell *matCellDef="let row">{{row.name}}</td>
-      </ng-container> 
-
-      <ng-container matColumnDef="description">
-          <th mat-header-cell *matHeaderCellDef>Description</th>
-          <td mat-cell *matCellDef="let row">{{row.description}}</td>
-      </ng-container>   
-
-    
-      <ng-container matColumnDef="expandedDetail">
-          <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
-            <div class="element-detail"
-                 [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-              <div style="padding:10px;width:100%" fxLayout="row" fxLayoutGap="20px"> 
-                <p>Expansion is here !!!</p>
-                <!--<div *ngIf="element.profile_id>0" fxFlex="1 1 auto" fxLayoutAlign="end start">
-                  <div fxLayout="column" style="min-width:120px;max-width:300px">
-                    <p style="margin-bottom:5px">Actuellement utilizé par: </p>
-                    <app-member-item style="margin:5px;" [member]="memberAssigned" [style]="'small'"></app-member-item>
-                    <button mat-stroked-button color="primary" (click)="unassignProduct(element.id)">Unassign</button>
-                  </div>
-                </div>  
-                <div *ngIf="element.profile_id==null" fxFlex="1 1 auto" fxLayoutAlign="end start">
-                  <div fxLayout="column" style="min-width:120px;max-width:300px">
-                    <p style="margin-bottom:5px">Assigner ce materiel: </p>
-                    <small>Chercher un membre pour pouvoir l'assigner</small>
-                    <form [formGroup]="myForm" novalidate>
-                      <mat-form-field style="padding-top:10px">
-                          <input formControlName="search" matInput (keyup)="applyFilterMember($event.target.value)" placeholder="Chercher" autocomplete="off">
-                          <mat-hint>Membres trouvés : {{membersCount}}</mat-hint>
-                      </mat-form-field> 
-                    </form>
-                    <app-member-item *ngIf="membersCount==1"  [member]="dataSourceMember.filteredData[0]" [style]="'small'"></app-member-item>
-                    <button *ngIf="membersCount == 1" mat-stroked-button color="primary" (click)="assignProduct(element.id, dataSourceMember.filteredData[0].id)">Assign</button>
-                  </div>
-                </div>  
-                <div fxFlex="1 1 auto">
-                  <div fxLayout="column" fxLayoutAlign="center end" style="min-width:120px;max-width:300px">
-                    <p>Supprimer ce Matériel</p>
-                    <button mat-stroked-button color="warn" (click)="removeProduct(element.id)">Supprimer</button>
-                  </div>
-                </div>  -->  
-              </div>
+                </div>
+          </div> 
+          <div fxLayout="column" fxLayoutAlign="center center">
+            <div fxLayoutAlign="center start" style="width:100%" fxFlex="1 1 auto">
+              <app-input-image #inputImage maxSize="300" [crop]="true" fieldName="image" [parentForm]="myForm" defaultImage="./assets/images/no-photo-available.jpg" style="margin:5px"></app-input-image>
             </div>
-          </td>
+            <div fxLayoutAlign="center center" fxLayoutGap="20px" fxFlex="1 1 auto">
+                <button mat-button type="reset" color="primary" (click)="reset()">ANNULER</button>
+                <button mat-raised-button type="submit" color="primary">OK</button>
+            </div>
+          </div>
+          </div>  
+        </form>      
+        </mat-expansion-panel>
+      </mat-accordion>
+      <table #myTable mat-table [dataSource]="dataSource" multiTemplateDataRows class="table">
+        <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef>#</th>
+              <td mat-cell *matCellDef="let row">{{row.id}}</td>
+        </ng-container> 
+
+        <ng-container matColumnDef="image">
+            <th mat-header-cell *matHeaderCellDef>Photo</th>
+            <td mat-cell *matCellDef="let row">
+                <div fxLayoutAlign="end start" mat-card-avatar [style.backgroundImage]="row.image.url" class="image">
+                </div>
+            </td>
         </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let element; columns: displayedColumns;"
-        class="element-row"
-        [class.expanded-row]="expandedElement === element"
-        (click)="expandedElement = element;rowClick(element.id);">        
-      </tr>
-      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
-    </table>    
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let row">{{row.name}}</td>
+        </ng-container> 
+
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef>Description</th>
+            <td mat-cell *matCellDef="let row">{{row.description}}</td>
+        </ng-container>   
+
+      
+        <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+              <div class="element-detail"
+                  [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                <div style="padding:10px;width:100%" fxLayout="row" fxLayoutGap="20px"> 
+                  <p>Expansion is here !!!</p>
+                  <!--<div *ngIf="element.profile_id>0" fxFlex="1 1 auto" fxLayoutAlign="end start">
+                    <div fxLayout="column" style="min-width:120px;max-width:300px">
+                      <p style="margin-bottom:5px">Actuellement utilizé par: </p>
+                      <app-member-item style="margin:5px;" [member]="memberAssigned" [style]="'small'"></app-member-item>
+                      <button mat-stroked-button color="primary" (click)="unassignProduct(element.id)">Unassign</button>
+                    </div>
+                  </div>  
+                  <div *ngIf="element.profile_id==null" fxFlex="1 1 auto" fxLayoutAlign="end start">
+                    <div fxLayout="column" style="min-width:120px;max-width:300px">
+                      <p style="margin-bottom:5px">Assigner ce materiel: </p>
+                      <small>Chercher un membre pour pouvoir l'assigner</small>
+                      <form [formGroup]="myForm" novalidate>
+                        <mat-form-field style="padding-top:10px">
+                            <input formControlName="search" matInput (keyup)="applyFilterMember($event.target.value)" placeholder="Chercher" autocomplete="off">
+                            <mat-hint>Membres trouvés : {{membersCount}}</mat-hint>
+                        </mat-form-field> 
+                      </form>
+                      <app-member-item *ngIf="membersCount==1"  [member]="dataSourceMember.filteredData[0]" [style]="'small'"></app-member-item>
+                      <button *ngIf="membersCount == 1" mat-stroked-button color="primary" (click)="assignProduct(element.id, dataSourceMember.filteredData[0].id)">Assign</button>
+                    </div>
+                  </div>  
+                  <div fxFlex="1 1 auto">
+                    <div fxLayout="column" fxLayoutAlign="center end" style="min-width:120px;max-width:300px">
+                      <p>Supprimer ce Matériel</p>
+                      <button mat-stroked-button color="warn" (click)="removeProduct(element.id)">Supprimer</button>
+                    </div>
+                  </div>  -->  
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+          class="element-row"
+          [class.expanded-row]="expandedElement === element"
+          (click)="expandedElement = element;rowClick(element.id);">        
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+      </table>   
+  </div> 
 </div>

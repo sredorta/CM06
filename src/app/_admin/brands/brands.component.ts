@@ -21,15 +21,21 @@ import { Subscription } from 'rxjs';
   ],   
 })
 export class BrandsComponent implements OnInit {
-  loading  : boolean = true;
+  loadingTableBrands  : boolean = true;
   dataSource = null;          //Store products array in table format
   expandedElement: any = null;   //Expanded panel for description
   displayedColumns: string[] = ['id','image','name','description'];
+  brandsCount : number = 0;
+  brandsDisplayed : number = 0;
+  lastBrandFilter : string = null;
 
   myForm: FormGroup; 
   private _subscriptions : Subscription[] = new Array<Subscription>();
   constructor(private api : ApiService) { }
   @ViewChild('expansion') expansion : MatExpansionPanel;
+  @ViewChild('inputImage') inputImage : InputImageComponent;
+  @ViewChild('myTable') table : MatTable<any>;   
+
   createForm() {
     this.myForm =  new FormGroup({    
       name: new FormControl('', Validators.compose([
@@ -57,17 +63,28 @@ export class BrandsComponent implements OnInit {
       }
       let brands = res;
       this.dataSource = new MatTableDataSource(brands);
+      this.brandsCount = this.dataSource.data.length;
+      this.brandsDisplayed = this.brandsCount;
       //Override filter
-     /* this.dataSource.filterPredicate = function(data, filter: string): boolean {
-        return data.idGMA.toLowerCase().includes(filter) || 
-        data.cathegory.toLowerCase().includes(filter) ||
-        data.type.toLowerCase().includes(filter) ||
-        data.description.toLowerCase().includes(filter) ||
-        data.brand.toLowerCase().includes(filter);
-    };*/
+      this.dataSource.filterPredicate = function(data, filter: string): boolean {
+        return data.name.toLowerCase().includes(filter) || 
+        data.description.toLowerCase().includes(filter);
+      };
+      this.loadingTableBrands = false;
     }));    
   }
 
+  //Reset also image when we reset form
+  reset() {
+    this.inputImage.resetImage();
+  }
+
+  //Filter
+  applyFilter(filterValue: string) {
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.brandsDisplayed = this.dataSource.filteredData.length;
+      this.lastBrandFilter = filterValue;
+  }
 
   //From submit
   onSubmit(value) {
@@ -78,32 +95,33 @@ export class BrandsComponent implements OnInit {
     }
     this.expansion.close();
     console.log(value);
-    this._subscriptions.push(this.api.createBrand(value.name,value.description,value.image).subscribe(res => {
+    this._subscriptions.push(this.api.createBrand(value.name,value.description,value.image, EApiImageSizes.thumbnail).subscribe((res: IApiBrand) => {
       console.log(res);
-      let brands : any[] =  new Array<any>();
-      for (let brand of res) {
-        console.log(brand);
-        //product = new Product(product);
-        //products.push(product);
-      }
-      /*this.dataSource = new MatTableDataSource(products);
-      //Override filter
-      this.dataSource.filterPredicate = function(data, filter: string): boolean {
-        return data.idGMA.toLowerCase().includes(filter) || 
-        data.cathegory.toLowerCase().includes(filter) ||
-        data.type.toLowerCase().includes(filter) ||
-        data.description.toLowerCase().includes(filter) ||
-        data.brand.toLowerCase().includes(filter);
-    };*/
+      this.addBrand(res);
     }));
     this.myForm.reset();
-    //let result = new Product(value);
-    //result.image = this.photo;
-    //this.create.emit(result);
+    this.reset();
   }
 
+  //Push new element to array
+  addBrand(brand: IApiBrand) {
+    brand.image.url = "url("+brand.image.url+")";
+    this.dataSource.data.push(brand);
+    this.brandsCount = this.dataSource.data.length;
+    this.applyFilter(this.lastBrandFilter);
+    this.table.renderRows();
+
+  }
+
+  //When row is clicked
   rowClick(row) {
     console.log("Clicked " + row);
   }
 
+  ngOnDestroy() {    
+    //Unsubscribe to all
+    for (let subscription of this._subscriptions) {
+      subscription.unsubscribe();
+    }
+  }
 }
