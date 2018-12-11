@@ -1,3 +1,5 @@
+@import "../themes.scss"; //Import general themeing
+
 .container {
     min-width:300px;
     display: flex;
@@ -40,4 +42,13 @@
   .sidenav {
       min-width:170px;
       max-width: 300px;
+  }
+
+  .banner {
+    height:100px;
+    width:100%;
+    //background-color:rgb(47,62,153);
+  }
+  .banner img {
+    height:80px;
   }

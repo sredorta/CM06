@@ -35,12 +35,43 @@ export interface IApiUserAuth {
   avatar:any;
 }
 
+export interface IApiBrand {
+  id:number;
+  name:string;
+  description:string;
+  image: IApiImage;
+}
+
+export interface IApiImage {
+  url:string;
+  size: EApiImageSizes;
+  with:number;
+  height:number;
+  file_size:number;
+  alt_text:string;
+  title:string;
+  description:string;
+}
+
+
+//Different image sizes that are stored in the database if thumbs are generated (no default image)
+export enum EApiImageSizes  {
+  full = "full", 
+  large = "large", 
+  big = "big", 
+  medium = "medium", 
+  small = "small", 
+  thumbnail = "tumbnail", 
+  tinythumbnail = "tinythumbnail"
+}
+
+/*
 export interface IApiNotif {
   id:number;
   text: string;
   isRead: boolean;
   created_at: string;   
-}
+}*/
 
 
 @Injectable({
@@ -105,6 +136,18 @@ export class ApiService {
     return this.http.post<any>(environment.apiURL +'/auth/resetpassword', {email,access});
   }  
 
+  //Brands
+  public createBrand(name:string, description:string, image:File)  {
+    const fd = new FormData();
+    fd.append('name' , name);
+    fd.append('description', description);
+    if (image !== null)
+      fd.append('image', image, image.name);  
+    return this.http.post<any>(environment.apiURL +'/brands/create', fd);
+  }
+  public getBrands(size: EApiImageSizes) : Observable<IApiBrand[]> {
+    return this.http.post<IApiBrand[]>(environment.apiURL +'/brands', {'size': size}).map(res => <IApiBrand[]>res);
+  }
 /*  //Gets the notifications
   public getNotifs() : Observable<IApiNotif[]> {
     return this.http.get<IApiNotif[]>(environment.apiURL+'/notifications').map(res => <IApiNotif[]>res);

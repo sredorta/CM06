@@ -3,6 +3,7 @@ import { HostListener, Component, OnInit,ViewChild, ElementRef, Input, Output, E
 import { FlexLayoutModule  } from "@angular/flex-layout";
 import { FormControlName } from '@angular/forms';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
+import * as ts from "typescript";
 
 @Component({
   selector: 'app-input-image',
@@ -20,6 +21,7 @@ export class InputImageComponent implements OnInit {
 
   //Inputs
   @Input() parentForm : FormGroup;
+  @Input() fieldName : string = "image22";
   @Input() defaultImage : string;
   @Input() maxSize : number = 200;
   @Input() crop : boolean = true;
@@ -34,6 +36,16 @@ export class InputImageComponent implements OnInit {
     console.log(this.defaultImage);
     this.realImgElem.nativeElement.src = this.defaultImage;
   }
+
+  //Sets the form field as specified in fieldName input
+  setFormField(data) {
+    var field = this.fieldName;
+    var obj = {
+      [field] : data
+    };
+    this.parentForm.patchValue(obj);
+  }
+
 
   //We have clicked on the galery fab
   openFileViewer() {
@@ -60,9 +72,7 @@ export class InputImageComponent implements OnInit {
   }
 
   resetImage() {
-    this.parentForm.patchValue({
-      avatar: null
-    });    
+    this.setFormField(null);
     this.realImgElem.nativeElement.src = this.defaultImage;
     this.isImgLoaded = false;
   }
@@ -71,12 +81,14 @@ export class InputImageComponent implements OnInit {
   //Sets the avatar to the new blob
   //Updates the canvas
   resizeImageToSpecificSize(image, maxSize) {
+    var myObj = this;
     var form = this.parentForm;
     var real = this.realImgElem;
     var myImageData = new Image();
     myImageData.src = image;
     var canvas = this.shadowCanvasElem.nativeElement;
     var ctx =canvas.getContext('2d');
+    var field = this.fieldName;
     myImageData.onload = function () {
       if (myImageData.width > maxSize && myImageData.height > maxSize) {
         var factor = 1;
@@ -90,18 +102,14 @@ export class InputImageComponent implements OnInit {
         ctx.clearRect(0,0,canvas.width, canvas.heigth);
         ctx.drawImage(myImageData, 0,0, myImageData.width, myImageData.height, 0, 0, fWidth,fheight);
         canvas.toBlob(function(blob){
-          form.patchValue({
-            avatar: blob
-          });
+          myObj.setFormField(blob);
           real.nativeElement.src = canvas.toDataURL();
         }, 'image/jpeg', 0.95);     
       } else {
         ctx.clearRect(0,0,canvas.width, canvas.heigth);
         ctx.drawImage(myImageData, 0,0, myImageData.width, myImageData.height, 0, 0, myImageData.width, myImageData.height);
         canvas.toBlob(function(blob){
-          form.patchValue({
-            avatar: blob
-          });
+          myObj.setFormField(blob);
           real.nativeElement.src = canvas.toDataURL();
         }, 'image/jpeg', 0.95);     
       }
@@ -113,12 +121,14 @@ export class InputImageComponent implements OnInit {
   //Sets the avatar to the new blob
   //Updates the canvas
   resizeAndCropImageToSpecificSize(image, destSize) {
+    var myObj = this;
     var form = this.parentForm;
     var real = this.realImgElem;
     var myImageData = new Image();
     myImageData.src = image;
     var canvas = this.shadowCanvasElem.nativeElement;
     var ctx =canvas.getContext('2d');
+    var field = this.fieldName;
     myImageData.onload = function () {
       var sourceSize;
       var sourceWidth = myImageData.width;
@@ -137,9 +147,7 @@ export class InputImageComponent implements OnInit {
       ctx.clearRect(0,0,canvas.width, canvas.heigth);
       ctx.drawImage(myImageData, sourceX,sourceY, sourceSize, sourceSize, 0, 0, destSize,destSize);
       canvas.toBlob(function(blob){
-        form.patchValue({
-          avatar: blob
-        });
+        myObj.setFormField(blob);
         real.nativeElement.src = canvas.toDataURL();
       }, 'image/jpeg', 0.95);
     }
@@ -149,6 +157,7 @@ export class InputImageComponent implements OnInit {
 
 //Rotate the image by rotating the canvas
 rotateImage() {
+    var myObj = this;
     var form = this.parentForm;
     var angle = Math.PI / 2;
     var canvas = this.shadowCanvasElem.nativeElement;
@@ -156,6 +165,7 @@ rotateImage() {
     var result = this.realImgElem.nativeElement;
     var ctx =canvas.getContext('2d');
     var myImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    var field = this.fieldName;
     myImageData = new Image();
     myImageData.src = canvas.toDataURL();
 
@@ -169,9 +179,7 @@ rotateImage() {
       // draw the previows image, now rotated
       ctx.drawImage(myImageData, 0, 0);   
       canvas.toBlob(function(blob){
-        form.patchValue({
-          avatar: blob
-        });  
+        myObj.setFormField(blob);
       });      
       result.src = canvas.toDataURL();
       ctx.restore();

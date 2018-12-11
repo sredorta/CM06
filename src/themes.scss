@@ -14,3 +14,80 @@ $main-app-accent:  mat-palette($mat-pink, 500, A100, A400);
 $main-app-warn:    mat-palette($mat-deep-orange,300);
 $main-app-theme: mat-light-theme($main-app-primary, $main-app-accent, $main-app-warn);
 @include angular-material-theme($main-app-theme);
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////
+// Banner theme
+///////////////////////////////////////////////////////////////////////////////////////
+$banner-theme-background: (
+  status-bar: green,
+  app-bar:    rgb(47,62,153),
+  background: rgb(47,62,153),
+  hover:      rgba(white, 0.04), 
+  card:       map_get($mat-red, 800),
+  dialog:     map_get($mat-grey, 800),
+  disabled-button: $white-12-opacity,
+  raised-button: map-get($mat-grey, 800),
+  focused-button: $white-6-opacity,
+  selected-button: map_get($mat-grey, 900),
+  selected-disabled-button: map_get($mat-grey, 800),
+  disabled-button-toggle: black,
+  unselected-chip: map_get($mat-grey, 700),
+  disabled-list-option: black,
+);
+
+$banner-theme-foreground: (
+  base:              yellow,
+  divider:           rgba(155,255,255,0.95), //$white-12-opacity,
+  dividers:          rgba(155,255,255,0.95),// $white-12-opacity,
+  disabled:          rgba(white, 0.3),
+  disabled-button:   rgba(white, 0.3),
+  disabled-text:     rgba(white, 0.3),
+  hint-text:         rgba(white, 0.3),
+  secondary-text:    rgba(white, 0.7),
+  icon:              white,
+  icons:             white,
+  text:              white,
+  slider-min:        white,
+  slider-off:        rgba(white, 0.3),
+  slider-off-active: rgba(white, 0.3),
+);
+
+// instead of creating a theme with mat-light-theme like a sane person, we will create our own theme-creating function that lets us apply our own foreground and background palettes.
+@function create-banner-theme($primary, $accent, $warn: mat-palette($mat-red)) {
+  @return (
+    'primary': $primary,
+    'accent': $accent,
+    'warn': $warn,
+    'is-dark': true,
+    'foreground': $banner-theme-foreground,
+    'background': $banner-theme-background
+  );
+}
+$banner-theme-primary: mat-palette($mat-amber,300);
+$banner-theme-accent : mat-palette($mat-deep-orange);
+$banner-theme-warn: mat-palette($mat-red);
+$banner-theme: create-banner-theme($banner-theme-primary, $banner-theme-accent, $banner-theme-warn);
+
+
+.banner-theme {
+    @include angular-material-theme($banner-theme);
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// ADMIN THEME
+/////////////////////////////////////////////////////////////////////////////////////////////
+$admin-primary: mat-palette($mat-amber,300);
+$admin-accent : mat-palette($mat-deep-orange);
+$admin-warn: mat-palette($mat-red);
+$admin-theme: mat-dark-theme($admin-primary, $admin-accent, $admin-warn);
+
+.admin-theme {
+  @include angular-material-theme($admin-theme);
+  background-color: rgba(0, 0, 0, 0.8);
+  color:rgba(255, 255, 255, 0.8);
+}

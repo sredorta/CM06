@@ -82,6 +82,7 @@ import {InputImageComponent} from './_library/input-image/input-image.component'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { BrandsComponent } from './_admin/brands/brands.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { HomeComponent } from './home/home.component';
     ErrorSheetComponent,
     InputImageComponent,
     NiceDateFormatPipe,
-    HomeComponent
+    HomeComponent,
+    BrandsComponent
     //End of library
   ],
   imports: [

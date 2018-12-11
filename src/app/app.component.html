@@ -1,4 +1,15 @@
 <div *ngIf="!loading" class="container" [class.is-mobile]="mobileQuery.matches">
+  <!--<div class="banner-theme banner">
+  <mat-toolbar fxLayoutAlign="start center" style="height:100%">
+    <div><img src="./assets/images/logo.jpg"></div>
+    <div fxLayout="row" fxLayoutAlign="center center" style="width:100%">
+    <div fxFlex="1 1 auto"><div><p>Acceuil</p><img src="./assets/images/trace.png" style="height:10px"></div><div></div> </div>
+    <div fxFlex="1 1 auto">Motos</div>
+    <div fxFlex="1 1 auto">Pieces dettaches</div>
+    <div fxFlex="1 1 auto">Nous contacter</div>
+    </div>
+  </mat-toolbar>
+  </div>-->
   <mat-toolbar  class="toolbar" [class.mat-elevation-z8]="true">
     <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
     <div fxFlex="1 1 auto" fxLayoutAlign="end center">
@@ -46,7 +57,7 @@
                   <div style="width:100%;padding:5px" fxLayoutAlign="center center"><button mat-stroked-button color="primary"  (click)="snav.toggle();logout()">Logout</button></div>
           </div>      
           <mat-divider></mat-divider>  
-          <!--<a mat-list-item routerLink="." *ngFor="let nav of fillerNav">{{nav}}</a>-->
+          <a mat-list-item routerLink="admin_marques">Marques !</a>
       </mat-nav-list>
     </mat-sidenav>
 
