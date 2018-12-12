@@ -24,20 +24,32 @@ export class BrandsComponent implements OnInit {
   loadingTableBrands  : boolean = true;
   dataSource = null;          //Store products array in table format
   expandedElement: any = null;   //Expanded panel for description
-  displayedColumns: string[] = ['id','image','name'];
+  displayedColumns: string[] = ['id','image','name','delete'];
   brandsCount : number = 0;
   brandsDisplayed : number = 0;
   lastBrandFilter : string = null;
 
   myForm: FormGroup; 
+  myFormUpdate : FormGroup;
+  validation_messages = CustomValidators.getMessages();
+  //defaultImage :string = "./assets/images/no-photo-available.jpg";
+  defaultImageUpdate : string = "./assets/images/no-photo-available.jpg";
   private _subscriptions : Subscription[] = new Array<Subscription>();
   constructor(private api : ApiService) { }
   @ViewChild('expansion') expansion : MatExpansionPanel;
   @ViewChild('inputImage') inputImage : InputImageComponent;
+  @ViewChild('inputImageUpdate') inputImageUpdate : InputImageComponent;
   @ViewChild('myTable') table : MatTable<any>;   
 
-  createForm() {
+  createForms() {
     this.myForm =  new FormGroup({    
+      name: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.minLength(2)
+      ])),        
+      image: new FormControl(null,null)
+    });
+    this.myFormUpdate =  new FormGroup({    
       name: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(2)
@@ -48,15 +60,18 @@ export class BrandsComponent implements OnInit {
 
 
   ngOnInit() {
-    this.createForm();
+    this.createForms();
     this.getBrands();
   }
 
+  getFormattedUrl(url:string) {
+    return "url("+url+")";
+  }
 
   getBrands() {
     this._subscriptions.push(this.api.getBrands(EApiImageSizes.thumbnail).subscribe((res : IApiBrand[]) => {
       for(let brand of res) {
-        brand.image.url = "url("+brand.image.url+")";
+        brand.image.url = brand.image.url;
       }
       let brands = res;
       this.dataSource = new MatTableDataSource(brands);
@@ -70,20 +85,18 @@ export class BrandsComponent implements OnInit {
     }));    
   }
 
-  //Reset also image when we reset form
-  reset() {
-    this.inputImage.resetImage();
-  }
 
   //Filter
   applyFilter(filterValue: string) {
+     if(filterValue!== null) {
       this.dataSource.filter = filterValue.trim().toLowerCase();
       this.brandsDisplayed = this.dataSource.filteredData.length;
       this.lastBrandFilter = filterValue;
+     }
   }
 
   //From submit
-  onSubmit(value) {
+  onAddBrandSubmit(value) {
     //Handle invalid form
     if (this.myForm.invalid) {
       console.log("invalid");
@@ -96,12 +109,17 @@ export class BrandsComponent implements OnInit {
       this.addBrand(res);
     }));
     this.myForm.reset();
-    this.reset();
+    this.onAddBrandReset();
+  }
+
+  //Reset also image when we reset form
+  onAddBrandReset() {
+    this.inputImage.resetImage();
+    this.expansion.close();
   }
 
   //Push new element to array
   addBrand(brand: IApiBrand) {
-    brand.image.url = "url("+brand.image.url+")";
     this.dataSource.data.push(brand);
     this.brandsCount = this.dataSource.data.length;
     this.applyFilter(this.lastBrandFilter);
@@ -112,7 +130,36 @@ export class BrandsComponent implements OnInit {
   //When row is clicked
   rowClick(row) {
     console.log("Clicked " + row);
+    let brand : IApiBrand = this.dataSource.data[this.dataSource.data.findIndex(obj => obj.id === row)];
+    this.myFormUpdate.controls['name'].setValue(brand.name);
+    this.defaultImageUpdate = brand.image.url;
   }
+
+
+  //When we update
+  onUpdateBrandSubmit(value,id) {
+    if (this.myFormUpdate.invalid) {
+      return;
+    }
+    this._subscriptions.push(this.api.updateBrand(id,value.name,value.image, EApiImageSizes.thumbnail).subscribe((res: IApiBrand) => {
+      this.updateBrand(res);
+    }));
+  }
+
+  updateBrand(brand:IApiBrand) {
+    //Find the corresponding datasource element
+    const itemIndex = this.dataSource.data.findIndex(obj => obj.id === brand.id);
+    this.dataSource.data[itemIndex] = brand;
+    this.applyFilter(this.lastBrandFilter);
+    this.table.renderRows();
+  }
+
+  //Delete the brand when clicking to delete
+  onDeleteBrand(id) {
+    console.log("Delete brand : " + id);
+  }
+
+
 
   ngOnDestroy() {    
     //Unsubscribe to all

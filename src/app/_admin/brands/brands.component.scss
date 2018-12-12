@@ -15,13 +15,6 @@ $accent: map-get($admin-theme,accent);
     width: 100%;
   }
 
-  tr.element-row:not(.expanded-row):hover {
-    background: mat-color($primary,700);
-    cursor:pointer;
-  }
-  tr.element-row:not(.expanded-row):active {
-    background: mat-color($primary,100);;
-  }
 
   tr.detail-row {
     height: 0;
@@ -34,10 +27,31 @@ $accent: map-get($admin-theme,accent);
       width:50px;
       //width:50px;
   }
+  .mat-column-delete {
+      width:50px;
+  }
+
+  .mat-column-image {
+      width:80px;
+  }
 
   .element-detail {
     overflow: hidden;
     display: flex;
+  }
+
+  tr.element-row:not(.expanded-row):hover {
+    //background: black;
+    background: mat-color($primary,700);
+    cursor:pointer;
+  }
+  tr.element-row:not(.expanded-row):active {
+    background: mat-color($primary,100);;
+  }
+
+  tr.element-row.expanded-row {
+    //background-color: black !important;
+    background: mat-color($primary,700) !important;
   }
 
 //End of table

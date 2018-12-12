@@ -33,15 +33,17 @@ export class InputImageComponent implements OnInit {
 
   //OnInit
   ngOnInit() {
-    console.log(this.defaultImage);
     this.realImgElem.nativeElement.src = this.defaultImage;
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes.parentForm.currentValue);
-
-    console.log("changes !!!");
+  setImage(image:string) {
+    this.realImgElem.nativeElement.src = image;
   }
+
+  ngOnChanges(changes: SimpleChanges) {
+      this.realImgElem.nativeElement.src = changes.defaultImage.currentValue;
+  }
+
   //Sets the form field as specified in fieldName input
   setFormField(data) {
     var field = this.fieldName;

@@ -148,6 +148,17 @@ export class ApiService {
   public getBrands(size: EApiImageSizes) : Observable<IApiBrand[]> {
     return this.http.post<IApiBrand[]>(environment.apiURL +'/brands', {'size': size}).map(res => <IApiBrand[]>res);
   }
+
+  public updateBrand(id:string,name:string,image:File,size:EApiImageSizes) : Observable<IApiBrand>  {
+    const fd = new FormData();
+    fd.append('id', id);
+    fd.append('name' , name);
+    fd.append('size', size);  //Return image size
+    if (image !== null)
+      fd.append('image', image, image.name);  
+    return this.http.post<IApiBrand>(environment.apiURL +'/brands/update', fd).map(res => <IApiBrand>res);
+  }
+
 /*  //Gets the notifications
   public getNotifs() : Observable<IApiNotif[]> {
     return this.http.get<IApiNotif[]>(environment.apiURL+'/notifications').map(res => <IApiNotif[]>res);
