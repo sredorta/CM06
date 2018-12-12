@@ -38,7 +38,6 @@ export interface IApiUserAuth {
 export interface IApiBrand {
   id:number;
   name:string;
-  description:string;
   image: IApiImage;
 }
 
@@ -137,11 +136,10 @@ export class ApiService {
   }  
 
   //Brands
-  public createBrand(name:string, description:string, image:File, size:EApiImageSizes) : Observable<IApiBrand>  {
+  public createBrand(name:string, image:File, size:EApiImageSizes) : Observable<IApiBrand>  {
     const fd = new FormData();
     fd.append('name' , name);
-    fd.append('description', description);
-    fd.append('size', size);
+    fd.append('size', size);  //Return image size
     console.log("Required size is: " + size);
     if (image !== null)
       fd.append('image', image, image.name);  

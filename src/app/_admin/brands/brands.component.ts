@@ -24,7 +24,7 @@ export class BrandsComponent implements OnInit {
   loadingTableBrands  : boolean = true;
   dataSource = null;          //Store products array in table format
   expandedElement: any = null;   //Expanded panel for description
-  displayedColumns: string[] = ['id','image','name','description'];
+  displayedColumns: string[] = ['id','image','name'];
   brandsCount : number = 0;
   brandsDisplayed : number = 0;
   lastBrandFilter : string = null;
@@ -41,11 +41,8 @@ export class BrandsComponent implements OnInit {
       name: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(2)
-      ])),
-      description: new FormControl('', Validators.compose([
-      ])),         
+      ])),        
       image: new FormControl(null,null)
-
     });
   }
 
@@ -67,8 +64,7 @@ export class BrandsComponent implements OnInit {
       this.brandsDisplayed = this.brandsCount;
       //Override filter
       this.dataSource.filterPredicate = function(data, filter: string): boolean {
-        return data.name.toLowerCase().includes(filter) || 
-        data.description.toLowerCase().includes(filter);
+        return data.name.toLowerCase().includes(filter);
       };
       this.loadingTableBrands = false;
     }));    
@@ -95,7 +91,7 @@ export class BrandsComponent implements OnInit {
     }
     this.expansion.close();
     console.log(value);
-    this._subscriptions.push(this.api.createBrand(value.name,value.description,value.image, EApiImageSizes.thumbnail).subscribe((res: IApiBrand) => {
+    this._subscriptions.push(this.api.createBrand(value.name,value.image, EApiImageSizes.thumbnail).subscribe((res: IApiBrand) => {
       console.log(res);
       this.addBrand(res);
     }));

@@ -31,7 +31,6 @@ export class Brand {
         if (brand !== null) {
             this.id = brand.id;
             this.name = brand.name;
-            this.description = brand.description;
             this.image = brand.image;
         } else {
             this.id = null;
