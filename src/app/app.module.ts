@@ -74,6 +74,7 @@ import { TermsDialogComponent } from './_library/auth/terms-dialog/terms-dialog.
 import { NiceDateFormatPipe } from './_library/pipes/nice-date-format.pipe';
 //SERVICES
 import {ApiService} from './_library/services/api.service';
+import {DataService} from './_services/data.service';
 //COMPONENTS
 import { LoginComponent } from './_library/auth/login/login.component';
 import { SignupComponent } from './_library/auth/signup/signup.component';
@@ -88,6 +89,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { BrandsComponent } from './_admin/brands/brands.component';
 import { ModelsComponent } from './_admin/models/models.component';
+import { SearchBrandComponent } from './_library/search-brand/search-brand.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +104,8 @@ import { ModelsComponent } from './_admin/models/models.component';
     NiceDateFormatPipe,
     HomeComponent,
     BrandsComponent,
-    ModelsComponent
+    ModelsComponent,
+    SearchBrandComponent
     //End of library
   ],
   imports: [
@@ -171,7 +174,7 @@ import { ModelsComponent } from './_admin/models/models.component';
   ],
   entryComponents: [ErrorSheetComponent,TermsDialogComponent],
   providers: [
-    HttpClient, ApiService,
+    HttpClient, ApiService, DataService,
     ConfirmationService,
     MessageService,
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, 

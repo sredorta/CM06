@@ -1,4 +1,4 @@
-<div *ngIf="!loading" class="container" [class.is-mobile]="mobileQuery.matches">
+<div *ngIf="!loading" class="container" [class.is-mobile]="mobileQuery.matches" >
   <!--<div class="banner-theme banner">
   <mat-toolbar fxLayoutAlign="start center" style="height:100%">
     <div><img src="./assets/images/logo.jpg"></div>
@@ -58,58 +58,19 @@
           </div>      
           <mat-divider></mat-divider>  
           <a mat-list-item routerLink="admin-marques">Marques !</a>
-          <a mat-list-item routerLink="admin-modeles/0">Modeles !</a>
+          <a mat-list-item routerLink="admin-modeles">Modeles !</a>
       </mat-nav-list>
     </mat-sidenav>
 
     <mat-sidenav-content>
-          <!--<p *ngFor="let content of fillerContent">{{content}}</p>-->
         <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
-
-
-
-
-
-<!--<div fxLayout="column" style="min-height:100vh">
-<mat-toolbar>
-  <button mat-icon-button (click)="snav.toggle()">
-      <mat-icon color="primary" aria-label="menu">menu</mat-icon>
-  </button>
-</mat-toolbar>
-<mat-sidenav-container fxFlex="1" class="main-sidenav-container">
-  <mat-sidenav #snav>
-    <mat-nav-list>
-          <div *ngIf="!user.isAvailable()"> 
-              <div style="width:100%;padding:5px" fxLayoutAlign="center center"><button mat-raised-button color="primary" routerLink="/login" (click)="snav.toggle()">Login</button></div>
-              <div style="width:100%;padding:5px" fxLayoutAlign="center center"><button mat-stroked-button color="primary" routerLink="/signup" (click)="snav.toggle()">Signup</button></div>
-          </div>  
-          <div *ngIf="user.isAvailable()"> 
-              <div style="width:100%;padding:5px" fxLayoutAlign="center center"><button mat-stroked-button color="primary"  (click)="snav.toggle();logout()">Logout</button></div>
-           </div>            
-      <mat-divider></mat-divider>
-      <a (click)="snav.toggle()" mat-list-item routerLink=""><span>Accueil</span></a>       
-      <a (click)="snav.toggle()" mat-list-item routerLink="about"><span>A propos</span></a>
-      <a (click)="snav.toggle()" mat-list-item routerLink="members"><span>Membres</span></a>
-      <a (click)="snav.toggle()" mat-list-item routerLink="materiel"><span>Location Matériel</span></a>
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>Admin</mat-panel-title>
-            </mat-expansion-panel-header>   
-            <a (click)="snav.toggle()" mat-list-item routerLink="admin-members"><span>Admin members</span></a>
-            <a (click)="snav.toggle()" mat-list-item routerLink="admin-roles"><span>Admin roles</span></a>
-            <a (click)="snav.toggle()" mat-list-item routerLink="admin-groups"><span>Admin groups</span></a>    
-            <a (click)="snav.toggle()" mat-list-item routerLink="admin-products"><span>Admin Materiel</span></a>  
-         </mat-expansion-panel>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content  style="min-height:90vh">
-      <router-outlet style="overflow-y:auto"></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
-
+<div *ngIf="loading">
+  <div fxLayout="column" fxLayoutAlign="center center" style="width:100vw;height:100vh">
+    <img src="./assets/images/logo.jpg" alt="Logo casse moto 06" style="height:250px;border-radius:5px">
+    <p style="opacity:0.4">Chargement...</p>
+  </div>
 </div>
--->
 

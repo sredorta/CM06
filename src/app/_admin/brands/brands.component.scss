@@ -93,3 +93,10 @@ $accent: map-get($admin-theme,accent);
     opacity:0.8;
     margin:5px;
 }
+
+/*Hide the models component if small screen*/
+@media screen and (max-width: 600px) {
+  .wide-screen {
+    display:none;
+  }
+}

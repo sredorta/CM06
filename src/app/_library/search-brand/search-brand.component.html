@@ -1,0 +1,22 @@
+
+      <div *ngIf="!selectedBrand"> 
+        <form [formGroup]="formSearchBrand" novalidate> 
+        <mat-form-field #brandSearchMatFormField appearance="outline" style="padding-top:10px;min-width:250px">
+          <mat-label>{{'brands.admin.search.label' | translate}}</mat-label>
+          <input matInput #brandSearchInput formControlName="search" (keyup)="applyFilter($event.target.value)" placeholder="{{'brands.admin.search.placeholder' | translate}}" autocomplete="off" >
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        </form>
+      </div> 
+      <div *ngIf="selectedBrand">
+        <div style="height:65px" fxLayoutAlign="start center">
+        <button mat-raised-button color="primary" (click)="newBrandSearch()"><mat-icon>search</mat-icon>Nouvelle recherche</button>
+        </div>
+      </div>
+      <div #menuBrandTrigger="matMenuTrigger" [matMenuTriggerFor]="menuBrands"></div>
+      <mat-menu #menuBrands="matMenu">
+        <button mat-menu-item fxLayout="row" fxLayoutAlign="center center" *ngFor="let brand of dataSource.filteredData" (click)="brandSelected(brand)">
+            <div style="min-width:50px" fxLayoutAlign="center center"><div fxLayoutAlign="end start" mat-card-avatar [style.backgroundImage]="getFormattedUrl(brand.image.url)" class="brand-tiny-thumb"></div></div>
+            <div style="min-width:150px">{{brand.name}}</div>
+        </button>
+      </mat-menu>

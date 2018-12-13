@@ -31,14 +31,10 @@ const routes: Routes = [
   {
     path: 'admin-marques',
     component: BrandsComponent,
-    children: [
-      //{path: '', redirectTo: 'modeles'},
-      {path: "modeles/:idbrand", component: ModelsComponent}
-    ]
     //canActivate: [AdminGuard]
   },    
   {
-    path: 'admin-modeles/:idbrand',///:id',
+    path: 'admin-modeles',///:id',
     component: ModelsComponent,
     //canActivate: [LoggedInGuard]
   }

@@ -49,14 +49,14 @@
         <ng-container matColumnDef="image">
             <th mat-header-cell *matHeaderCellDef>{{'brands.admin.create.table.picture' | translate}}</th>
             <td mat-cell *matCellDef="let row">
-                <div fxLayoutAlign="end start" mat-card-avatar [style.backgroundImage]="getFormattedUrl(row.image.url)" class="image" (click)="expand = false;rowClick(row.id);">
+                <div fxLayoutAlign="end start" mat-card-avatar [style.backgroundImage]="getFormattedUrl(row.image.url)" class="image" (click)="expand = false;rowClick(row);">
                 </div>
             </td>
         </ng-container>
 
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>{{'brands.admin.create.table.name' | translate}}</th>
-            <td mat-cell *matCellDef="let row" [class.expanded-row]="false" (click)="expand = false;rowClick(row.id);">{{row.name}}</td>
+            <td mat-cell *matCellDef="let row" [class.expanded-row]="false" (click)="expand = false;rowClick(row);">{{row.name}}</td>
         </ng-container> 
 
         <ng-container matColumnDef="modify">
@@ -109,9 +109,9 @@
         <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
       </table>  
       </div>
-<!--      <div fxFlex="1 1 auto" *ngIf="screenWidth>600">
-          <router-outlet></router-outlet>
-      </div>-->
+      <div fxFlex="1 1 auto" class="wide-screen" style="margin-left:10px">
+          <app-models></app-models>
+      </div>
   </div> 
  
 </div>

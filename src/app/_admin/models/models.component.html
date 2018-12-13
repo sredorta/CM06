@@ -1,4 +1,4 @@
-<div style="padding:20px" class="admin-theme">  
+<div class="admin-theme">  
   <p-confirmDialog header="{{'brands.admin.dialog.delete.header' | translate}}" icon="pi pi-exclamation-triangle" width="425" appendTo="body" acceptLabel="{{'yes' | translate}}" rejectLabel="{{'no' | translate}}"></p-confirmDialog>
   <p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast"></p-toast>
   <ng-container *ngIf="loadingTableModels">
@@ -7,19 +7,42 @@
         </div>
   </ng-container>
   <div *ngIf="!loadingTableModels">
-  <form [formGroup]="formSearchBrand" novalidate> 
-  <mat-form-field #brandSearchMatFormField appearance="outline" style="padding-top:10px;min-width:250px">
-    <mat-label>{{'brands.admin.search.label' | translate}}</mat-label>
-    <input matInput #brandSearchInput formControlName="search" (keyup)="applyFilter($event.target.value)" placeholder="{{'brands.admin.search.placeholder' | translate}}" autocomplete="off" >
-    <mat-icon matSuffix>search</mat-icon>
-  </mat-form-field>
-  </form>
-  <div #menuBrandTrigger="matMenuTrigger" [matMenuTriggerFor]="menuBrands"></div>
-  <mat-menu #menuBrands="matMenu">
-    <button mat-menu-item fxLayout="row" fxLayoutAlign="center center" *ngFor="let brand of dataSource.filteredData" (click)="brandSelected(brand)">
-        <div style="min-width:50px" fxLayoutAlign="center center"><div fxLayoutAlign="end start" mat-card-avatar [style.backgroundImage]="getFormattedUrl(brand.image.url)" class="brand-tiny-thumb"></div></div>
-        <div style="min-width:150px">{{brand.name}}</div>
-    </button>
-  </mat-menu>
+    <app-search-brand></app-search-brand>
+    <!--Header with selected brand-->
+    <div *ngIf="currentBrand" fxLayoutAlign="center center" style="padding:5px;border:1px solid">
+      <h3>Modeles de la marque {{currentBrand.name}}</h3>
+      <div style="min-width:50px" fxLayoutAlign="center center"><div fxLayoutAlign="end start" mat-card-avatar [style.backgroundImage]="getFormattedUrl(currentBrand.image.url)" class="brand-tiny-thumb"></div></div>
+    </div>
+    <!--Create model part-->
+    <div *ngIf="currentBrand">
+        <mat-accordion>
+            <mat-expansion-panel #expansion style="margin-bottom:5px">
+              <mat-expansion-panel-header>
+                <mat-panel-title fxLayoutAlign="start center"><mat-icon style="margin-right:10px">add_box</mat-icon>{{'brands.admin.create.title' | translate}}</mat-panel-title>
+                <mat-panel-description fxLayoutAlign="start center">{{'brands.admin.create.subtitle' | translate}}</mat-panel-description>
+              </mat-expansion-panel-header>
+              <h3>{{'brands.admin.create.header' | translate}}</h3>
+              <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate> 
+                <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="20px">
+                  <mat-form-field appearance="outline" style="width:100%">
+                      <mat-label>{{'brands.admin.create.input.label' | translate}}</mat-label>
+                      <input matInput formControlName="name" placeholder="{{'brands.admin.create.input.placeholder' | translate}}" required autocomplete="off">
+                      <mat-hint>{{'brands.admin.create.input.hint' | translate}}</mat-hint>
+                      <mat-error *ngFor="let validation of validation_messages">
+                        <mat-error class="error-message" *ngIf="myForm.get('name').hasError(validation.type) && (myForm.get('name').dirty || myForm.get('name').touched)">{{validation.message | translate}}</mat-error>
+                      </mat-error>                 
+                  </mat-form-field>          
+                  <div fxLayout="column" fxLayoutAlign="center center" fxFlex="1 1 auto">
+                    <div fxLayoutAlign="center center" fxLayoutGap="20px" fxFlex="1 1 auto">
+                        <button mat-button type="reset" color="primary" (click)="onAddBrandReset()">{{'cancel' | translate}}</button>
+                        <button mat-raised-button type="button" color="primary" (click)="onAddBrandSubmit(myForm.value)"><mat-icon style="margin-right:10px">add_box</mat-icon>{{'create' | translate}}</button>
+                    </div>
+                  </div>
+                </div>  
+              </form>      
+              </mat-expansion-panel>
+            </mat-accordion>
+
+    </div>
   </div>
 </div>

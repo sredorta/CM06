@@ -15,6 +15,7 @@ import {MessageService} from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
+import {DataService} from '../../_services/data.service';
 
 @Component({
   selector: 'app-brands',
@@ -48,7 +49,7 @@ export class BrandsComponent implements OnInit {
   defaultImageUpdate : string = "./assets/images/no-photo-available.jpg";
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private mediaMatcher: MediaMatcher,private route: Router,private translate: TranslateService, private api : ApiService,private confirmationService: ConfirmationService,private messageService: MessageService) { }
+  constructor(private data : DataService, private mediaMatcher: MediaMatcher,private route: Router,private translate: TranslateService, private api : ApiService,private confirmationService: ConfirmationService,private messageService: MessageService) { }
 
   @ViewChild('expansion') expansion : MatExpansionPanel;
   @ViewChild('inputImage') inputImage : InputImageComponent;
@@ -91,7 +92,7 @@ export class BrandsComponent implements OnInit {
   }
 
   getBrands() {
-    this._subscriptions.push(this.api.getBrands(EApiImageSizes.thumbnail).subscribe((res : IApiBrand[]) => {
+    this._subscriptions.push(this.data.getBrands().subscribe((res : IApiBrand[]) => {
       for(let brand of res) {
         brand.image.url = brand.image.url;
       }
@@ -146,6 +147,7 @@ export class BrandsComponent implements OnInit {
     this.brandsCount = this.dataSource.data.length;
     this.applyFilter(this.lastBrandFilter);
     this.table.renderRows();
+    this.data.setBrands(this.dataSource.data);
 
   }
 
@@ -171,6 +173,7 @@ export class BrandsComponent implements OnInit {
     this.dataSource.data[itemIndex] = brand;
     this.applyFilter(this.lastBrandFilter);
     this.table.renderRows();
+    this.data.setBrands(this.dataSource.data);
   }
 
   //When we click on update we update the expanded pannel values
@@ -201,6 +204,7 @@ export class BrandsComponent implements OnInit {
     //Find the corresponding datasource element
     const itemIndex = this.dataSource.data.findIndex(obj => obj.id === id);
     this.dataSource.data.splice(itemIndex, 1); 
+    this.data.setBrands(this.dataSource.data);
     const itemIndexFilter = this.dataSource.filteredData.findIndex(obj => obj.id === id);
     if (itemIndexFilter>=0) {
       this.dataSource.filteredData.splice(itemIndexFilter, 1); 
@@ -211,22 +215,11 @@ export class BrandsComponent implements OnInit {
   }
 
   //When row is clicked we need to redirect to brand models page
-  rowClick(row) {
-    console.log("ONROW: " + row);
-//    this.route.navigate(["./admin-marques/modeles/" + row]);
+  rowClick(brand) {
+    this.data.setCurrentBrand(brand);
   }
 
-/*  //Listens to screen width
-  mediaListener(event) {
-    if (event.matches)
-       this.screenWidth = 300;
-    else 
-       this.screenWidth = 700;
-    console.log(this.screenWidth);
-  }*/
-
   ngOnDestroy() {    
-//    this.matcher.removeListener(this.mediaListener);
     //Unsubscribe to all
     for (let subscription of this._subscriptions) {
       subscription.unsubscribe();
