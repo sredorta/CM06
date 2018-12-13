@@ -121,8 +121,7 @@ export class SignupComponent implements OnInit {
     this._subscriptions.push(this.api.signup(value.firstName, value.lastName, value.email, value.mobile, value.matching_passwords_group.password, value.avatar).subscribe(
       (result: any) => {
         this.loading = false;
-        console.log(result);
-        //this.router.navigate([""]);                 
+        this.router.navigate([""]);                 
       },
       error => {
         console.log(error);

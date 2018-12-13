@@ -52,6 +52,10 @@ import {CheckboxModule} from 'primeng/checkbox';
 import {ButtonModule} from 'primeng/button';
 import {GMapModule} from 'primeng/gmap';
 import {TooltipModule} from 'primeng/tooltip';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
+import {ToastModule} from 'primeng/toast';
+import {MessageService} from 'primeng/api';
 
 // NGX-TRANSLATE 
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
@@ -115,7 +119,9 @@ import { BrandsComponent } from './_admin/brands/brands.component';
     ButtonModule,
     ColorPickerModule,
     GMapModule,
-    TooltipModule
+    TooltipModule,
+    ConfirmDialogModule,
+    ToastModule
     ],
     [  MatAutocompleteModule, //MATERIAL2
       MatBadgeModule,
@@ -164,6 +170,8 @@ import { BrandsComponent } from './_admin/brands/brands.component';
   entryComponents: [ErrorSheetComponent,TermsDialogComponent],
   providers: [
     HttpClient, ApiService,
+    ConfirmationService,
+    MessageService,
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, 
     {provide: HTTP_INTERCEPTORS, useClass: HttpHeaderInterceptor, multi: true }    
   ],

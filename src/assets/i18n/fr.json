@@ -1,5 +1,9 @@
 {
+    "yes"                           : "Oui",
+    "no"                            : "Non",
     "cancel"                        : "Annuler",
+    "create"                        : "Créer",
+    "modify"                        : "Modifier",
     "signup.title"                  : "Creer un compte",
     "signup.subtitle"               : "Creer votre espace personnel",
     "signup.terms1"                 : "J'accepte les ",
@@ -51,6 +55,29 @@
     "validator.validMobile"         : "Mobile pas correcte",
     "validator.areEqual"            : "Mot de passe différents",    
     "validator.tooShortPassword"    : "Mot de passe trop court",
-    "validator.validPassword"       : "Le mot de passe doit avoir une minuscule, une majuscule et un numero"
+    "validator.validPassword"       : "Le mot de passe doit avoir une minuscule, une majuscule et un numero",
+
+    "brands.admin.search.label"             : "Chercher une marque",
+    "brands.admin.search.placeholder"       : "Nom de la  marque",
+    "brands.admin.create.title"             : "Créer",
+    "brands.admin.create.subtitle"          : "Ajouter une marque",
+    "brands.admin.create.header"            : "Créer une nouvelle marque",
+    "brands.admin.create.input.label"       : "Marque",
+    "brands.admin.create.input.placeholder" : "Nom de la marque",
+    "brands.admin.create.input.hint"        : "Ecrivez le nom de la marque",
+    "brands.admin.create.logo.label"        : "Logo de la marque",
+    "brands.admin.create.table.picture"     : "Logo",
+    "brands.admin.create.table.name"        : "Nom",
+    "brands.admin.modify.header"            : "Modifier la marque",
+
+    "brands.admin.dialog.delete.header"     : "Suppresión d'une marque",
+    "brands.admin.dialog.delete.content"    : " ATTENTION ! Quand vous effacez une marque, tous ses modeles et ses produits seront effaces. Êtes vous sure de supprimer la marque ?",
+    "brands.admin.toast.delete.summary"     : "Marque supprimé",
+    "brands.admin.toast.delete.detail"      : "La marque vient d'être supprimé",
+    "brands.admin.toast.create.summary"     : "Marque ajouté",
+    "brands.admin.toast.create.detail"      : "La marque vient d'être ajouté",
+    "brands.admin.toast.modify.summary"     : "Marque modifié",
+    "brands.admin.toast.modify.detail"      : "La marque à été modifié"
+
 
 }

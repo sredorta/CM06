@@ -8,10 +8,16 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {CustomValidators, ParentErrorStateMatcher  } from '../../_library/helpers/custom.validators';
 import { ApiService, EApiImageSizes, IApiBrand } from '../../_library/services/api.service';
 import { Subscription } from 'rxjs';
+
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
+import {MessageService} from 'primeng/api';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-brands',
   templateUrl: './brands.component.html',
-  styleUrls: ['./brands.component.scss'],
+  styleUrls: ['./brands.component.scss'], 
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({height: '0px', minHeight: '0', display: 'none'})),
@@ -29,17 +35,23 @@ export class BrandsComponent implements OnInit {
   brandsDisplayed : number = 0;
   lastBrandFilter : string = null;
 
+  expand : boolean = false;
   myForm: FormGroup; 
   myFormUpdate : FormGroup;
   validation_messages = CustomValidators.getMessages();
   //defaultImage :string = "./assets/images/no-photo-available.jpg";
   defaultImageUpdate : string = "./assets/images/no-photo-available.jpg";
   private _subscriptions : Subscription[] = new Array<Subscription>();
-  constructor(private api : ApiService) { }
+
+  constructor(private translate: TranslateService, private api : ApiService,private confirmationService: ConfirmationService,private messageService: MessageService) { }
+
   @ViewChild('expansion') expansion : MatExpansionPanel;
   @ViewChild('inputImage') inputImage : InputImageComponent;
   @ViewChild('inputImageUpdate') inputImageUpdate : InputImageComponent;
   @ViewChild('myTable') table : MatTable<any>;   
+
+
+
 
   createForms() {
     this.myForm =  new FormGroup({    
@@ -99,13 +111,14 @@ export class BrandsComponent implements OnInit {
   onAddBrandSubmit(value) {
     //Handle invalid form
     if (this.myForm.invalid) {
-      console.log("invalid");
       return;
     }
     console.log(value);
-    this._subscriptions.push(this.api.createBrand(value.name,value.image, EApiImageSizes.thumbnail).subscribe((res: IApiBrand) => {
-      console.log(res);
-      this.addBrand(res);
+    this._subscriptions.push(this.translate.get(["brands.admin.toast.create.summary", "brands.admin.toast.create.detail"]).subscribe( trans => {
+      this._subscriptions.push(this.api.createBrand(value.name,value.image, EApiImageSizes.thumbnail).subscribe((res: IApiBrand) => {
+        this._addBrand(res);
+        this.messageService.add({severity:'success', summary:trans['brands.admin.toast.create.summary'], detail:trans['brands.admin.toast.create.detail']});
+      }));
     }));
     this.myForm.reset();
     this.onAddBrandReset();
@@ -117,8 +130,8 @@ export class BrandsComponent implements OnInit {
     this.expansion.close();
   }
 
-  //Push new element to array
-  addBrand(brand: IApiBrand) {
+  //Update the datamodel by push new element to array
+  private _addBrand(brand: IApiBrand) {
     this.dataSource.data.push(brand);
     this.brandsCount = this.dataSource.data.length;
     this.applyFilter(this.lastBrandFilter);
@@ -126,40 +139,55 @@ export class BrandsComponent implements OnInit {
 
   }
 
-  //When row is clicked
-  rowClick(row) {
-    console.log("ONROW: " + row);
-  }
-
-
   //When we update
   onUpdateBrandSubmit(value,id) {
     if (this.myFormUpdate.invalid) {
       return;
     }
-    this._subscriptions.push(this.api.updateBrand(id,value.name,value.image, EApiImageSizes.thumbnail).subscribe((res: IApiBrand) => {
-      this.updateBrand(res);
+    //Hide the expansion
+    this.expand = false;
+    this.table.renderRows();
+    this._subscriptions.push(this.translate.get(["brands.admin.toast.modify.summary", "brands.admin.toast.modify.detail"]).subscribe( trans => {
+      this._subscriptions.push(this.api.updateBrand(id,value.name,value.image, EApiImageSizes.thumbnail).subscribe((res: IApiBrand) => {
+        this._updateBrand(res);
+        this.messageService.add({severity:'success', summary:trans['brands.admin.toast.modify.summary'], detail:trans['brands.admin.toast.modify.detail']});
+      }));
     }));
   }
 
-  updateBrand(brand:IApiBrand) {
-    //Find the corresponding datasource element
+  //Update the datamodel
+  private _updateBrand(brand:IApiBrand) {
     const itemIndex = this.dataSource.data.findIndex(obj => obj.id === brand.id);
     this.dataSource.data[itemIndex] = brand;
     this.applyFilter(this.lastBrandFilter);
     this.table.renderRows();
   }
 
+  //When we click on update we update the expanded pannel values
+  onUpdateBrand(id) {
+    let brand : IApiBrand = this.dataSource.data[this.dataSource.data.findIndex(obj => obj.id === id)];
+    this.myFormUpdate.controls['name'].setValue(brand.name);
+    this.defaultImageUpdate = brand.image.url;
+  }
 
   //Delete the brand when clicking to delete
   onDeleteBrand(id) {
-    console.log("Delete brand : " + id);
-    this._subscriptions.push(this.api.deleteBrand(id).subscribe(res=> {
-      this.deleteBrand(id);
+    this._subscriptions.push(this.translate.get(["brands.admin.dialog.delete.content","brands.admin.toast.delete.summary", "brands.admin.toast.delete.detail"]).subscribe( trans => {
+      //Actual logic to perform a confirmation
+      this.confirmationService.confirm({
+        message: trans['brands.admin.dialog.delete.content'],
+        accept: () => {
+            this._subscriptions.push(this.api.deleteBrand(id).subscribe(res=> {
+              this._deleteBrand(id);
+              this.messageService.add({severity:'success', summary: trans['brands.admin.toast.delete.summary'], detail:trans['brands.admin.toast.delete.detail']});
+            }));
+        }}); 
+
     }));
   }
-  
-  deleteBrand(id:number) {
+
+  //Update the data model
+  private _deleteBrand(id:number) {
     //Find the corresponding datasource element
     const itemIndex = this.dataSource.data.findIndex(obj => obj.id === id);
     this.dataSource.data.splice(itemIndex, 1); 
@@ -172,14 +200,9 @@ export class BrandsComponent implements OnInit {
     this.brandsDisplayed = this.dataSource.filteredData.length;
   }
 
-
-
-  //When we click on update
-  onUpdateBrand(id) {
-    console.log("onUPDATE: Clicked " + id);
-    let brand : IApiBrand = this.dataSource.data[this.dataSource.data.findIndex(obj => obj.id === id)];
-    this.myFormUpdate.controls['name'].setValue(brand.name);
-    this.defaultImageUpdate = brand.image.url;
+  //When row is clicked we need to redirect to brand models page
+  rowClick(row) {
+    console.log("ONROW: " + row);
   }
 
 
