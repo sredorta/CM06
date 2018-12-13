@@ -22,9 +22,9 @@ import { Subscription } from 'rxjs';
 })
 export class BrandsComponent implements OnInit {
   loadingTableBrands  : boolean = true;
-  dataSource = null;          //Store products array in table format
-  expandedElement: any = null;   //Expanded panel for description
-  displayedColumns: string[] = ['id','image','name','delete'];
+  dataSource = null;          //Store brands array in table format
+  expandedElement: any = null;   //Expanded panel for adding brand
+  displayedColumns: string[] = ['image','name','modify','delete'];
   brandsCount : number = 0;
   brandsDisplayed : number = 0;
   lastBrandFilter : string = null;
@@ -102,7 +102,6 @@ export class BrandsComponent implements OnInit {
       console.log("invalid");
       return;
     }
-    this.expansion.close();
     console.log(value);
     this._subscriptions.push(this.api.createBrand(value.name,value.image, EApiImageSizes.thumbnail).subscribe((res: IApiBrand) => {
       console.log(res);
@@ -129,10 +128,7 @@ export class BrandsComponent implements OnInit {
 
   //When row is clicked
   rowClick(row) {
-    console.log("Clicked " + row);
-    let brand : IApiBrand = this.dataSource.data[this.dataSource.data.findIndex(obj => obj.id === row)];
-    this.myFormUpdate.controls['name'].setValue(brand.name);
-    this.defaultImageUpdate = brand.image.url;
+    console.log("ONROW: " + row);
   }
 
 
@@ -154,9 +150,36 @@ export class BrandsComponent implements OnInit {
     this.table.renderRows();
   }
 
+
   //Delete the brand when clicking to delete
   onDeleteBrand(id) {
     console.log("Delete brand : " + id);
+    this._subscriptions.push(this.api.deleteBrand(id).subscribe(res=> {
+      this.deleteBrand(id);
+    }));
+  }
+  
+  deleteBrand(id:number) {
+    //Find the corresponding datasource element
+    const itemIndex = this.dataSource.data.findIndex(obj => obj.id === id);
+    this.dataSource.data.splice(itemIndex, 1); 
+    const itemIndexFilter = this.dataSource.filteredData.findIndex(obj => obj.id === id);
+    if (itemIndexFilter>=0) {
+      this.dataSource.filteredData.splice(itemIndexFilter, 1); 
+    }
+    this.table.renderRows();
+    this.brandsCount = this.dataSource.data.length;
+    this.brandsDisplayed = this.dataSource.filteredData.length;
+  }
+
+
+
+  //When we click on update
+  onUpdateBrand(id) {
+    console.log("onUPDATE: Clicked " + id);
+    let brand : IApiBrand = this.dataSource.data[this.dataSource.data.findIndex(obj => obj.id === id)];
+    this.myFormUpdate.controls['name'].setValue(brand.name);
+    this.defaultImageUpdate = brand.image.url;
   }
 
 

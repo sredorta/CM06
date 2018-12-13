@@ -159,6 +159,11 @@ export class ApiService {
     return this.http.post<IApiBrand>(environment.apiURL +'/brands/update', fd).map(res => <IApiBrand>res);
   }
 
+  public deleteBrand(id:string) : Observable<any>  { 
+    return this.http.post<any>(environment.apiURL +'/brands/delete', {"id":id});
+  }
+
+
 /*  //Gets the notifications
   public getNotifs() : Observable<IApiNotif[]> {
     return this.http.get<IApiNotif[]>(environment.apiURL+'/notifications').map(res => <IApiNotif[]>res);

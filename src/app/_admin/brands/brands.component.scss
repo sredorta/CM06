@@ -23,16 +23,22 @@ $accent: map-get($admin-theme,accent);
   .element-row td {
     border-bottom-width: 0;
   }
-  .mat-column-id {
-      width:50px;
-      //width:50px;
-  }
+
   .mat-column-delete {
-      width:50px;
+      width:40px;
+      min-width:40px;
+      max-width:40px;
+      transition: all 0.3s ease-in-out;
+  }
+  .mat-column-modify {
+      width:40px;
+      min-width:40px;
+      max-width:40px;
+      transition: all 0.3s ease-in-out;
   }
 
   .mat-column-image {
-      width:80px;
+      width:90px;
   }
 
   .element-detail {
@@ -41,12 +47,25 @@ $accent: map-get($admin-theme,accent);
   }
 
   tr.element-row:not(.expanded-row):hover {
-    //background: black;
-    background: mat-color($primary,700);
+    background: rgba(255,255,255,0.1);
     cursor:pointer;
   }
+
+
+  td.mat-column-modify:hover {
+      cursor:pointer;
+      color: mat-color($primary,700) !important;
+      transform:scale(1.2);
+  }
+
+  td.mat-column-delete:hover {
+    cursor:pointer;
+    color: mat-color($primary,700) !important;
+    transform:scale(1.2);
+}
+
   tr.element-row:not(.expanded-row):active {
-    background: mat-color($primary,100);;
+    background: rgba(255,255,255,0.2);
   }
 
   tr.element-row.expanded-row {
