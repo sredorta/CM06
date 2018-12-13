@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, SimpleChanges } from '@angular/core';
 import {InputImageComponent} from '../../_library/input-image/input-image.component';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
 import {MatExpansionPanel} from '@angular/material';
@@ -13,6 +13,8 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
 import {MessageService} from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-brands',
@@ -27,6 +29,9 @@ import { TranslateService } from '@ngx-translate/core';
   ],   
 })
 export class BrandsComponent implements OnInit {
+//  matcher: MediaQueryList; //Detects screen width
+//  screenWidth: any;         //Initial window width
+
   loadingTableBrands  : boolean = true;
   dataSource = null;          //Store brands array in table format
   expandedElement: any = null;   //Expanded panel for adding brand
@@ -43,14 +48,12 @@ export class BrandsComponent implements OnInit {
   defaultImageUpdate : string = "./assets/images/no-photo-available.jpg";
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private translate: TranslateService, private api : ApiService,private confirmationService: ConfirmationService,private messageService: MessageService) { }
+  constructor(private mediaMatcher: MediaMatcher,private route: Router,private translate: TranslateService, private api : ApiService,private confirmationService: ConfirmationService,private messageService: MessageService) { }
 
   @ViewChild('expansion') expansion : MatExpansionPanel;
   @ViewChild('inputImage') inputImage : InputImageComponent;
   @ViewChild('inputImageUpdate') inputImageUpdate : InputImageComponent;
   @ViewChild('myTable') table : MatTable<any>;   
-
-
 
 
   createForms() {
@@ -74,6 +77,13 @@ export class BrandsComponent implements OnInit {
   ngOnInit() {
     this.createForms();
     this.getBrands();
+/*    this.matcher = this.mediaMatcher.matchMedia('(max-width: 600px)');
+    this.matcher.addListener(this.mediaListener);
+    this.screenWidth = window.innerWidth;
+    console.log("Inner width : " + this.screenWidth);
+    console.log(this.screenWidth);
+    if (this.screenWidth > 600)
+        this.route.navigate(["./admin-marques/modeles/0"]); //Point to brand 0 as no brand is selected for now*/
   }
 
   getFormattedUrl(url:string) {
@@ -203,11 +213,20 @@ export class BrandsComponent implements OnInit {
   //When row is clicked we need to redirect to brand models page
   rowClick(row) {
     console.log("ONROW: " + row);
+//    this.route.navigate(["./admin-marques/modeles/" + row]);
   }
 
-
+/*  //Listens to screen width
+  mediaListener(event) {
+    if (event.matches)
+       this.screenWidth = 300;
+    else 
+       this.screenWidth = 700;
+    console.log(this.screenWidth);
+  }*/
 
   ngOnDestroy() {    
+//    this.matcher.removeListener(this.mediaListener);
     //Unsubscribe to all
     for (let subscription of this._subscriptions) {
       subscription.unsubscribe();

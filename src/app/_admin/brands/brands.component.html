@@ -6,13 +6,14 @@
             <mat-spinner [diameter]="100"></mat-spinner>
         </div>
   </ng-container>
-  <div *ngIf="!loadingTableBrands">
-        <mat-form-field appearance="outline" style="padding-top:10px;min-width:250px">
-            <mat-label>{{'brands.admin.search.label' | translate}}</mat-label>
-            <input matInput  (keyup)="applyFilter($event.target.value)" placeholder="{{'brands.admin.search.placeholder' | translate}}" autocomplete="off">
-            <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
-        <p style="margin-bottom:5px;margin-top:0px;" class="total">TOTAL : {{brandsDisplayed}} / <span style="font-weight:bold">{{brandsCount}}</span></p> 
+  <div *ngIf="!loadingTableBrands" fxLayout="row">
+    <div fxFlex="1 1 auto">
+    <mat-form-field appearance="outline" style="padding-top:10px;min-width:250px">
+        <mat-label>{{'brands.admin.search.label' | translate}}</mat-label>
+        <input matInput  (keyup)="applyFilter($event.target.value)" placeholder="{{'brands.admin.search.placeholder' | translate}}" autocomplete="off">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    <p style="margin-bottom:5px;margin-top:0px;" class="total">TOTAL : {{brandsDisplayed}} / <span style="font-weight:bold">{{brandsCount}}</span></p> 
     <mat-accordion>
       <mat-expansion-panel #expansion style="margin-bottom:5px">
         <mat-expansion-panel-header>
@@ -107,5 +108,10 @@
           class="element-row"></tr>
         <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
       </table>  
+      </div>
+<!--      <div fxFlex="1 1 auto" *ngIf="screenWidth>600">
+          <router-outlet></router-outlet>
+      </div>-->
   </div> 
+ 
 </div>

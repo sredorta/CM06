@@ -88,6 +88,6 @@ $admin-theme: mat-dark-theme($admin-primary, $admin-accent, $admin-warn);
 
 .admin-theme {
   @include angular-material-theme($admin-theme);
-  background-color: rgba(0, 0, 0, 0.8);
-  color:rgba(255, 255, 255, 0.8);
+  background-color: rgb(50, 50, 50);
+  color:rgb(224, 224, 224);
 }

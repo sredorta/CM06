@@ -1,0 +1,25 @@
+<div style="padding:20px" class="admin-theme">  
+  <p-confirmDialog header="{{'brands.admin.dialog.delete.header' | translate}}" icon="pi pi-exclamation-triangle" width="425" appendTo="body" acceptLabel="{{'yes' | translate}}" rejectLabel="{{'no' | translate}}"></p-confirmDialog>
+  <p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast"></p-toast>
+  <ng-container *ngIf="loadingTableModels">
+        <div fxLayout="column" fxLayoutAlign="center center" style="width:100%;min-height:80vh;">
+            <mat-spinner [diameter]="100"></mat-spinner>
+        </div>
+  </ng-container>
+  <div *ngIf="!loadingTableModels">
+  <form [formGroup]="formSearchBrand" novalidate> 
+  <mat-form-field #brandSearchMatFormField appearance="outline" style="padding-top:10px;min-width:250px">
+    <mat-label>{{'brands.admin.search.label' | translate}}</mat-label>
+    <input matInput #brandSearchInput formControlName="search" (keyup)="applyFilter($event.target.value)" placeholder="{{'brands.admin.search.placeholder' | translate}}" autocomplete="off" >
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+  </form>
+  <div #menuBrandTrigger="matMenuTrigger" [matMenuTriggerFor]="menuBrands"></div>
+  <mat-menu #menuBrands="matMenu">
+    <button mat-menu-item fxLayout="row" fxLayoutAlign="center center" *ngFor="let brand of dataSource.filteredData" (click)="brandSelected(brand)">
+        <div style="min-width:50px" fxLayoutAlign="center center"><div fxLayoutAlign="end start" mat-card-avatar [style.backgroundImage]="getFormattedUrl(brand.image.url)" class="brand-tiny-thumb"></div></div>
+        <div style="min-width:150px">{{brand.name}}</div>
+    </button>
+  </mat-menu>
+  </div>
+</div>

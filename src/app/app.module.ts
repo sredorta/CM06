@@ -87,6 +87,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { BrandsComponent } from './_admin/brands/brands.component';
+import { ModelsComponent } from './_admin/models/models.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import { BrandsComponent } from './_admin/brands/brands.component';
     InputImageComponent,
     NiceDateFormatPipe,
     HomeComponent,
-    BrandsComponent
+    BrandsComponent,
+    ModelsComponent
     //End of library
   ],
   imports: [

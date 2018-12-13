@@ -1,0 +1,10 @@
+
+.brand-tiny-thumb {
+    width:30px;
+    height:30px;
+}
+
+:host ::ng-deep .mat-form-field-wrapper{
+    padding-bottom: 0;
+    margin-bottom:0;
+}

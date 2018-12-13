@@ -5,6 +5,8 @@ import {LoginComponent} from './_library/auth/login/login.component';
 import {SignupComponent} from './_library/auth/signup/signup.component';
 import {ResetpasswordComponent} from './_library/auth/resetpassword/resetpassword.component';
 import {BrandsComponent} from './_admin/brands/brands.component';
+import {ModelsComponent} from './_admin/models/models.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -27,10 +29,19 @@ const routes: Routes = [
     //canActivate: [LoggedOutGuard]
   },  
   {
-    path: 'admin_marques',
+    path: 'admin-marques',
     component: BrandsComponent,
+    children: [
+      //{path: '', redirectTo: 'modeles'},
+      {path: "modeles/:idbrand", component: ModelsComponent}
+    ]
     //canActivate: [AdminGuard]
   },    
+  {
+    path: 'admin-modeles/:idbrand',///:id',
+    component: ModelsComponent,
+    //canActivate: [LoggedInGuard]
+  }
 ];
 
 @NgModule({
