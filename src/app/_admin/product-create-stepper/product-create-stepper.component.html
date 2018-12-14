@@ -1,19 +1,19 @@
 <div class="admin-theme"> 
 <mat-horizontal-stepper linear="true" #stepper>
     <mat-step [stepControl]="firstFormGroup" [completed]="isBrandCompleted">
-      <ng-template matStepLabel>Marque</ng-template>
+      <ng-template matStepLabel>{{'stepper.admin.first' | translate}}</ng-template>
       <div fxLayout="row" fxLayoutAlign="center center" class="big-component">
         <app-brands style="width:100%" (onBrandSelected)="goToModels($event)"></app-brands>
       </div>     
     </mat-step>
     <mat-step [stepControl]="secondFormGroup" [completed]="isModelCompleted">
-      <ng-template matStepLabel>Modèle</ng-template>
+      <ng-template matStepLabel>{{'stepper.admin.second' | translate}}</ng-template>
       <div fxLayout="row" fxLayoutAlign="center center" class="big-component">
           <app-models style="width:100%" (onModelSelected)="goToProducts($event)"></app-models>
       </div>      
     </mat-step>
     <mat-step [completed]="isProductCompleted">
-      <ng-template matStepLabel>Produit</ng-template>
+      <ng-template matStepLabel>{{'stepper.admin.third' | translate}}</ng-template>
       <div fxLayout="row" fxLayoutAlign="center center" class="big-component">
           <app-product-create-update style="width:100%" [brand]="currentBrand" [model]="currentModel"></app-product-create-update>
       </div>      

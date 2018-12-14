@@ -4,6 +4,8 @@ import {ModelsComponent} from '../models/models.component';
 import {ProductCreateUpdateComponent} from '../product-create-update/product-create-update.component';
 import { MatHorizontalStepper } from '@angular/material';
 import { IApiModel,IApiBrand } from '../../_library/services/api.service';
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-product-create-stepper',
   templateUrl: './product-create-stepper.component.html',
@@ -18,7 +20,7 @@ export class ProductCreateStepperComponent implements OnInit {
   currentBrand: IApiBrand;
   currentModel: IApiModel;
 
-  constructor() { }
+  constructor(private translate : TranslateService) { }
 
   ngOnInit() {
   }

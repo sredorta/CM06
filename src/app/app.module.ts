@@ -52,8 +52,7 @@ import {CheckboxModule} from 'primeng/checkbox';
 import {ButtonModule} from 'primeng/button';
 import {GMapModule} from 'primeng/gmap';
 import {TooltipModule} from 'primeng/tooltip';
-//import {ConfirmDialogModule} from 'primeng/confirmdialog';
-//import {ConfirmationService} from 'primeng/api';
+import {GalleriaModule} from 'primeng/galleria';
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 
@@ -95,6 +94,8 @@ import { SearchBrandComponent } from './_library/search-brand/search-brand.compo
 import { InitComponent } from './init/init.component';
 import { ProductCreateUpdateComponent } from './_admin/product-create-update/product-create-update.component';
 import { ProductCreateStepperComponent } from './_admin/product-create-stepper/product-create-stepper.component';
+import { ProductItemComponent } from './product-item/product-item.component';
+import { ProductItemDialogComponent } from './product-item-dialog/product-item-dialog.component';
 
 @NgModule({
   declarations: [
@@ -114,7 +115,9 @@ import { ProductCreateStepperComponent } from './_admin/product-create-stepper/p
     SearchBrandComponent,
     InitComponent,
     ProductCreateUpdateComponent,
-    ProductCreateStepperComponent
+    ProductCreateStepperComponent,
+    ProductItemComponent,
+    ProductItemDialogComponent
     //End of library
   ],
   imports: [
@@ -134,7 +137,8 @@ import { ProductCreateStepperComponent } from './_admin/product-create-stepper/p
     ColorPickerModule,
     GMapModule,
     TooltipModule,
-    ToastModule
+    ToastModule,
+    GalleriaModule
     ],
     [  MatAutocompleteModule, //MATERIAL2
       MatBadgeModule,
@@ -180,11 +184,9 @@ import { ProductCreateStepperComponent } from './_admin/product-create-stepper/p
       }
     }),
   ],
-  entryComponents: [ErrorSheetComponent,TermsDialogComponent, MakeSureDialogComponent],
+  entryComponents: [ErrorSheetComponent,TermsDialogComponent, MakeSureDialogComponent, ProductItemDialogComponent],
   providers: [
-    HttpClient, ApiService, DataService, MakeSureDialogComponent,
-//    ConfirmationService,
-    MessageService,
+    HttpClient, ApiService, DataService, MakeSureDialogComponent, ProductItemDialogComponent, MessageService,
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, 
     {provide: HTTP_INTERCEPTORS, useClass: HttpHeaderInterceptor, multi: true }    
   ],

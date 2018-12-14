@@ -68,13 +68,17 @@ export enum EApiImageSizes  {
   tinythumbnail = "tinythumbnail"
 }
 
-/*
-export interface IApiNotif {
+
+export interface IApiProduct {
   id:number;
-  text: string;
-  isRead: boolean;
-  created_at: string;   
-}*/
+  title:string;
+  description:string;
+  price:number;
+  discount:number;
+  created_at: string;  
+  brand:IApiBrand;
+  model:IApiModel; 
+}
 
 
 @Injectable({

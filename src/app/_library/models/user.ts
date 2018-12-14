@@ -48,37 +48,6 @@ export class User {
         return false;
     }
 
-/*    getAvatar(size:avatarSizes) : string {
-        let avatar;
-        switch (size) {
-            case avatarSizes.full:
-                avatar = this.avatar.full==null?null:this.avatar.full.url;
-                break;
-            case avatarSizes.big:
-                avatar =  this.avatar.big==null?null:this.avatar.big.url;
-                break;
-            case avatarSizes.large:
-                avatar = this.avatar.large==null?null:this.avatar.large.url;
-                break;
-            case avatarSizes.medium:
-                avatar = this.avatar.medium==null?null:this.avatar.medium.url;
-                break;
-            case avatarSizes.small:
-                avatar =  this.avatar.small==null?null:this.avatar.small.url;
-                break;            
-            case avatarSizes.thumbnail:
-                avatar =  this.avatar.thumbnail==null?null:this.avatar.thumbnail.url;
-                break;  
-            case avatarSizes.tinythumbnail:
-                avatar = this.avatar.tinythumbnail==null?null:this.avatar.tinythumbnail.url;
-                break; 
-            default:
-                avatar =  this.avatar.medium.url;
-        }
-        if (avatar == null) avatar = this.avatar.full.url; //Case of default
-        return "url(" + avatar + ")";
-    }*/
-
     /////////////////////////////////////////////////////////////////////////
     // Token related
     /////////////////////////////////////////////////////////////////////////

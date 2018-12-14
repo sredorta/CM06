@@ -70,7 +70,6 @@
     "brands.admin.create.table.picture"     : "Logo",
     "brands.admin.create.table.name"        : "Marque",
     "brands.admin.modify.header"            : "Modifier la marque",
-
     "brands.admin.dialog.delete.header"     : "Suppresión d'une marque",
     "brands.admin.dialog.delete.content"    : " ATTENTION ! Quand vous effacez une marque, tous ses modeles et ses produits seront effaces. Êtes vous sure de supprimer la marque ?",
     "brands.admin.toast.delete.summary"     : "Marque supprimé",
@@ -87,7 +86,6 @@
     "models.admin.create.input.label"       : "Modèle",
     "models.admin.create.input.placeholder" : "Nom du modèle",
     "models.admin.create.input.hint"        : "Écrivez le nom du modèle",
-
     "models.admin.dialog.delete.header"     : "Suppresión d'un modèle",
     "models.admin.dialog.delete.content"    : " ATTENTION ! Quand vous effacez un modèle, tous les produits associés seront effaces. Êtes vous sure de supprimer ce modèle ?",
     "models.admin.toast.delete.summary"     : "Modèle supprimé",
@@ -96,9 +94,12 @@
     "models.admin.toast.create.detail"      : "Le modèle vient d'être ajouté",
     "models.admin.toast.modify.summary"     : "Modèle modifié",
     "models.admin.toast.modify.detail"      : "Le modèle à été modifié",
-
     "models.admin.create.table.name"        : "Modèle",
-    "models.admin.modify.header"            : "Modifier le modèle"
+    "models.admin.modify.header"            : "Modifier le modèle",
+
+    "stepper.admin.first"                   : "Marque",
+    "stepper.admin.second"                  : "Modèle",
+    "stepper.admin.third"                   : "Produit"
 
 
 }

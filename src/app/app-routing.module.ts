@@ -5,6 +5,7 @@ import {LoginComponent} from './_library/auth/login/login.component';
 import {SignupComponent} from './_library/auth/signup/signup.component';
 import {ResetpasswordComponent} from './_library/auth/resetpassword/resetpassword.component';
 import {ProductCreateStepperComponent} from './_admin/product-create-stepper/product-create-stepper.component';
+import {ProductItemComponent} from './product-item/product-item.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,11 @@ const routes: Routes = [
     component: ProductCreateStepperComponent,
     //canActivate: [AdminGuard]
   },    
+  {
+    path: 'tmp',
+    component: ProductItemComponent,
+    //canActivate: [AdminGuard]
+  },   
 /*  {
     path: 'admin-modeles',///:id',
     component: ModelsComponent,
