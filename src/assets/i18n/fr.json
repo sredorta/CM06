@@ -4,6 +4,7 @@
     "cancel"                        : "Annuler",
     "create"                        : "Créer",
     "modify"                        : "Modifier",
+    "delete"                        : "Supprimer",
     "signup.title"                  : "Creer un compte",
     "signup.subtitle"               : "Creer votre espace personnel",
     "signup.terms1"                 : "J'accepte les ",
@@ -67,7 +68,7 @@
     "brands.admin.create.input.hint"        : "Ecrivez le nom de la marque",
     "brands.admin.create.logo.label"        : "Logo de la marque",
     "brands.admin.create.table.picture"     : "Logo",
-    "brands.admin.create.table.name"        : "Nom",
+    "brands.admin.create.table.name"        : "Marque",
     "brands.admin.modify.header"            : "Modifier la marque",
 
     "brands.admin.dialog.delete.header"     : "Suppresión d'une marque",
@@ -77,7 +78,27 @@
     "brands.admin.toast.create.summary"     : "Marque ajouté",
     "brands.admin.toast.create.detail"      : "La marque vient d'être ajouté",
     "brands.admin.toast.modify.summary"     : "Marque modifié",
-    "brands.admin.toast.modify.detail"      : "La marque à été modifié"
+    "brands.admin.toast.modify.detail"      : "La marque à été modifié",
+
+    "models.admin.search.label"             : "Chercher un modèle",
+    "models.admin.search.placeholder"       : "Nom du modèle",
+    "models.admin.create.subtitle"          : "Ajouter un modèle",
+    "models.admin.create.header"            : "Créer un nouveau modèle",
+    "models.admin.create.input.label"       : "Modèle",
+    "models.admin.create.input.placeholder" : "Nom du modèle",
+    "models.admin.create.input.hint"        : "Écrivez le nom du modèle",
+
+    "models.admin.dialog.delete.header"     : "Suppresión d'un modèle",
+    "models.admin.dialog.delete.content"    : " ATTENTION ! Quand vous effacez un modèle, tous les produits associés seront effaces. Êtes vous sure de supprimer ce modèle ?",
+    "models.admin.toast.delete.summary"     : "Modèle supprimé",
+    "models.admin.toast.delete.detail"      : "Le modèle vient d'être supprimé",
+    "models.admin.toast.create.summary"     : "Modèle ajouté",
+    "models.admin.toast.create.detail"      : "Le modèle vient d'être ajouté",
+    "models.admin.toast.modify.summary"     : "Modèle modifié",
+    "models.admin.toast.modify.detail"      : "Le modèle à été modifié",
+
+    "models.admin.create.table.name"        : "Modèle",
+    "models.admin.modify.header"            : "Modifier le modèle"
 
 
 }

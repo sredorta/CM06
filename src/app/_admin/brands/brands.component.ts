@@ -9,8 +9,9 @@ import {CustomValidators, ParentErrorStateMatcher  } from '../../_library/helper
 import { ApiService, EApiImageSizes, IApiBrand } from '../../_library/services/api.service';
 import { Subscription } from 'rxjs';
 
-import {ConfirmDialogModule} from 'primeng/confirmdialog';
-import {ConfirmationService} from 'primeng/api';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MakeSureDialogComponent} from '../../_library/make-sure-dialog/make-sure-dialog.component';
+
 import {MessageService} from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
@@ -40,6 +41,7 @@ export class BrandsComponent implements OnInit {
   brandsCount : number = 0;
   brandsDisplayed : number = 0;
   lastBrandFilter : string = null;
+  currentBrand : IApiBrand = null;
 
   expand : boolean = false;
   myForm: FormGroup; 
@@ -49,7 +51,13 @@ export class BrandsComponent implements OnInit {
   defaultImageUpdate : string = "./assets/images/no-photo-available.jpg";
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private data : DataService, private mediaMatcher: MediaMatcher,private route: Router,private translate: TranslateService, private api : ApiService,private confirmationService: ConfirmationService,private messageService: MessageService) { }
+  constructor(private data : DataService, 
+              private mediaMatcher: MediaMatcher,
+              private route: Router,
+              private translate: TranslateService, 
+              private api : ApiService,
+              private dialog: MatDialog,
+              private messageService: MessageService) { }
 
   @ViewChild('expansion') expansion : MatExpansionPanel;
   @ViewChild('inputImage') inputImage : InputImageComponent;
@@ -78,6 +86,10 @@ export class BrandsComponent implements OnInit {
   ngOnInit() {
     this.createForms();
     this.getBrands();
+    this._subscriptions.push(this.data.getCurrentBrand().subscribe(res => {
+      this.currentBrand = res;
+    }));
+
 /*    this.matcher = this.mediaMatcher.matchMedia('(max-width: 600px)');
     this.matcher.addListener(this.mediaListener);
     this.screenWidth = window.innerWidth;
@@ -93,6 +105,8 @@ export class BrandsComponent implements OnInit {
 
   getBrands() {
     this._subscriptions.push(this.data.getBrands().subscribe((res : IApiBrand[]) => {
+      console.log("Result is : " +res);
+      if (res !== null) {
       for(let brand of res) {
         brand.image.url = brand.image.url;
       }
@@ -105,6 +119,7 @@ export class BrandsComponent implements OnInit {
         return data.name.toLowerCase().includes(filter);
       };
       this.loadingTableBrands = false;
+      }
     }));    
   }
 
@@ -174,6 +189,7 @@ export class BrandsComponent implements OnInit {
     this.applyFilter(this.lastBrandFilter);
     this.table.renderRows();
     this.data.setBrands(this.dataSource.data);
+    this.data.setCurrentBrand(this.dataSource.data[this.dataSource.data.findIndex(obj => obj.id === this.currentBrand.id)]);
   }
 
   //When we click on update we update the expanded pannel values
@@ -185,17 +201,22 @@ export class BrandsComponent implements OnInit {
 
   //Delete the brand when clicking to delete
   onDeleteBrand(id) {
-    this._subscriptions.push(this.translate.get(["brands.admin.dialog.delete.content","brands.admin.toast.delete.summary", "brands.admin.toast.delete.detail"]).subscribe( trans => {
-      //Actual logic to perform a confirmation
-      this.confirmationService.confirm({
-        message: trans['brands.admin.dialog.delete.content'],
-        accept: () => {
-            this._subscriptions.push(this.api.deleteBrand(id).subscribe(res=> {
-              this._deleteBrand(id);
-              this.messageService.add({severity:'success', summary: trans['brands.admin.toast.delete.summary'], detail:trans['brands.admin.toast.delete.detail']});
-            }));
-        }}); 
-
+    this._subscriptions.push(this.translate.get(["brands.admin.dialog.delete.header","brands.admin.dialog.delete.content","brands.admin.toast.delete.summary", "brands.admin.toast.delete.detail"]).subscribe( trans => {
+      let dialogRef = this.dialog.open(MakeSureDialogComponent, {
+        disableClose :true,
+        panelClass : "admin-theme",
+        data:  {title: trans['brands.admin.dialog.delete.header'],
+                text:trans['brands.admin.dialog.delete.content']
+              } 
+      });
+      this._subscriptions.push(dialogRef.afterClosed().subscribe((result : boolean) => {
+        if (result) {   
+          this._subscriptions.push(this.api.deleteBrand(id).subscribe(res=> {
+            this._deleteBrand(id);
+            this.messageService.add({severity:'success', summary: trans['brands.admin.toast.delete.summary'], detail:trans['brands.admin.toast.delete.detail']});
+          }));           
+        } 
+      }));    
     }));
   }
 
@@ -205,6 +226,9 @@ export class BrandsComponent implements OnInit {
     const itemIndex = this.dataSource.data.findIndex(obj => obj.id === id);
     this.dataSource.data.splice(itemIndex, 1); 
     this.data.setBrands(this.dataSource.data);
+    if (this.dataSource.data.findIndex(obj => obj.id === this.currentBrand.id)<0)
+      this.data.setCurrentBrand(null);
+
     const itemIndexFilter = this.dataSource.filteredData.findIndex(obj => obj.id === id);
     if (itemIndexFilter>=0) {
       this.dataSource.filteredData.splice(itemIndexFilter, 1); 

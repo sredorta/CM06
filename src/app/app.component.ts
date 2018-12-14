@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core'; //NGX-TRANSLATE
 import {User} from './_library/models/user';
 import {ApiService, IApiUserAuth, EApiImageSizes, IApiBrand} from './_library/services/api.service';
 import {DataService} from './_services/data.service';
+import {InitComponent} from './init/init.component';
 
 @Component({
   selector: 'app-root',
@@ -26,12 +27,12 @@ export class AppComponent {
     this.translate.use("fr");
 
 
-    this._subscriptions.push(this.api.getBrands(EApiImageSizes.thumbnail).subscribe((res : IApiBrand[])=> {
+/*    this._subscriptions.push(this.api.getBrands(EApiImageSizes.thumbnail).subscribe((res : IApiBrand[])=> {
       //Get brands once and store in the global vars
       console.log("We got all brands !!!");
       console.log(res);
       this.data.setBrands(res);
-
+*/
     //This needs to be moved into config page
     this._subscriptions.push(this.api.getAuthUser().subscribe((res: IApiUserAuth)=> {
       this.api.setCurrent(res); 
@@ -44,7 +45,7 @@ export class AppComponent {
       //this.loading = false;
     }));
 
-    }));
+//    }));
 
 
     this.mobileQuery = media.matchMedia('(max-width: 600px)');

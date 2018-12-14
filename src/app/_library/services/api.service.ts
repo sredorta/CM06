@@ -52,6 +52,10 @@ export interface IApiImage {
   description:string;
 }
 
+export interface IApiModel {
+  id:number;
+  name:string;
+}
 
 //Different image sizes that are stored in the database if thumbs are generated (no default image)
 export enum EApiImageSizes  {
@@ -163,17 +167,18 @@ export class ApiService {
     return this.http.post<any>(environment.apiURL +'/brands/delete', {"id":id});
   }
 
+  //Models
+  public createModel(idBrand:number, name:string) : Observable<IApiModel>  {  
+    return this.http.post<IApiModel>(environment.apiURL +'/models/create', {"id": idBrand, "name":name}).map(res => <IApiModel>res);
+  }
+  public getModels(idBrand:number) : Observable<IApiModel[]> {
+    return this.http.post<IApiModel[]>(environment.apiURL +'/models', {'id': idBrand}).map(res => <IApiModel[]>res);
+  }
+  public deleteModel(id:string) : Observable<any>  { 
+    return this.http.post<any>(environment.apiURL +'/models/delete', {"id":id});
+  }
 
-/*  //Gets the notifications
-  public getNotifs() : Observable<IApiNotif[]> {
-    return this.http.get<IApiNotif[]>(environment.apiURL+'/notifications').map(res => <IApiNotif[]>res);
-  }
-  //Mark a notification as read
-  public notificationMarkRead(id:number) :Observable<IApiNotif[]> {
-    return this.http.post<IApiNotif[]>(environment.apiURL +'/notifications/markread', {'id': id}).map(res => <IApiNotif[]>res);
-  }
-  //Mark a notification as read
-  public notificationDelete(id:number) :Observable<IApiNotif[]> {
-    return this.http.post<IApiNotif[]>(environment.apiURL +'/notifications/delete', {'id': id}).map(res => <IApiNotif[]>res);
-  }*/
+  public updateModel(id:string,name:string) : Observable<IApiModel>  {
+    return this.http.post<IApiModel>(environment.apiURL +'/models/update', {"id":id, "name":name}).map(res => <IApiModel>res);
+  }  
 }

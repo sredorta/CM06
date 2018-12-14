@@ -36,15 +36,17 @@ $accent: map-get($admin-theme,accent);
   }
 
   .mat-column-delete {
-      width:40px;
-      min-width:40px;
-      max-width:40px;
+      width:60px;
+      min-width:60px;
+      max-width:60px;
+      font-size:12px;
       transition: all 0.3s ease-in-out;
   }
   .mat-column-modify {
-      width:40px;
-      min-width:40px;
-      max-width:40px;
+      width:60px;
+      min-width:60px;
+      max-width:60px;
+      font-size:12px;      
       transition: all 0.3s ease-in-out;
   }
 

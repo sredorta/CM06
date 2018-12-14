@@ -1,5 +1,4 @@
 <div style="padding:20px" class="admin-theme">  
-  <p-confirmDialog header="{{'brands.admin.dialog.delete.header' | translate}}" icon="pi pi-exclamation-triangle" width="425" appendTo="body" acceptLabel="{{'yes' | translate}}" rejectLabel="{{'no' | translate}}"></p-confirmDialog>
   <p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast"></p-toast>
   <ng-container *ngIf="loadingTableBrands">
         <div fxLayout="column" fxLayoutAlign="center center" style="width:100%;min-height:80vh;">
@@ -62,12 +61,12 @@
         <ng-container matColumnDef="modify">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let row"  [class.expanded-row]="expandedElement === row"
-            (click)="expand=true;expandedElement = row;onUpdateBrand(row.id) "><mat-icon>edit</mat-icon></td>
+            (click)="expand=true;expandedElement = row;onUpdateBrand(row.id) ">{{'modify' | translate}}</td>
         </ng-container> 
 
         <ng-container matColumnDef="delete">
             <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let row" (click)="onDeleteBrand(row.id)"><mat-icon>delete</mat-icon></td>
+            <td mat-cell *matCellDef="let row" (click)="onDeleteBrand(row.id)">{{'delete' | translate}}</td>
         </ng-container> 
       
         <ng-container matColumnDef="expandedDetail">

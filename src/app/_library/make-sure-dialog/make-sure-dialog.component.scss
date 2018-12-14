@@ -1,0 +1,15 @@
+/*@import "../../styles.scss"; //Import general themeing
+
+$primary: map-get($main-app-theme,primary);
+$accent: map-get($main-app-theme,accent);
+$warn : map-get($main-app-theme,warn);*/
+
+h2 {
+    margin-top:0px;
+    padding-bottom:5px;
+    width:100%;
+    border-bottom: 1px solid;
+}
+p,span {
+    //color: mat-color($warn);
+}

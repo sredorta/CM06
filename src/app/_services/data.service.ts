@@ -24,11 +24,10 @@ export class DataService {
   constructor(private api : ApiService) { }
 
   public getBrands() : Observable<IApiBrand[]> {
-    if (this._brands == null) {
-      console.log("Loading brands as is null !!!");
+    //If brands is null we call the api and get all brands
+    if (this._brands.value == null) {
       this.api.getBrands(EApiImageSizes.thumbnail).subscribe((res : IApiBrand[]) => {
         this._brands.next(res);
-        console.log("Loaded all brands from db !!!");
       });
     }
     return this._brands;

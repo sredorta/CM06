@@ -52,8 +52,8 @@ import {CheckboxModule} from 'primeng/checkbox';
 import {ButtonModule} from 'primeng/button';
 import {GMapModule} from 'primeng/gmap';
 import {TooltipModule} from 'primeng/tooltip';
-import {ConfirmDialogModule} from 'primeng/confirmdialog';
-import {ConfirmationService} from 'primeng/api';
+//import {ConfirmDialogModule} from 'primeng/confirmdialog';
+//import {ConfirmationService} from 'primeng/api';
 import {ToastModule} from 'primeng/toast';
 import {MessageService} from 'primeng/api';
 
@@ -70,6 +70,8 @@ import {CustomValidators} from './_library/helpers/custom.validators';
 //POPUPS
 import { ErrorSheetComponent } from './_library/helpers/error-sheet/error-sheet.component';
 import { TermsDialogComponent } from './_library/auth/terms-dialog/terms-dialog.component';
+import { MakeSureDialogComponent } from './_library/make-sure-dialog/make-sure-dialog.component';
+
 //PIPES
 import { NiceDateFormatPipe } from './_library/pipes/nice-date-format.pipe';
 //SERVICES
@@ -90,6 +92,7 @@ import { HomeComponent } from './home/home.component';
 import { BrandsComponent } from './_admin/brands/brands.component';
 import { ModelsComponent } from './_admin/models/models.component';
 import { SearchBrandComponent } from './_library/search-brand/search-brand.component';
+import { InitComponent } from './init/init.component';
 
 @NgModule({
   declarations: [
@@ -100,12 +103,14 @@ import { SearchBrandComponent } from './_library/search-brand/search-brand.compo
     TermsDialogComponent,
     ResetpasswordComponent,
     ErrorSheetComponent,
+    MakeSureDialogComponent,
     InputImageComponent,
     NiceDateFormatPipe,
     HomeComponent,
     BrandsComponent,
     ModelsComponent,
-    SearchBrandComponent
+    SearchBrandComponent,
+    InitComponent
     //End of library
   ],
   imports: [
@@ -125,7 +130,6 @@ import { SearchBrandComponent } from './_library/search-brand/search-brand.compo
     ColorPickerModule,
     GMapModule,
     TooltipModule,
-    ConfirmDialogModule,
     ToastModule
     ],
     [  MatAutocompleteModule, //MATERIAL2
@@ -172,10 +176,10 @@ import { SearchBrandComponent } from './_library/search-brand/search-brand.compo
       }
     }),
   ],
-  entryComponents: [ErrorSheetComponent,TermsDialogComponent],
+  entryComponents: [ErrorSheetComponent,TermsDialogComponent, MakeSureDialogComponent],
   providers: [
-    HttpClient, ApiService, DataService,
-    ConfirmationService,
+    HttpClient, ApiService, DataService, MakeSureDialogComponent,
+//    ConfirmationService,
     MessageService,
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, 
     {provide: HTTP_INTERCEPTORS, useClass: HttpHeaderInterceptor, multi: true }    
