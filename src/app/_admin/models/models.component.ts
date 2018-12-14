@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Output,EventEmitter } from '@angular/core';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
 import {MatExpansionPanel} from '@angular/material';
 import {MatTable, MatTableDataSource,  MatInput} from '@angular/material';
@@ -32,8 +32,7 @@ export class ModelsComponent implements OnInit {
   @ViewChild('expansion') expansion : MatExpansionPanel;
   @ViewChild('myTable') table : MatTable<any>;   
   
-//  idbrand:number = null;  //Brand id to show models
-//  models : IApiModel[] = null;   //All downloaded brands
+  @Output() onModelSelected = new EventEmitter<IApiBrand>();
 
   currentBrand : IApiBrand = null;
   loadingTableModels  : boolean = true;
@@ -217,7 +216,11 @@ export class ModelsComponent implements OnInit {
     this.myFormUpdate.controls['name'].setValue(model.name);
   }
 
-
+  //When row is clicked we need to redirect to brand models page
+  rowClick(brand) {
+    //this.data.setCurrentBrand(brand);
+    this.onModelSelected.emit(brand);
+  }
 
 
   ngOnDestroy() {    

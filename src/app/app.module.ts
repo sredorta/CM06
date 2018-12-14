@@ -93,6 +93,8 @@ import { BrandsComponent } from './_admin/brands/brands.component';
 import { ModelsComponent } from './_admin/models/models.component';
 import { SearchBrandComponent } from './_library/search-brand/search-brand.component';
 import { InitComponent } from './init/init.component';
+import { ProductCreateUpdateComponent } from './_admin/product-create-update/product-create-update.component';
+import { ProductCreateStepperComponent } from './_admin/product-create-stepper/product-create-stepper.component';
 
 @NgModule({
   declarations: [
@@ -110,7 +112,9 @@ import { InitComponent } from './init/init.component';
     BrandsComponent,
     ModelsComponent,
     SearchBrandComponent,
-    InitComponent
+    InitComponent,
+    ProductCreateUpdateComponent,
+    ProductCreateStepperComponent
     //End of library
   ],
   imports: [

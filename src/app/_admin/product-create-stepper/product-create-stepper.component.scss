@@ -1,0 +1,21 @@
+//Change stepper background color
+::ng-deep .mat-horizontal-content-container {
+    //background-color: #bb092d;
+    //color: rgba(255,255,255,.87);
+    background-color: rgb(50, 50, 50);
+}
+
+.big-component {
+    margin-right:20vw;
+    margin-left:20vw;
+    min-width:300px;
+}
+
+
+@media only screen and (max-width: 800px) {
+    .big-component {
+        margin-right:0;
+        margin-left:0;
+        min-width:300px;
+    }
+}

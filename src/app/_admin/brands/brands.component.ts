@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, SimpleChanges,Output,EventEmitter } from '@angular/core';
 import {InputImageComponent} from '../../_library/input-image/input-image.component';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
 import {MatExpansionPanel} from '@angular/material';
@@ -33,7 +33,7 @@ import {DataService} from '../../_services/data.service';
 export class BrandsComponent implements OnInit {
 //  matcher: MediaQueryList; //Detects screen width
 //  screenWidth: any;         //Initial window width
-
+  @Output() onBrandSelected = new EventEmitter<IApiBrand>();
   loadingTableBrands  : boolean = true;
   dataSource = null;          //Store brands array in table format
   expandedElement: any = null;   //Expanded panel for adding brand
@@ -241,6 +241,7 @@ export class BrandsComponent implements OnInit {
   //When row is clicked we need to redirect to brand models page
   rowClick(brand) {
     this.data.setCurrentBrand(brand);
+    this.onBrandSelected.emit(brand);
   }
 
   ngOnDestroy() {    

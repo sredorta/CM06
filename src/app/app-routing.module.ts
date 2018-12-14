@@ -4,8 +4,7 @@ import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './_library/auth/login/login.component';
 import {SignupComponent} from './_library/auth/signup/signup.component';
 import {ResetpasswordComponent} from './_library/auth/resetpassword/resetpassword.component';
-import {BrandsComponent} from './_admin/brands/brands.component';
-import {ModelsComponent} from './_admin/models/models.component';
+import {ProductCreateStepperComponent} from './_admin/product-create-stepper/product-create-stepper.component';
 
 const routes: Routes = [
   {
@@ -29,15 +28,15 @@ const routes: Routes = [
     //canActivate: [LoggedOutGuard]
   },  
   {
-    path: 'admin-marques',
-    component: BrandsComponent,
+    path: 'admin-product-create',
+    component: ProductCreateStepperComponent,
     //canActivate: [AdminGuard]
   },    
-  {
+/*  {
     path: 'admin-modeles',///:id',
     component: ModelsComponent,
     //canActivate: [LoggedInGuard]
-  }
+  }*/
 ];
 
 @NgModule({
