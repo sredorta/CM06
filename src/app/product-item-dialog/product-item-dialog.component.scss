@@ -14,12 +14,25 @@
     transform: translateX(-50%) translateY(-50%);
     background-size: cover;*/
 } 
-    
+:host ::ng-deep {
+.ui-panel-images {
+    height:400px !important;
+    width:100% !important;
+    max-width: 80vw !important;
+    object-fit: cover !important;
+
+}
+.ui-galleria {
+    width:100% !important;
+}
+.ui-galleria-pannel-wrapper {
+    width:100% !important;
+}
 .ui-galleria-panel {
-    width:200px !important;
-    max-width: 200px !important;
+    width:100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
 }
-.ui-panel-images{
-    width:200px !important;
-    max-width: 200px !important;
+
 }
+
