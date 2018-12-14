@@ -85,6 +85,10 @@ $accent: map-get($admin-theme,accent);
     //background-color: black !important;
     background: mat-color($primary,700) !important;
   }
+  //Selected row   
+  .selected {
+    background-color: black !important;
+  }
 
 //End of table
 .image {

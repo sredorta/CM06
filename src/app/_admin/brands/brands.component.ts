@@ -49,6 +49,7 @@ export class BrandsComponent implements OnInit {
   validation_messages = CustomValidators.getMessages();
   //defaultImage :string = "./assets/images/no-photo-available.jpg";
   defaultImageUpdate : string = "./assets/images/no-photo-available.jpg";
+  selected = [];
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
   constructor(private data : DataService, 
@@ -89,14 +90,6 @@ export class BrandsComponent implements OnInit {
     this._subscriptions.push(this.data.getCurrentBrand().subscribe(res => {
       this.currentBrand = res;
     }));
-
-/*    this.matcher = this.mediaMatcher.matchMedia('(max-width: 600px)');
-    this.matcher.addListener(this.mediaListener);
-    this.screenWidth = window.innerWidth;
-    console.log("Inner width : " + this.screenWidth);
-    console.log(this.screenWidth);
-    if (this.screenWidth > 600)
-        this.route.navigate(["./admin-marques/modeles/0"]); //Point to brand 0 as no brand is selected for now*/
   }
 
   getFormattedUrl(url:string) {
@@ -107,18 +100,23 @@ export class BrandsComponent implements OnInit {
     this._subscriptions.push(this.data.getBrands().subscribe((res : IApiBrand[]) => {
       console.log("Result is : " +res);
       if (res !== null) {
-      for(let brand of res) {
-        brand.image.url = brand.image.url;
-      }
-      let brands = res;
-      this.dataSource = new MatTableDataSource(brands);
-      this.brandsCount = this.dataSource.data.length;
-      this.brandsDisplayed = this.brandsCount;
-      //Override filter
-      this.dataSource.filterPredicate = function(data, filter: string): boolean {
-        return data.name.toLowerCase().includes(filter);
-      };
-      this.loadingTableBrands = false;
+        for(let brand of res) {
+          brand.image.url = brand.image.url;
+        }
+        let brands = res;
+        this.dataSource = new MatTableDataSource(brands);
+        this.brandsCount = this.dataSource.data.length;
+        this.brandsDisplayed = this.brandsCount;
+        //Override filter
+        this.dataSource.filterPredicate = function(data, filter: string): boolean {
+          return data.name.toLowerCase().includes(filter);
+        };
+        this.loadingTableBrands = false;
+        //Init as all not selected
+        this.selected = [];
+        for (let brand of this.dataSource.data) {
+          this.setSelected[brand.id] = false;
+        }
       }
     }));    
   }
@@ -241,8 +239,18 @@ export class BrandsComponent implements OnInit {
   //When row is clicked we need to redirect to brand models page
   rowClick(brand) {
     this.data.setCurrentBrand(brand);
+    this.setSelected(brand.id);
     this.onBrandSelected.emit(brand);
   }
+
+  setSelected(id) {
+    this.selected = [];
+    for (let brand of this.dataSource.data) {
+      this.selected[brand.id] = false;
+    }
+    this.selected[id] = true;
+  }
+
 
   ngOnDestroy() {    
     //Unsubscribe to all

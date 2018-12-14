@@ -55,12 +55,12 @@
 
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>{{'brands.admin.create.table.name' | translate}}</th>
-            <td mat-cell *matCellDef="let row" [class.expanded-row]="false" (click)="expand = false;rowClick(row);">{{row.name}}</td>
+            <td mat-cell *matCellDef="let row" [class.expanded-row]="false"  (click)="expand = false;rowClick(row);">{{row.name}}</td>
         </ng-container> 
 
         <ng-container matColumnDef="modify">
             <th mat-header-cell *matHeaderCellDef></th>
-            <td mat-cell *matCellDef="let row"  [class.expanded-row]="expandedElement === row"
+            <td mat-cell *matCellDef="let row"  [class.expanded-row]="expandedElement === row" 
             (click)="expand=true;expandedElement = row;onUpdateBrand(row.id) ">{{'modify' | translate}}</td>
         </ng-container> 
 
@@ -104,7 +104,7 @@
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let element; columns: displayedColumns;"
-          class="element-row"></tr>
+          class="element-row" [ngClass]="{'selected' : selected[element.id]}"></tr>
         <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
       </table>  
       </div>

@@ -42,6 +42,7 @@ export class ModelsComponent implements OnInit {
   modelsCount : number = 0;
   lastFilter : string = null;
   expand : boolean = false;
+  selected = [];
 
   validation_messages = CustomValidators.getMessages();
 
@@ -84,6 +85,7 @@ export class ModelsComponent implements OnInit {
   }
 
   getModels() {
+    this.loadingTableModels = true;
     if (this.currentBrand !== null) {
       this._subscriptions.push(this.api.getModels(this.currentBrand.id).subscribe((res : IApiBrand[]) => {
         console.log("We got from api service : ");
@@ -99,6 +101,11 @@ export class ModelsComponent implements OnInit {
             return data.name.toLowerCase().includes(filter);
           };
           this.loadingTableModels = false;
+          //Init as all not selected
+          this.selected = [];
+          for (let brand of this.dataSource.data) {
+            this.setSelected[brand.id] = false;
+          }
         }
       }));    
     }
@@ -219,9 +226,17 @@ export class ModelsComponent implements OnInit {
   //When row is clicked we need to redirect to brand models page
   rowClick(brand) {
     //this.data.setCurrentBrand(brand);
+    this.setSelected(brand.id);
     this.onModelSelected.emit(brand);
   }
 
+  setSelected(id) {
+    this.selected = [];
+    for (let brand of this.dataSource.data) {
+      this.selected[brand.id] = false;
+    }
+    this.selected[id] = true;
+  }
 
   ngOnDestroy() {    
     //Unsubscribe to all

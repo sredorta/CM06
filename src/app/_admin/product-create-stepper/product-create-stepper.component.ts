@@ -15,13 +15,16 @@ export class ProductCreateStepperComponent implements OnInit {
   isBrandCompleted : boolean = false;
   isModelCompleted : boolean = false;
   isProductCompleted : boolean = false;
+  currentBrand: IApiBrand;
+  currentModel: IApiModel;
+
   constructor() { }
 
   ngOnInit() {
   }
 
   goToModels(brand:IApiBrand) {
-    console.log("Selected brand : " + brand.name);
+    this.currentBrand = brand;
     this.isBrandCompleted = true;
     this.isModelCompleted = false;
     this.isProductCompleted = false;
@@ -30,7 +33,7 @@ export class ProductCreateStepperComponent implements OnInit {
   }
 
   goToProducts(model: IApiModel) {
-    console.log("Selected model : " + model.name);
+    this.currentModel = model;
     this.isModelCompleted = true;
     //We need to wait some time otherwise it doesn't work
     setTimeout(()=> { this.stepper.next();}, 200);   
