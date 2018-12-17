@@ -26,12 +26,14 @@ export class ProductCreateStepperComponent implements OnInit {
   }
 
   goToModels(brand:IApiBrand) {
-    this.currentBrand = brand;
-    this.isBrandCompleted = true;
-    this.isModelCompleted = false;
-    this.isProductCompleted = false;
-    //We need to wait some time otherwise it doesn't work
-    setTimeout(()=> { this.stepper.next();}, 200);
+    if (brand) {
+      this.currentBrand = brand;
+      this.isBrandCompleted = true;
+      this.isModelCompleted = false;
+      this.isProductCompleted = false;
+      //We need to wait some time otherwise it doesn't work
+      setTimeout(()=> { this.stepper.next();}, 200);
+    }
   }
 
   goToProducts(model: IApiModel) {

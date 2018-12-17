@@ -5,6 +5,6 @@
 </p>
 <!--In case we don't give brand and models we provide a way to find-->
 <div *ngIf="!brand">
-    <app-search-brand></app-search-brand>
+    <app-search-brand [brand]="brand"></app-search-brand>
 </div>
 </div>

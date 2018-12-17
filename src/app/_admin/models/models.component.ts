@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Output,EventEmitter, Input, SimpleChanges } from '@angular/core';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
 import {MatExpansionPanel} from '@angular/material';
 import {MatTable, MatTableDataSource,  MatInput} from '@angular/material';
@@ -31,10 +31,9 @@ import { SearchBrandComponent } from '../../_library/search-brand/search-brand.c
 export class ModelsComponent implements OnInit {
   @ViewChild('expansion') expansion : MatExpansionPanel;
   @ViewChild('myTable') table : MatTable<any>;   
-  
+  @Input() brand : IApiBrand;
   @Output() onModelSelected = new EventEmitter<IApiBrand>();
 
-  currentBrand : IApiBrand = null;
   loadingTableModels  : boolean = true;
   dataSource = null;          //Store brands array in table format
   displayedColumns: string[] = ['name','modify','delete'];
@@ -74,10 +73,11 @@ export class ModelsComponent implements OnInit {
 
   ngOnInit() {
     this.createForms();
-    this._subscriptions.push(this.data.getCurrentBrand().subscribe(res => {
-      this.currentBrand = res;
-      this.getModels();
-    }));
+  }
+
+  ngOnChanges(changes : SimpleChanges) {
+    this.brand = changes.brand.currentValue;
+    this.getModels();
   }
 
   getFormattedUrl(url:string) {
@@ -86,12 +86,8 @@ export class ModelsComponent implements OnInit {
 
   getModels() {
     this.loadingTableModels = true;
-    if (this.currentBrand !== null) {
-      this._subscriptions.push(this.api.getModels(this.currentBrand.id).subscribe((res : IApiBrand[]) => {
-        console.log("We got from api service : ");
-        console.log(res);
-        //this.models = res;
-        this.loadingTableModels = false;
+    if (this.brand) {
+      this._subscriptions.push(this.api.getModels(this.brand.id).subscribe((res : IApiBrand[]) => {
         if (res !== null) {
           this.dataSource = new MatTableDataSource(res);
           this.modelsCount = this.dataSource.data.length;
@@ -100,13 +96,13 @@ export class ModelsComponent implements OnInit {
           this.dataSource.filterPredicate = function(data, filter: string): boolean {
             return data.name.toLowerCase().includes(filter);
           };
-          this.loadingTableModels = false;
           //Init as all not selected
           this.selected = [];
           for (let brand of this.dataSource.data) {
             this.setSelected[brand.id] = false;
-          }
+          }          
         }
+        this.loadingTableModels = false;
       }));    
     }
   }
@@ -119,7 +115,7 @@ export class ModelsComponent implements OnInit {
       return;
     }
     this._subscriptions.push(this.translate.get(["models.admin.toast.create.summary", "models.admin.toast.create.detail"]).subscribe( trans => {
-      this._subscriptions.push(this.api.createModel(this.currentBrand.id,value.name).subscribe((res: IApiModel) => {
+      this._subscriptions.push(this.api.createModel(this.brand.id,value.name).subscribe((res: IApiModel) => {
         this._addModel(res);
         this.messageService.add({severity:'success', summary:trans['models.admin.toast.create.summary'], detail:trans['models.admin.toast.create.detail']});
       }));
@@ -177,9 +173,6 @@ export class ModelsComponent implements OnInit {
     //Find the corresponding datasource element
     const itemIndex = this.dataSource.data.findIndex(obj => obj.id === id);
     this.dataSource.data.splice(itemIndex, 1); 
-    //this.data.setBrands(this.dataSource.data);
-    //if (this.dataSource.data.findIndex(obj => obj.id === this.currentBrand.id)<0)
-    //  this.data.setCurrentBrand(null);
 
     const itemIndexFilter = this.dataSource.filteredData.findIndex(obj => obj.id === id);
     if (itemIndexFilter>=0) {
@@ -213,8 +206,6 @@ export class ModelsComponent implements OnInit {
     this.dataSource.data[itemIndex] = brand;
     this.applyFilter(this.lastFilter);
     this.table.renderRows();
-    //this.data.setBrands(this.dataSource.data);
-    //this.data.setCurrentBrand(this.dataSource.data[this.dataSource.data.findIndex(obj => obj.id === this.currentBrand.id)]);
   }
 
   //When we click on update we update the expanded pannel values

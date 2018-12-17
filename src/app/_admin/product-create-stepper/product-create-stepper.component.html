@@ -9,7 +9,7 @@
     <mat-step [stepControl]="secondFormGroup" [completed]="isModelCompleted">
       <ng-template matStepLabel>{{'stepper.admin.second' | translate}}</ng-template>
       <div fxLayout="row" fxLayoutAlign="center center" class="big-component">
-          <app-models style="width:100%" (onModelSelected)="goToProducts($event)"></app-models>
+          <app-models style="width:100%" [brand]="currentBrand" (onModelSelected)="goToProducts($event)"></app-models>
       </div>      
     </mat-step>
     <mat-step [completed]="isProductCompleted">

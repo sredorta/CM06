@@ -13,13 +13,13 @@ import {DataService} from '../../_services/data.service';
   styleUrls: ['./search-brand.component.scss']
 })
 export class SearchBrandComponent implements OnInit {
-//  @Input() brands : IApiBrand[];
-  //@Output() onBrandSelected = new EventEmitter<IApiBrand>();
+  @Input() brand : IApiBrand;
+  @Output() onBrandSelected = new EventEmitter<IApiBrand>();
   @ViewChild('menuBrandTrigger') triggerMenuBrands: MatMenuTrigger;
   @ViewChild('brandSearchInput') brandSearchInput: ElementRef;
   @ViewChild('menuBrands') menuBrands : MatMenu;
-  selectedBrand : boolean = false;
-  currentBrand : IApiBrand = null;
+//  selectedBrand : boolean = false;
+//  currentBrand : IApiBrand = null;
   dataSource = null;          //Store brands array in table format
   lastBrandFilter : string = null;
   formSearchBrand : FormGroup;
@@ -35,10 +35,10 @@ export class SearchBrandComponent implements OnInit {
       this.brands = res;
       this.dataSource = new MatTableDataSource(this.brands);
     }));    
-    this._subscriptions.push(this.data.getCurrentBrand().subscribe((res : IApiBrand) => {
+/*    this._subscriptions.push(this.data.getCurrentBrand().subscribe((res : IApiBrand) => {
       if (res !== null) this.selectedBrand = true;
       else this.selectedBrand = false;
-    }));    
+    }));  */  
     
     this.formSearchBrand =  new FormGroup({    
       search: new FormControl(null,null)
@@ -76,20 +76,19 @@ export class SearchBrandComponent implements OnInit {
     this.brandSearchInput.nativeElement.focus();
  }
 
- //When we selecte a brand from the menu
+ //When we select a brand from the menu
  brandSelected(brand:IApiBrand) {
    this.formSearchBrand.controls['search'].setValue(brand.name);
-   this.selectedBrand = true;
-   this.currentBrand = brand;
+   //this.selectedBrand = true;
+   this.brand = brand;
    //We need to emit the new brand !!! here
-   //this.onBrandSelected.emit(brand);
-   this.data.setCurrentBrand(brand);
+   this.onBrandSelected.emit(brand);
  }
 
  newBrandSearch() {
   this.formSearchBrand.controls['search'].setValue("");
-  this.selectedBrand = false;
-  //this.onBrandSelected.emit(null);
-  this.data.setCurrentBrand(null);
+  this.brand = null;
+  this.onBrandSelected.emit(null);
+//  this.data.setCurrentBrand(null);
  }
 }

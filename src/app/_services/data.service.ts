@@ -19,7 +19,6 @@ import { ApiService, EApiImageSizes, IApiBrand } from '../_library/services/api.
 })
 export class DataService {
   private _brands = new BehaviorSubject<IApiBrand[]>(null); //Stores the current user
-  private _currentBrand = new BehaviorSubject<IApiBrand>(null);
 
   constructor(private api : ApiService) { }
 
@@ -38,13 +37,6 @@ export class DataService {
     this._brands.next(brands);
   }
 
-  public getCurrentBrand() : Observable<IApiBrand> {
-    return this._currentBrand;
-  }
-
-  public setCurrentBrand(brand: IApiBrand) {
-    this._currentBrand.next(brand);
-  }
 
 
 

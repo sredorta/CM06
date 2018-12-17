@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, SimpleChanges,Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, SimpleChanges,Output,EventEmitter,Input } from '@angular/core';
 import {InputImageComponent} from '../../_library/input-image/input-image.component';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
 import {MatExpansionPanel} from '@angular/material';
@@ -31,9 +31,8 @@ import {DataService} from '../../_services/data.service';
   ],   
 })
 export class BrandsComponent implements OnInit {
-//  matcher: MediaQueryList; //Detects screen width
-//  screenWidth: any;         //Initial window width
-  @Output() onBrandSelected = new EventEmitter<IApiBrand>();
+  @Input() brand : IApiBrand;                                 //Current brand selected
+  @Output() onBrandSelected = new EventEmitter<IApiBrand>();  //Brand selection  
   loadingTableBrands  : boolean = true;
   dataSource = null;          //Store brands array in table format
   expandedElement: any = null;   //Expanded panel for adding brand
@@ -41,7 +40,7 @@ export class BrandsComponent implements OnInit {
   brandsCount : number = 0;
   brandsDisplayed : number = 0;
   lastBrandFilter : string = null;
-  currentBrand : IApiBrand = null;
+//  currentBrand : IApiBrand = null;
 
   expand : boolean = false;
   myForm: FormGroup; 
@@ -87,9 +86,6 @@ export class BrandsComponent implements OnInit {
   ngOnInit() {
     this.createForms();
     this.getBrands();
-    this._subscriptions.push(this.data.getCurrentBrand().subscribe(res => {
-      this.currentBrand = res;
-    }));
   }
 
   getFormattedUrl(url:string) {
@@ -98,7 +94,6 @@ export class BrandsComponent implements OnInit {
 
   getBrands() {
     this._subscriptions.push(this.data.getBrands().subscribe((res : IApiBrand[]) => {
-      console.log("Result is : " +res);
       if (res !== null) {
         for(let brand of res) {
           brand.image.url = brand.image.url;
@@ -115,7 +110,7 @@ export class BrandsComponent implements OnInit {
         //Init as all not selected
         this.selected = [];
         for (let brand of this.dataSource.data) {
-          this.setSelected[brand.id] = false;
+          this.selected[brand.id] = false;
         }
       }
     }));    
@@ -137,7 +132,6 @@ export class BrandsComponent implements OnInit {
     if (this.myForm.invalid) {
       return;
     }
-    console.log(value);
     this._subscriptions.push(this.translate.get(["brands.admin.toast.create.summary", "brands.admin.toast.create.detail"]).subscribe( trans => {
       this._subscriptions.push(this.api.createBrand(value.name,value.image, EApiImageSizes.thumbnail).subscribe((res: IApiBrand) => {
         this._addBrand(res);
@@ -187,7 +181,7 @@ export class BrandsComponent implements OnInit {
     this.applyFilter(this.lastBrandFilter);
     this.table.renderRows();
     this.data.setBrands(this.dataSource.data);
-    this.data.setCurrentBrand(this.dataSource.data[this.dataSource.data.findIndex(obj => obj.id === this.currentBrand.id)]);
+    this.brand = this.dataSource.data[this.dataSource.data.findIndex(obj => obj.id === this.brand.id)]; //Selected brand
   }
 
   //When we click on update we update the expanded pannel values
@@ -222,10 +216,14 @@ export class BrandsComponent implements OnInit {
   private _deleteBrand(id:number) {
     //Find the corresponding datasource element
     const itemIndex = this.dataSource.data.findIndex(obj => obj.id === id);
+    //Emit no brand selected if we deleted the selection
+    if (this.dataSource.data[itemIndex].id == this.brand.id) {
+      this.onBrandSelected.emit(null);
+    }
     this.dataSource.data.splice(itemIndex, 1); 
     this.data.setBrands(this.dataSource.data);
-    if (this.dataSource.data.findIndex(obj => obj.id === this.currentBrand.id)<0)
-      this.data.setCurrentBrand(null);
+    if (this.dataSource.data.findIndex(obj => obj.id === this.brand.id)<0)
+      this.brand = null;
 
     const itemIndexFilter = this.dataSource.filteredData.findIndex(obj => obj.id === id);
     if (itemIndexFilter>=0) {
@@ -234,22 +232,21 @@ export class BrandsComponent implements OnInit {
     this.table.renderRows();
     this.brandsCount = this.dataSource.data.length;
     this.brandsDisplayed = this.dataSource.filteredData.length;
+
+    
   }
 
   //When row is clicked we need to redirect to brand models page
   rowClick(brand) {
-    this.data.setCurrentBrand(brand);
-    this.setSelected(brand.id);
-    this.onBrandSelected.emit(brand);
-  }
-
-  setSelected(id) {
+    this.brand = brand;
     this.selected = [];
     for (let brand of this.dataSource.data) {
       this.selected[brand.id] = false;
     }
-    this.selected[id] = true;
+    this.selected[brand.id] = true;
+    this.onBrandSelected.emit(brand);
   }
+
 
 
   ngOnDestroy() {    
