@@ -70,7 +70,8 @@ import {CustomValidators} from './_library/helpers/custom.validators';
 import { ErrorSheetComponent } from './_library/helpers/error-sheet/error-sheet.component';
 import { TermsDialogComponent } from './_library/auth/terms-dialog/terms-dialog.component';
 import { MakeSureDialogComponent } from './_library/make-sure-dialog/make-sure-dialog.component';
-
+//DIRECTIVES
+import {OnlyNumberDirective} from './_library/directives/onlyNumber.directive';
 //PIPES
 import { NiceDateFormatPipe } from './_library/pipes/nice-date-format.pipe';
 //SERVICES
@@ -96,6 +97,7 @@ import { ProductCreateUpdateComponent } from './_admin/product-create-update/pro
 import { ProductCreateStepperComponent } from './_admin/product-create-stepper/product-create-stepper.component';
 import { ProductItemComponent } from './product-item/product-item.component';
 import { ProductItemDialogComponent } from './product-item-dialog/product-item-dialog.component';
+import { InputPlusMinusComponent } from './_library/input-plus-minus/input-plus-minus.component';
 
 @NgModule({
   declarations: [
@@ -109,6 +111,7 @@ import { ProductItemDialogComponent } from './product-item-dialog/product-item-d
     MakeSureDialogComponent,
     InputImageComponent,
     NiceDateFormatPipe,
+    OnlyNumberDirective,
     HomeComponent,
     BrandsComponent,
     ModelsComponent,
@@ -117,7 +120,8 @@ import { ProductItemDialogComponent } from './product-item-dialog/product-item-d
     ProductCreateUpdateComponent,
     ProductCreateStepperComponent,
     ProductItemComponent,
-    ProductItemDialogComponent
+    ProductItemDialogComponent,
+    InputPlusMinusComponent
     //End of library
   ],
   imports: [

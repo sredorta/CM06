@@ -1,7 +1,7 @@
-import { Directive, ElementRef, HostListener } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
- selector: '[OnlyNumber]'
+ selector: 'input[OnlyNumber]'
 })
 export class OnlyNumberDirective {
  // Allow decimal numbers and negative values
@@ -10,18 +10,17 @@ export class OnlyNumberDirective {
  // Backspace, tab, end, home
  private specialKeys: Array<string> = [ 'Backspace', 'Tab', 'End', 'Home', '-' ];
 
-constructor(private el: ElementRef) {
- }
+constructor(private el: ElementRef) {}
  @HostListener('keydown', [ '$event' ])
- onKeyDown(event: KeyboardEvent) {
- // Allow Backspace, tab, end, and home keys
- if (this.specialKeys.indexOf(event.key) !== -1) {
- return;
- }
- let current: string = this.el.nativeElement.value;
- let next: string = current.concat(event.key);
- if (next && !String(next).match(this.regex)) {
- event.preventDefault();
- }
+    onKeyDown(event: KeyboardEvent) {
+        // Allow Backspace, tab, end, and home keys
+        if (this.specialKeys.indexOf(event.key) !== -1) {
+        return;
+    }
+    let current: string = this.el.nativeElement.value;
+    let next: string = current.concat(event.key);
+    if (next && !String(next).match(this.regex)) {
+        event.preventDefault();
+    }
  }
 }

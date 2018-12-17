@@ -10,7 +10,9 @@
       </div> 
       <div *ngIf="brand">
         <div style="height:65px" fxLayoutAlign="start center">
-        <button mat-raised-button color="primary" (click)="newBrandSearch()"><mat-icon>search</mat-icon>Nouvelle recherche</button>
+        <button mat-raised-button color="primary" (click)="newBrandSearch()">
+          <div fxLayoutAlign="center center"><div fxLayoutAlign="center center" mat-card-avatar [style.backgroundImage]="getFormattedUrl(brand.image.url)" class="brand-input"></div></div>
+          <mat-icon style="margin-left:36px">search</mat-icon>Nouvelle recherche</button>
         </div>
       </div>
       <div #menuBrandTrigger="matMenuTrigger" [matMenuTriggerFor]="menuBrands"></div>

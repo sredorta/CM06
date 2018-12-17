@@ -5,7 +5,7 @@ import {LoginComponent} from './_library/auth/login/login.component';
 import {SignupComponent} from './_library/auth/signup/signup.component';
 import {ResetpasswordComponent} from './_library/auth/resetpassword/resetpassword.component';
 import {ProductCreateStepperComponent} from './_admin/product-create-stepper/product-create-stepper.component';
-import {ProductItemComponent} from './product-item/product-item.component';
+import {ProductCreateUpdateComponent} from './_admin/product-create-update/product-create-update.component';
 
 const routes: Routes = [
   {
@@ -35,7 +35,7 @@ const routes: Routes = [
   },    
   {
     path: 'tmp',
-    component: ProductItemComponent,
+    component: ProductCreateUpdateComponent,
     //canActivate: [AdminGuard]
   },   
 /*  {

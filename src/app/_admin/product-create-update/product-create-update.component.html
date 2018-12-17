@@ -1,10 +1,54 @@
 <div  class="admin-theme"> 
    <h3>Product create !!!</h3>
-<p>
-  product-create-update works!
-</p>
-<!--In case we don't give brand and models we provide a way to find-->
-<div *ngIf="!brand">
-    <app-search-brand [brand]="brand"></app-search-brand>
-</div>
+  <!--In case we don't give brand and models we provide a way to find-->
+  <div *ngIf="!brand">
+      <app-search-brand [brand]="brand"></app-search-brand>
+  </div>
+  <!--Missing model selector-->
+  <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate> 
+      <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="20px">
+        <mat-form-field appearance="outline" style="width:100%">
+            <mat-label>{{'product.admin.create.input.title.label' | translate}}</mat-label>
+            <input matInput formControlName="title" placeholder="{{'product.admin.create.input.title.placeholder' | translate}}" required autocomplete="off">
+            <mat-hint>{{'product.admin.create.input.title.hint' | translate}}</mat-hint>
+            <mat-error *ngFor="let validation of validation_messages">
+              <mat-error class="error-message" *ngIf="myForm.get('title').hasError(validation.type) && (myForm.get('title').dirty || myForm.get('title').touched)">{{validation.message | translate}}</mat-error>
+            </mat-error>                 
+        </mat-form-field>      
+        <mat-form-field appearance="outline" style="width:100%">
+            <mat-label>{{'product.admin.create.input.description.label' | translate}}</mat-label>
+            <textarea matInput formControlName="description" placeholder="{{'product.admin.create.input.description.placeholder' | translate}}" autocomplete="off"></textarea>
+            <mat-hint>{{'product.admin.create.input.description.hint' | translate}}</mat-hint>
+            <mat-error *ngFor="let validation of validation_messages">
+              <mat-error class="error-message" *ngIf="myForm.get('description').hasError(validation.type) && (myForm.get('description').dirty || myForm.get('description').touched)">{{validation.message | translate}}</mat-error>
+            </mat-error>                 
+        </mat-form-field>    
+        <mat-form-field appearance="outline" style="width:100%">
+            <mat-label>{{'product.admin.create.input.price.label' | translate}}</mat-label>
+            <input matInput formControlName="price" placeholder="{{'product.admin.create.input.price.placeholder' | translate}}" required autocomplete="off" OnlyNumber inputmode="numeric" pattern="[0-9]+\.[0-9]*">
+            <mat-hint>{{'product.admin.create.input.price.hint' | translate}}</mat-hint>
+            <mat-icon matSuffix>euro_symbol</mat-icon>
+            <mat-error *ngFor="let validation of validation_messages">
+              <mat-error class="error-message" *ngIf="myForm.get('price').hasError(validation.type) && (myForm.get('price').dirty || myForm.get('price').touched)">{{validation.message | translate}}</mat-error>
+            </mat-error>                 
+        </mat-form-field>      
+        <mat-form-field appearance="outline" style="width:100%">
+            <mat-label>{{'product.admin.create.input.discount.label' | translate}}</mat-label>
+            <input matInput formControlName="discount" placeholder="{{'product.admin.create.input.discount.placeholder' | translate}}" autocomplete="off" OnlyNumber inputmode="numeric" pattern="[0-9]+\.[0-9]*">
+            <mat-hint>{{'product.admin.create.input.discount.hint' | translate}}</mat-hint>
+            <mat-icon matSuffix>euro_symbol</mat-icon>
+            <mat-error *ngFor="let validation of validation_messages">
+              <mat-error class="error-message" *ngIf="myForm.get('discount').hasError(validation.type) && (myForm.get('discount').dirty || myForm.get('discount').touched)">{{validation.message | translate}}</mat-error>
+            </mat-error>                 
+        </mat-form-field>     
+        <app-input-plus-minus fieldName="stock" [parentForm]="myForm" [default]="1"></app-input-plus-minus>        
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+            <mat-slide-toggle formControlName="isVehicle"></mat-slide-toggle>
+            <p>{{'product.admin.create.input.vehicle' | translate}}</p>
+        </div>                 
+      </div>
+  </form>    
+  <p>test</p>
+  <p>test</p>
+  <p>test</p>
 </div>

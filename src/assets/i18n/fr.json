@@ -99,7 +99,25 @@
 
     "stepper.admin.first"                   : "Marque",
     "stepper.admin.second"                  : "Modèle",
-    "stepper.admin.third"                   : "Produit"
+    "stepper.admin.third"                   : "Produit",
+
+    "product.admin.create.input.title.label"            : "Titre",
+    "product.admin.create.input.title.placeholder"      : "Titre du produit",
+    "product.admin.create.input.title.hint"             : "Écrivez le titre du produit",
+    "product.admin.create.input.description.label"      : "Déscription",
+    "product.admin.create.input.description.placeholder": "Déscription du produit",
+    "product.admin.create.input.description.hint"       : "Écrivez la description du produit",    
+    "product.admin.create.input.price.label"            : "Prix",
+    "product.admin.create.input.price.placeholder"      : "Prix de vente",
+    "product.admin.create.input.price.hint"             : "Écrivez le prix de vente",
+    "product.admin.create.input.discount.label"         : "Promotion",
+    "product.admin.create.input.discount.placeholder"   : "Montant de la promo",
+    "product.admin.create.input.discount.hint"          : "Écrivez le montant de la promo",
+    "product.admin.create.input.vehicle"                : "Ce produit c'est un vehicle complet",
+    "product.admin.create.input.stock.label"            : "Stock",
+    "product.admin.create.input.stock.placeholder"      : "Stock disponible",
+    "product.admin.create.input.stock.hint"             : "Écrivez la quantité de stock disponible"
+
 
 
 }

@@ -35,11 +35,6 @@ export class SearchBrandComponent implements OnInit {
       this.brands = res;
       this.dataSource = new MatTableDataSource(this.brands);
     }));    
-/*    this._subscriptions.push(this.data.getCurrentBrand().subscribe((res : IApiBrand) => {
-      if (res !== null) this.selectedBrand = true;
-      else this.selectedBrand = false;
-    }));  */  
-    
     this.formSearchBrand =  new FormGroup({    
       search: new FormControl(null,null)
     });    

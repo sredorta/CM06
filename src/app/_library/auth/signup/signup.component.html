@@ -27,7 +27,7 @@
           <div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="20px" fxLayoutGap.xs="0px">
               <mat-form-field appearance="outline" class="field">
                 <mat-label>{{'input.phone.label' | translate}}</mat-label>
-                <input matInput formControlName="mobile" placeholder="06XXXXXXXX" required OnlyNumber="true">
+                <input matInput formControlName="mobile" placeholder="06XXXXXXXX" required OnlyNumber inputmode="numeric" pattern="[0-9]*">
                 <mat-hint>{{'input.phone.hint' | translate}}</mat-hint>
                 <mat-error *ngFor="let validation of validation_messages">
                     <mat-error class="error-message" *ngIf="myForm.get('mobile').hasError(validation.type) && (myForm.get('mobile').dirty || myForm.get('mobile').touched)">{{validation.message | translate}}</mat-error>
