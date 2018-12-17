@@ -1,4 +1,4 @@
-import { HostListener, Component, OnInit,ViewChild, ElementRef, Input, Output, EventEmitter, SimpleChanges} from '@angular/core';
+import { HostListener, Component, OnInit,ViewChild,ViewChildren, ElementRef, Input, Output, EventEmitter, SimpleChanges,QueryList} from '@angular/core';
 import { FlexLayoutModule  } from "@angular/flex-layout";
 import { FormControlName } from '@angular/forms';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
@@ -25,6 +25,8 @@ export class InputImagesComponent implements OnInit {
   @ViewChild('realImg') realImgElem : ElementRef;           //Real image element
   @ViewChild('shadowCanvas') shadowCanvasElem : ElementRef; //Shadow canvas for manipulation
   @ViewChild('shadowImg') shadowImgElem : ElementRef;       //Shadow image for manipulation
+  @ViewChild('gallery') gallery : ElementRef;       //Shadow image for manipulation
+  @ViewChildren('thumb') thumb : QueryList<ElementRef>;
 
   defaultImgLoaded : boolean = true;
   base64Img : string[] = new Array<string>();
@@ -47,6 +49,8 @@ export class InputImagesComponent implements OnInit {
       this.defaultImgLoaded = false;
     } else
       this.realImgElem.nativeElement.src = this.defaultImage;
+
+   
   }
 
 
@@ -61,7 +65,6 @@ export class InputImagesComponent implements OnInit {
     myImageData.onload = function () {
       obj.onShadowImageLoaded();
     }
-
   }
 
   //We copy the shadow image to the canvas for processing when new image is set into shadow image
@@ -74,12 +77,13 @@ export class InputImagesComponent implements OnInit {
   }
 
   canvasToReal(canvas:HTMLCanvasElement) {
+
+ /*   if (this.newElement) {
+      this.images.push(canvas.toDataURL('image/jpeg',0.9).toString()); //Updates currentElement
+      this.newElement = false;
+    }*/
     //We set the real image with the canvas data
     this.currentElement.src = canvas.toDataURL('image/jpeg',0.9);
-    if (this.newElement) {
-      this.images.push(canvas.toDataURL('image/jpeg',0.9).toString());
-      this.newElement = false;
-    }
     this.shadowImgElem.nativeElement.src = canvas.toDataURL('image/jpeg',0.9);
     this.realImgElem.nativeElement.src = canvas.toDataURL('image/jpeg',0.9);
   }
@@ -162,10 +166,6 @@ rotateImage() {
     this.canvasToReal(canvas.nativeElement);
   }
 
-
-
-
-
   //We have clicked on the galery fab
   openFileViewer() {
     this.inputElem.nativeElement.click();
@@ -182,11 +182,20 @@ rotateImage() {
         var obj = this;
         myImageData.src = reader.result.toString();
         myImageData.onload = function () {
-          obj.newElement = true;
+          obj.images.push(reader.result.toString()); //Updates currentElement
+          console.log("Setting current to : " + obj.thumb.last.nativeElement);
+          obj.currentElement = obj.thumb.last.nativeElement;
           obj.onShadowImageLoaded();
         }
       };
     }
+  }
+
+  //Handle now removal
+  resetImage() {
+    console.log("Reset image");
+    console.log(this.currentElement);
+    this.currentElement;
   }
 
 

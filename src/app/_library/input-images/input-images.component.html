@@ -1,5 +1,5 @@
-<img class="shadow" alt="shadow" #shadowImg style="border:1px solid green">
-<canvas class="shadow" #shadowCanvas style="border:1px solid red;"></canvas>
+<img class="shadow2" alt="shadow" #shadowImg style="border:1px solid green">
+<canvas class="shadow2" #shadowCanvas style="border:1px solid red;"></canvas>
 <div class="wrapper" fxLayout="column" style="text-align:center;margin:5px" [formGroup]="parentForm">
     <div fxLayout="row">
       <input  class="shadow" type="file" #fileInput (change)="loadImage($event)">  
@@ -16,8 +16,8 @@
         </button>
         </div>
     </div>  
-    <div fxLayout="row" fxLayoutGap="5px" style="margin-top:10px">
-      <div *ngFor="let image of images" class="image-wrapper">
+    <div #gallery fxLayout="row" fxLayoutGap="5px" class="gallery">
+      <div *ngFor="let image of images;let i=index;" class="image-wrapper">
         <img  #thumb [src]="image" alt="picture" (click)="selectImage(thumb)" class="image-item">
       </div>
     </div>
