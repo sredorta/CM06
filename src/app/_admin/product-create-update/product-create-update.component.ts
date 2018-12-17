@@ -5,6 +5,7 @@ import {FormGroup,FormControl,Validators} from '@angular/forms';
 import {CustomValidators, ParentErrorStateMatcher  } from '../../_library/helpers/custom.validators';
 import { Subscription } from 'rxjs';
 import {OnlyNumberDirective} from '../../_library/directives/onlyNumber.directive';
+import {InputImagesComponent} from '../../_library/input-images/input-images.component';
 
 @Component({
   selector: 'app-product-create-update',

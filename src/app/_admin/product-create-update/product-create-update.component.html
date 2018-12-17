@@ -1,5 +1,4 @@
 <div  class="admin-theme"> 
-   <h3>Product create !!!</h3>
   <!--In case we don't give brand and models we provide a way to find-->
   <div *ngIf="!brand">
       <app-search-brand [brand]="brand"></app-search-brand>
@@ -44,11 +43,9 @@
         <app-input-plus-minus fieldName="stock" [parentForm]="myForm" [default]="1"></app-input-plus-minus>        
         <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
             <mat-slide-toggle formControlName="isVehicle"></mat-slide-toggle>
-            <p>{{'product.admin.create.input.vehicle' | translate}}</p>
-        </div>                 
+            <p style="font-size:14px">{{'product.admin.create.input.vehicle' | translate}}</p>
+        </div>     
+        <app-input-images maxSize="400" [crop]="true" fieldName="image" [parentForm]="myForm" defaultImage="./assets/images/no-photo-available.jpg"></app-input-images>            
       </div>
   </form>    
-  <p>test</p>
-  <p>test</p>
-  <p>test</p>
 </div>
