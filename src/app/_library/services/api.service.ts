@@ -78,6 +78,7 @@ export interface IApiProduct {
   created_at: string;  
   brand:IApiBrand;
   model:IApiModel; 
+  images: IApiImage[];
 }
 
 
@@ -185,4 +186,21 @@ export class ApiService {
   public updateModel(id:string,name:string) : Observable<IApiModel>  {
     return this.http.post<IApiModel>(environment.apiURL +'/models/update', {"id":id, "name":name}).map(res => <IApiModel>res);
   }  
+
+  public createProduct(idModel:number,title:string,description:string,price:number,discount:number,stock:number,isVehicle:boolean,images:Array<string>) : Observable<IApiProduct> {
+    
+    let data = {
+      'model_id'    : idModel,
+      'title'       : title,
+      'description' : description,
+      'price'       : price,
+      'discount'    : discount,
+      'stock'       : stock,
+      'isVehicle'   : isVehicle,
+      'images'      : images
+    };
+    console.log(data);
+
+    return this.http.post<IApiProduct>(environment.apiURL +'/products/create',data ).map(res => <IApiProduct>res);
+  }
 }

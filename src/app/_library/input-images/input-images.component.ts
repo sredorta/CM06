@@ -30,10 +30,10 @@ export class InputImagesComponent implements OnInit {
   @ViewChildren('thumb') thumb : QueryList<ElementRef>;
 
   defaultImgLoaded : boolean = true;
-  base64Img : string[] = new Array<string>();
+  base64 : string[] = new Array<string>();
   currentElement : HTMLImageElement;
   newElement : boolean = false;
-  blobs : Blob[] = new Array<Blob>();
+  //blobs : Blob[] = new Array<Blob>();
   constructor() { }
 
   ngOnInit() {
@@ -79,9 +79,10 @@ export class InputImagesComponent implements OnInit {
         canvas.nativeElement.width = myImageData.width;
         canvas.nativeElement.height = myImageData.height;
         ctx.drawImage(myImageData, 0, 0);
-        canvas.nativeElement.toBlob(function(blob){
+        obj.setFormField(id,canvas.nativeElement.toDataURL('image/jpeg',0.9));
+        /*canvas.nativeElement.toBlob(function(blob){
             obj.setFormField(id,blob);
-        }, 'image/jpeg', 0.9);    
+        }, 'image/jpeg', 0.9);   */ 
       }
     });
   }
@@ -117,10 +118,11 @@ export class InputImagesComponent implements OnInit {
     this.realImgElem.nativeElement.src = canvas.toDataURL('image/jpeg',0.9);
     this.defaultImgLoaded = false;
     //Update the form data
-    let myObj = this;
+    this.setFormField(this.currentElement.attributes['id'].value,canvas.toDataURL('image/jpeg',0.9));
+/*    let myObj = this;
     canvas.toBlob(function(blob){
       myObj.setFormField(myObj.currentElement.attributes['id'].value,blob);
-    }, 'image/jpeg', 0.9);
+    }, 'image/jpeg', 0.9);*/
   }
 
   resizeCanvas(img:ElementRef,canvas:ElementRef) {
@@ -236,7 +238,7 @@ rotateImage() {
     let index = this.currentElement.attributes['id'].value;
     if (index>0){
       this.images.splice(index,1);
-      this.blobs.splice(index,1);
+      this.base64.splice(index,1);
       this.updateFormField();
       let subscription = this.thumb.changes.subscribe(res => {
         //Update current element to first image
@@ -250,7 +252,7 @@ rotateImage() {
       this.defaultImgLoaded = true;
       this.realImgElem.nativeElement.src = this.defaultImage;
       this.images = [];
-      this.blobs = [];
+      this.base64 = [];
       this.updateFormField();
     } 
 
@@ -266,22 +268,22 @@ rotateImage() {
   }
 
   //Sets the form field as specified in fieldName input with blobs of all images
-  setFormField(id:number, data:Blob) {
+  setFormField(id:number, data:string) {
     let obj;
     let field = this.fieldName;
     if (this.isMultiple) {
-      this.blobs[id] = data;
+      this.base64[id] = data;
       obj = {
-        [field] : this.blobs
+        [field] : this.base64
       };
     } else {
-      this.blobs[id] = data;
+      this.base64[id] = data;
       obj = {
-        [field] : this.blobs[0]
+        [field] : this.base64[0]
       };
     }
     console.log("Setting final data to:");
-    console.log(this.blobs);
+    console.log(this.base64);
     this.parentForm.patchValue(obj);
   }
 
@@ -291,11 +293,11 @@ rotateImage() {
     let field = this.fieldName;
     if (this.isMultiple) {
       obj = {
-        [field] : this.blobs
+        [field] : this.base64
       };    
     } else {
       obj = {
-        [field] : this.blobs[0]
+        [field] : this.base64[0]
       };  
     }
     console.log("Setting final data to:");
