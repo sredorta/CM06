@@ -45,7 +45,7 @@
             <mat-slide-toggle formControlName="isVehicle"></mat-slide-toggle>
             <p style="font-size:14px">{{'product.admin.create.input.vehicle' | translate}}</p>
         </div>     
-        <app-input-images maxSize="400" [crop]="true" fieldName="image" [parentForm]="myForm" defaultImage="./assets/images/no-photo-available.jpg"></app-input-images>            
+        <app-input-images [isMultiple]="false" maxSize="500" [crop]="false" fieldName="image" [parentForm]="myForm" defaultImage="./assets/images/no-photo-available.jpg"></app-input-images>            
       </div>
   </form>   
   <p>test</p> 

@@ -3,22 +3,26 @@
 <div class="wrapper" fxLayout="column" style="text-align:center;margin:5px" [formGroup]="parentForm">
     <div fxLayout="row">
       <input  class="shadow" type="file" #fileInput (change)="loadImage($event)">  
+      <div class="wrapper-real-image">
       <img  alt="picture" #realImg class="image-item">
-      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" fxLayoutGap.xs="5px" fxFlex="100%" style="margin-bottom:10px">
+      </div>
+      <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" fxLayoutGap.xs="5px" fxFlex="100%" style="margin-bottom:10px;margin-left:20px">
         <button mat-mini-fab color="primary" type="button" (click)="openFileViewer()">
             <mat-icon aria-label="Example icon-button with a heart icon">camera_alt</mat-icon>
         </button>
-        <button  mat-mini-fab color="primary" type="button" (click)="resetImage()">
+        <button  mat-mini-fab color="primary" type="button" (click)="resetImage()" [disabled]="defaultImgLoaded">
             <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
         </button>
-        <button   mat-mini-fab color="primary" type="button" (click)="rotateImage()">
+        <button   mat-mini-fab color="primary" type="button" (click)="rotateImage()" [disabled]="defaultImgLoaded">
             <mat-icon aria-label="Example icon-button with a heart icon">rotate_right</mat-icon>
         </button>
         </div>
     </div>  
-    <div #gallery fxLayout="row" fxLayoutGap="5px" class="gallery">
-      <div *ngFor="let image of images;let i=index;" class="image-wrapper" [ngClass]="{'selected' : isSelected(i)}">
-        <img  #thumb [src]="image" data-id="{{i}}" alt="picture" (click)="selectImage(thumb)" class="image-item" >
+    <div [ngClass]="{'shadow' : !isMultiple}">
+      <div #gallery fxLayout="row" fxLayoutGap="5px" class="gallery">
+        <div *ngFor="let image of images;let i=index;" class="image-wrapper" [ngClass]="{'selected' : isSelected(i)}">
+          <img  #thumb [src]="image" data-id="{{i}}" alt="picture" (click)="selectImage(thumb)" class="image-item" >
+        </div>
       </div>
-    </div>
+    </div>  
   </div>

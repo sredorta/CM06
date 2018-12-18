@@ -1,16 +1,16 @@
 .shadow {
-    display:none;
+    display:none !important;
 }
 
 .image-wrapper {
     //padding:3px;
     margin:3px;
     border:1px solid;
-    opacity: 0.8;
-    min-width:80px;
-    max-width:80px;
-    min-height: 80px;
-    max-height: 80px;
+    opacity: 0.4;
+    min-width:60px;
+    max-width:60px;
+    min-height: 60px;
+    max-height: 60px;
 }
 
 .image-wrapper:hover {
@@ -22,6 +22,7 @@
     width:100%;
     height:100%;
     max-width:150px;
+    max-height: 150px;
     object-fit:scale-down;
 }
 
@@ -30,7 +31,14 @@
     margin-top:10px;
     overflow-x: auto;
 }
-
+.wrapper-real-image {
+    max-width: 150px;
+    max-height:150px;
+    min-width: 150px;
+    min-height: 150px;
+    border:1px solid;
+}
 .selected {
     box-shadow: 0px 0px 4px 0px;
+    opacity:1;
 }

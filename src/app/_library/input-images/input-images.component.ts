@@ -3,7 +3,8 @@ import { FlexLayoutModule  } from "@angular/flex-layout";
 import { FormControlName } from '@angular/forms';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
 import * as ts from "typescript";
-import { Observable,Observer, of, throwError } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
 
 @Component({
   selector: 'app-input-images',
@@ -15,8 +16,8 @@ export class InputImagesComponent implements OnInit {
   @Input() parentForm : FormGroup;
   @Input() fieldName : string = "image";
   @Input() defaultImage : string = "./assets/images/no-photo-available.jpg";
-  @Input() images :string[] = ["./assets/images/galleria-debug-1.jpg","./assets/images/logo.jpg","./assets/images/trace.png","./assets/images/galleria-debug-1.jpg","./assets/images/galleria-debug-2.jpg"];  //Input images if any
-  @Input() maxSize : number = 200;
+  @Input() images :string[];// = ["./assets/images/logo.jpg","./assets/images/trace.png","./assets/images/galleria-debug-1.jpg","./assets/images/galleria-debug-2.jpg"];  //Input images if any
+  @Input() maxSize : number = 500;
   @Input() crop : boolean = true;
   @Input() isMultiple : boolean = false;
 
@@ -32,24 +33,59 @@ export class InputImagesComponent implements OnInit {
   base64Img : string[] = new Array<string>();
   currentElement : HTMLImageElement;
   newElement : boolean = false;
-
+  blobs : Blob[] = new Array<Blob>();
   constructor() { }
 
   ngOnInit() {
     this.currentElement = this.realImgElem.nativeElement;
     if (this.images) {
+      let obj : any = [];
+      if (!this.isMultiple) {
+        obj = this.images[0];
+        this.images = [];
+        this.images[0] = obj;
+      }
+
       //Update shadow image with primary image and this will update canvas
       this.defaultImgLoaded = false;
-    } else
+    } else {
+      this.images = [];
       this.realImgElem.nativeElement.src = this.defaultImage;
+      this.defaultImgLoaded = true;
+    }
   }
+
 
   ngAfterViewInit() {
     //Update current element to first image, timeout is required to avoid Expression has changed before checked
+    if (this.images.length>0)
     setTimeout(() => {
+      this.generateInitalBlobs();
       this.selectImage(this.thumb.first.nativeElement);
     }); 
   }
+
+  //Copy the initial images to blobs
+  generateInitalBlobs() {
+    this.thumb.forEach((elem: ElementRef,id:number) => {
+      this.shadowImgElem.nativeElement.src = elem.nativeElement.src;
+      var obj = this;
+      var myImageData = new Image();
+      var obj = this;
+      myImageData.src = elem.nativeElement.src;
+      myImageData.onload = function () {
+        var canvas = obj.shadowCanvasElem;  
+        var ctx = canvas.nativeElement.getContext("2d");
+        canvas.nativeElement.width = myImageData.width;
+        canvas.nativeElement.height = myImageData.height;
+        ctx.drawImage(myImageData, 0, 0);
+        canvas.nativeElement.toBlob(function(blob){
+            obj.setFormField(id,blob);
+        }, 'image/jpeg', 0.9);    
+      }
+    });
+  }
+
 
   //When an image is selected we update the shadow
   selectImage(img:HTMLImageElement) {
@@ -61,6 +97,7 @@ export class InputImagesComponent implements OnInit {
     myImageData.src = img.src;
     myImageData.onload = function () {
       obj.onShadowImageLoaded();
+      obj.canvasToReal();
     }
   }
 
@@ -69,14 +106,21 @@ export class InputImagesComponent implements OnInit {
       var canvas = this.shadowCanvasElem.nativeElement;   
       if (this.crop) this.resizeAndCropCanvas(this.shadowImgElem,this.shadowCanvasElem);
       else this.resizeCanvas(this.shadowImgElem,this.shadowCanvasElem);
-      this.canvasToReal(canvas);
+      return canvas;
   }
 
-  canvasToReal(canvas:HTMLCanvasElement) {
+  canvasToReal() {
     //We set the real image with the canvas data
+    var canvas = this.shadowCanvasElem.nativeElement;  
     this.currentElement.src = canvas.toDataURL('image/jpeg',0.9);
     this.shadowImgElem.nativeElement.src = canvas.toDataURL('image/jpeg',0.9);
     this.realImgElem.nativeElement.src = canvas.toDataURL('image/jpeg',0.9);
+    this.defaultImgLoaded = false;
+    //Update the form data
+    let myObj = this;
+    canvas.toBlob(function(blob){
+      myObj.setFormField(myObj.currentElement.attributes['id'].value,blob);
+    }, 'image/jpeg', 0.9);
   }
 
   resizeCanvas(img:ElementRef,canvas:ElementRef) {
@@ -153,7 +197,7 @@ rotateImage() {
       var origY = -(canvas.nativeElement.height/2) - delta ;
     } 
     ctx.drawImage(img.nativeElement, 0,0,img.nativeElement.width,img.nativeElement.height,origX,origY,cw,ch); 
-    this.canvasToReal(canvas.nativeElement);
+    this.canvasToReal();
   }
 
   //We have clicked on the galery fab
@@ -172,7 +216,10 @@ rotateImage() {
         var obj = this;
         myImageData.src = reader.result.toString();
         myImageData.onload = function () {
-          obj.images.push(reader.result.toString()); //Updates currentElement
+          if (!obj.isMultiple)
+            obj.images[0] = reader.result.toString();
+          else   
+            obj.images.push(reader.result.toString()); //Updates currentElement
         }
         let subscription = this.thumb.changes.subscribe(res => {
           setTimeout(() => {
@@ -187,14 +234,25 @@ rotateImage() {
   //Handle now removal
   resetImage() {
     let index = this.currentElement.attributes['id'].value;
-    this.images.splice(index,1);
-    let subscription = this.thumb.changes.subscribe(res => {
-      //Update current element to first image
-      setTimeout(() => {
-        this.selectImage(this.thumb.first.nativeElement); 
-      });   
-      subscription.unsubscribe();
-    });
+    if (index>0){
+      this.images.splice(index,1);
+      this.blobs.splice(index,1);
+      this.updateFormField();
+      let subscription = this.thumb.changes.subscribe(res => {
+        //Update current element to first image
+        setTimeout(() => {
+          this.selectImage(this.thumb.first.nativeElement); 
+        });   
+        subscription.unsubscribe();
+      });
+    } else {
+      //We are removing first element
+      this.defaultImgLoaded = true;
+      this.realImgElem.nativeElement.src = this.defaultImage;
+      this.images = [];
+      this.blobs = [];
+      this.updateFormField();
+    } 
 
   }
 
@@ -207,6 +265,42 @@ rotateImage() {
         return false;  
   }
 
+  //Sets the form field as specified in fieldName input with blobs of all images
+  setFormField(id:number, data:Blob) {
+    let obj;
+    let field = this.fieldName;
+    if (this.isMultiple) {
+      this.blobs[id] = data;
+      obj = {
+        [field] : this.blobs
+      };
+    } else {
+      this.blobs[id] = data;
+      obj = {
+        [field] : this.blobs[0]
+      };
+    }
+    console.log("Setting final data to:");
+    console.log(this.blobs);
+    this.parentForm.patchValue(obj);
+  }
 
+  //Updates output with current blobs
+  updateFormField() {
+    let obj;
+    let field = this.fieldName;
+    if (this.isMultiple) {
+      obj = {
+        [field] : this.blobs
+      };    
+    } else {
+      obj = {
+        [field] : this.blobs[0]
+      };  
+    }
+    console.log("Setting final data to:");
+    console.log(obj);
+    this.parentForm.patchValue(obj);
+  }
 
 }
