@@ -41,8 +41,13 @@ export class ProductCreateUpdateComponent implements OnInit {
       ])),  
       stock: new FormControl('', Validators.compose([])),    
       isVehicle: new FormControl('', Validators.compose([])),  
+      images: new FormControl(null,null),
     });        
   }
 
+  onCreateProductSubmit(value) {
+    console.log(value);
+    console.log(this.myForm.controls);
+  }
 
 }
