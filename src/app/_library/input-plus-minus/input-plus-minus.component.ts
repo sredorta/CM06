@@ -15,8 +15,6 @@ export class InputPlusMinusComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log("Parent form is:");
-    console.log(this.parentForm);
     this.setFormField(this.default);
     this.parentForm.controls[this.fieldName].valueChanges.subscribe((res : number)=> {
       this.value = Number(res);

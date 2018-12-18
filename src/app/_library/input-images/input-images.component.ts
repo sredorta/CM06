@@ -39,20 +39,17 @@ export class InputImagesComponent implements OnInit {
     this.currentElement = this.realImgElem.nativeElement;
     if (this.images) {
       //Update shadow image with primary image and this will update canvas
-      this.shadowImgElem.nativeElement.src = this.images[0];
-      var myImageData = new Image();
-      var obj = this;
-      myImageData.src = this.images[0];
-      myImageData.onload = function () {
-        obj.onShadowImageLoaded();
-      }
       this.defaultImgLoaded = false;
     } else
       this.realImgElem.nativeElement.src = this.defaultImage;
-
-   
   }
 
+  ngAfterViewInit() {
+    //Update current element to first image, timeout is required to avoid Expression has changed before checked
+    setTimeout(() => {
+      this.selectImage(this.thumb.first.nativeElement);
+    }); 
+  }
 
   //When an image is selected we update the shadow
   selectImage(img:HTMLImageElement) {
@@ -69,7 +66,6 @@ export class InputImagesComponent implements OnInit {
 
   //We copy the shadow image to the canvas for processing when new image is set into shadow image
   onShadowImageLoaded() {
-    console.log("Running onShadowImageLoaded !");
       var canvas = this.shadowCanvasElem.nativeElement;   
       if (this.crop) this.resizeAndCropCanvas(this.shadowImgElem,this.shadowCanvasElem);
       else this.resizeCanvas(this.shadowImgElem,this.shadowCanvasElem);
@@ -77,11 +73,6 @@ export class InputImagesComponent implements OnInit {
   }
 
   canvasToReal(canvas:HTMLCanvasElement) {
-
- /*   if (this.newElement) {
-      this.images.push(canvas.toDataURL('image/jpeg',0.9).toString()); //Updates currentElement
-      this.newElement = false;
-    }*/
     //We set the real image with the canvas data
     this.currentElement.src = canvas.toDataURL('image/jpeg',0.9);
     this.shadowImgElem.nativeElement.src = canvas.toDataURL('image/jpeg',0.9);
@@ -117,7 +108,6 @@ export class InputImagesComponent implements OnInit {
   }
 
   resizeAndCropCanvas(img:ElementRef,canvas:ElementRef) {
-    console.log("CROP : TRUE");
     let sourceWidth = img.nativeElement.width;
     let sourceHeight = img.nativeElement.height;
     let sourceSize;
@@ -183,21 +173,39 @@ rotateImage() {
         myImageData.src = reader.result.toString();
         myImageData.onload = function () {
           obj.images.push(reader.result.toString()); //Updates currentElement
-          console.log("Setting current to : " + obj.thumb.last.nativeElement);
-          obj.currentElement = obj.thumb.last.nativeElement;
-          obj.onShadowImageLoaded();
         }
+        let subscription = this.thumb.changes.subscribe(res => {
+          setTimeout(() => {
+            this.selectImage(res.last.nativeElement);
+          });
+          subscription.unsubscribe();
+        });
       };
     }
   }
 
   //Handle now removal
   resetImage() {
-    console.log("Reset image");
-    console.log(this.currentElement);
-    this.currentElement;
+    let index = this.currentElement.attributes['id'].value;
+    this.images.splice(index,1);
+    let subscription = this.thumb.changes.subscribe(res => {
+      //Update current element to first image
+      setTimeout(() => {
+        this.selectImage(this.thumb.first.nativeElement); 
+      });   
+      subscription.unsubscribe();
+    });
+
   }
 
+  //Returns if thumb is selected or not for css class
+  isSelected(id) {
+      if (this.currentElement.attributes['id'])
+        if (id == this.currentElement.attributes['id'].value) return true;
+        else return false;
+      else 
+        return false;  
+  }
 
 
 
