@@ -33,10 +33,8 @@ export class SearchBrandComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._subscriptions.push(this.data.getBrands().subscribe((res : IApiBrand[]) => {
-      this.brands = res;
-      this.dataSource = new MatTableDataSource(this.brands);
-    }));    
+    this.brands = this.data.getBrands();
+    this.dataSource = new MatTableDataSource(this.brands);
     this.formSearchBrand =  new FormGroup({    
       search: new FormControl(null,null)
     });    

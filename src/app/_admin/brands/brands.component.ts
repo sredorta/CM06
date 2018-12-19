@@ -102,6 +102,7 @@ export class BrandsComponent implements OnInit {
         this.size = EApiImageSizes.thumbnail;
       }
     }));*/
+  
     this.createForms();
     this.getBrands();
   }
@@ -113,11 +114,8 @@ export class BrandsComponent implements OnInit {
   }
 
   getBrands() {
-    this._subscriptions.push(this.data.getBrands().subscribe((res : IApiBrand[]) => {
-      console.log("got results !!!");
-      console.log(res);
-      if (res !== null) {
-        let brands = res;
+     let brands = this.data.getBrands();
+      if ( brands !== null) {
         this.dataSource = new MatTableDataSource(brands);
         this.brandsCount = this.dataSource.data.length;
         this.brandsDisplayed = this.brandsCount;
@@ -131,8 +129,7 @@ export class BrandsComponent implements OnInit {
         for (let brand of this.dataSource.data) {
           this.selected[brand.id] = false;
         }
-      }
-    }));    
+      } 
   }
 
 

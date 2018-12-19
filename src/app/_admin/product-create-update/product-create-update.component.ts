@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild, Input,ElementRef} from '@angular/core';
 import { IApiBrand, IApiModel, IApiProduct, ApiService } from '../../_library/services/api.service';
+import { DataService } from '../../_services/data.service';
+import { Router } from '@angular/router';
+
 import {SearchBrandComponent} from '../../_library/search-brand/search-brand.component';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
 import {CustomValidators, ParentErrorStateMatcher  } from '../../_library/helpers/custom.validators';
@@ -20,9 +23,11 @@ export class ProductCreateUpdateComponent implements OnInit {
   //Forms
   validation_messages = CustomValidators.getMessages();
   myForm: FormGroup; 
+  products : IApiProduct[] = null;
+
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private api : ApiService) { }
+  constructor(private api : ApiService, private data : DataService, private router : Router) { }
 
   ngOnInit() {
     this.myForm =  new FormGroup({    
@@ -44,7 +49,7 @@ export class ProductCreateUpdateComponent implements OnInit {
       isVehicle: new FormControl('', Validators.compose([])),  
       images: new FormControl(null,null),
     });   
-    this.myForm.controls['isVehicle'].setValue(false);     
+    this.myForm.controls['isVehicle'].setValue(false); 
   }
 
   //On reset form
@@ -62,6 +67,13 @@ export class ProductCreateUpdateComponent implements OnInit {
     this._subscriptions.push(this.api.createProduct(this.model.id,value.title,value.description,value.price,value.discount,value.stock,value.isVehicle,value.images).subscribe((res: IApiProduct) => {
       console.log("Finished create !");
       console.log(res);
+      this.products = this.data.getProducts();
+      this.products.push(res);
+      this.data.setProducts(this.products);
+      this.router.navigate(["/admin-products"]);
+
+
+      //this.data.
       //this._addBrand(res);
       //this.messageService.add({severity:'success', summary:trans['brands.admin.toast.create.summary'], detail:trans['brands.admin.toast.create.detail']});
     }));

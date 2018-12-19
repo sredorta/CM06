@@ -40,7 +40,7 @@ export class ProductsComponent implements OnInit {
   productsCount : number = 0;
   productsDisplayed : number = 0;
   lastProductFilter : string = null;
-//  currentBrand : IApiBrand = null;
+  //brands : IApiBrand[] = null;
 
   expand : boolean = false;
   //myForm: FormGroup; 
@@ -77,13 +77,24 @@ export class ProductsComponent implements OnInit {
     return "url(" + this.defaultImage + ")";  
   }
 
+  
+  getBrandUrl(product: IApiProduct) {
+    let brands = this.data.getBrands();
+    if (brands) {
+      let brand = brands[brands.findIndex(obj => obj.id === product.brand_id)];
+      if (brand.image)
+         return brand.image.sizes[EApiImageSizes.tinythumbnail].url ;
+      else
+         return  this.defaultImage;  
+    }
+  }
+
   getProducts() {
-    this._subscriptions.push(this.data.getProducts().subscribe((res : IApiProduct[]) => {
-      console.log("got results !!!");
-      console.log(res);
-      if (res !== null) {
-        let products = res;
-        this.dataSource = new MatTableDataSource(res);
+//    this._subscriptions.push(this.api.getProducts().subscribe((res : IApiProduct[]) => {
+      let products = this.data.getProducts();
+      //this.data.setProducts(res);
+      if (products !== null) {
+        this.dataSource = new MatTableDataSource(products);
         this.productsCount = this.dataSource.data.length;
         this.productsDisplayed = this.productsCount;
         //Override filter
@@ -91,14 +102,14 @@ export class ProductsComponent implements OnInit {
           //TODO add here brand/model
           return data.title.toLowerCase().includes(filter) || data.brand.toLowerCase().includes(filter) || data.model.toLowerCase().includes(filter);
         };
-        this.loadingTableProducts = false;
         //Init as all not selected
         this.selected = [];
         for (let brand of this.dataSource.data) {
           this.selected[brand.id] = false;
         }
+        this.loadingTableProducts = false;
       }
-    }));    
+//    }));    
   }
 
 
@@ -121,24 +132,44 @@ export class ProductsComponent implements OnInit {
     //Delete the brand when clicking to delete
     onDeleteProduct(id) {
       console.log("OnDeleteProduct");
-/*      this._subscriptions.push(this.translate.get(["brands.admin.dialog.delete.header","brands.admin.dialog.delete.content","brands.admin.toast.delete.summary", "brands.admin.toast.delete.detail"]).subscribe( trans => {
+      this._subscriptions.push(this.translate.get(["products.admin.dialog.delete.header","products.admin.dialog.delete.content","products.admin.toast.delete.summary", "products.admin.toast.delete.detail"]).subscribe( trans => {
         let dialogRef = this.dialog.open(MakeSureDialogComponent, {
           disableClose :true,
           panelClass : "admin-theme",
-          data:  {title: trans['brands.admin.dialog.delete.header'],
-                  text:trans['brands.admin.dialog.delete.content']
+          data:  {title: trans['products.admin.dialog.delete.header'],
+                  text:trans['products.admin.dialog.delete.content']
                 } 
         });
         this._subscriptions.push(dialogRef.afterClosed().subscribe((result : boolean) => {
           if (result) {   
-            this._subscriptions.push(this.api.deleteBrand(id).subscribe(res=> {
-              this._deleteBrand(id);
-              this.messageService.add({severity:'success', summary: trans['brands.admin.toast.delete.summary'], detail:trans['brands.admin.toast.delete.detail']});
+            this._subscriptions.push(this.api.deleteProduct(id).subscribe(res=> {
+              this._deleteProduct(id);
+              this.messageService.add({severity:'success', summary: trans['products.admin.toast.delete.summary'], detail:trans['products.admin.toast.delete.detail']});
             }));           
           } 
         }));    
-      }));*/
+      }));
     }
+
+  //Update the data model
+  private _deleteProduct(id:number) {
+    //Find the corresponding datasource element
+    const itemIndex = this.dataSource.data.findIndex(obj => obj.id === id);
+    this.dataSource.data.splice(itemIndex, 1); 
+    this.data.setProducts(this.dataSource.data);
+
+    const itemIndexFilter = this.dataSource.filteredData.findIndex(obj => obj.id === id);
+    if (itemIndexFilter>=0) {
+      this.dataSource.filteredData.splice(itemIndexFilter, 1); 
+    }
+    this.table.renderRows();
+    this.productsCount = this.dataSource.data.length;
+    this.productsDisplayed = this.dataSource.filteredData.length;
+
+    
+  }
+
+
     rowClick(id) {
       console.log("Row click " + id);
     }

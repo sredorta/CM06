@@ -123,8 +123,11 @@
     "products.admin.table.picture"              : "Photo",
     "products.admin.table.title"                : "Titre",
     "products.admin.table.brand"                : "Marque",
-    "products.admin.table.model"                : "Modèle"
-
+    "products.admin.table.model"                : "Modèle",
+    "products.admin.dialog.delete.header"       : "Suppresión d'un produit",
+    "products.admin.dialog.delete.content"      : " ATTENTION ! Êtes vous sûr de vouloir supprimer le produit ?",
+    "products.admin.toast.delete.summary"       : "Produit supprimé",
+    "products.admin.toast.delete.detail"        : "Le produit vient d'être supprimé"
 
 
 

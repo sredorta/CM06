@@ -7,6 +7,7 @@ import {ResetpasswordComponent} from './_library/auth/resetpassword/resetpasswor
 import {ProductCreateStepperComponent} from './_admin/product-create-stepper/product-create-stepper.component';
 import {ProductCreateUpdateComponent} from './_admin/product-create-update/product-create-update.component';
 import {ProductsComponent} from './_admin/products/products.component';
+import {ProductItemComponent} from './product-item/product-item.component';
 
 const routes: Routes = [
   {
@@ -41,7 +42,7 @@ const routes: Routes = [
   },    
   {
     path: 'tmp',
-    component: ProductCreateUpdateComponent,
+    component: ProductItemComponent,
     //canActivate: [AdminGuard]
   },   
 /*  {

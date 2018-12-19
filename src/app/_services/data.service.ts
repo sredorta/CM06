@@ -18,39 +18,27 @@ import { ApiService, EApiImageSizes, IApiBrand, IApiProduct } from '../_library/
   providedIn: 'root'
 })
 export class DataService {
-  private _brands = new BehaviorSubject<IApiBrand[]>(null);     //Stores all brands
-  private _products = new BehaviorSubject<IApiProduct[]>(null); //Stores all products
+  private _brands : IApiBrand[] = [];       //Stores downloaded brands
+  private _products : IApiProduct[] = [];   //Stores downloaded products
 
   constructor(private api : ApiService) { }
 
-  public getBrands() : Observable<IApiBrand[]> {
-    //If brands is null we call the api and get all brands
-    if (this._brands.value == null) {
-      this.api.getBrands().subscribe((res : IApiBrand[]) => {
-        this._brands.next(res);
-      });
-    }
+  public getBrands() : IApiBrand[] {
     return this._brands;
   }
 
   //Sets all available brands
   public setBrands(brands: IApiBrand[]) {
-    this._brands.next(brands);
+    this._brands = brands;
   }
 
-  public getProducts() : Observable<IApiProduct[]> {
-    //If brands is null we call the api and get all brands
-    if (this._products.value == null) {
-      this.api.getProducts().subscribe((res : IApiProduct[]) => {
-        this._products.next(res);
-      });
-    }
+  public getProducts()  {
     return this._products;
   }
 
   //Sets all available brands
   public setProducts(products: IApiProduct[]) {
-    this._products.next(products);
+    this._products = products;
   }
 
 }

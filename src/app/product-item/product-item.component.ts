@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { ApiService } from '../_library/services/api.service';
 import {TooltipModule} from 'primeng/tooltip';
 import {ViewEncapsulation} from '@angular/core';
+import { DataService } from '../_services/data.service';
 
 @Component({
   selector: 'app-product-item',
@@ -16,13 +17,17 @@ import {ViewEncapsulation} from '@angular/core';
 })
 export class ProductItemComponent implements OnInit {
   product : Product = new Product(null);
+  defaultImage :string = "./assets/images/no-photo-available.jpg";
+
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private dialog: MatDialog, private api : ApiService) { }
+  constructor(private dialog: MatDialog, private api : ApiService, private data : DataService) { }
 
   ngOnInit() {
+    this.product = new Product(this.data.getProducts()[11]);
+    console.log(this.product);
     //For debug only
-    this.product.title = "Amortisseur avant titre";
+/*    this.product.title = "Amortisseur avant titre";
     this.product.description = "Amortisseur avant de 150mm de debatement pour une moto qui dechire";
     this.product.price = 2800;
     this.product.discount = 10;
@@ -31,9 +36,17 @@ export class ProductItemComponent implements OnInit {
       this.api.getModels(this.product.brand.id).subscribe(res => {
         this.product.model = res[0];
         console.log(this.product.model);
-      });*/
-    });
+      });
+    });*/
 
+  }
+
+
+  getProductPrimaryImage() {
+    if (this.product.images)
+      if(this.product.images[0])
+        return this.product.images[0].sizes[EApiImageSizes.full].url;
+    return this.defaultImage;    
   }
 
   showDetailDialog() {

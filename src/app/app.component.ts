@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import {LoginComponent} from './_library/auth/login/login.component';
 import { TranslateService } from '@ngx-translate/core'; //NGX-TRANSLATE
 import {User} from './_library/models/user';
-import {ApiService, IApiUserAuth, EApiImageSizes, IApiBrand} from './_library/services/api.service';
+import {ApiService, IApiUserAuth, EApiImageSizes, IApiBrand, IApiProduct} from './_library/services/api.service';
 import {DataService} from './_services/data.service';
 import {InitComponent} from './init/init.component';
 
@@ -36,7 +36,14 @@ export class AppComponent {
     //This needs to be moved into config page
     this._subscriptions.push(this.api.getAuthUser().subscribe((res: IApiUserAuth)=> {
       this.api.setCurrent(res); 
-      this.loading = false;
+      this._subscriptions.push(this.api.getBrands().subscribe((res:IApiBrand[]) => {
+        this.data.setBrands(res);
+        this._subscriptions.push(this.api.getProducts().subscribe((res:IApiProduct[])=> {
+            this.data.setProducts(res);
+            this.loading = false;
+        }));
+      }));
+      //this.loading = false;
       console.log("Finished loading !!!");
     }));
 

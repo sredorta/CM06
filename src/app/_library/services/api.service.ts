@@ -207,4 +207,8 @@ export class ApiService {
   public getProducts() : Observable<IApiProduct[]> {
     return this.http.get<IApiProduct[]>(environment.apiURL +'/products').map(res => <IApiProduct[]>res);
   }
+  
+  public deleteProduct(id:string) : Observable<any>  { 
+    return this.http.post<any>(environment.apiURL +'/products/delete', {"id":id});
+  }
 }
