@@ -99,6 +99,7 @@ import { ProductItemComponent } from './product-item/product-item.component';
 import { ProductItemDialogComponent } from './product-item-dialog/product-item-dialog.component';
 import { InputPlusMinusComponent } from './_library/input-plus-minus/input-plus-minus.component';
 import { InputImagesComponent } from './_library/input-images/input-images.component';
+import { ProductsComponent } from './_admin/products/products.component';
 
 @NgModule({
   declarations: [
@@ -123,7 +124,8 @@ import { InputImagesComponent } from './_library/input-images/input-images.compo
     ProductItemComponent,
     ProductItemDialogComponent,
     InputPlusMinusComponent,
-    InputImagesComponent
+    InputImagesComponent,
+    ProductsComponent
     //End of library
   ],
   imports: [

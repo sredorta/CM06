@@ -1,4 +1,4 @@
-import {IApiProduct, IApiBrand, IApiModel, IApiImage} from '../services/api.service';
+import {IApiProduct, IApiBrand, IApiModel, IApiImage, IApiAttachment} from '../services/api.service';
 
 
 export class Product {
@@ -7,9 +7,11 @@ export class Product {
     description:string;
     price:number;
     discount:number;
-    brand: IApiBrand;
-    model: IApiModel;
-    images: IApiImage[];
+    brand: string;
+    model: string;
+    brand_id: number;
+    model_id: number;
+    images: IApiAttachment[];
 
 
     constructor(product: IApiProduct) {
@@ -21,7 +23,9 @@ export class Product {
             this.discount = product.discount;
             this.brand = product.brand;
             this.model = product.model;
-            //this.images = product.images;
+            this.brand_id = product.brand_id;
+            this.model_id = product.brand_id;
+            this.images = product.images;
         } else {
             this.id = null;
         }

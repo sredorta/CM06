@@ -27,11 +27,11 @@ export class ProductItemComponent implements OnInit {
     this.product.price = 2800;
     this.product.discount = 10;
     this.api.getBrands().subscribe(res => {
-      this.product.brand = res[0];
+/*      this.product.brand = res[0];
       this.api.getModels(this.product.brand.id).subscribe(res => {
         this.product.model = res[0];
         console.log(this.product.model);
-      });
+      });*/
     });
 
   }

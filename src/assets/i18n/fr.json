@@ -116,7 +116,16 @@
     "product.admin.create.input.vehicle"                : "Ce produit c'est un vehicle complet",
     "product.admin.create.input.stock.label"            : "Stock",
     "product.admin.create.input.stock.placeholder"      : "Stock disponible",
-    "product.admin.create.input.stock.hint"             : "Écrivez la quantité de stock disponible"
+    "product.admin.create.input.stock.hint"             : "Écrivez la quantité de stock disponible",
+
+    "products.admin.search.label"               : "Chercher un produit",
+    "products.admin.search.placeholder"         : "Chercher",
+    "products.admin.table.picture"              : "Photo",
+    "products.admin.table.title"                : "Titre",
+    "products.admin.table.brand"                : "Marque",
+    "products.admin.table.model"                : "Modèle"
+
+
 
 
 

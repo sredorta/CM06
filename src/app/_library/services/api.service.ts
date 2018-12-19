@@ -87,8 +87,11 @@ export interface IApiProduct {
   price:number;
   discount:number;
   created_at: string;  
-  brand:IApiBrand;
-  model:IApiModel; 
+  updated_at: string;
+  brand:string;
+  model:string;
+  brand_id:number;
+  model_id:number; 
   images: IApiAttachment[];
 }
 
@@ -188,7 +191,7 @@ export class ApiService {
   }  
 
   public createProduct(idModel:number,title:string,description:string,price:number,discount:number,stock:number,isVehicle:boolean,images:Array<string>) : Observable<IApiProduct> {
-    
+    if (!discount) discount = 0;
     let data = {
       'model_id'    : idModel,
       'title'       : title,
@@ -199,8 +202,9 @@ export class ApiService {
       'isVehicle'   : isVehicle,
       'images'      : images
     };
-    console.log(data);
-
     return this.http.post<IApiProduct>(environment.apiURL +'/products/create',data ).map(res => <IApiProduct>res);
+  }
+  public getProducts() : Observable<IApiProduct[]> {
+    return this.http.get<IApiProduct[]>(environment.apiURL +'/products').map(res => <IApiProduct[]>res);
   }
 }

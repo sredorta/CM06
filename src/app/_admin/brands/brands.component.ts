@@ -105,6 +105,7 @@ export class BrandsComponent implements OnInit {
     this.createForms();
     this.getBrands();
   }
+
   getImageUrl(brand: IApiBrand) {
     if (brand.image)
       return "url(" + brand.image.sizes['thumbnail'].url + ")";

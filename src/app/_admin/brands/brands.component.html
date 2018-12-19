@@ -13,8 +13,8 @@
         <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
     <p style="margin-bottom:5px;margin-top:0px;" class="total">TOTAL : {{brandsDisplayed}} / <span style="font-weight:bold">{{brandsCount}}</span></p> 
-    <mat-accordion>
-      <mat-expansion-panel #expansion style="margin-bottom:5px">
+<!--    <mat-accordion>-->
+      <mat-expansion-panel #expansion style="margin-bottom:5px" [expanded]="false">
         <mat-expansion-panel-header>
           <mat-panel-title fxLayoutAlign="start center"><mat-icon style="margin-right:10px">add_box</mat-icon>{{'brands.admin.create.title' | translate}}</mat-panel-title>
           <mat-panel-description fxLayoutAlign="start center">{{'brands.admin.create.subtitle' | translate}}</mat-panel-description>
@@ -43,7 +43,7 @@
           </div>  
         </form>      
         </mat-expansion-panel>
-      </mat-accordion>
+ <!--     </mat-accordion>-->
       <table #myTable mat-table [dataSource]="dataSource" multiTemplateDataRows class="table">
         <ng-container matColumnDef="image">
             <th mat-header-cell *matHeaderCellDef>{{'brands.admin.create.table.picture' | translate}}</th>

@@ -1,0 +1,132 @@
+@import "../../../themes.scss";
+
+$primary: map-get($admin-theme,primary);
+$accent: map-get($admin-theme,accent);
+
+//Color for toasts
+:host ::ng-deep .custom-toast .ui-toast-message {
+    color: #012908;
+    background: rgb(180, 216, 192);
+}  
+:host ::ng-deep .custom-toast .ui-toast-close-icon {
+    color: #012908;
+}
+
+
+//Table formatting
+.table-container {
+    min-height:300px;
+  }
+
+  th,td {
+    min-width:60px;
+  }
+  
+  table {
+    width: 100%;
+  }
+
+
+  tr.detail-row {
+    height: 0;
+  }
+
+  .element-row td {
+    border-bottom-width: 0;
+  }
+
+  .mat-column-delete {
+      width:60px;
+      min-width:60px;
+      max-width:60px;
+      font-size:12px;
+      transition: all 0.3s ease-in-out;
+  }
+  .mat-column-modify {
+      width:60px;
+      min-width:60px;
+      max-width:60px;
+      font-size:12px;      
+      transition: all 0.3s ease-in-out;
+  }
+
+  .mat-column-image {
+      width:90px;
+  }
+
+  .element-detail {
+    overflow: hidden;
+    display: flex;
+  }
+
+  tr.element-row:not(.expanded-row):hover {
+    background: rgba(255,255,255,0.1);
+    cursor:pointer;
+  }
+
+
+  td.mat-column-modify:hover {
+      cursor:pointer;
+      color: mat-color($primary,700) !important;
+      transform:scale(1.2);
+  }
+
+  td.mat-column-delete:hover {
+    cursor:pointer;
+    color: mat-color($primary,700) !important;
+    transform:scale(1.2);
+}
+
+  tr.element-row:not(.expanded-row):active {
+    background: rgba(255,255,255,0.2);
+  }
+
+  tr.element-row.expanded-row {
+    //background-color: black !important;
+    background: mat-color($primary,700) !important;
+  }
+  //Selected row   
+  .selected {
+    background-color: black !important;
+  }
+
+//End of table
+.image {
+    background-size:cover;
+    width:50px;
+    height:50px;
+    border-radius:3px;
+    opacity:0.8;
+    margin:5px;
+}
+//Do some resizing to fit on small screens
+@media only screen and (max-width: 400px) {
+  .image {
+    background-size:cover;
+    width:30px;
+    height:30px;
+    border-radius:3px;
+    opacity:0.8;
+    margin:3px;
+  }
+  .mat-column-image {
+    width:35px;
+  }
+  .mat-column-delete {
+    width:50px;
+    min-width:50px;
+    max-width:50px;
+    font-size:10px;
+    transition: all 0.3s ease-in-out;
+  }
+  .mat-column-modify {
+      width:50px;
+      min-width:50px;
+      max-width:50px;
+      font-size:10px;      
+      transition: all 0.3s ease-in-out;
+  }  
+  .mat-column-name {
+    font-size:13px;
+  }
+}

@@ -1,0 +1,107 @@
+
+<div class="admin-theme">  
+    <p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast"></p-toast>
+    <ng-container *ngIf="loadingTableProducts">
+          <div fxLayout="column" fxLayoutAlign="center center" style="width:100%;min-height:80vh;">
+              <mat-spinner [diameter]="100"></mat-spinner>
+          </div>
+    </ng-container>
+    <div *ngIf="!loadingTableProducts" fxLayout="column" style="padding-top:20px">
+      <div>
+      <button mat-raised-button type="button" color="primary" routerLink="/admin-product-create"><mat-icon style="margin-right:10px">add_box</mat-icon>{{'create' | translate}}</button>
+      </div>  
+      <div fxFlex="1 1 auto">
+      <mat-form-field appearance="outline" style="padding-top:10px;min-width:250px">
+          <mat-label>{{'products.admin.search.label' | translate}}</mat-label>
+          <input matInput  (keyup)="applyFilter($event.target.value)" placeholder="{{'products.admin.search.placeholder' | translate}}" autocomplete="off">
+          <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+      <p style="margin-bottom:5px;margin-top:0px;" class="total">TOTAL : {{productsDisplayed}} / <span style="font-weight:bold">{{productsCount}}</span></p> 
+<!--      <mat-accordion>
+        <mat-expansion-panel #expansion style="margin-bottom:5px">
+          <mat-expansion-panel-header>
+            <mat-panel-title fxLayoutAlign="start center"><mat-icon style="margin-right:10px">add_box</mat-icon>{{'brands.admin.create.title' | translate}}</mat-panel-title>
+            <mat-panel-description fxLayoutAlign="start center">{{'brands.admin.create.subtitle' | translate}}</mat-panel-description>
+          </mat-expansion-panel-header>
+          <h3>{{'brands.admin.create.header' | translate}}</h3>
+          <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate> 
+            <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="20px">
+              <mat-form-field appearance="outline" style="width:100%">
+                  <mat-label>{{'brands.admin.create.input.label' | translate}}</mat-label>
+                  <input matInput formControlName="name" placeholder="{{'brands.admin.create.input.placeholder' | translate}}" required autocomplete="off">
+                  <mat-hint>{{'brands.admin.create.input.hint' | translate}}</mat-hint>
+                  <mat-error *ngFor="let validation of validation_messages">
+                    <mat-error class="error-message" *ngIf="myForm.get('name').hasError(validation.type) && (myForm.get('name').dirty || myForm.get('name').touched)">{{validation.message | translate}}</mat-error>
+                  </mat-error>                 
+              </mat-form-field>          
+              <div fxLayout="column" fxLayoutAlign="center center" fxFlex="1 1 auto">
+                <div fxLayoutAlign="center start" fxLayout="column" style="width:100%">
+                  <p class="admin-label">{{'brands.admin.create.logo.label' | translate}}</p>
+                  <app-input-images #inputImage [isMultiple]="false" maxSize="200" [crop]="true" fieldName="image" [parentForm]="myForm" [defaultImage]="defaultImage" style="margin:5px"></app-input-images>            
+                </div>
+                <div fxLayoutAlign="center center" fxLayoutGap="20px" fxFlex="1 1 auto">
+                    <button mat-button type="reset" color="primary" (click)="onAddBrandReset()">{{'cancel' | translate}}</button>
+                    <button mat-raised-button type="button" color="primary" (click)="onAddBrandSubmit(myForm.value)"><mat-icon style="margin-right:10px">add_box</mat-icon>{{'create' | translate}}</button>
+                </div>
+              </div>
+            </div>  
+          </form>      
+          </mat-expansion-panel>
+        </mat-accordion>-->
+        <table #myTable mat-table [dataSource]="dataSource" multiTemplateDataRows class="table">
+          <ng-container matColumnDef="image">
+              <th mat-header-cell *matHeaderCellDef>{{'products.admin.table.picture' | translate}}</th>
+              <td mat-cell *matCellDef="let row">
+                  <div fxLayoutAlign="end start" mat-card-avatar [style.backgroundImage]="getImageUrl(row)" class="image" (click)="expand = false;rowClick(row);">
+                  </div>
+              </td>
+          </ng-container>
+  
+          <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>{{'products.admin.table.title' | translate}}</th>
+              <td mat-cell *matCellDef="let row" [class.expanded-row]="false"  (click)="expand = false;rowClick(row);">{{row.title}}</td>
+          </ng-container> 
+
+          <ng-container matColumnDef="brand">
+              <th mat-header-cell *matHeaderCellDef>{{'products.admin.table.brand' | translate}}</th>
+              <td mat-cell *matCellDef="let row" [class.expanded-row]="false"  (click)="expand = false;rowClick(row);">{{row.brand}}</td>
+          </ng-container> 
+
+          <ng-container matColumnDef="model">
+              <th mat-header-cell *matHeaderCellDef>{{'products.admin.table.model' | translate}}</th>
+              <td mat-cell *matCellDef="let row" [class.expanded-row]="false"  (click)="expand = false;rowClick(row);">{{row.model}}</td>
+          </ng-container> 
+
+          <ng-container matColumnDef="modify">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let row"  [class.expanded-row]="expandedElement === row" 
+              (click)="expand=true;expandedElement = row;onUpdateProduct(row.id) ">{{'modify' | translate}}</td>
+          </ng-container> 
+  
+          <ng-container matColumnDef="delete">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let row" (click)="onDeleteProduct(row.id)">{{'delete' | translate}}</td>
+          </ng-container> 
+        
+          <ng-container matColumnDef="expandedDetail">
+              <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                <div class="element-detail"
+                    [@detailExpand]="(element == expandedElement) && expand ? 'expanded' : 'collapsed'">
+                  <div style="padding:10px;width:100%" fxLayout="column" fxLayoutGap="20px"> 
+                    <h3>{{'brands.admin.modify.header' | translate}}</h3>
+                    <app-product-create-update style="width:100%"></app-product-create-update>
+
+                  </div>
+                </div>
+              </td>
+            </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+            class="element-row" [ngClass]="{'selected' : selected[element.id]}"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+        </table>  
+        </div>
+    </div> 
+   
+  </div>
