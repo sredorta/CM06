@@ -24,6 +24,8 @@ export class SearchBrandComponent implements OnInit {
   lastBrandFilter : string = null;
   formSearchBrand : FormGroup;
   brands : IApiBrand[] = null;
+  defaultImage :string = "./assets/images/no-photo-available.jpg";
+
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
 
@@ -46,9 +48,12 @@ export class SearchBrandComponent implements OnInit {
   }
 
   //Sanityze url
-  getFormattedUrl(url:string) {
-    return "url("+url+")";
+  getImageUrl(brand: IApiBrand) {
+    if (brand.image)
+      return "url(" + brand.image.sizes['thumbnail'].url + ")";
+    return "url(" + this.defaultImage + ")";  
   }
+
 
   //Filter
   applyFilter(filterValue: string) {

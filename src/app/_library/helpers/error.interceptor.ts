@@ -31,7 +31,6 @@ export class ErrorInterceptor implements HttpInterceptor {
     }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-       console.log("In interceptor !!!");
         return next.handle(request).do((event: HttpEvent<any>) => {
             //Intercept correct response and we check that we have 'success' in the response 
             //  if this is the case then we show the bottomsheet

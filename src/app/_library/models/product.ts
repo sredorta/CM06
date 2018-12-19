@@ -21,7 +21,7 @@ export class Product {
             this.discount = product.discount;
             this.brand = product.brand;
             this.model = product.model;
-            this.images = product.images;
+            //this.images = product.images;
         } else {
             this.id = null;
         }

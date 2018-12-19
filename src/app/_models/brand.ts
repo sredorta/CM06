@@ -1,5 +1,5 @@
 
-import {IApiBrand, EApiImageSizes, IApiImage} from '../_library/services/api.service';
+import {IApiBrand, EApiImageSizes, IApiImage, IApiAttachment} from '../_library/services/api.service';
 
 
 /*  export interface IApiBrand {
@@ -25,7 +25,7 @@ export class Brand {
     id : number;
     name:string;
     description:string;
-    image: IApiImage;
+    image: IApiAttachment;
  
     constructor(brand: IApiBrand) {
         if (brand !== null) {

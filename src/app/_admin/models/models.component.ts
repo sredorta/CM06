@@ -42,6 +42,7 @@ export class ModelsComponent implements OnInit {
   lastFilter : string = null;
   expand : boolean = false;
   selected = [];
+  defaultImage :string = "./assets/images/no-photo-available.jpg";
 
   validation_messages = CustomValidators.getMessages();
 
@@ -80,8 +81,10 @@ export class ModelsComponent implements OnInit {
     this.getModels();
   }
 
-  getFormattedUrl(url:string) {
-    return "url("+url+")";
+  getImageUrl(brand: IApiBrand) {
+    if (brand.image)
+      return "url(" + brand.image.sizes['thumbnail'].url + ")";
+    return "url(" + this.defaultImage + ")";  
   }
 
   getModels() {

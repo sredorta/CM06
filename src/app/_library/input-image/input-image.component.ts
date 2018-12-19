@@ -92,6 +92,7 @@ export class InputImageComponent implements OnInit {
     var form = this.parentForm;
     var real = this.realImgElem;
     var myImageData = new Image();
+    myImageData.crossOrigin = "anonymous";
     myImageData.src = image;
     var canvas = this.shadowCanvasElem.nativeElement;
     var ctx =canvas.getContext('2d');
@@ -132,6 +133,7 @@ export class InputImageComponent implements OnInit {
     var form = this.parentForm;
     var real = this.realImgElem;
     var myImageData = new Image();
+    myImageData.crossOrigin = "anonymous";
     myImageData.src = image;
     var canvas = this.shadowCanvasElem.nativeElement;
     var ctx =canvas.getContext('2d');
@@ -174,6 +176,7 @@ rotateImage() {
     var myImageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     var field = this.fieldName;
     myImageData = new Image();
+    myImageData.crossOrigin = "anonymous";
     myImageData.src = canvas.toDataURL();
 
     myImageData.onload = function () {

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, SimpleChanges,Output,EventEmitter,Input } from '@angular/core';
-import {InputImageComponent} from '../../_library/input-image/input-image.component';
+import {InputImagesComponent} from '../../_library/input-images/input-images.component';
+
 import {FormGroup,FormControl,Validators} from '@angular/forms';
 import {MatExpansionPanel} from '@angular/material';
 import {MatTable, MatTableDataSource} from '@angular/material';
@@ -15,7 +16,8 @@ import {MakeSureDialogComponent} from '../../_library/make-sure-dialog/make-sure
 import {MessageService} from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { MediaMatcher } from '@angular/cdk/layout';
+//import { MediaMatcher } from '@angular/cdk/layout';
+import {BreakpointObserver,Breakpoints,BreakpointState} from '@angular/cdk/layout';
 import {DataService} from '../../_services/data.service';
 
 @Component({
@@ -46,13 +48,15 @@ export class BrandsComponent implements OnInit {
   myForm: FormGroup; 
   myFormUpdate : FormGroup;
   validation_messages = CustomValidators.getMessages();
-  //defaultImage :string = "./assets/images/no-photo-available.jpg";
-  defaultImageUpdate : string = "./assets/images/no-photo-available.jpg";
+  size : EApiImageSizes = EApiImageSizes.thumbnail; //Default image size for logos
+  defaultImage :string = "./assets/images/no-photo-available.jpg";
+  //defaultImageUpdate : string = "./assets/images/no-photo-available.jpg";
+  inputImageUpdateDataIn : string[] = [];
   selected = [];
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
   constructor(private data : DataService, 
-              private mediaMatcher: MediaMatcher,
+              private breakpointObserver: BreakpointObserver,
               private route: Router,
               private translate: TranslateService, 
               private api : ApiService,
@@ -60,8 +64,8 @@ export class BrandsComponent implements OnInit {
               private messageService: MessageService) { }
 
   @ViewChild('expansion') expansion : MatExpansionPanel;
-  @ViewChild('inputImage') inputImage : InputImageComponent;
-  @ViewChild('inputImageUpdate') inputImageUpdate : InputImageComponent;
+  @ViewChild('inputImage') inputImage : InputImagesComponent;
+  @ViewChild('inputImageUpdate') inputImageUpdate : InputImagesComponent;
   @ViewChild('myTable') table : MatTable<any>;   
 
 
@@ -84,20 +88,34 @@ export class BrandsComponent implements OnInit {
 
 
   ngOnInit() {
+/*    this._subscriptions.push(this.breakpointObserver.observe(['(max-width:400px)']).subscribe((state: BreakpointState) => {
+      //console.log(state);
+      if (state.matches) {
+        console.log('We are in mobile device');
+        this.size = EApiImageSizes.tinythumbnail;
+      }
+    }));
+    this._subscriptions.push(this.breakpointObserver.observe(['(min-width:400px)']).subscribe((state: BreakpointState) => {
+      //console.log(state);
+      if (state.matches) {
+        console.log('We are in large device');
+        this.size = EApiImageSizes.thumbnail;
+      }
+    }));*/
     this.createForms();
     this.getBrands();
   }
-
-  getFormattedUrl(url:string) {
-    return "url("+url+")";
+  getImageUrl(brand: IApiBrand) {
+    if (brand.image)
+      return "url(" + brand.image.sizes['thumbnail'].url + ")";
+    return "url(" + this.defaultImage + ")";  
   }
 
   getBrands() {
     this._subscriptions.push(this.data.getBrands().subscribe((res : IApiBrand[]) => {
+      console.log("got results !!!");
+      console.log(res);
       if (res !== null) {
-        for(let brand of res) {
-          brand.image.url = brand.image.url;
-        }
         let brands = res;
         this.dataSource = new MatTableDataSource(brands);
         this.brandsCount = this.dataSource.data.length;
@@ -132,8 +150,12 @@ export class BrandsComponent implements OnInit {
     if (this.myForm.invalid) {
       return;
     }
+    console.log("Sending : ");
+    console.log(value);
     this._subscriptions.push(this.translate.get(["brands.admin.toast.create.summary", "brands.admin.toast.create.detail"]).subscribe( trans => {
-      this._subscriptions.push(this.api.createBrand(value.name,value.image, EApiImageSizes.thumbnail).subscribe((res: IApiBrand) => {
+      this._subscriptions.push(this.api.createBrand(value.name,value.image).subscribe((res: IApiBrand) => {
+        console.log("GOT :");
+        console.log(res);
         this._addBrand(res);
         this.messageService.add({severity:'success', summary:trans['brands.admin.toast.create.summary'], detail:trans['brands.admin.toast.create.detail']});
       }));
@@ -167,7 +189,9 @@ export class BrandsComponent implements OnInit {
     this.expand = false;
     this.table.renderRows();
     this._subscriptions.push(this.translate.get(["brands.admin.toast.modify.summary", "brands.admin.toast.modify.detail"]).subscribe( trans => {
-      this._subscriptions.push(this.api.updateBrand(id,value.name,value.image, EApiImageSizes.thumbnail).subscribe((res: IApiBrand) => {
+      this._subscriptions.push(this.api.updateBrand(id,value.name,value.image).subscribe((res: IApiBrand) => {
+        console.log("UPDATED BRAND");
+        console.log(res);
         this._updateBrand(res);
         this.messageService.add({severity:'success', summary:trans['brands.admin.toast.modify.summary'], detail:trans['brands.admin.toast.modify.detail']});
       }));
@@ -176,19 +200,26 @@ export class BrandsComponent implements OnInit {
 
   //Update the datamodel
   private _updateBrand(brand:IApiBrand) {
+    console.log("_updateBrand");
+    console.log(brand);
     const itemIndex = this.dataSource.data.findIndex(obj => obj.id === brand.id);
     this.dataSource.data[itemIndex] = brand;
     this.applyFilter(this.lastBrandFilter);
     this.table.renderRows();
     this.data.setBrands(this.dataSource.data);
-    this.brand = this.dataSource.data[this.dataSource.data.findIndex(obj => obj.id === this.brand.id)]; //Selected brand
+    if (this.brand)
+      this.brand = this.dataSource.data[this.dataSource.data.findIndex(obj => obj.id === this.brand.id)]; //Selected brand
   }
 
   //When we click on update we update the expanded pannel values
   onUpdateBrand(id) {
     let brand : IApiBrand = this.dataSource.data[this.dataSource.data.findIndex(obj => obj.id === id)];
     this.myFormUpdate.controls['name'].setValue(brand.name);
-    this.defaultImageUpdate = brand.image.url;
+    this.inputImageUpdateDataIn = [];
+    if (brand.image)
+      this.inputImageUpdateDataIn[0] = brand.image.sizes['thumbnail'].url;
+    else 
+      this.inputImageUpdateDataIn[0] = this.defaultImage; 
   }
 
   //Delete the brand when clicking to delete
@@ -217,13 +248,13 @@ export class BrandsComponent implements OnInit {
     //Find the corresponding datasource element
     const itemIndex = this.dataSource.data.findIndex(obj => obj.id === id);
     //Emit no brand selected if we deleted the selection
-    if (this.dataSource.data[itemIndex].id == this.brand.id) {
-      this.onBrandSelected.emit(null);
-    }
+    if (this.brand)
+      if (this.dataSource.data[itemIndex].id === this.brand.id) {
+        this.onBrandSelected.emit(null);
+        this.brand = null;
+      }
     this.dataSource.data.splice(itemIndex, 1); 
     this.data.setBrands(this.dataSource.data);
-    if (this.dataSource.data.findIndex(obj => obj.id === this.brand.id)<0)
-      this.brand = null;
 
     const itemIndexFilter = this.dataSource.filteredData.findIndex(obj => obj.id === id);
     if (itemIndexFilter>=0) {

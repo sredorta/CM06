@@ -38,18 +38,29 @@ export interface IApiUserAuth {
 export interface IApiBrand {
   id:number;
   name:string;
-  image: IApiImage;
+  image: IApiAttachment;
+}
+
+export interface IApiAttachment {
+  id:number;
+  title:string;
+  description:string;
+  url:string;
+  alt_text:string;
+  mime_type:string;
+  file_name:string;
+  file_extension:string;
+  file_size:number;
+  created_at:string;
+  updated_at:string;
+  sizes:IApiImage[];
 }
 
 export interface IApiImage {
   url:string;
-  size: EApiImageSizes;
   with:number;
   height:number;
   file_size:number;
-  alt_text:string;
-  title:string;
-  description:string;
 }
 
 export interface IApiModel {
@@ -78,7 +89,7 @@ export interface IApiProduct {
   created_at: string;  
   brand:IApiBrand;
   model:IApiModel; 
-  images: IApiImage[];
+  images: IApiAttachment[];
 }
 
 
@@ -145,27 +156,16 @@ export class ApiService {
   }  
 
   //Brands
-  public createBrand(name:string, image:File, size:EApiImageSizes) : Observable<IApiBrand>  {
-    const fd = new FormData();
-    fd.append('name' , name);
-    fd.append('size', size);  //Return image size
-    console.log("Required size is: " + size);
-    if (image !== null)
-      fd.append('image', image, image.name);  
-    return this.http.post<IApiBrand>(environment.apiURL +'/brands/create', fd).map(res => <IApiBrand>res);
-  }
-  public getBrands(size: EApiImageSizes) : Observable<IApiBrand[]> {
-    return this.http.post<IApiBrand[]>(environment.apiURL +'/brands', {'size': size}).map(res => <IApiBrand[]>res);
+  public createBrand(name:string, image:string) : Observable<IApiBrand>  {
+    return this.http.post<IApiBrand>(environment.apiURL +'/brands/create', {'name': name, 'image' : image}).map(res => <IApiBrand>res);
   }
 
-  public updateBrand(id:string,name:string,image:File,size:EApiImageSizes) : Observable<IApiBrand>  {
-    const fd = new FormData();
-    fd.append('id', id);
-    fd.append('name' , name);
-    fd.append('size', size);  //Return image size
-    if (image !== null)
-      fd.append('image', image, image.name);  
-    return this.http.post<IApiBrand>(environment.apiURL +'/brands/update', fd).map(res => <IApiBrand>res);
+  public getBrands() : Observable<IApiBrand[]> {
+    return this.http.get<IApiBrand[]>(environment.apiURL +'/brands').map(res => <IApiBrand[]>res);
+  }
+
+  public updateBrand(id:string,name:string,image:string) : Observable<IApiBrand>  {
+    return this.http.post<IApiBrand>(environment.apiURL +'/brands/update', {'id':id, 'name':name, 'image':image}).map(res => <IApiBrand>res);
   }
 
   public deleteBrand(id:string) : Observable<any>  { 

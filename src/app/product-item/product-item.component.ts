@@ -26,7 +26,7 @@ export class ProductItemComponent implements OnInit {
     this.product.description = "Amortisseur avant de 150mm de debatement pour une moto qui dechire";
     this.product.price = 2800;
     this.product.discount = 10;
-    this.api.getBrands(EApiImageSizes.thumbnail).subscribe(res => {
+    this.api.getBrands().subscribe(res => {
       this.product.brand = res[0];
       this.api.getModels(this.product.brand.id).subscribe(res => {
         this.product.model = res[0];

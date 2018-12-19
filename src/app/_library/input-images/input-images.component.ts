@@ -37,24 +37,49 @@ export class InputImagesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.processInputs();
+  }
+
+  processInputs() {
     this.currentElement = this.realImgElem.nativeElement;
     if (this.images) {
-      let obj : any = [];
-      if (!this.isMultiple) {
-        obj = this.images[0];
-        this.images = [];
-        this.images[0] = obj;
+      if (this.images.length>0) {
+        let obj : any = [];
+        if (!this.isMultiple) {
+          obj = this.images[0];
+          this.images = [];
+          this.images[0] = obj;
+        }
+        this.realImgElem.nativeElement.src = this.images[0];
+        
+/*      let subscription = this.thumb.changes.subscribe(res => {
+        //Update current element to first image
+        setTimeout(() => {
+          this.generateInitalBlobs();
+          this.selectImage(this.thumb.first.nativeElement);
+        });  
+        subscription.unsubscribe();
+      }); */
+        //Update shadow image with primary image and this will update canvas
+        this.defaultImgLoaded = false;
       }
-
-      //Update shadow image with primary image and this will update canvas
-      this.defaultImgLoaded = false;
     } else {
       this.images = [];
       this.realImgElem.nativeElement.src = this.defaultImage;
       this.defaultImgLoaded = true;
     }
+
   }
 
+  //TODO HAVE AN UPDATE INPUT FIELD TO DETECT EDIT
+  ngOnChanges(changes: SimpleChanges) {
+    //console.log("CHANGES !!!!");
+    if (changes.images) {
+      this.images = changes.images.currentValue;
+      //console.log(changes.images.currentValue);
+      this.processInputs();
+    }
+  }
 
   ngAfterViewInit() {
     //Update current element to first image, timeout is required to avoid Expression has changed before checked
@@ -235,26 +260,35 @@ rotateImage() {
 
   //Handle now removal
   resetImage() {
-    let index = this.currentElement.attributes['id'].value;
-    if (index>0){
-      this.images.splice(index,1);
-      this.base64.splice(index,1);
-      this.updateFormField();
-      let subscription = this.thumb.changes.subscribe(res => {
-        //Update current element to first image
-        setTimeout(() => {
-          this.selectImage(this.thumb.first.nativeElement); 
-        });   
-        subscription.unsubscribe();
-      });
+    if (this.isMultiple) {
+      let index = this.currentElement.attributes['id'].value;
+      if (index>0){
+        this.images.splice(index,1);
+        this.base64.splice(index,1);
+        this.updateFormField();
+        let subscription = this.thumb.changes.subscribe(res => {
+          //Update current element to first image
+          setTimeout(() => {
+            this.selectImage(this.thumb.first.nativeElement); 
+          });   
+          subscription.unsubscribe();
+        });
+      } else {
+        //We are removing first element
+        this.defaultImgLoaded = true;
+        this.realImgElem.nativeElement.src = this.defaultImage;
+        this.images = [];
+        this.base64 = [];
+        this.updateFormField();
+      } 
     } else {
-      //We are removing first element
-      this.defaultImgLoaded = true;
-      this.realImgElem.nativeElement.src = this.defaultImage;
-      this.images = [];
-      this.base64 = [];
-      this.updateFormField();
-    } 
+        //We are removing first element
+        this.defaultImgLoaded = true;
+        this.realImgElem.nativeElement.src = this.defaultImage;
+        this.images = [];
+        this.base64 = [];
+        this.updateFormField();
+    }
 
   }
 
