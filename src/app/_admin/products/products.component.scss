@@ -12,6 +12,11 @@ $accent: map-get($admin-theme,accent);
     color: #012908;
 }
 
+::ng-deep .product-create-update-wrapper{
+    //background-color: #bb092d;
+    //color: rgba(255,255,255,.87);
+    background-color: rgba(255, 255, 255, 0);
+}
 
 //Table formatting
 .table-container {
