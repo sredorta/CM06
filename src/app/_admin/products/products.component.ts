@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, SimpleChanges,Output,EventEmitter,Input } from '@angular/core';
 import {InputImagesComponent} from '../../_library/input-images/input-images.component';
-
+import {NiceDateFormatPipe} from '../../_library/pipes/nice-date-format.pipe';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
 import {MatExpansionPanel} from '@angular/material';
 import {MatTable, MatTableDataSource} from '@angular/material';
@@ -36,7 +36,7 @@ export class ProductsComponent implements OnInit {
   loadingTableProducts  : boolean = true;
   dataSource = null;          //Store brands array in table format
   expandedElement: any = null;   //Expanded panel for adding brand
-  displayedColumns: string[] = ['image','name','brand','model','modify','delete'];
+  displayedColumns: string[] = ['image','name','model','stock','created','modify','delete'];
   productsCount : number = 0;
   productsDisplayed : number = 0;
   lastProductFilter : string = null;

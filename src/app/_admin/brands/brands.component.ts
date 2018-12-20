@@ -35,6 +35,7 @@ import {DataService} from '../../_services/data.service';
 export class BrandsComponent implements OnInit {
   @Input() brand : IApiBrand;                                 //Current brand selected
   @Output() onBrandSelected = new EventEmitter<IApiBrand>();  //Brand selection  
+
   loadingTableBrands  : boolean = true;
   dataSource = null;          //Store brands array in table format
   expandedElement: any = null;   //Expanded panel for adding brand
@@ -102,7 +103,7 @@ export class BrandsComponent implements OnInit {
         this.size = EApiImageSizes.thumbnail;
       }
     }));*/
-  
+
     this.createForms();
     this.getBrands();
   }
@@ -171,6 +172,7 @@ export class BrandsComponent implements OnInit {
   //Update the datamodel by push new element to array
   private _addBrand(brand: IApiBrand) {
     this.dataSource.data.push(brand);
+    this.dataSource.data.sort((a, b) => a.name.localeCompare(b.name));
     this.brandsCount = this.dataSource.data.length;
     this.applyFilter(this.lastBrandFilter);
     this.table.renderRows();

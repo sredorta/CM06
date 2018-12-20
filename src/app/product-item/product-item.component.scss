@@ -1,6 +1,6 @@
 .product-item-container {
     margin:25px;
-    max-width:200px;
+    width:200px;
     min-height: 50px;
     border-radius: 5px;
     opacity: 0.8;
@@ -15,6 +15,8 @@
 .product-item-main-image {
     box-sizing: border-box;
     width:100%;
+    height:150px;
+    object-fit: cover;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }

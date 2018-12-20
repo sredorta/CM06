@@ -41,22 +41,31 @@ $accent: map-get($admin-theme,accent);
   }
 
   .mat-column-delete {
-      width:60px;
-      min-width:60px;
-      max-width:60px;
-      font-size:12px;
+      width:70px;
+      min-width:70px;
+      max-width:70px;
+      //font-size:12px;
       transition: all 0.3s ease-in-out;
   }
   .mat-column-modify {
-      width:60px;
-      min-width:60px;
-      max-width:60px;
-      font-size:12px;      
+      width:70px;
+      min-width:70px;
+      max-width:70px;
+      //font-size:12px;      
       transition: all 0.3s ease-in-out;
   }
 
   .mat-column-image {
       width:90px;
+  }
+  .mat-column-stock {
+    width:60px;
+  }
+
+  .mat-column-created {
+      width:100px;
+      font-size: 12px;
+      opacity: 0.8;
   }
 
   .element-detail {

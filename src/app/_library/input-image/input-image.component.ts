@@ -58,6 +58,7 @@ export class InputImageComponent implements OnInit {
   openFileViewer() {
     this.inputElem.nativeElement.click();
   }
+  
   loadImage(event) {
     const reader = new FileReader();
     console.log("CROP IS : " + this.crop);

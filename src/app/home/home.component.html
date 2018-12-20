@@ -1,3 +1,5 @@
-<p>
-  home works!
-</p>
+<div fxLayout="row wrap">
+  <div *ngFor="let product of products">
+<app-product-item  [product]="product"></app-product-item>
+</div>
+</div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {IApiProduct, EApiImageSizes} from '../_library/services/api.service';
 import {Product} from '../_library/models/product';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
@@ -16,7 +16,7 @@ import { DataService } from '../_services/data.service';
   encapsulation: ViewEncapsulation.None 
 })
 export class ProductItemComponent implements OnInit {
-  product : Product = new Product(null);
+  @Input() product : Product;
   defaultImage :string = "./assets/images/no-photo-available.jpg";
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
@@ -24,7 +24,7 @@ export class ProductItemComponent implements OnInit {
   constructor(private dialog: MatDialog, private api : ApiService, private data : DataService) { }
 
   ngOnInit() {
-    this.product = new Product(this.data.getProducts()[11]);
+//    this.product = new Product(this.data.getProducts()[11]);
     console.log(this.product);
     //For debug only
 /*    this.product.title = "Amortisseur avant titre";

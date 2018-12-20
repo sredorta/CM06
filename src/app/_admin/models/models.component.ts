@@ -135,6 +135,7 @@ export class ModelsComponent implements OnInit {
   //Update the datamodel by push new element to array
   private _addModel(model: IApiModel) {
     this.dataSource.data.push(model);
+    this.dataSource.data.sort((a, b) => a.name.localeCompare(b.name));
     this.modelsCount = this.dataSource.data.length;
     this.applyFilter(this.lastFilter);
     this.table.renderRows();
