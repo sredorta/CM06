@@ -1,11 +1,11 @@
 <div class="product-item-container">
   <div fxLayout="column" fxLayoutAlign="center start" (click)="showDetailDialog()" pTooltip="Click pour voir details" tooltipPosition="top">
       <img [src]="getProductPrimaryImage()" class="product-item-main-image">
-      <div class="product-item-bottom-container">
+      <div class="product-item-bottom-container" style="width:100%">
         <p class="product-item-title">{{product.title}}</p>
-        <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxLayout="row" fxLayoutAlign="space-between center" style="width:100%">
           <p class="product-item-price-discount">{{product.getFinalPrice()}} €</p>
-          <p class="product-item-price" [ngClass]="{'strike' : product.discount>0}">{{product.price}} €</p>
+          <p *ngIf="product.discount>0" class="product-item-price" [ngClass]="{'strike' : product.discount>0}">{{product.price}} €</p>
         </div>
         <!--<div fxLayout="row" fxLayout="center center">
             <img *ngIf="product.brand"  src="{{product.brand.image.url}}" class="product-item-brand-image">

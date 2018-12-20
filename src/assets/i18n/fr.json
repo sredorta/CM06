@@ -117,6 +117,7 @@
     "product.admin.create.input.stock.label"            : "Stock",
     "product.admin.create.input.stock.placeholder"      : "Stock disponible",
     "product.admin.create.input.stock.hint"             : "Écrivez la quantité de stock disponible",
+    "product.admin.create.preview.header"               : "Vue preliminaire",
 
     "products.admin.search.label"               : "Chercher un produit",
     "products.admin.search.placeholder"         : "Chercher",

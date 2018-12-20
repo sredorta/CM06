@@ -16,7 +16,8 @@ import { DataService } from '../_services/data.service';
   encapsulation: ViewEncapsulation.None 
 })
 export class ProductItemComponent implements OnInit {
-  @Input() product : Product;
+  @Input() product : Product;           //Product to display
+  @Input() preview : boolean = false;   //When we are in preview mode
   defaultImage :string = "./assets/images/no-photo-available.jpg";
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
@@ -45,7 +46,10 @@ export class ProductItemComponent implements OnInit {
   getProductPrimaryImage() {
     if (this.product.images)
       if(this.product.images[0])
-        return this.product.images[0].sizes[EApiImageSizes.full].url;
+        if (!this.preview)
+          return this.product.images[0].sizes[EApiImageSizes.full].url;
+        else
+          return this.product.images[0];  
     return this.defaultImage;    
   }
 
@@ -64,6 +68,8 @@ export class ProductItemComponent implements OnInit {
   }
 
   addToCart() {
-    console.log("Adding to cart");
+    if (!this.preview) {
+        console.log("Adding to cart");
+    }
   }
 }

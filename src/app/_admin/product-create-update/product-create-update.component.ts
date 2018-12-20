@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Input,ElementRef} from '@angular/core';
-import { IApiBrand, IApiModel, IApiProduct, ApiService } from '../../_library/services/api.service';
+import { IApiBrand, IApiModel, IApiProduct, ApiService, EApiImageSizes } from '../../_library/services/api.service';
 import { DataService } from '../../_services/data.service';
 import { Router } from '@angular/router';
 
@@ -9,6 +9,7 @@ import {CustomValidators, ParentErrorStateMatcher  } from '../../_library/helper
 import { Subscription } from 'rxjs';
 import {OnlyNumberDirective} from '../../_library/directives/onlyNumber.directive';
 import {InputImagesComponent} from '../../_library/input-images/input-images.component';
+import {Product} from '../../_library/models/product';
 
 @Component({
   selector: 'app-product-create-update',
@@ -24,6 +25,7 @@ export class ProductCreateUpdateComponent implements OnInit {
   validation_messages = CustomValidators.getMessages();
   myForm: FormGroup; 
   products : IApiProduct[] = null;
+  product : Product = new Product(null);
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
@@ -50,7 +52,17 @@ export class ProductCreateUpdateComponent implements OnInit {
       images: new FormControl(null,null),
     });   
     this.myForm.controls['isVehicle'].setValue(false); 
+
+    //Subscribe to form changes to update the product preview
+    this._subscriptions.push(this.myForm.valueChanges.subscribe(res => {
+      console.log("CHANGES !!");
+      console.log(res);
+      this.product = new Product(res);
+    }));
   }
+
+
+
 
   //On reset form
   onCreateProductReset() {
@@ -78,6 +90,11 @@ export class ProductCreateUpdateComponent implements OnInit {
       //this.messageService.add({severity:'success', summary:trans['brands.admin.toast.create.summary'], detail:trans['brands.admin.toast.create.detail']});
     }));
   }
+
+  addToCart() {
+    console.log("Adding to cart");
+  }
+
 
   ngOnDestroy() {    
     //Unsubscribe to all

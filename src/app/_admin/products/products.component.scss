@@ -59,7 +59,10 @@ $accent: map-get($admin-theme,accent);
       width:90px;
   }
   .mat-column-stock {
-    width:60px;
+    width:40px;
+    min-width:40px;
+    max-width:40px;
+    padding-left:5px;
   }
 
   .mat-column-created {
@@ -105,6 +108,13 @@ $accent: map-get($admin-theme,accent);
   }
 
 //End of table
+
+.detail-wrapper {
+  background-color: rgba(255, 255, 255, 0) !important;
+
+}
+
+
 .image {
     background-size:cover;
     width:60px;
@@ -123,6 +133,17 @@ $accent: map-get($admin-theme,accent);
 }
 
 //Do some resizing to fit on small screens
+@media only screen and (max-width: 700px) {
+    .mat-column-model {
+      display:none;
+    }
+}
+@media only screen and (max-width: 600px) {
+  .mat-column-created {
+    display:none;
+  }
+}
+
 @media only screen and (max-width: 400px) {
   .image {
     background-size:cover;

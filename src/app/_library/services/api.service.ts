@@ -42,18 +42,18 @@ export interface IApiBrand {
 }
 
 export interface IApiAttachment {
-  id:number;
-  title:string;
-  description:string;
-  url:string;
-  alt_text:string;
-  mime_type:string;
-  file_name:string;
-  file_extension:string;
-  file_size:number;
-  created_at:string;
-  updated_at:string;
-  sizes:IApiImage[];
+  id?:number;
+  title?:string;
+  description?:string;
+  url?:string;
+  alt_text?:string;
+  mime_type?:string;
+  file_name?:string;
+  file_extension?:string;
+  file_size?:number;
+  created_at?:string;
+  updated_at?:string;
+  sizes?:IApiImage[];
 }
 
 export interface IApiImage {

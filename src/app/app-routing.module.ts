@@ -35,6 +35,8 @@ const routes: Routes = [
     component: ProductCreateStepperComponent,
     //canActivate: [AdminGuard]
   },    
+
+
   {
     path: 'admin-products',
     component: ProductsComponent,
@@ -42,7 +44,7 @@ const routes: Routes = [
   },    
   {
     path: 'tmp',
-    component: ProductItemComponent,
+    component: ProductCreateUpdateComponent,
     //canActivate: [AdminGuard]
   },   
 /*  {

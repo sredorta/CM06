@@ -51,6 +51,10 @@ export class ProductsComponent implements OnInit {
   //defaultImageUpdate : string = "./assets/images/no-photo-available.jpg";
   inputImageUpdateDataIn : string[] = [];
   selected = [];
+
+  expandedProductId : number = 0;
+
+
   private _subscriptions : Subscription[] = new Array<Subscription>();
   @ViewChild('expansion') expansion : MatExpansionPanel;
   @ViewChild('inputImage') inputImage : InputImagesComponent;
@@ -126,7 +130,7 @@ export class ProductsComponent implements OnInit {
     onUpdateProduct(id) {
       console.log("OnUpdateProduct");
       let product : IApiProduct = this.dataSource.data[this.dataSource.data.findIndex(obj => obj.id === id)];
-
+      this.expandedProductId = id;
     }
   
     //Delete the brand when clicking to delete
