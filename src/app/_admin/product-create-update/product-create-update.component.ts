@@ -56,9 +56,6 @@ export class ProductCreateUpdateComponent implements OnInit {
     });   
     this.myForm.controls['isVehicle'].setValue(false); 
 
-
-
-
     //If there is an input product then we set all fields
     if (this.currentProduct) {
       console.log("currentProduct");
@@ -82,9 +79,10 @@ export class ProductCreateUpdateComponent implements OnInit {
       console.log(this.images);
       //this.images = this.product.images;
       this.myForm.controls['isVehicle'].setValue(this.product.isVehicle);
-
-    
+    } else {
+      this.images = null;
     }
+
     //Subscribe to form changes to update the product preview
     this._subscriptions.push(this.myForm.valueChanges.subscribe(res => {
       console.log("CHANGES !!");
@@ -112,19 +110,23 @@ export class ProductCreateUpdateComponent implements OnInit {
     if (this.myForm.invalid) {
       return;
     }
-    this._subscriptions.push(this.api.createProduct(this.model.id,value.title,value.description,value.price,value.discount,value.stock,value.isVehicle,value.images).subscribe((res: IApiProduct) => {
-      console.log("Finished create !");
-      console.log(res);
-      this.products = this.data.getProducts();
-      this.products.push(res);
-      this.data.setProducts(this.products);
-      this.router.navigate(["/admin-products"]);
-
-
-      //this.data.
-      //this._addBrand(res);
-      //this.messageService.add({severity:'success', summary:trans['brands.admin.toast.create.summary'], detail:trans['brands.admin.toast.create.detail']});
-    }));
+    if (!this.currentProduct)
+      this._subscriptions.push(this.api.createProduct(this.model.id,value.title,value.description,value.price,value.discount,value.stock,value.isVehicle,value.images).subscribe((res: IApiProduct) => {
+        console.log("Finished create !");
+        console.log(res);
+        this.products = this.data.getProducts();
+        this.products.push(res);
+        this.data.setProducts(this.products);
+        this.router.navigate(["/admin-products"]);
+        //this.data.
+        //this._addBrand(res);
+        //this.messageService.add({severity:'success', summary:trans['brands.admin.toast.create.summary'], detail:trans['brands.admin.toast.create.detail']});
+      }));
+    else {
+      console.log("Updating product");
+      
+    }
+      
   }
 
   addToCart() {

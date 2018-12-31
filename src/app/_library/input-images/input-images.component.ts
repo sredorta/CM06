@@ -483,12 +483,12 @@ rotateImage() {
     var canvas = this.shadowCanvasElem.nativeElement;  
     console.log("width : " + canvas.width);
     console.log("height : " + canvas.height);
-    this.currentElement.src = canvas.toDataURL('image/jpeg',1.0);
-    this.shadowImgElem.nativeElement.src = canvas.toDataURL('image/jpeg',1.0);
-    this.realImgElem.nativeElement.src = canvas.toDataURL('image/jpeg',1.0);
+    this.currentElement.src = canvas.toDataURL('image/png');
+    this.shadowImgElem.nativeElement.src = canvas.toDataURL('image/png');
+    this.realImgElem.nativeElement.src = canvas.toDataURL('image/png');
     this.defaultImgLoaded = false;
     //Update the form data
-    this.setFormField(this.currentElement.attributes['id'].value,canvas.toDataURL('image/jpeg',1.0));
+    this.setFormField(this.currentElement.attributes['id'].value,canvas.toDataURL('image/png'));
   }
 
   resizeCanvas(img:ElementRef,canvas:ElementRef) {
