@@ -42,12 +42,12 @@
                   <mat-error class="error-message" *ngIf="myForm.get('discount').hasError(validation.type) && (myForm.get('discount').dirty || myForm.get('discount').touched)">{{validation.message | translate}}</mat-error>
                 </mat-error>                 
             </mat-form-field>     
-            <app-input-plus-minus fieldName="stock" [parentForm]="myForm" [default]="1"></app-input-plus-minus>        
+            <app-input-plus-minus fieldName="stock" [parentForm]="myForm" [default]="stock"></app-input-plus-minus>        
             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
                 <mat-slide-toggle formControlName="isVehicle"></mat-slide-toggle>
                 <p style="font-size:14px">{{'product.admin.create.input.vehicle' | translate}}</p>
             </div>     
-            <app-input-images #images [isMultiple]="true" maxSize="600" [crop]="false" fieldName="images" [parentForm]="myForm" defaultImage="./assets/images/no-photo-available.jpg"></app-input-images>            
+            <app-input-images #images2 [isMultiple]="true" maxSize="800" [crop]="false" fieldName="images" [parentForm]="myForm" [images]="images"></app-input-images>            
             <div fxLayout="column" fxLayoutAlign="center center" fxFlex="1 1 auto">
                 <div fxLayoutAlign="center center" fxLayoutGap="20px" fxFlex="1 1 auto">
                     <button mat-button type="reset" color="primary" (click)="onCreateProductReset()">{{'cancel' | translate}}</button>

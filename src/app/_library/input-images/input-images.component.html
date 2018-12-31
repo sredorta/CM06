@@ -1,10 +1,10 @@
-<img class="shadow" alt="shadow" #shadowImg style="border:1px solid green" crossorigin="anonymous">
+<img class="shadow" alt="shadow" #shadowImg style="border:1px solid green" crossOrigin="anonymous">
 <canvas class="shadow" #shadowCanvas style="border:1px solid red;"></canvas>
 <div class="wrapper" fxLayout="column" style="text-align:center;margin:5px" [formGroup]="parentForm">
     <div fxLayout="row">
       <input  class="shadow" type="file" #fileInput (change)="loadImage($event)">  
       <div class="wrapper-real-image">
-      <img  alt="picture" #realImg class="image-item" crossorigin="anonymous">
+      <img  alt="picture" #realImg class="image-item" crossOrigin="anonymous">
       </div>
       <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" fxLayoutGap.xs="5px" fxFlex="100%" style="margin-bottom:10px;margin-left:20px">
         <button mat-mini-fab color="primary" type="button" (click)="openFileViewer()">

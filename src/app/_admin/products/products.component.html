@@ -103,7 +103,7 @@
                     [@detailExpand]="(element == expandedElement) && expand ? 'expanded' : 'collapsed'">
                   <div style="padding:10px;width:100%" fxLayout="column" fxLayoutGap="20px" class="detail-wrapper"> 
                     <h3>{{'brands.admin.modify.header' | translate}}</h3>
-                    <app-product-create-update *ngIf="element.id == expandedProductId" style="width:100%"></app-product-create-update>
+                    <app-product-create-update *ngIf="element.id == expandedProductId" style="width:100%" [currentProduct] = "element"></app-product-create-update>
 
                   </div>
                 </div>

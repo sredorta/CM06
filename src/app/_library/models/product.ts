@@ -7,6 +7,8 @@ export class Product {
     description:string;
     price:number;
     discount:number;
+    stock: number;
+    isVehicle: boolean;
     brand: string;
     model: string;
     brand_id: number;
@@ -21,6 +23,8 @@ export class Product {
             this.description = product.description;
             this.price = isNaN(product.price)?0:product.price;
             this.discount = isNaN(product.discount)?0:product.discount;
+            this.stock = product.stock;
+            this.isVehicle = product.isVehicle;
             this.brand = product.brand;
             this.model = product.model;
             this.brand_id = product.brand_id;

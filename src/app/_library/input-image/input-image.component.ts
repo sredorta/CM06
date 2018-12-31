@@ -113,14 +113,14 @@ export class InputImageComponent implements OnInit {
         canvas.toBlob(function(blob){
           myObj.setFormField(blob);
           real.nativeElement.src = canvas.toDataURL();
-        }, 'image/jpeg', 0.95);     
+        }, 'image/jpeg', 1.0);     
       } else {
         ctx.clearRect(0,0,canvas.width, canvas.heigth);
         ctx.drawImage(myImageData, 0,0, myImageData.width, myImageData.height, 0, 0, myImageData.width, myImageData.height);
         canvas.toBlob(function(blob){
           myObj.setFormField(blob);
           real.nativeElement.src = canvas.toDataURL();
-        }, 'image/jpeg', 0.95);     
+        }, 'image/jpeg', 1.0);     
       }
     }
   }
@@ -159,7 +159,7 @@ export class InputImageComponent implements OnInit {
       canvas.toBlob(function(blob){
         myObj.setFormField(blob);
         real.nativeElement.src = canvas.toDataURL();
-      }, 'image/jpeg', 0.95);
+      }, 'image/jpeg', 1.0);
     }
   }
 

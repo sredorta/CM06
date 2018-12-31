@@ -86,6 +86,8 @@ export interface IApiProduct {
   description:string;
   price:number;
   discount:number;
+  stock: number;
+  isVehicle : boolean;
   created_at: string;  
   updated_at: string;
   brand:string;
