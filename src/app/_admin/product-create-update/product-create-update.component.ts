@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewChild, Input,ElementRef} from '@angular/core';
-import { IApiBrand, IApiModel, IApiProduct, ApiService, EApiImageSizes, IApiAttachment } from '../../_library/services/api.service';
+import { IApiBrand, IApiModel, IApiProduct, ApiService, EApiImageSizes, IApiAttachment } from '../../_services/api.service';
 import { DataService } from '../../_services/data.service';
 import { Router } from '@angular/router';
 
 import {SearchBrandComponent} from '../../_library/search-brand/search-brand.component';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
-import {CustomValidators, ParentErrorStateMatcher  } from '../../_library/helpers/custom.validators';
+import {CustomValidators, ParentErrorStateMatcher  } from '../../_helpers/custom.validators';
 import { Subscription } from 'rxjs';
-import {OnlyNumberDirective} from '../../_library/directives/onlyNumber.directive';
+import {OnlyNumberDirective} from '../../_directives/onlyNumber.directive';
 import {InputImagesComponent} from '../../_library/input-images/input-images.component';
-import {Product} from '../../_library/models/product';
+import {Product} from '../../_models/product';
 
 @Component({
   selector: 'app-product-create-update',

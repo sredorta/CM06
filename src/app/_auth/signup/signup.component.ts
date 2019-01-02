@@ -5,14 +5,14 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 //Import all shared logic required for forms handling
-import {CustomValidators, ParentErrorStateMatcher  } from '../../helpers/custom.validators';
-import {InputImageComponent} from '../../input-image/input-image.component';
+import {CustomValidators, ParentErrorStateMatcher  } from '../../_helpers/custom.validators';
+import {InputImagesComponent} from '../../_library/input-images/input-images.component';
 
 //Dialogs
 import {TermsDialogComponent} from '../terms-dialog/terms-dialog.component';
 //Directives
-import { OnlyNumberDirective } from '../../directives/onlyNumber.directive';
-import { ApiService } from '../../services/api.service';
+import { OnlyNumberDirective } from '../../_directives/onlyNumber.directive';
+import { ApiService } from '../../_services/api.service';
 
 @Component({
   selector: 'app-signup',

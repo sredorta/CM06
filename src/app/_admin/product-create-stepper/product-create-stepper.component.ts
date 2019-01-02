@@ -3,7 +3,7 @@ import {BrandsComponent} from '../brands/brands.component';
 import {ModelsComponent} from '../models/models.component';
 import {ProductCreateUpdateComponent} from '../product-create-update/product-create-update.component';
 import { MatHorizontalStepper } from '@angular/material';
-import { IApiModel,IApiBrand } from '../../_library/services/api.service';
+import { IApiModel,IApiBrand } from '../../_services/api.service';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({

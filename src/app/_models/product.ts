@@ -1,4 +1,4 @@
-import {IApiProduct, IApiBrand, IApiModel, IApiImage, IApiAttachment} from '../services/api.service';
+import {IApiProduct, IApiBrand, IApiModel, IApiImage, IApiAttachment} from '../_services/api.service';
 
 
 export class Product {

@@ -5,8 +5,8 @@ import { Subscription } from 'rxjs';
 import { MatRadioChange } from '@angular/material';
 
 //Import all shared logic required for forms handling
-import {CustomValidators  } from '../../helpers/custom.validators';
-import {ApiService} from '../../services/api.service';
+import {CustomValidators  } from '../../_helpers/custom.validators';
+import {ApiService} from '../../_services/api.service';
 
 @Component({
   selector: 'app-resetpassword',

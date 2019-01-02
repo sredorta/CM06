@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../environments/environment';
 @Component({
   selector: 'app-terms-dialog',
   templateUrl: './terms-dialog.component.html',

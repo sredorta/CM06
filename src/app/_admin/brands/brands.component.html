@@ -91,7 +91,7 @@
                             <app-input-images #inputImageUpdate [images]="inputImageUpdateDataIn" [isMultiple]="false" maxSize="250" [crop]="true" fieldName="image" [parentForm]="myFormUpdate" [defaultImage]="defaultImage" style="margin:5px"></app-input-images>            
                           </div>
                           <div fxLayoutAlign="center center" fxLayoutGap="20px" fxFlex="1 1 auto">
-                              <button mat-button type="reset" color="primary" (click)="reset()">{{'cancel' | translate}}</button>
+                              <button mat-button type="button" color="primary" (click)="onUpdateBrand(element.id)">{{'cancel' | translate}}</button>
                               <button mat-raised-button type="button" color="primary" (click)="onUpdateBrandSubmit(myFormUpdate.value,element.id)">{{'modify' | translate}}</button>
                           </div>
                         </div>

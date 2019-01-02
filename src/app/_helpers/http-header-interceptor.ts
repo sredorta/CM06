@@ -6,7 +6,7 @@ import {
     HttpHeaders
   } from '@angular/common/http';
   import { Observable, of, throwError } from 'rxjs';
-  import {User} from './../models/user';
+  import {User} from './../_models/user';
 
   //Intercept any http request we do and then add the Authorisation bearer in the header with our token
   //This is then extracted in the API for authenticating us

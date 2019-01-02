@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild, SimpleChanges,Output,EventEmitter,Input } from '@angular/core';
 import {InputImagesComponent} from '../../_library/input-images/input-images.component';
-import {NiceDateFormatPipe} from '../../_library/pipes/nice-date-format.pipe';
+import {NiceDateFormatPipe} from '../../_pipes/nice-date-format.pipe';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
 import {MatExpansionPanel} from '@angular/material';
 import {MatTable, MatTableDataSource} from '@angular/material';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 
-import {CustomValidators, ParentErrorStateMatcher  } from '../../_library/helpers/custom.validators';
-import { ApiService, EApiImageSizes, IApiBrand, IApiProduct} from '../../_library/services/api.service';
+import {CustomValidators, ParentErrorStateMatcher  } from '../../_helpers/custom.validators';
+import { ApiService, EApiImageSizes, IApiBrand, IApiProduct} from '../../_services/api.service';
 import { Subscription } from 'rxjs';
 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';

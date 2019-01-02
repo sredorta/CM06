@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../environments/environment';
 import { HttpResponse, HttpHeaders } from '@angular/common/http';
 import { RequestOptions, RequestMethod, ResponseContentType } from '@angular/http';
 import { Observable } from 'rxjs';
@@ -10,7 +10,7 @@ import { catchError } from 'rxjs/operators';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import {User} from '../models/user';
+import {User} from '../_models/user';
 
 export interface IApiLogin {
   token?:string;

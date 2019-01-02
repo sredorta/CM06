@@ -1,5 +1,5 @@
 
-import {IApiBrand, EApiImageSizes, IApiImage, IApiAttachment} from '../_library/services/api.service';
+import {IApiBrand, EApiImageSizes, IApiImage, IApiAttachment} from '../_services/api.service';
 
 
 /*  export interface IApiBrand {

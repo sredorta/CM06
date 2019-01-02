@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import {Location} from '@angular/common';
 import { Subscription } from 'rxjs';
 
-import {CustomValidators} from '../../helpers/custom.validators';
-import {ApiService, IApiLogin, IApiUserAuth} from '../../services/api.service';
-import {User} from '../../models/user';
+import {CustomValidators} from '../../_helpers/custom.validators';
+import {ApiService, IApiLogin, IApiUserAuth} from '../../_services/api.service';
+import {User} from '../../_models/user';
 
 
 @Component({

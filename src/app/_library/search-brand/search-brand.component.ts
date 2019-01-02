@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter} from '@angular/core';
 import {MatMenu} from '@angular/material';
 import {MatTable, MatTableDataSource, MatMenuTrigger, MatInput} from '@angular/material';
-import { ApiService, EApiImageSizes, IApiBrand } from '../../_library/services/api.service';
+import { ApiService, EApiImageSizes, IApiBrand } from '../../_services/api.service';
 import {FormGroup, FormControl} from '@angular/forms';
 import { Subscription } from 'rxjs';
 import {DataService} from '../../_services/data.service';

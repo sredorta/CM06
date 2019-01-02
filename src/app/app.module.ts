@@ -63,26 +63,28 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 /////////////////// LIBRARY //////////////////////////////////////////////////
 //HTTP
 import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import {HttpHeaderInterceptor} from './_library/helpers/http-header-interceptor';
-import {ErrorInterceptor} from './_library/helpers/error.interceptor';
-import {CustomValidators} from './_library/helpers/custom.validators';
+import {HttpHeaderInterceptor} from './_helpers/http-header-interceptor';
+import {ErrorInterceptor} from './_helpers/error.interceptor';
+import {CustomValidators} from './_helpers/custom.validators';
 //POPUPS
-import { ErrorSheetComponent } from './_library/helpers/error-sheet/error-sheet.component';
-import { TermsDialogComponent } from './_library/auth/terms-dialog/terms-dialog.component';
+import { ErrorSheetComponent } from './_helpers/error-sheet/error-sheet.component';
+import { TermsDialogComponent } from './_auth/terms-dialog/terms-dialog.component';
 import { MakeSureDialogComponent } from './_library/make-sure-dialog/make-sure-dialog.component';
 //DIRECTIVES
-import {OnlyNumberDirective} from './_library/directives/onlyNumber.directive';
+import {OnlyNumberDirective} from './_directives/onlyNumber.directive';
 //PIPES
-import { NiceDateFormatPipe } from './_library/pipes/nice-date-format.pipe';
+import { NiceDateFormatPipe } from './_pipes/nice-date-format.pipe';
 //SERVICES
-import {ApiService} from './_library/services/api.service';
+import {ApiService} from './_services/api.service';
 import {DataService} from './_services/data.service';
 //COMPONENTS
-import { LoginComponent } from './_library/auth/login/login.component';
-import { SignupComponent } from './_library/auth/signup/signup.component';
-import {ResetpasswordComponent} from './_library/auth/resetpassword/resetpassword.component';
+import { LoginComponent } from './_auth/login/login.component';
+import { SignupComponent } from './_auth/signup/signup.component';
+import {ResetpasswordComponent} from './_auth/resetpassword/resetpassword.component';
 
-import {InputImageComponent} from './_library/input-image/input-image.component';
+import {InputImagesComponent} from './_library/input-images/input-images.component';
+import {InputPlusMinusComponent } from './_library/input-plus-minus/input-plus-minus.component';
+
 /////////////////// END LIBRARY //////////////////////////////////////////////
 
 //COMPONENTS
@@ -97,8 +99,6 @@ import { ProductCreateUpdateComponent } from './_admin/product-create-update/pro
 import { ProductCreateStepperComponent } from './_admin/product-create-stepper/product-create-stepper.component';
 import { ProductItemComponent } from './product-item/product-item.component';
 import { ProductItemDialogComponent } from './product-item-dialog/product-item-dialog.component';
-import { InputPlusMinusComponent } from './_library/input-plus-minus/input-plus-minus.component';
-import { InputImagesComponent } from './_library/input-images/input-images.component';
 import { ProductsComponent } from './_admin/products/products.component';
 
 @NgModule({
@@ -111,7 +111,7 @@ import { ProductsComponent } from './_admin/products/products.component';
     ResetpasswordComponent,
     ErrorSheetComponent,
     MakeSureDialogComponent,
-    InputImageComponent,
+    InputImagesComponent,
     NiceDateFormatPipe,
     OnlyNumberDirective,
     HomeComponent,

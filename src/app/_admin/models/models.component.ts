@@ -3,8 +3,8 @@ import {FormGroup,FormControl,Validators} from '@angular/forms';
 import {MatExpansionPanel} from '@angular/material';
 import {MatTable, MatTableDataSource,  MatInput} from '@angular/material';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {CustomValidators, ParentErrorStateMatcher  } from '../../_library/helpers/custom.validators';
-import { ApiService, EApiImageSizes, IApiBrand, IApiModel } from '../../_library/services/api.service';
+import {CustomValidators, ParentErrorStateMatcher  } from '../../_helpers/custom.validators';
+import { ApiService, EApiImageSizes, IApiBrand, IApiModel } from '../../_services/api.service';
 import { DataService} from '../../_services/data.service';
 import { Subscription } from 'rxjs';
 

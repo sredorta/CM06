@@ -1,10 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {IApiProduct, EApiImageSizes} from '../_library/services/api.service';
-import {Product} from '../_library/models/product';
+import {IApiProduct, EApiImageSizes} from '../_services/api.service';
+import {Product} from '../_models/product';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ProductItemDialogComponent} from '../product-item-dialog/product-item-dialog.component';
 import { Subscription } from 'rxjs';
-import { ApiService } from '../_library/services/api.service';
+import { ApiService } from '../_services/api.service';
 import {TooltipModule} from 'primeng/tooltip';
 import {ViewEncapsulation} from '@angular/core';
 import { DataService } from '../_services/data.service';

@@ -12,7 +12,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
-import { ApiService, EApiImageSizes, IApiBrand, IApiProduct } from '../_library/services/api.service';
+import { ApiService, EApiImageSizes, IApiBrand, IApiProduct } from '../_services/api.service';
 
 @Injectable({
   providedIn: 'root'

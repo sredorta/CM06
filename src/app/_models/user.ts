@@ -1,5 +1,5 @@
 
-import {IApiUserAuth} from '../services/api.service';
+import {IApiUserAuth} from '../_services/api.service';
 
 /*export enum avatarSizes  {
     full = 0, large = 1, big = 2, medium = 3, small = 4, thumbnail = 5, tinythumbnail = 6

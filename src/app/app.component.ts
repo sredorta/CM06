@@ -2,10 +2,10 @@ import {MediaMatcher} from '@angular/cdk/layout';
 import {ChangeDetectorRef, Component, OnDestroy, ViewEncapsulation} from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
-import {LoginComponent} from './_library/auth/login/login.component';
+import {LoginComponent} from './_auth/login/login.component';
 import { TranslateService } from '@ngx-translate/core'; //NGX-TRANSLATE
-import {User} from './_library/models/user';
-import {ApiService, IApiUserAuth, EApiImageSizes, IApiBrand, IApiProduct} from './_library/services/api.service';
+import {User} from './_models/user';
+import {ApiService, IApiUserAuth, EApiImageSizes, IApiBrand, IApiProduct} from './_services/api.service';
 import {DataService} from './_services/data.service';
 import {InitComponent} from './init/init.component';
 
