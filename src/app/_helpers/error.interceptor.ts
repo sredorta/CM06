@@ -3,6 +3,7 @@ import { HttpRequest, HttpResponse, HttpErrorResponse, HttpHandler, HttpEvent, H
 import {MatBottomSheet, MatBottomSheetRef} from '@angular/material';
 import {ErrorSheetComponent} from "./error-sheet/error-sheet.component";
 import { Observable, throwError } from 'rxjs';
+import {User} from '../_models/user';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import {SidebarModule} from 'primeng/sidebar';
@@ -46,7 +47,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                 if (error.error.exception === 'Tymon\\JWTAuth\\Exceptions\\TokenExpiredException' || 
                    error.error.exception === 'Tymon\\JWTAuth\\Exceptions\\TokenBlacklistedException') {
                     //this.userService.logout();
-                    //User.removeToken();
+                    User.removeToken();
                     //this.userService.setCurrent(new User(null));  
                     if (error.error.message != null) 
                         this.openBottomSheet("error",error.status,this.getText(error.error.message));

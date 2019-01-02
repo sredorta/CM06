@@ -1,4 +1,3 @@
-<img class="shadow" alt="shadow" #shadowImg style="border:1px solid green" crossOrigin="anonymous">
 <canvas class="shadow" #shadowCanvas style="border:1px solid red;"></canvas>
 <div class="wrapper" fxLayout="column" style="text-align:center;margin:5px" [formGroup]="parentForm">
     <div fxLayout="row">
@@ -10,7 +9,7 @@
         <button mat-mini-fab color="primary" type="button" (click)="openFileViewer()">
             <mat-icon aria-label="Example icon-button with a heart icon">camera_alt</mat-icon>
         </button>
-        <button  mat-mini-fab color="primary" type="button" (click)="resetImage()" [disabled]="defaultImgLoaded">
+        <button  mat-mini-fab color="primary" type="button" (click)="removeImage()" [disabled]="defaultImgLoaded">
             <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
         </button>
         <button   mat-mini-fab color="primary" type="button" (click)="rotateImage()" [disabled]="defaultImgLoaded">
@@ -20,7 +19,7 @@
     </div>  
     <div [ngClass]="{'shadow' : !isMultiple}">
       <div #gallery fxLayout="row" fxLayoutGap="5px" class="gallery">
-        <div *ngFor="let image of images;let i=index;" class="image-wrapper" [ngClass]="{'selected' : isSelected(i)}">
+        <div *ngFor="let image of base64;let i=index;" class="image-wrapper" [ngClass]="{'selected' : isSelected(i)}">
           <img  #thumb [src]="image" data-id="{{i}}" alt="picture" (click)="selectImage(thumb)" class="image-item" >
         </div>
       </div>

@@ -8,3 +8,12 @@
         display:none;
     }
 }
+
+//Color for toasts
+:host ::ng-deep .custom-toast .ui-toast-message {
+    color: rgb(202, 14, 14);
+    background: rgb(245, 200, 194);
+}  
+:host ::ng-deep .custom-toast .ui-toast-close-icon {
+    color: rgb(202, 14, 14);;
+}

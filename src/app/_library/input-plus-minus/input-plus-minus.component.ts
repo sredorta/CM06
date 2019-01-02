@@ -11,6 +11,8 @@ export class InputPlusMinusComponent implements OnInit {
   @Input() parentForm : FormGroup;
   @Input() fieldName : string = "plusminus";
   @Input() default : number = 0;
+  @Input() maxlength : number = 5;
+
   value : number;
   constructor() { }
 
@@ -31,8 +33,11 @@ export class InputPlusMinusComponent implements OnInit {
   }
 
   plus() {
-    this.value = this.value + 1;
-    this.setFormField(this.value);
+    let tmp = this.value +1;
+    if (tmp.toString().length<=this.maxlength) {
+      this.value = this.value + 1;
+      this.setFormField(this.value);
+    }
   }
   minus() {
     this.value = this.value-1;

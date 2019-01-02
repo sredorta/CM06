@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild, Input,ElementRef} from '@angular/core';
 import { IApiBrand, IApiModel, IApiProduct, ApiService, EApiImageSizes, IApiAttachment } from '../../_services/api.service';
 import { DataService } from '../../_services/data.service';
-import { Router } from '@angular/router';
+import { Router} from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import {MessageService} from 'primeng/api';
 
 import {SearchBrandComponent} from '../../_library/search-brand/search-brand.component';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
@@ -32,7 +34,7 @@ export class ProductCreateUpdateComponent implements OnInit {
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private api : ApiService, private data : DataService, private router : Router) { }
+  constructor(private api : ApiService, private data : DataService, private router : Router,private translate: TranslateService, private messageService: MessageService) { }
 
   ngOnInit() {
     this.myForm =  new FormGroup({    
@@ -45,10 +47,12 @@ export class ProductCreateUpdateComponent implements OnInit {
       ])),     
       price: new FormControl('', Validators.compose([
         Validators.required,
-        Validators.minLength(1)
+        Validators.minLength(1),
+        Validators.maxLength(7)
       ])),  
       discount: new FormControl('', Validators.compose([
-        Validators.minLength(1)
+        Validators.minLength(0),
+        Validators.maxLength(7)
       ])),  
       stock: new FormControl('', Validators.compose([])),    
       isVehicle: new FormControl('', Validators.compose([])),  
@@ -58,22 +62,19 @@ export class ProductCreateUpdateComponent implements OnInit {
 
     //If there is an input product then we set all fields
     if (this.currentProduct) {
-      console.log("currentProduct");
-      console.log(this.currentProduct);
       this.product = new Product(this.currentProduct);
-      console.log("Loaded input product :");
-      console.log(this.product);
-      console.log("images");
-      console.log(this.product.images);
       this.myForm.controls['title'].setValue(this.product.title);
       this.myForm.controls['description'].setValue(this.product.description);
       this.myForm.controls['price'].setValue(this.product.price);
       this.myForm.controls['discount'].setValue(this.product.discount);
       this.stock = this.product.stock;
+      this.images = [];
       for(let image of this.product.images) {
           this.images.push(image.sizes['full'].url);
       }
-      this.myForm.controls['images'].setValue(this.images);
+      console.log("SETTING IMAGES");
+      console.log(this.images);
+      //this.myForm.controls['images'].setValue(this.images);
       this.product.images = this.images;
       this.myForm.valueChanges.scan
       console.log(this.images);
@@ -85,13 +86,16 @@ export class ProductCreateUpdateComponent implements OnInit {
 
     //Subscribe to form changes to update the product preview
     this._subscriptions.push(this.myForm.valueChanges.subscribe(res => {
-      console.log("CHANGES !!");
+/*      console.log("CHANGES !!");
       console.log(res);
       let id = this.product.id;
       this.product = new Product(res);
       this.product.id = id;
-      console.log(this.product);
-      //this.product.images = this.images;
+      if (res.images)
+        if (res.images.length<=0) {
+          this.product.images = this.images;
+        }
+      console.log(this.product);*/
     }));
   }
 
@@ -107,9 +111,18 @@ export class ProductCreateUpdateComponent implements OnInit {
   //On create product
   onSubmit(value) {
     console.log(value);
+
     if (this.myForm.invalid) {
       return;
     }
+    if (!value.discount) value.discount = 0;
+    if (value.price<=value.discount) {
+      this._subscriptions.push(this.translate.get(["product.admin.create.toast.summary", "product.admin.create.toast.detail"]).subscribe( trans => {
+        this.messageService.add({severity:'warn', summary:trans['product.admin.create.toast.summary'], detail:trans['product.admin.create.toast.detail']});
+      }));
+      return;
+    }
+
     if (!this.currentProduct)
       this._subscriptions.push(this.api.createProduct(this.model.id,value.title,value.description,value.price,value.discount,value.stock,value.isVehicle,value.images).subscribe((res: IApiProduct) => {
         console.log("Finished create !");
@@ -118,13 +131,18 @@ export class ProductCreateUpdateComponent implements OnInit {
         this.products.push(res);
         this.data.setProducts(this.products);
         this.router.navigate(["/admin-products"]);
-        //this.data.
-        //this._addBrand(res);
-        //this.messageService.add({severity:'success', summary:trans['brands.admin.toast.create.summary'], detail:trans['brands.admin.toast.create.detail']});
       }));
     else {
-      console.log("Updating product");
-      
+      //Case of update product
+      this._subscriptions.push(this.api.updateProduct(this.currentProduct.id,value.title,value.description,value.price,value.discount,value.stock,value.isVehicle,value.images).subscribe((res: IApiProduct) => {
+        console.log("Finished create !");
+        console.log(res);
+        this.products = this.data.getProducts();
+        const itemIndex = this.products.findIndex(obj => obj.id === this.currentProduct.id);
+        this.products[itemIndex] = res;
+        this.data.setProducts(this.products);
+        this.router.navigate(["/admin-products"]);
+      }));     
     }
       
   }

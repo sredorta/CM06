@@ -193,7 +193,6 @@ export class ApiService {
   }  
 
   public createProduct(idModel:number,title:string,description:string,price:number,discount:number,stock:number,isVehicle:boolean,images:Array<string>) : Observable<IApiProduct> {
-    if (!discount) discount = 0;
     let data = {
       'model_id'    : idModel,
       'title'       : title,
@@ -206,6 +205,24 @@ export class ApiService {
     };
     return this.http.post<IApiProduct>(environment.apiURL +'/products/create',data ).map(res => <IApiProduct>res);
   }
+
+  public updateProduct(idProduct:number,title:string,description:string,price:number,discount:number,stock:number,isVehicle:boolean,images:Array<string>) : Observable<IApiProduct> {
+    let data = {
+      'id'          : idProduct,
+      'title'       : title,
+      'description' : description,
+      'price'       : price,
+      'discount'    : discount,
+      'stock'       : stock,
+      'isVehicle'   : isVehicle,
+      'images'      : images
+    };
+    console.log("UPDATE");
+    console.log(data);
+    return this.http.post<IApiProduct>(environment.apiURL +'/products/update',data ).map(res => <IApiProduct>res);
+  }
+
+
   public getProducts() : Observable<IApiProduct[]> {
     return this.http.get<IApiProduct[]>(environment.apiURL +'/products').map(res => <IApiProduct[]>res);
   }

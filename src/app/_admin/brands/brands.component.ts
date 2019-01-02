@@ -6,7 +6,7 @@ import {MatExpansionPanel} from '@angular/material';
 import {MatTable, MatTableDataSource} from '@angular/material';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 
-import {CustomValidators, ParentErrorStateMatcher  } from '../../_helpers/custom.validators';
+import {CustomValidators} from '../../_helpers/custom.validators';
 import { ApiService, EApiImageSizes, IApiBrand } from '../../_services/api.service';
 import { Subscription } from 'rxjs';
 
@@ -209,9 +209,12 @@ export class BrandsComponent implements OnInit {
     this.myFormUpdate.controls['name'].setValue(brand.name);
     this.inputImageUpdateDataIn = [];
     if (brand.image)
-      this.inputImageUpdateDataIn[0] = brand.image.sizes['thumbnail'].url;
+      this.inputImageUpdateDataIn[0] = brand.image.sizes['full'].url;
     else 
       this.inputImageUpdateDataIn[0] = this.defaultImage; 
+
+    console.log("We are setting inputImageUpdateDataIn ");
+    console.log(this.inputImageUpdateDataIn);  
   }
 
   //Delete the brand when clicking to delete

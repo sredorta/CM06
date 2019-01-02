@@ -33,8 +33,6 @@ export class Product {
         } else {
             this.id = null;
         }
-        console.log("Resulting product: ");
-        console.log(this);
     }
 
     public getFinalPrice() {

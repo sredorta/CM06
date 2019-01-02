@@ -1,4 +1,6 @@
 <div  class="product-create-update-wrapper"> 
+  <p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast"></p-toast>
+
   <!--In case we don't give brand and models we provide a way to find-->
   <div fxLayout="row" fxLayoutGap="20px">
     <div fxFlex="1 1 auto" class="admin-theme detail-wrapper">
@@ -26,7 +28,7 @@
             </mat-form-field>    
             <mat-form-field appearance="outline" style="width:100%">
                 <mat-label>{{'product.admin.create.input.price.label' | translate}}</mat-label>
-                <input matInput formControlName="price" placeholder="{{'product.admin.create.input.price.placeholder' | translate}}" required autocomplete="off" OnlyNumber inputmode="numeric" pattern="[0-9]*">
+                <input matInput formControlName="price" placeholder="{{'product.admin.create.input.price.placeholder' | translate}}" required autocomplete="off" OnlyNumber inputmode="numeric" pattern="[0-9]*" maxlength="7">
                 <mat-hint>{{'product.admin.create.input.price.hint' | translate}}</mat-hint>
                 <mat-icon matSuffix>euro_symbol</mat-icon>
                 <mat-error *ngFor="let validation of validation_messages">
@@ -35,7 +37,7 @@
             </mat-form-field>      
             <mat-form-field appearance="outline" style="width:100%">
                 <mat-label>{{'product.admin.create.input.discount.label' | translate}}</mat-label>
-                <input matInput formControlName="discount" placeholder="{{'product.admin.create.input.discount.placeholder' | translate}}" autocomplete="off" OnlyNumber inputmode="numeric" pattern="[0-9]*">
+                <input matInput formControlName="discount" placeholder="{{'product.admin.create.input.discount.placeholder' | translate}}" autocomplete="off" OnlyNumber inputmode="numeric" pattern="[0-9]*" maxlength="7">
                 <mat-hint>{{'product.admin.create.input.discount.hint' | translate}}</mat-hint>
                 <mat-icon matSuffix>euro_symbol</mat-icon>
                 <mat-error *ngFor="let validation of validation_messages">
@@ -60,7 +62,7 @@
     <div fxFlex="1 1 auto" class="default-theme preview-wrapper" style="padding:5px">
         <h3 class="admin-label">{{'product.admin.create.preview.header' | translate}}</h3>
         <div fxLayoutAlign="center center">
-          <app-product-item  [product]="product" preview="true"></app-product-item>
+          <!--<app-product-item  [product]="product" preview="true"></app-product-item>-->
         </div>
         <div class="admin-theme"></div>
     </div>
