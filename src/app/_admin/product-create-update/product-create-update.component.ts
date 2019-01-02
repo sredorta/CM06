@@ -86,16 +86,11 @@ export class ProductCreateUpdateComponent implements OnInit {
 
     //Subscribe to form changes to update the product preview
     this._subscriptions.push(this.myForm.valueChanges.subscribe(res => {
-/*      console.log("CHANGES !!");
+      console.log("CHANGES !!");
       console.log(res);
       let id = this.product.id;
       this.product = new Product(res);
       this.product.id = id;
-      if (res.images)
-        if (res.images.length<=0) {
-          this.product.images = this.images;
-        }
-      console.log(this.product);*/
     }));
   }
 

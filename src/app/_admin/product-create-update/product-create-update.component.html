@@ -4,9 +4,9 @@
   <!--In case we don't give brand and models we provide a way to find-->
   <div fxLayout="row" fxLayoutGap="20px">
     <div fxFlex="1 1 auto" class="admin-theme detail-wrapper">
-      <div *ngIf="!brand">
+      <!--<div *ngIf="!brand">
           <app-search-brand [brand]="brand"></app-search-brand>
-      </div>
+      </div>-->
       <!--Missing model selector-->
       <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate> 
           <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="20px">
@@ -62,7 +62,7 @@
     <div fxFlex="1 1 auto" class="default-theme preview-wrapper" style="padding:5px">
         <h3 class="admin-label">{{'product.admin.create.preview.header' | translate}}</h3>
         <div fxLayoutAlign="center center">
-          <!--<app-product-item  [product]="product" preview="true"></app-product-item>-->
+          <app-product-item  [product]="product" preview="true"></app-product-item>
         </div>
         <div class="admin-theme"></div>
     </div>

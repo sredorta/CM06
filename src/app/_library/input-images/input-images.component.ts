@@ -60,11 +60,19 @@ export class InputImagesComponent implements OnInit {
       this.resetImage();
     } else {
       this.base64 = [];
+      //We need to add interval to avoid smaller images to be loaded first
+      let i = 0;
       for (let image of this.images) {
-        this.imageToBase64Array(image);
+        i = i+200;
+        setTimeout(()=> {
+          this.imageToBase64Array(image);
+        },i);
+
       }
     }
   }
+
+
 
   //We create all base64 array and this triggers the update of the list of thumbs
   imageToBase64Array(data: string) {
