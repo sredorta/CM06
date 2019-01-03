@@ -3,6 +3,8 @@ import { Location } from '@angular/common';
 import { FormGroup,FormControl,Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { MatRadioChange } from '@angular/material';
+import {SpinnerOverlayService} from '../../_library/spinner-overlay.service';
+import { Router} from '@angular/router';
 
 //Import all shared logic required for forms handling
 import {CustomValidators  } from '../../_helpers/custom.validators';
@@ -22,10 +24,12 @@ export class ResetpasswordComponent implements OnInit {
 
   //Get error messages
   validation_messages = CustomValidators.getMessages();
-  loading = false;    //Tells html we are loading
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private _location: Location, private api : ApiService) { }
+  constructor(private _location: Location, 
+              private api : ApiService,
+              private spinner: SpinnerOverlayService,
+              private router: Router) { }
 
   ngOnInit() {
     this.myForm = this.createForm(); 
@@ -59,21 +63,23 @@ export class ResetpasswordComponent implements OnInit {
     if (this.myForm.invalid) {
       return;
     }
-    this.loading = true;
+    this.spinner.show();
     //request http here !
     this._subscriptions.push(this.api.resetPassword(value.email, this.accessSelected).subscribe(
         result => {
           console.log(result);
           //We check if we got multiple access
-          if (result.response === "multiple_access") {
+          if (result.access) {
+            console.log("Multiple access !!!");
+            console.log(result.access);
             //Update the html to show the available access
-            this.accessAvailable = result.message;
-            this.accessSelected = result.message[0];
+            this.accessAvailable = result.access;
+            this.accessSelected = result.access[0];
           } 
-          this.loading = false;
+          this.spinner.hide();
         },
         error => {
-            this.loading = false;
+            this.spinner.hide();
         })
     );
   }

@@ -49,46 +49,6 @@
     <mat-card-footer>
         <button mat-button style="width:50%" routerLink="/resetpassword" [disabled]="loading">{{'login.forgot' | translate}}</button>
         <button mat-button style="width:50%" routerLink="/signup" [disabled]="loading">{{'login.signup' | translate}}</button>
-        <mat-progress-bar *ngIf="loading" mode="indeterminate" color="accent"></mat-progress-bar>
       </mat-card-footer>        
     </mat-card>
   </div>
-
-<!--<form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" autocomplete="off" > 
-
-  <span class="ui-float-label" style="margin-top:20px">
-    <input matInput id="email" formControlName="email" type="text" size="30" pInputText  style="width:100%" autocomplete="off" novalidate> 
-    <label for="email">Email</label>
-  </span>
-
-  <span class="ui-float-label" style="margin-top:25px;margin-bottom:20px">
-    <input id="password" formControlName="password" type="password" pPassword [feedback]="true"  style="width:100%" autocomplete="off" novalidate/>
-    <label for="password">Password</label>     
-  </span>
-
-
-  <p-checkbox  [formControl]="myForm.controls['keepconnected']"   label="Keep connected" binary="true"></p-checkbox>
-  <p-listbox [formControl]="myForm.controls['access']" [options]="accounts"  checkbox="true" [style]="{'width':'100%'}"></p-listbox>
-  <button pButton type="button" label="Click" (click)="handleClick($event)"></button>
-
-  <div fxLayoutAlign="stretch center" fxLayoutGap="20px" style="width:100%">
-    <button style="width:100%"  mat-button type="reset" (click)="resetForm()" color="primary" [disabled]="loading">ANNULER</button>
-    <button style="width:100%" mat-raised-button type="submit" color="primary" [disabled]="loading">OK</button>
-  </div>
-</form>-->
-
-
-<!--
-<h1>{{'app.title' | translate}}</h1>
-<h3>Float Label</h3>
-<span class="ui-float-label">
-    <input id="float-input" type="text" size="30" pInputText> 
-    <label for="float-input">Username</label>
-</span>
-<input type="password" pPassword [feedback]="true"/>
-<input type="text" pInputText />
-<p-colorPicker [(ngModel)]="color"></p-colorPicker>
-<p>A little bit of text to see how it shows !</p>-->
-<!--<p-editor [(ngModel)]="text" [style]="{'height':'320px'}"></p-editor>-->
-<!--<quill-editor></quill-editor>-->
-

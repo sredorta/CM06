@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import {CustomValidators} from '../../_helpers/custom.validators';
 import {ApiService, IApiLogin, IApiUserAuth} from '../../_services/api.service';
 import {User} from '../../_models/user';
+import {SpinnerOverlayService} from '../../_library/spinner-overlay.service';
 
 
 @Component({
@@ -17,15 +18,14 @@ import {User} from '../../_models/user';
 export class LoginComponent implements OnInit {
 
   myForm : FormGroup;
-  keepconnected: boolean = false;
   validation_messages = CustomValidators.getMessages();
   accounts = new Array<string>();
-  loading = false;
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-
-
-  constructor(private api : ApiService, private location : Location,private router : Router) { }
+  constructor(private api : ApiService, 
+              private location : Location,
+              private router : Router,
+              private spinner: SpinnerOverlayService) { }
 
   ngOnInit() {
     this.createForm();
@@ -62,24 +62,25 @@ export class LoginComponent implements OnInit {
       console.log("invalid");
       return;
     }
-    this.loading = true;
+    this.spinner.show();
     this._subscriptions.push(this.api.login(value.email,value.password,value.keepconnected,value.access).subscribe((res:IApiLogin) => {
       console.log(res);
       if (res.access != null) {
         this.accounts = res.access;
+        this.spinner.hide();
       } else {
         User.saveToken(res.token);   //Save Token to session storage
         //We need to download here the profile of the user
         this._subscriptions.push(this.api.getAuthUser().subscribe((res: IApiUserAuth)=> {
           this.api.setCurrent(res); 
+          this.spinner.hide();
           this.router.navigate([""]); //Back home
         },err=> {
-          this.loading = false;
+          this.spinner.hide();
         }));
       }
-      this.loading = false;
     }, err => {
-      this.loading = false;
+      this.spinner.hide();
     }));
   }
 
