@@ -20,7 +20,7 @@ import { ApiService, EApiImageSizes, IApiBrand, IApiProduct } from '../_services
 export class DataService {
   private _brands : IApiBrand[] = [];       //Stores downloaded brands
   private _products : IApiProduct[] = [];   //Stores downloaded products
-
+  private _users : any[] = [];              //Stores downloaded users
   constructor(private api : ApiService) { }
 
   public getBrands() : IApiBrand[] {
@@ -41,4 +41,12 @@ export class DataService {
     this._products = products;
   }
 
+  public getUsers()  {
+    return this._users;
+  }
+
+  //Sets all available brands
+  public setUsers(users: any[]) {
+    this._users = users;
+  }
 }

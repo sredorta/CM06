@@ -8,6 +8,7 @@ import {ProductCreateStepperComponent} from './_admin/product-create-stepper/pro
 import {ProductCreateUpdateComponent} from './_admin/product-create-update/product-create-update.component';
 import {ProductsComponent} from './_admin/products/products.component';
 import {ProductItemComponent} from './product-item/product-item.component';
+import {MembersComponent} from './_admin/members/members.component';
 
 const routes: Routes = [
   {
@@ -31,8 +32,8 @@ const routes: Routes = [
     //canActivate: [LoggedOutGuard]
   },  
   {
-    path: 'admin-product-create',
-    component: ProductCreateStepperComponent,
+    path: 'admin-members',
+    component: MembersComponent,
     //canActivate: [AdminGuard]
   },    
 
@@ -40,6 +41,11 @@ const routes: Routes = [
   {
     path: 'admin-products',
     component: ProductsComponent,
+    //canActivate: [AdminGuard]
+  },    
+  {
+    path: 'admin-product-create',
+    component: ProductCreateStepperComponent,
     //canActivate: [AdminGuard]
   },    
   {

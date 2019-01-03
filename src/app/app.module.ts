@@ -85,6 +85,8 @@ import {SpinnerOverlayService} from './_library/spinner-overlay.service';
 import { LoginComponent } from './_auth/login/login.component';
 import { SignupComponent } from './_auth/signup/signup.component';
 import {ResetpasswordComponent} from './_auth/resetpassword/resetpassword.component';
+import { SpinnerComponent } from './_library/spinner/spinner.component';
+import { SpinnerOverlayComponent } from './_library/spinner-overlay/spinner-overlay.component';
 
 import {InputImagesComponent} from './_library/input-images/input-images.component';
 import {InputPlusMinusComponent } from './_library/input-plus-minus/input-plus-minus.component';
@@ -104,8 +106,7 @@ import { ProductCreateStepperComponent } from './_admin/product-create-stepper/p
 import { ProductItemComponent } from './product-item/product-item.component';
 import { ProductItemDialogComponent } from './product-item-dialog/product-item-dialog.component';
 import { ProductsComponent } from './_admin/products/products.component';
-import { SpinnerComponent } from './_library/spinner/spinner.component';
-import { SpinnerOverlayComponent } from './_library/spinner-overlay/spinner-overlay.component';
+import { MembersComponent } from './_admin/members/members.component';
 
 
 @NgModule({
@@ -136,7 +137,8 @@ import { SpinnerOverlayComponent } from './_library/spinner-overlay/spinner-over
     CurrencyFormatPipe,
     CurrencyFormatDirective,
     SpinnerComponent,
-    SpinnerOverlayComponent
+    SpinnerOverlayComponent,
+    MembersComponent
     //End of library
   ],
   imports: [

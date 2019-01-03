@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 //Import all shared logic required for forms handling
 import {CustomValidators, ParentErrorStateMatcher  } from '../../_helpers/custom.validators';
 import {InputImagesComponent} from '../../_library/input-images/input-images.component';
+import {SpinnerOverlayService} from '../../_library/spinner-overlay.service';
 
 //Dialogs
 import {TermsDialogComponent} from '../terms-dialog/terms-dialog.component';
@@ -24,11 +25,14 @@ export class SignupComponent implements OnInit {
   validation_messages = CustomValidators.getMessages();
   myForm: FormGroup; 
   highlight: boolean = false;
-  loading :boolean = false;
-  avatar : Blob = null;
+  defaultImage :string = "./assets/images/userdefault.jpg";
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
-  constructor(private api: ApiService, private location : Location, private router : Router, public dialog: MatDialog) { }
+  constructor(private api: ApiService, 
+              private location : Location, 
+              private router : Router, 
+              public dialog: MatDialog,
+              private spinner: SpinnerOverlayService) { }
 
 
   createForm() {
@@ -64,19 +68,10 @@ export class SignupComponent implements OnInit {
       ),
       avatar: new FormControl(null,null),
       terms: new FormControl(false,null)
-
     });
+    this.myForm.controls["terms"].disable();
   }
 
-    //Update photo if we change it
-/*    onImageChange(photo:string) {
-      console.log("SIZE IS : " + photo.length);
-      console.log(photo);
-      fetch(photo)
-        .then(res => res.blob())
-        .then(blob => this.avatar = blob);
-      //this.avatar = photo;
-    }*/
 
   ngOnInit() {
     this.createForm();
@@ -98,16 +93,17 @@ export class SignupComponent implements OnInit {
       height: '95%',
       data:  null 
     });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      this.myForm.patchValue({"terms" : result});
+    });
   }
-
-
-
 
   //From submit
   onSubmit(value) {
    console.log(value);
    //return;
-
     this.highlight = false;
     if (!this.myForm.controls.terms.value) {
       this.highlight = true;
@@ -117,15 +113,15 @@ export class SignupComponent implements OnInit {
     if (this.myForm.invalid) {
       return;
     }  
-    this.loading = true; 
+    this.spinner.show();
     this._subscriptions.push(this.api.signup(value.firstName, value.lastName, value.email, value.mobile, value.matching_passwords_group.password, value.avatar).subscribe(
       (result: any) => {
-        this.loading = false;
+        this.spinner.hide();
         this.router.navigate([""]);                 
       },
       error => {
+        this.spinner.hide();
         console.log(error);
-          this.loading = false;
       })); 
   }
 

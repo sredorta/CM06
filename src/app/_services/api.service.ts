@@ -131,20 +131,24 @@ export class ApiService {
   /*public signup(firstName:string,lastName:string,email:string,mobile:string,password:string, avatar:string) : Observable<UserToken> {   
     return this.http.post<UserToken>(environment.apiURL +'/auth/signup', {firstName,lastName,email,mobile,password,avatar}).map(res => <UserToken>res);
   }*/
-  public signup(firstName:string,lastName:string,email:string,mobile:string,password:string, avatar: File) : Observable<any> { 
-    const fd = new FormData();
-    fd.append('firstName' , firstName);
-    fd.append('lastName', lastName);
-    fd.append('email', email);
-    fd.append('mobile', mobile);
-    fd.append('password', password);
-    if (avatar !== null)
-      fd.append('avatar', avatar, avatar.name);
-    console.log("Sending avatar: " );
-    console.log(avatar);  
-    return this.http.post<any>(environment.apiURL +'/auth/signup', fd);
+  public signup(firstName:string,lastName:string,email:string,mobile:string,password:string, avatar: string) : Observable<any> { 
+    let data = {
+      'firstName' : firstName,
+      'lastName'  : lastName,
+      'email'     : email,
+      'mobile'    : mobile,
+      'password'  : password,
+      'avatar'    : avatar
+    };
+    console.log("Sending data: " );
+    console.log(data);  
+    return this.http.post<any>(environment.apiURL +'/auth/signup', data);
   }
 
+  public getUsers() : Observable<any> {
+    return this.http.get<any>(environment.apiURL + '/users');
+  }
+  
   //Gets the authenticated user (current user, or null if token is not valid or no token)
   public getAuthUser() : Observable<IApiUserAuth> {
     return this.http.get<IApiUserAuth>(environment.apiURL+'/auth/user').map(res => <IApiUserAuth>res);

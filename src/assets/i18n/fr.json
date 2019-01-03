@@ -21,7 +21,8 @@
     "terms.options.2"               : "un formulaire de contact",
     "terms.options.3"               : "par email à : {{email}}",
     "terms.options.4"               : "par voie postale au :",
-    "terms.accept"                  : "D'accord",
+    "terms.accept"                  : "J'accepte",
+    "terms.cancel"                 : "Je decline",
 
     "login.title"                   : "Se connecter",
     "login.subtitle"                : "Acceder a mon espace personnel",
@@ -142,7 +143,16 @@
     "products.admin.dialog.delete.header"       : "Suppresión d'un produit",
     "products.admin.dialog.delete.content"      : " ATTENTION ! Êtes vous sûr de vouloir supprimer le produit ?",
     "products.admin.toast.delete.summary"       : "Produit supprimé",
-    "products.admin.toast.delete.detail"        : "Le produit vient d'être supprimé"
+    "products.admin.toast.delete.detail"        : "Le produit vient d'être supprimé",
+
+    "members.admin.table.picture"               : "Avatar",
+    "members.admin.table.last"                  : "Nom",
+    "members.admin.table.first"                 : "Prénom",
+    "members.admin.table.email"                 : "Email",
+    "members.admin.table.phone"                 : "Mobile",
+    "members.admin.table.created"               : "Crée",
+    "members.admin.search.label"                : "Chercher un membre",
+    "members.admin.search.placeholder"          : "Chercher"
 
 
 
