@@ -80,6 +80,7 @@ import { CurrencyFormatPipe } from './_pipes/currency-format.pipe';
 //SERVICES
 import {ApiService} from './_services/api.service';
 import {DataService} from './_services/data.service';
+import {SpinnerOverlayService} from './_library/spinner-overlay.service';
 //COMPONENTS
 import { LoginComponent } from './_auth/login/login.component';
 import { SignupComponent } from './_auth/signup/signup.component';
@@ -103,6 +104,8 @@ import { ProductCreateStepperComponent } from './_admin/product-create-stepper/p
 import { ProductItemComponent } from './product-item/product-item.component';
 import { ProductItemDialogComponent } from './product-item-dialog/product-item-dialog.component';
 import { ProductsComponent } from './_admin/products/products.component';
+import { SpinnerComponent } from './_library/spinner/spinner.component';
+import { SpinnerOverlayComponent } from './_library/spinner-overlay/spinner-overlay.component';
 
 
 @NgModule({
@@ -131,7 +134,9 @@ import { ProductsComponent } from './_admin/products/products.component';
     InputImagesComponent,
     ProductsComponent,
     CurrencyFormatPipe,
-    CurrencyFormatDirective
+    CurrencyFormatDirective,
+    SpinnerComponent,
+    SpinnerOverlayComponent
     //End of library
   ],
   imports: [
@@ -198,9 +203,9 @@ import { ProductsComponent } from './_admin/products/products.component';
       }
     }),
   ],
-  entryComponents: [ErrorSheetComponent,TermsDialogComponent, MakeSureDialogComponent, ProductItemDialogComponent],
+  entryComponents: [ErrorSheetComponent, SpinnerOverlayComponent, TermsDialogComponent, MakeSureDialogComponent, ProductItemDialogComponent],
   providers: [
-    HttpClient, ApiService, DataService, MakeSureDialogComponent, ProductItemDialogComponent, MessageService, CurrencyFormatPipe,
+    HttpClient, ApiService, DataService, SpinnerOverlayService, MakeSureDialogComponent, ProductItemDialogComponent, MessageService, CurrencyFormatPipe,
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, 
     {provide: HTTP_INTERCEPTORS, useClass: HttpHeaderInterceptor, multi: true }    
   ],

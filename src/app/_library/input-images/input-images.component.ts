@@ -22,6 +22,7 @@ export class InputImagesComponent implements OnInit {
   @Input() maxSize : number = 500;
   @Input() crop : boolean = true;
   @Input() isMultiple : boolean = false;
+  @Input() disabled : boolean = false;
 
   //References
   @ViewChild('fileInput') inputElem : ElementRef;           //File input element
@@ -33,6 +34,7 @@ export class InputImagesComponent implements OnInit {
   base64 : string[] = new Array<string>();
   currentElement : HTMLImageElement;
   defaultImgLoaded : boolean = false;
+//  disable : boolean = false;
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
@@ -53,6 +55,8 @@ export class InputImagesComponent implements OnInit {
         this.realImgElem.nativeElement.src = changes.currentElement.currentValue.nativeElement.src;
     }
   }
+
+
 
   //Initialize the component
   initComponent() {
@@ -97,8 +101,10 @@ export class InputImagesComponent implements OnInit {
 
   //When an image is selected from the gallery we update the shadow
   selectImage(img:HTMLImageElement) { 
+    if (!this.disabled) {
       this.currentElement = img;
       this.realImgElem.nativeElement.src = img.src;
+    }
   }
 
 

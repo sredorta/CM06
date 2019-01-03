@@ -6,13 +6,13 @@
       <img  alt="picture" #realImg class="image-item" crossOrigin="anonymous">
       </div>
       <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" fxLayoutGap.xs="5px" fxFlex="100%" style="margin-bottom:10px;margin-left:20px">
-        <button mat-mini-fab color="primary" type="button" (click)="openFileViewer()">
+        <button mat-mini-fab color="primary" type="button" (click)="openFileViewer()" [disabled]="disabled">
             <mat-icon aria-label="Example icon-button with a heart icon">camera_alt</mat-icon>
         </button>
-        <button  mat-mini-fab color="primary" type="button" (click)="removeImage()" [disabled]="defaultImgLoaded">
+        <button  mat-mini-fab color="primary" type="button" (click)="removeImage()" [disabled]="defaultImgLoaded || disabled">
             <mat-icon aria-label="Example icon-button with a heart icon">delete</mat-icon>
         </button>
-        <button   mat-mini-fab color="primary" type="button" (click)="rotateImage()" [disabled]="defaultImgLoaded">
+        <button   mat-mini-fab color="primary" type="button" (click)="rotateImage()" [disabled]="defaultImgLoaded || disabled">
             <mat-icon aria-label="Example icon-button with a heart icon">rotate_right</mat-icon>
         </button>
         </div>

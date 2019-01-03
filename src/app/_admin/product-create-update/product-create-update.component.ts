@@ -2,8 +2,6 @@ import { Component, OnInit, ViewChild, Input,ElementRef} from '@angular/core';
 import { IApiBrand, IApiModel, IApiProduct, ApiService, EApiImageSizes, IApiAttachment } from '../../_services/api.service';
 import { DataService } from '../../_services/data.service';
 import { Router} from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
-import {MessageService} from 'primeng/api';
 
 import {SearchBrandComponent} from '../../_library/search-brand/search-brand.component';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
@@ -14,6 +12,7 @@ import {InputImagesComponent} from '../../_library/input-images/input-images.com
 import {Product} from '../../_models/product';
 import {CurrencyFormatPipe} from '../../_pipes/currency-format.pipe';
 import {CurrencyFormatDirective} from '../../_directives/currency-format.directive';
+import {SpinnerOverlayService} from '../../_library/spinner-overlay.service';
 
 @Component({
   selector: 'app-product-create-update',
@@ -25,7 +24,7 @@ export class ProductCreateUpdateComponent implements OnInit {
   @Input() model : IApiModel;
   @Input() currentProduct : IApiProduct; //Current product for update
 
-  @ViewChild('images') imagesElem : InputImagesComponent;           //File input element
+  @ViewChild('imagesCreate') imagesElem : InputImagesComponent;           //File input element
   //Forms
   validation_messages = CustomValidators.getMessages();
   myForm: FormGroup; 
@@ -36,7 +35,7 @@ export class ProductCreateUpdateComponent implements OnInit {
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private api : ApiService, private data : DataService, private router : Router,private translate: TranslateService, private messageService: MessageService) { }
+  constructor(private api : ApiService, private data : DataService, private router : Router, private spinner: SpinnerOverlayService) { }
 
   ngOnInit() {
     this.myForm =  new FormGroup({    
@@ -108,20 +107,15 @@ export class ProductCreateUpdateComponent implements OnInit {
   //On create product
   onSubmit(value) {
     console.log(value);
-
     if (this.myForm.invalid) {
       return;
     }
     if (!value.discount) value.discount = 0;
-    if (value.price<=value.discount) {
-      this._subscriptions.push(this.translate.get(["product.admin.create.toast.summary", "product.admin.create.toast.detail"]).subscribe( trans => {
-        this.messageService.add({severity:'warn', summary:trans['product.admin.create.toast.summary'], detail:trans['product.admin.create.toast.detail']});
-      }));
-      return;
-    }
-
+    //this.myForm.disable();
+    this.spinner.show();
     if (!this.currentProduct)
       this._subscriptions.push(this.api.createProduct(this.model.id,value.title,value.description,value.price,value.discount,value.stock,value.isVehicle,value.images).subscribe((res: IApiProduct) => {
+        this.spinner.hide();
         console.log("Finished create !");
         console.log(res);
         this.products = this.data.getProducts();
@@ -132,6 +126,7 @@ export class ProductCreateUpdateComponent implements OnInit {
     else {
       //Case of update product
       this._subscriptions.push(this.api.updateProduct(this.currentProduct.id,value.title,value.description,value.price,value.discount,value.stock,value.isVehicle,value.images).subscribe((res: IApiProduct) => {
+        this.spinner.hide();
         console.log("Finished create !");
         console.log(res);
         this.products = this.data.getProducts();

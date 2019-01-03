@@ -1,7 +1,4 @@
 <div  class="product-create-update-wrapper"> 
-    <p>{{"1000" | currencyFormat}}</p>
-  <p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast"></p-toast>
-
   <!--In case we don't give brand and models we provide a way to find-->
   <div fxLayout="row" fxLayoutGap="20px">
     <div fxFlex="1 1 auto" class="admin-theme detail-wrapper">
@@ -50,16 +47,17 @@
                 <mat-slide-toggle formControlName="isVehicle"></mat-slide-toggle>
                 <p style="font-size:14px">{{'product.admin.create.input.vehicle' | translate}}</p>
             </div>     
-            <app-input-images #images2 [isMultiple]="true" maxSize="800" [crop]="false" fieldName="images" [parentForm]="myForm" defaultImage="./assets/images/no-photo-available.jpg" [images]="images"></app-input-images>            
+            <app-input-images #imagesCreate [isMultiple]="true" maxSize="800" [crop]="false" fieldName="images" [parentForm]="myForm" defaultImage="./assets/images/no-photo-available.jpg" [images]="images" [disabled] = "myForm.disabled"></app-input-images>            
             <div fxLayout="column" fxLayoutAlign="center center" fxFlex="1 1 auto">
                 <div fxLayoutAlign="center center" fxLayoutGap="20px" fxFlex="1 1 auto">
-                    <button mat-button type="reset" color="primary" (click)="onCreateProductReset()">{{'cancel' | translate}}</button>
-                    <button mat-raised-button type="submit" color="primary"><mat-icon style="margin-right:10px">save</mat-icon>{{'save' | translate}}</button>
+                    <button mat-button type="reset" color="primary" (click)="onCreateProductReset()" [disabled] = "myForm.disabled">{{'cancel' | translate}}</button>
+                    <button mat-raised-button type="submit" color="primary" [disabled] = "myForm.disabled"><mat-icon style="margin-right:10px">save</mat-icon>{{'save' | translate}}</button>
                 </div>
             </div>
           </div>
       </form>   
     </div>
+
     <div fxFlex="1 1 auto" class="default-theme preview-wrapper" style="padding:5px">
         <h3 class="admin-label">{{'product.admin.create.preview.header' | translate}}</h3>
         <div fxLayoutAlign="center center">
