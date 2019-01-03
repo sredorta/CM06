@@ -8,6 +8,7 @@ import { ApiService } from '../_services/api.service';
 import {TooltipModule} from 'primeng/tooltip';
 import {ViewEncapsulation} from '@angular/core';
 import { DataService } from '../_services/data.service';
+import {CurrencyFormatPipe} from '../_pipes/currency-format.pipe';
 
 @Component({
   selector: 'app-product-item',

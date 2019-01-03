@@ -71,9 +71,12 @@ import { ErrorSheetComponent } from './_helpers/error-sheet/error-sheet.componen
 import { TermsDialogComponent } from './_auth/terms-dialog/terms-dialog.component';
 import { MakeSureDialogComponent } from './_library/make-sure-dialog/make-sure-dialog.component';
 //DIRECTIVES
-import {OnlyNumberDirective} from './_directives/onlyNumber.directive';
+import { OnlyNumberDirective } from './_directives/onlyNumber.directive';
+import { CurrencyFormatDirective } from './_directives/currency-format.directive';
 //PIPES
 import { NiceDateFormatPipe } from './_pipes/nice-date-format.pipe';
+import { CurrencyFormatPipe } from './_pipes/currency-format.pipe';
+
 //SERVICES
 import {ApiService} from './_services/api.service';
 import {DataService} from './_services/data.service';
@@ -101,6 +104,7 @@ import { ProductItemComponent } from './product-item/product-item.component';
 import { ProductItemDialogComponent } from './product-item-dialog/product-item-dialog.component';
 import { ProductsComponent } from './_admin/products/products.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -125,7 +129,9 @@ import { ProductsComponent } from './_admin/products/products.component';
     ProductItemDialogComponent,
     InputPlusMinusComponent,
     InputImagesComponent,
-    ProductsComponent
+    ProductsComponent,
+    CurrencyFormatPipe,
+    CurrencyFormatDirective
     //End of library
   ],
   imports: [
@@ -194,7 +200,7 @@ import { ProductsComponent } from './_admin/products/products.component';
   ],
   entryComponents: [ErrorSheetComponent,TermsDialogComponent, MakeSureDialogComponent, ProductItemDialogComponent],
   providers: [
-    HttpClient, ApiService, DataService, MakeSureDialogComponent, ProductItemDialogComponent, MessageService,
+    HttpClient, ApiService, DataService, MakeSureDialogComponent, ProductItemDialogComponent, MessageService, CurrencyFormatPipe,
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, 
     {provide: HTTP_INTERCEPTORS, useClass: HttpHeaderInterceptor, multi: true }    
   ],

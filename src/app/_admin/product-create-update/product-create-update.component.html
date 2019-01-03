@@ -1,4 +1,5 @@
 <div  class="product-create-update-wrapper"> 
+    <p>{{"1000" | currencyFormat}}</p>
   <p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast"></p-toast>
 
   <!--In case we don't give brand and models we provide a way to find-->
@@ -28,7 +29,7 @@
             </mat-form-field>    
             <mat-form-field appearance="outline" style="width:100%">
                 <mat-label>{{'product.admin.create.input.price.label' | translate}}</mat-label>
-                <input matInput formControlName="price" placeholder="{{'product.admin.create.input.price.placeholder' | translate}}" required autocomplete="off" OnlyNumber inputmode="numeric" pattern="[0-9]*" maxlength="7">
+                <input matInput formControlName="price" placeholder="{{'product.admin.create.input.price.placeholder' | translate}}" required autocomplete="off" OnlyNumber inputmode="numeric"  maxlength="9" CurrencyFormatter>
                 <mat-hint>{{'product.admin.create.input.price.hint' | translate}}</mat-hint>
                 <mat-icon matSuffix>euro_symbol</mat-icon>
                 <mat-error *ngFor="let validation of validation_messages">
@@ -37,7 +38,7 @@
             </mat-form-field>      
             <mat-form-field appearance="outline" style="width:100%">
                 <mat-label>{{'product.admin.create.input.discount.label' | translate}}</mat-label>
-                <input matInput formControlName="discount" placeholder="{{'product.admin.create.input.discount.placeholder' | translate}}" autocomplete="off" OnlyNumber inputmode="numeric" pattern="[0-9]*" maxlength="7">
+                <input matInput formControlName="discount" placeholder="{{'product.admin.create.input.discount.placeholder' | translate}}" autocomplete="off" OnlyNumber inputmode="numeric" maxlength="9" CurrencyFormatter>
                 <mat-hint>{{'product.admin.create.input.discount.hint' | translate}}</mat-hint>
                 <mat-icon matSuffix>euro_symbol</mat-icon>
                 <mat-error *ngFor="let validation of validation_messages">

@@ -4,7 +4,7 @@
       <div class="product-item-bottom-container" style="width:100%">
         <p class="product-item-title">{{product.title}}</p>
         <div fxLayout="row" fxLayoutAlign="space-between center" style="width:100%">
-          <p class="product-item-price-discount">{{product.getFinalPrice()}} €</p>
+          <p class="product-item-price-discount">{{product.getFinalPrice() | currencyFormat}} €</p>
           <p *ngIf="product.discount>0" class="product-item-price" [ngClass]="{'strike' : product.discount>0}">{{product.price}} €</p>
         </div>
         <!--<div fxLayout="row" fxLayout="center center">

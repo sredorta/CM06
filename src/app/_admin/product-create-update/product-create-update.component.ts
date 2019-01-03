@@ -12,6 +12,8 @@ import { Subscription } from 'rxjs';
 import {OnlyNumberDirective} from '../../_directives/onlyNumber.directive';
 import {InputImagesComponent} from '../../_library/input-images/input-images.component';
 import {Product} from '../../_models/product';
+import {CurrencyFormatPipe} from '../../_pipes/currency-format.pipe';
+import {CurrencyFormatDirective} from '../../_directives/currency-format.directive';
 
 @Component({
   selector: 'app-product-create-update',
