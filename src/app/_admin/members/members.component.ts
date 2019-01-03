@@ -7,7 +7,7 @@ import {MatTable, MatTableDataSource} from '@angular/material';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 
 import {CustomValidators, ParentErrorStateMatcher  } from '../../_helpers/custom.validators';
-import { ApiService, EApiImageSizes, IApiBrand, IApiProduct} from '../../_services/api.service';
+import { ApiService, EApiImageSizes, IApiUser} from '../../_services/api.service';
 import { Subscription } from 'rxjs';
 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
@@ -43,6 +43,7 @@ export class MembersComponent implements OnInit {
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
   selected = [];
+  expandedUserId : number = 0;
 
 
   //@ViewChild('inputImage') inputImage : InputImagesComponent;
@@ -63,7 +64,7 @@ export class MembersComponent implements OnInit {
        this.initTable(this.data.getUsers());
     } else {
       this.spinner.show();
-      this._subscriptions.push(this.api.getUsers().subscribe(res => {
+      this._subscriptions.push(this.api.getUsers().subscribe((res: IApiUser[]) => {
         console.log("Got members !");
         console.log(res);
         this.data.setUsers(res);
@@ -74,7 +75,7 @@ export class MembersComponent implements OnInit {
     }
   }
 
-  getImageUrl(user: any) {
+  getImageUrl(user: IApiUser) {
     if (user.avatar)
         return "url(" + user.avatar.sizes['thumbnail'].url + ")";
     return "url(" + this.defaultImage + ")";  
@@ -97,7 +98,23 @@ export class MembersComponent implements OnInit {
      this.displayedCount = this.dataSource.filteredData.length;
      this.lastFilter = filterValue;
     }
- }
+  }
+
+  onDeleteUser(id:number) {
+    console.log("Deleting user : " + id);
+  }
+
+  //When we click on update we update the expanded pannel values
+  onDetailsUser(id) {
+    console.log("OnUpdateUser");
+    let user : IApiUser = this.dataSource.data[this.dataSource.data.findIndex(obj => obj.id === id)];
+    this.expandedUserId = id;
+  }
+  rowClick(user : IApiUser) {
+    console.log("rowClick");
+    console.log(user);
+  }
+
 
 
   ngOnDestroy() {    

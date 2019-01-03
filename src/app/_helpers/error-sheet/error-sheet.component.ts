@@ -20,6 +20,9 @@ export class ErrorSheetComponent implements OnInit {
   constructor(@Inject(MAT_BOTTOM_SHEET_DATA) public data: any, private bottomSheetRef: MatBottomSheetRef<ErrorSheetComponent>) { }
 
   ngOnInit() {
+    setTimeout(()=> {
+      this.bottomSheetRef.dismiss();
+    },4000);
   }
   setClasses() {
     return {

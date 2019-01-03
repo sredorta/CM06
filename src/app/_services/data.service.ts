@@ -12,7 +12,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
-import { ApiService, EApiImageSizes, IApiBrand, IApiProduct } from '../_services/api.service';
+import { ApiService, EApiImageSizes, IApiBrand, IApiProduct, IApiUser } from '../_services/api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ import { ApiService, EApiImageSizes, IApiBrand, IApiProduct } from '../_services
 export class DataService {
   private _brands : IApiBrand[] = [];       //Stores downloaded brands
   private _products : IApiProduct[] = [];   //Stores downloaded products
-  private _users : any[] = [];              //Stores downloaded users
+  private _users : IApiUser[] = [];              //Stores downloaded users
   constructor(private api : ApiService) { }
 
   public getBrands() : IApiBrand[] {
@@ -32,7 +32,7 @@ export class DataService {
     this._brands = brands;
   }
 
-  public getProducts()  {
+  public getProducts() : IApiProduct[] {
     return this._products;
   }
 
@@ -41,12 +41,12 @@ export class DataService {
     this._products = products;
   }
 
-  public getUsers()  {
+  public getUsers() : IApiUser[]  {
     return this._users;
   }
 
   //Sets all available brands
-  public setUsers(users: any[]) {
+  public setUsers(users: IApiUser[]) {
     this._users = users;
   }
 }

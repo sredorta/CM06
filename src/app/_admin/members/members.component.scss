@@ -108,3 +108,50 @@ $accent: map-get($admin-theme,accent);
   opacity:0.8;
   margin:5px;
 }
+
+//Do some resizing to fit on small screens
+@media only screen and (max-width: 800px) {
+  .mat-column-email {
+    display:none;
+  }
+  .mat-column-phone {
+    display:none;
+  }
+}
+//Do more reducing on smaller screens
+@media only screen and (max-width: 400px) {
+  .mat-column-created {
+    display:none;
+  }
+  .image {
+    background-size:cover;
+    width:30px;
+    height:30px;
+    border-radius:3px;
+    opacity:0.8;
+    margin:3px;
+  }
+  .mat-column-image {
+    width:35px;
+  }
+  .mat-column-delete {
+    width:50px;
+    min-width:50px;
+    max-width:50px;
+    font-size:10px;
+    transition: all 0.3s ease-in-out;
+  }
+  .mat-column-modify {
+      width:50px;
+      min-width:50px;
+      max-width:50px;
+      font-size:10px;      
+      transition: all 0.3s ease-in-out;
+  }  
+  .mat-column-first {
+    font-size:12px;
+  }
+  .mat-column-last {
+    font-size:12px;
+  }
+}

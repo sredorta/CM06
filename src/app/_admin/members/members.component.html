@@ -11,6 +11,7 @@
       </mat-form-field>
       <p style="margin-bottom:5px;margin-top:0px;" class="total">TOTAL : {{displayedCount}} / <span style="font-weight:bold">{{totalCount}}</span></p> 
         <table #myTable mat-table [dataSource]="dataSource" multiTemplateDataRows class="table">
+
           <ng-container matColumnDef="image">
               <th mat-header-cell *matHeaderCellDef>{{'members.admin.table.picture' | translate}}</th>
               <td mat-cell *matCellDef="let row">
@@ -23,37 +24,21 @@
               <th mat-header-cell *matHeaderCellDef>{{'members.admin.table.last' | translate}}</th>
               <td mat-cell *matCellDef="let row" [class.expanded-row]="false"  (click)="expand = false;rowClick(row);">{{row.lastName}}</td>
           </ng-container> 
+
           <ng-container matColumnDef="first">
               <th mat-header-cell *matHeaderCellDef>{{'members.admin.table.first' | translate}}</th>
               <td mat-cell *matCellDef="let row" [class.expanded-row]="false"  (click)="expand = false;rowClick(row);">{{row.firstName}}</td>
           </ng-container> 
+
           <ng-container matColumnDef="email">
               <th mat-header-cell *matHeaderCellDef>{{'members.admin.table.email' | translate}}</th>
               <td mat-cell *matCellDef="let row" [class.expanded-row]="false"  (click)="expand = false;rowClick(row);">{{row.email}}</td>
           </ng-container> 
+
           <ng-container matColumnDef="phone">
               <th mat-header-cell *matHeaderCellDef>{{'members.admin.table.phone' | translate}}</th>
               <td mat-cell *matCellDef="let row" [class.expanded-row]="false"  (click)="expand = false;rowClick(row);">{{row.mobile}}</td>
           </ng-container>           
-          <!--
-          <ng-container matColumnDef="brand">
-              <th mat-header-cell *matHeaderCellDef>{{'products.admin.table.brand' | translate}}</th>
-              <td mat-cell *matCellDef="let row" [class.expanded-row]="false"  (click)="expand = false;rowClick(row);">{{row.brand}}</td>
-          </ng-container>
-          <ng-container matColumnDef="model">
-              <th mat-header-cell *matHeaderCellDef>{{'products.admin.table.model' | translate}}</th>
-              <td mat-cell *matCellDef="let row">
-                  <div fxLayout="row" fxLayoutAlign="start center"  (click)="expand = false;rowClick(row);">
-                    <img alt="Marque" [src]="getBrandUrl(row)" class="image-small">
-                    {{row.model}}
-                  </div>
-              </td>
-          </ng-container>
-          
-          <ng-container matColumnDef="stock">
-              <th mat-header-cell *matHeaderCellDef>{{'products.admin.table.stock' | translate}}</th>
-              <td mat-cell *matCellDef="let row" [class.expanded-row]="false"  (click)="expand = false;rowClick(row);">{{row.stock}}</td>
-          </ng-container> -->
 
           <ng-container matColumnDef="created">
               <th mat-header-cell *matHeaderCellDef>{{'members.admin.table.created' | translate}}</th>
@@ -63,12 +48,12 @@
           <ng-container matColumnDef="modify">
               <th mat-header-cell *matHeaderCellDef></th>
               <td mat-cell *matCellDef="let row"  [class.expanded-row]="expandedElement === row" 
-              (click)="expand=true;expandedElement = row;onUpdateProduct(row.id) ">{{'modify' | translate}}</td>
+              (click)="expand=true;expandedElement = row;onDetailsUser(row.id) ">{{'details' | translate}}</td>
           </ng-container> 
   
           <ng-container matColumnDef="delete">
               <th mat-header-cell *matHeaderCellDef></th>
-              <td mat-cell *matCellDef="let row" (click)="onDeleteProduct(row.id)">{{'delete' | translate}}</td>
+              <td mat-cell *matCellDef="let row" (click)="onDeleteUser(row.id)">{{'delete' | translate}}</td>
           </ng-container> 
         
           <ng-container matColumnDef="expandedDetail">
@@ -76,7 +61,10 @@
                 <div class="element-detail"
                     [@detailExpand]="(element == expandedElement) && expand ? 'expanded' : 'collapsed'">
                   <div style="padding:10px;width:100%" fxLayout="column" fxLayoutGap="20px" class="detail-wrapper"> 
-                    <h3>{{'brands.admin.modify.header' | translate}}</h3>
+                    <div *ngIf="element.id == expandedUserId">
+                        <h3>{{'brands.admin.modify.header' | translate}}</h3>
+                        <p>{{element.email}}</p>
+                    </div>
                     <!--<app-product-create-update *ngIf="element.id == expandedProductId" style="width:100%" [currentProduct] = "element" (productUpdated)="getProducts()"></app-product-create-update>-->
                   </div>
                 </div>

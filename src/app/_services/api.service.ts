@@ -41,6 +41,20 @@ export interface IApiBrand {
   image: IApiAttachment;
 }
 
+export interface IApiUser {
+  id:number;
+  firstName:string;
+  lastName:string;
+  email:string;
+  mobile:string;
+  created_at?:string;
+  updated_at?:string;
+  language?:string;
+  isEmailValidated?:boolean;
+  avatar:IApiAttachment;
+}
+
+
 export interface IApiAttachment {
   id?:number;
   title?:string;
@@ -145,8 +159,8 @@ export class ApiService {
     return this.http.post<any>(environment.apiURL +'/auth/signup', data);
   }
 
-  public getUsers() : Observable<any> {
-    return this.http.get<any>(environment.apiURL + '/users');
+  public getUsers() : Observable<IApiUser[]> {
+    return this.http.get<IApiUser[]>(environment.apiURL + '/users').map(res => <IApiUser[]>res);;
   }
   
   //Gets the authenticated user (current user, or null if token is not valid or no token)

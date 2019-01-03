@@ -13,7 +13,7 @@ import 'rxjs/add/operator/do';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-    constructor(private bottomSheet: MatBottomSheet) {}
+    constructor(private bottomSheet: MatBottomSheet, private router : Router) {}
     
     //Opens bottomsheet with error or success message
     openBottomSheet(type:string, code:number,  message:string): void {
@@ -53,7 +53,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                         this.openBottomSheet("error",error.status,this.getText(error.error.message));
                     else
                         this.openBottomSheet("error",error.status,"Votre session n'est pas pas valide ou votre acces n'est pas autorize");                     
-                    //this.router.navigate(['/login']);  
+                    this.router.navigate(['/login']);  
                 }
                 if (error.status === 401 || error.status === 403) {
                     //this.userService.logout();
