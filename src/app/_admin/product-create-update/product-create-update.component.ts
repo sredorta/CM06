@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input,ElementRef} from '@angular/core';
+import { Component, OnInit, ViewChild, Input,ElementRef, Output, EventEmitter} from '@angular/core';
 import { IApiBrand, IApiModel, IApiProduct, ApiService, EApiImageSizes, IApiAttachment } from '../../_services/api.service';
 import { DataService } from '../../_services/data.service';
 import { Router} from '@angular/router';
@@ -23,6 +23,7 @@ export class ProductCreateUpdateComponent implements OnInit {
   @Input() brand : IApiBrand;
   @Input() model : IApiModel;
   @Input() currentProduct : IApiProduct; //Current product for update
+  @Output() productUpdated = new EventEmitter<Boolean>();
 
   @ViewChild('imagesCreate') imagesElem : InputImagesComponent;           //File input element
   //Forms
@@ -73,13 +74,8 @@ export class ProductCreateUpdateComponent implements OnInit {
       for(let image of this.product.images) {
           this.images.push(image.sizes['full'].url);
       }
-      console.log("SETTING IMAGES");
-      console.log(this.images);
-      //this.myForm.controls['images'].setValue(this.images);
       this.product.images = this.images;
       this.myForm.valueChanges.scan
-      console.log(this.images);
-      //this.images = this.product.images;
       this.myForm.controls['isVehicle'].setValue(this.product.isVehicle);
     } else {
       this.images = null;
@@ -87,8 +83,6 @@ export class ProductCreateUpdateComponent implements OnInit {
 
     //Subscribe to form changes to update the product preview
     this._subscriptions.push(this.myForm.valueChanges.subscribe(res => {
-      console.log("CHANGES !!");
-      console.log(res);
       let id = this.product.id;
       this.product = new Product(res);
       this.product.id = id;
@@ -116,25 +110,22 @@ export class ProductCreateUpdateComponent implements OnInit {
     if (!this.currentProduct)
       this._subscriptions.push(this.api.createProduct(this.model.id,value.title,value.description,value.price,value.discount,value.stock,value.isVehicle,value.images).subscribe((res: IApiProduct) => {
         this.spinner.hide();
-        console.log("Finished create !");
-        console.log(res);
         this.products = this.data.getProducts();
         this.products.push(res);
         this.data.setProducts(this.products);
         this.router.navigate(["/admin-products"]);
-      }));
+      }, () => this.spinner.hide()));
     else {
       //Case of update product
       this._subscriptions.push(this.api.updateProduct(this.currentProduct.id,value.title,value.description,value.price,value.discount,value.stock,value.isVehicle,value.images).subscribe((res: IApiProduct) => {
         this.spinner.hide();
-        console.log("Finished create !");
-        console.log(res);
         this.products = this.data.getProducts();
         const itemIndex = this.products.findIndex(obj => obj.id === this.currentProduct.id);
         this.products[itemIndex] = res;
         this.data.setProducts(this.products);
         this.router.navigate(["/admin-products"]);
-      }));     
+        this.productUpdated.emit(true);
+      }, () => this.spinner.hide()));     
     }
       
   }

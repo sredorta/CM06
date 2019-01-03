@@ -228,8 +228,8 @@ export class InputImagesComponent implements OnInit {
         [field] : this.base64[0]
       };  
     }
-    console.log("Setting final data to:");
-    console.log(obj);
+    //console.log("Setting final data to:");
+    //console.log(obj);
     this.parentForm.patchValue(obj,{ onlySelf: false, emitEvent: true });
   }
 
