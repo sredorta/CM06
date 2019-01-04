@@ -9,6 +9,8 @@ import {ProductCreateUpdateComponent} from './_admin/product-create-update/produ
 import {ProductsComponent} from './_admin/products/products.component';
 import {ProductItemComponent} from './product-item/product-item.component';
 import {MembersComponent} from './_admin/members/members.component';
+import { VehiclesComponent } from './vehicles/vehicles.component';
+import { PiecesComponent } from './pieces/pieces.component';
 
 const routes: Routes = [
   {
@@ -48,6 +50,16 @@ const routes: Routes = [
     component: ProductCreateStepperComponent,
     //canActivate: [AdminGuard]
   },    
+  {
+    path: 'vehicles',
+    component: VehiclesComponent,
+    //canActivate: [AnyGuard]
+  },
+  {
+    path: 'pièces',
+    component: PiecesComponent,
+    //canActivate: [AnyGuard]
+  },
   {
     path: 'tmp',
     component: ProductCreateUpdateComponent,

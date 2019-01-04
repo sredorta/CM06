@@ -110,6 +110,8 @@ import { ProductItemComponent } from './product-item/product-item.component';
 import { ProductItemDialogComponent } from './product-item-dialog/product-item-dialog.component';
 import { ProductsComponent } from './_admin/products/products.component';
 import { MembersComponent } from './_admin/members/members.component';
+import { VehiclesComponent } from './vehicles/vehicles.component';
+import { PiecesComponent } from './pieces/pieces.component';
 
 
 @NgModule({
@@ -142,7 +144,9 @@ import { MembersComponent } from './_admin/members/members.component';
     SpinnerComponent,
     SpinnerOverlayComponent,
     MembersComponent,
-    MobileFormatPipe
+    MobileFormatPipe,
+    VehiclesComponent,
+    PiecesComponent
     //End of library
   ],
   imports: [

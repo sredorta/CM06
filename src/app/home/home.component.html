@@ -1,6 +1,30 @@
-<div fxLayout="row wrap">
-  <div *ngFor="let product of products">
-<app-product-item  [product]="product"></app-product-item>
+<div class="initial">
+    <div class="initial-header">
+        <p class="initial-title">BOUTIQUE</p>
+        <p class="initial-subtitle">Chercher c'est trouver</p>
+    </div>
+    <div class="dot dot1"></div>
+    <div class="dot dot1-bis"></div>
+    <div class="dot dot2"></div>
+    <div class="dot dot2-bis"></div>
+    <img alt-text="Casse moto 06 boutique" src="./assets/images/home-main.jpg" class="product-item-main-image">
 </div>
+<div class="menu-wrapper" fxLayout="row" routerLink="/vehicles">
+  <div fxFlex="40%" class="menu-text-wrapper" fxLayout="column" fxLayoutAlign="center start">
+    <p class="menu-text-wrapper-title">VEHICLES</p>
+    <p class="menu-text-wrapper-subtitle">Trouvez votre nouvelle moto</p>
+  </div>
+  <div fxFlex="60%" class="menu-image-wrapper">
+      <div class="menu-image" style="background-image:url('./assets/images/home-moto.png')"></div>
+  </div>
 </div>
-<!--<app-spinner message="loading..."></app-spinner>-->
+<div class="menu-wrapper" fxLayout="row" routerLink="/pièces">
+    <div fxFlex="40%" class="menu-text-wrapper" fxLayout="column" fxLayoutAlign="center start">
+      <p class="menu-text-wrapper-title">PIÈCES DÉTACHÉES</p>
+      <p class="menu-text-wrapper-subtitle">Trouvez la pièce qui vous manque</p>
+    </div>
+    <div fxFlex="60%" class="menu-image-wrapper">
+        <div class="menu-image" style="background-image:url('./assets/images/home-parts.jpg')"></div>
+    </div>
+</div>
+

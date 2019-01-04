@@ -189,6 +189,11 @@ export class ApiService {
     return this.http.post<any>(environment.apiURL +'/auth/account/delete',{id:id,access:"Admin"});
   }
 
+  //Deletes user and its accounts
+  public deleteUser(id:number) : Observable<any> {
+    return this.http.post<any>(environment.apiURL +'/auth/user/delete',{id:id});
+  }
+
 
   //Brands
   public createBrand(name:string, image:string) : Observable<IApiBrand>  {

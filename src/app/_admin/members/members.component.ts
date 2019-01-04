@@ -52,10 +52,6 @@ export class MembersComponent implements OnInit {
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-
-
-  //@ViewChild('inputImage') inputImage : InputImagesComponent;
-  //@ViewChild('inputImageUpdate') inputImageUpdate : InputImagesComponent;
   @ViewChild('myTable') table : MatTable<any>;   
 
   constructor( private translate: TranslateService, 
@@ -78,11 +74,8 @@ export class MembersComponent implements OnInit {
     } else {
       this.spinner.show();
       this._subscriptions.push(this.api.getUsers().subscribe((res: IApiUser[]) => {
-        console.log("Got members !");
-        console.log(res);
         this.data.setUsers(res);
         this.initTable(res);
-
         this.spinner.hide();
       }, () => this.spinner.hide()));
     }
@@ -113,13 +106,22 @@ export class MembersComponent implements OnInit {
     }
   }
 
+  //Delete an user
   onDeleteUser(id:number) {
-    console.log("Deleting user : " + id);
+      this._subscriptions.push(this.api.deleteUser(id).subscribe((res) => {
+        let data = this.data.getUsers();
+        data.splice(data.findIndex(obj => obj.id === id),1);
+        this.data.setUsers(data);
+        this.initTable(data);
+        this.spinner.hide();
+      },error => {
+        this.spinner.hide();
+      }));      
+
   }
 
   //When we click on update we update the expanded pannel values
   onDetailsUser(id) {
-    console.log("OnUpdateUser");
     let user : IApiUser = this.dataSource.data[this.dataSource.data.findIndex(obj => obj.id === id)];
     this.expandedUserId = id;
     this.enableToggle = false;
@@ -127,22 +129,14 @@ export class MembersComponent implements OnInit {
 
   //When we toggle tha admin of a member
   toggleAdmin(member: IApiUser, data : MatSlideToggleChange) {
-    console.log("Toggle admin");
-    console.log(member);
-    console.log(data.checked);
-  
-    //this.loading = true;
     this.spinner.show();
     if(data.checked) {
       this._subscriptions.push(this.api.createAccountAdmin(member.id).subscribe((res) => {
-        console.log("WE are here");
-        console.log(res);
         let index = this.dataSource.data.findIndex(obj => obj.id === member.id);
         this.dataSource.data[index].isAdmin = 1;
         this.table.renderRows();
         this.spinner.hide();
       },error => {
-        console.log("we got error !!");
         let index = this.dataSource.data.findIndex(obj => obj.id === member.id);
         this.dataSource.data[index].isAdmin = 0;
         this.table.renderRows();
@@ -151,14 +145,11 @@ export class MembersComponent implements OnInit {
       }));
     } else {
       this._subscriptions.push(this.api.deleteAccountAdmin(member.id).subscribe((res) => {
-        console.log("WE are here");
-        console.log(res);
         let index = this.dataSource.data.findIndex(obj => obj.id === member.id);
         this.dataSource.data[index].isAdmin = 0;
         this.table.renderRows();
         this.spinner.hide();
       },error => {
-        console.log("we got error !!");
         let index = this.dataSource.data.findIndex(obj => obj.id === member.id);
         this.dataSource.data[index].isAdmin = 1;
         this.table.renderRows();

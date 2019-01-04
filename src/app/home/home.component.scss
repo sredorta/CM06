@@ -1,0 +1,195 @@
+@import "../../themes.scss";
+
+$primary: map-get($main-app-theme,primary);
+$accent: map-get($main-app-theme,accent);
+
+.initial-header {
+    position:absolute;
+    left:15vw;
+    top:-30vh;
+    opacity:1;
+    color:black;
+    text-shadow: 1px 1px 5px rgba(255,255,255,0.8);
+    animation: header 2s ease-in-out 0s; 
+    animation-fill-mode: forwards;
+}
+
+.initial-title {
+    font-weight: bold;
+    text-decoration: underline;
+    margin-bottom:0px;
+    font-size:4vw;
+}
+.initial-subtitle {
+
+    font-size:3vw;
+}
+  /*Header animation*/
+  @keyframes header {
+    0% { transform: translate(0px,0px);opacity:0; }
+    100% { transform: translate(0px,30vh);opacity:1; }
+  }  
+  /*End of header animation*/
+
+//Do some resizing to fit on small screens
+@media only screen and (max-width: 700px) {
+    .initial-title {
+        font-size:30px;
+    }
+    .initial-subtitle {
+        font-size:20px;
+    }
+}  
+
+
+.initial {
+    opacity:0.8;
+    img {
+        height:100%;
+        width:100%;
+    }
+}
+
+
+/*Start of gaz bubbles*/
+.dot {
+    height: 20vw;
+    width: 20vw;
+    border-radius: 100%;
+    opacity:0;
+    background: -webkit-gradient(radial, center center,40, center center, 100, from(rgba(165, 143, 103, 0.4)), to(rgba(255,255,255,0)));
+    animation: 1s ease-in-out 0s normal none infinite running load;
+}
+.dot1 {
+    position: absolute;
+    left:2vw;
+    top:8vw;
+}
+
+.dot1-bis {
+    position: absolute;
+    left:-2vw;
+    top:4vw;
+    animation-delay: 0.3s;
+}
+
+.dot2 {
+    position: absolute;
+    left:2vw;
+    top:25vw;
+}
+
+.dot2-bis {
+    position: absolute;
+    left:-2vw;
+    top:22vw;
+    animation-delay: 0.3s;
+}
+
+@keyframes load {
+    0% {
+        opacity:0.9;
+        transform:scale(0.2);
+    }  
+    100% {
+      opacity: 0;
+      transform: scale(2);
+      transform: translate(-10em,-10em);
+    }
+}
+/*End of gaz*/
+
+  /*Engine shake*/
+  .initial img {
+    animation: shake 0.5s; 
+    animation-iteration-count: 1; 
+  }  
+
+  @keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  }  
+  /*End of engine shake*/
+
+  /*Start of menu item*/
+  .menu-wrapper {
+      cursor:pointer;
+      box-shadow: 0px 3px 10px  rgba(0, 0, 0, 0.4);
+      margin-top:15px;
+      margin-bottom:15px;
+  }
+
+  .menu-wrapper:hover {
+    box-shadow: 0px 3px 10px  rgba(0, 0, 0, 0.6);
+  }
+
+  .menu-text-wrapper {
+      background-color:black;
+      color:white;
+      min-width: 150px;
+      padding:10px;  
+      padding-right:30px;
+      transition: all 0.5s ease; 
+  }
+
+  .menu-wrapper:hover .menu-text-wrapper {
+      color: rgb(253,206,0);
+      padding-left:30px;
+      padding-right:10px;
+  }
+
+  .menu-text-wrapper-title {
+    font-size:3vw;
+    font-weight: bold;
+  }
+
+  .menu-text-wrapper-subtitle {
+    font-size:2vw;
+    margin-top:0px;
+  }
+
+
+  .menu-image-wrapper {
+    overflow: hidden; 
+    min-height: 300px;  
+  }
+  .menu-image {
+      width:100%;
+      height:100%;
+      background-size: cover;
+      background-position: center;
+      opacity:0.4;
+      transition: all 0.5s ease;      
+  }
+
+  .menu-wrapper:hover .menu-image {
+       transform: scale(1.2);
+       opacity:1;
+  }
+
+//Do some resizing to fit on small screens
+@media only screen and (max-width: 600px) {
+    .menu-text-wrapper-title {
+        font-size:14px;
+    }
+    .menu-text-wrapper-subtitle {
+        font-size:14px;
+    }
+}
+
+/*
+  .initial h1 {
+      position: absolute;
+      font-size: 4vw;
+      color: mat-color($primary,700) !important;
+  }
+  */
