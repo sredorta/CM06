@@ -51,6 +51,7 @@ export interface IApiUser {
   updated_at?:string;
   language?:string;
   isEmailValidated?:boolean;
+  isAdmin:boolean;
   avatar:IApiAttachment;
 }
 
@@ -177,6 +178,17 @@ export class ApiService {
   public resetPassword(email:string,access:string) : Observable<any> {
     return this.http.post<any>(environment.apiURL +'/auth/resetpassword', {email,access});
   }  
+
+  //Adds admin account for a user
+  public createAccountAdmin(id:number) : Observable<any> {
+    return this.http.post<any>(environment.apiURL +'/auth/account/create',{id:id,access:"Admin"});
+  }
+
+  //Removes admin account from user
+  public deleteAccountAdmin(id:number) : Observable<any> {
+    return this.http.post<any>(environment.apiURL +'/auth/account/delete',{id:id,access:"Admin"});
+  }
+
 
   //Brands
   public createBrand(name:string, image:string) : Observable<IApiBrand>  {

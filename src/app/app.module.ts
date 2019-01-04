@@ -4,6 +4,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule } from '@angular/forms';
 import {FormBuilder, FormGroup, FormControl,ReactiveFormsModule, Validators} from '@angular/forms';
+import { DeviceDetectorModule, DeviceDetectorService } from 'ngx-device-detector';
+
 //MATERIAL DESIGN
 //Material design
 import {MatIconRegistry} from '@angular/material';
@@ -76,6 +78,7 @@ import { CurrencyFormatDirective } from './_directives/currency-format.directive
 //PIPES
 import { NiceDateFormatPipe } from './_pipes/nice-date-format.pipe';
 import { CurrencyFormatPipe } from './_pipes/currency-format.pipe';
+import { MobileFormatPipe } from './_pipes/mobile-format.pipe';
 
 //SERVICES
 import {ApiService} from './_services/api.service';
@@ -138,7 +141,8 @@ import { MembersComponent } from './_admin/members/members.component';
     CurrencyFormatDirective,
     SpinnerComponent,
     SpinnerOverlayComponent,
-    MembersComponent
+    MembersComponent,
+    MobileFormatPipe
     //End of library
   ],
   imports: [
@@ -207,7 +211,7 @@ import { MembersComponent } from './_admin/members/members.component';
   ],
   entryComponents: [ErrorSheetComponent, SpinnerOverlayComponent, TermsDialogComponent, MakeSureDialogComponent, ProductItemDialogComponent],
   providers: [
-    HttpClient, ApiService, DataService, SpinnerOverlayService, MakeSureDialogComponent, ProductItemDialogComponent, MessageService, CurrencyFormatPipe,
+    HttpClient, ApiService, DataService, SpinnerOverlayService, MakeSureDialogComponent, ProductItemDialogComponent, MessageService, CurrencyFormatPipe, MobileFormatPipe,DeviceDetectorService,
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, 
     {provide: HTTP_INTERCEPTORS, useClass: HttpHeaderInterceptor, multi: true }    
   ],

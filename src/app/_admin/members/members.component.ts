@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, SimpleChanges,Output,EventEmitter,Input }
 import {InputImagesComponent} from '../../_library/input-images/input-images.component';
 import {NiceDateFormatPipe} from '../../_pipes/nice-date-format.pipe';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
-import {MatExpansionPanel} from '@angular/material';
+import {MatExpansionPanel, MatSlideToggleChange, MatCheckboxChange} from '@angular/material';
 import {MatTable, MatTableDataSource} from '@angular/material';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 
@@ -20,6 +20,8 @@ import { Router } from '@angular/router';
 import {BreakpointObserver,Breakpoints,BreakpointState} from '@angular/cdk/layout';
 import {DataService} from '../../_services/data.service';
 import {SpinnerOverlayService} from '../../_library/spinner-overlay.service';
+import { DeviceDetectorService } from 'ngx-device-detector';
+import { User } from '../../_models/user';
 
 @Component({
   selector: 'app-members',
@@ -40,10 +42,16 @@ export class MembersComponent implements OnInit {
   totalCount : number = 0;
   lastFilter : string = null;
   defaultImage :string = "./assets/images/userdefault.jpg";
-
-  private _subscriptions : Subscription[] = new Array<Subscription>();
+  isMobile = this.device.isMobile();
+  currentUser : User = new User(null);
   selected = [];
   expandedUserId : number = 0;
+  enableToggle : boolean = false;
+  disabledValidated : boolean = false;
+  disabledAdmins : boolean = false;
+
+  private _subscriptions : Subscription[] = new Array<Subscription>();
+
 
 
   //@ViewChild('inputImage') inputImage : InputImagesComponent;
@@ -53,10 +61,15 @@ export class MembersComponent implements OnInit {
   constructor( private translate: TranslateService, 
                private api : ApiService,
                private data: DataService,
-               private spinner: SpinnerOverlayService) { }
+               private spinner: SpinnerOverlayService,
+               private device: DeviceDetectorService,
+               private dialog: MatDialog) { }
 
   ngOnInit() {
     this.getMembers();
+    this.api.getCurrent().subscribe(res => {
+      this.currentUser = res;
+    })
   }
 
   getMembers() {
@@ -109,7 +122,76 @@ export class MembersComponent implements OnInit {
     console.log("OnUpdateUser");
     let user : IApiUser = this.dataSource.data[this.dataSource.data.findIndex(obj => obj.id === id)];
     this.expandedUserId = id;
+    this.enableToggle = false;
   }
+
+  //When we toggle tha admin of a member
+  toggleAdmin(member: IApiUser, data : MatSlideToggleChange) {
+    console.log("Toggle admin");
+    console.log(member);
+    console.log(data.checked);
+  
+    //this.loading = true;
+    this.spinner.show();
+    if(data.checked) {
+      this._subscriptions.push(this.api.createAccountAdmin(member.id).subscribe((res) => {
+        console.log("WE are here");
+        console.log(res);
+        let index = this.dataSource.data.findIndex(obj => obj.id === member.id);
+        this.dataSource.data[index].isAdmin = 1;
+        this.table.renderRows();
+        this.spinner.hide();
+      },error => {
+        console.log("we got error !!");
+        let index = this.dataSource.data.findIndex(obj => obj.id === member.id);
+        this.dataSource.data[index].isAdmin = 0;
+        this.table.renderRows();
+        this.expandedUserId = 0;
+        this.spinner.hide();
+      }));
+    } else {
+      this._subscriptions.push(this.api.deleteAccountAdmin(member.id).subscribe((res) => {
+        console.log("WE are here");
+        console.log(res);
+        let index = this.dataSource.data.findIndex(obj => obj.id === member.id);
+        this.dataSource.data[index].isAdmin = 0;
+        this.table.renderRows();
+        this.spinner.hide();
+      },error => {
+        console.log("we got error !!");
+        let index = this.dataSource.data.findIndex(obj => obj.id === member.id);
+        this.dataSource.data[index].isAdmin = 1;
+        this.table.renderRows();
+        this.expandedUserId = 0;
+        this.spinner.hide();
+      }));
+    }
+
+  }
+
+  //Filter accounts with validated accounts only
+  showOnlyValidated(checkbox:MatCheckboxChange) {
+    if (checkbox.checked) {
+      this.disabledAdmins = true;
+      this.initTable(this.dataSource.data.filter(obj => obj.isEmailValidated === 1));
+    } else {
+      this.disabledAdmins = false;
+      this.getMembers();
+    }
+  }
+
+  //Filter admin accounts
+  showOnlyAdmins(checkbox:MatCheckboxChange) {
+    if (checkbox.checked) {
+      this.disabledValidated = true;
+      this.initTable(this.dataSource.data.filter(obj => obj.isAdmin === 1));
+    } else {
+      this.disabledValidated = false;
+      this.getMembers();
+    }
+  }
+
+
   rowClick(user : IApiUser) {
     console.log("rowClick");
     console.log(user);

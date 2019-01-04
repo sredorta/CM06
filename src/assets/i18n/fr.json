@@ -153,7 +153,12 @@
     "members.admin.table.phone"                 : "Mobile",
     "members.admin.table.created"               : "Crée",
     "members.admin.search.label"                : "Chercher un membre",
-    "members.admin.search.placeholder"          : "Chercher"
+    "members.admin.search.placeholder"          : "Chercher",
+    "members.admin.call"                        : "Appeler",
+    "members.admin.email"                       : "Envoyer email",
+    "members.admin.accountcheckbox"             : "Modifier les droits d'admin",
+    "members.admin.onlyvalidated"               : "Voir que les membres avec email validé",
+    "members.admin.onlyadmins"                  : "Voir que les membres administrateurs"
 
 
 
