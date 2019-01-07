@@ -22,20 +22,24 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    runGuardsAndResolvers: 'always',
     //canActivate: [LoggedOutGuard]
   },
   {
     path: 'signup',
     component: SignupComponent,
+    runGuardsAndResolvers: 'always',
     //canActivate: [LoggedOutGuard]
   },   
   {
     path: 'resetpassword',
+    runGuardsAndResolvers: 'always',
     component: ResetpasswordComponent,
     //canActivate: [LoggedOutGuard]
   },  
   {
     path: 'admin-members',
+    runGuardsAndResolvers: 'always',
     component: MembersComponent,
     //canActivate: [AdminGuard]
   },    
@@ -43,32 +47,38 @@ const routes: Routes = [
 
   {
     path: 'admin-products',
+    runGuardsAndResolvers: 'always',
     component: ProductsComponent,
     //canActivate: [AdminGuard]
   },    
   {
     path: 'admin-product-create',
+    runGuardsAndResolvers: 'always',
     component: ProductCreateStepperComponent,
     //canActivate: [AdminGuard]
   },    
   {
     path: 'vehicles',
+    runGuardsAndResolvers: 'always',
     component: VehiclesComponent,
     //canActivate: [AnyGuard]
   },
   {
     path: 'pièces',
+    runGuardsAndResolvers: 'always',
     component: PiecesComponent,
     //canActivate: [AnyGuard]
   },
   {
     path: 'contact',
+    runGuardsAndResolvers: 'always',
     component: ContactComponent,
     //canActivate: [AnyGuard]
   },
 
   {
     path: 'tmp',
+    runGuardsAndResolvers: 'always',
     component: ProductCreateUpdateComponent,
     //canActivate: [AdminGuard]
   },   
@@ -80,7 +90,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

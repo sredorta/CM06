@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductItemComponent} from '../product-item/product-item.component';
 import {Product} from '../_models/product';
-import {DataService} from '../_services/data.service';
+import {ApiService} from '../_services/api.service';
 //import {SpinnerComponent} from '../_library/spinner/spinner.component';
 
 @Component({
@@ -12,12 +12,16 @@ import {DataService} from '../_services/data.service';
 export class HomeComponent implements OnInit {
 
   products : Array<Product> = [];
-  constructor(private data: DataService) { }
+  constructor(private api: ApiService) { }
 
   ngOnInit() {
-    for (let product of this.data.getProducts()) {
+    this.api.getModels().subscribe(res => {
+      console.log("!!!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+      console.log(res)
+    });
+    /*for (let product of this.data.getProducts()) {
       this.products.push(new Product(product));
-    }
+    }*/
   }
 
 }

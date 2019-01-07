@@ -39,7 +39,6 @@ export interface IApiBrand {
   id:number;
   name:string;
   image: IApiAttachment;
-  models: number[];
 }
 
 export interface IApiModel {
