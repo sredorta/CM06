@@ -9,30 +9,30 @@
     <div class="dot dot2-bis"></div>
     <img alt-text="Casse moto 06 boutique" src="./assets/images/home-main.jpg" class="product-item-main-image">
 </div>
-<div class="menu-wrapper" fxLayout="row" routerLink="/vehicles">
+<div class="menu-wrapper" fxLayout="row" (click)="goToRoute(['/vehicles'])">
   <div fxFlex="40%" class="menu-text-wrapper" fxLayout="column" fxLayoutAlign="center start">
     <p class="menu-text-wrapper-title">VEHICLES</p>
     <p class="menu-text-wrapper-subtitle">Trouvez votre nouvelle moto</p>
   </div>
   <div fxFlex="60%" class="menu-image-wrapper">
-      <div class="menu-image" style="background-image:url('./assets/images/home-moto.png')"></div>
+      <div #imagevehicle class="menu-image" [ngStyle]="{'background-image': 'url(' + getImage('home-moto.jpg') +')'}"></div>
   </div>
 </div>
-<div class="menu-wrapper" fxLayout="row" routerLink="/pièces">
+<div class="menu-wrapper" fxLayout="row" (click)="goToRoute(['/pièces'])">
     <div fxFlex="40%" class="menu-text-wrapper" fxLayout="column" fxLayoutAlign="center start">
       <p class="menu-text-wrapper-title">PIÈCES DÉTACHÉES</p>
       <p class="menu-text-wrapper-subtitle">Trouvez la pièce qui vous manque</p>
     </div>
     <div fxFlex="60%" class="menu-image-wrapper">
-        <div class="menu-image" style="background-image:url('./assets/images/home-parts.jpg')"></div>
+        <div class="menu-image" [ngStyle]="{'background-image': 'url(' + getImage('home-parts.jpg') +')'}"></div>
     </div>
 </div>
-<div class="menu-wrapper" fxLayout="row" routerLink="/contact">
+<div class="menu-wrapper" fxLayout="row" (click)="goToRoute(['/contact'])">
     <div fxFlex="40%" class="menu-text-wrapper" fxLayout="column" fxLayoutAlign="center start">
       <p class="menu-text-wrapper-title">CONTACTEZ-NOUS</p>
       <p class="menu-text-wrapper-subtitle">Trouvez la pièce qui vous manque</p>
     </div>
     <div fxFlex="60%" class="menu-image-wrapper">
-        <div class="menu-image" style="background-image:url('./assets/images/home-contact.jpg')"></div>
+        <div class="menu-image" [ngStyle]="{'background-image': 'url(' + getImage('home-contact.jpg') +')'}"></div>
     </div>
 </div>

@@ -48,7 +48,7 @@ export class ProductItemComponent implements OnInit {
     if (this.product.images)
       if(this.product.images[0])
         if (!this.preview)
-          return this.product.images[0].sizes[EApiImageSizes.full].url;
+          return this.product.images[0].sizes[EApiImageSizes.small].url;
         else
           return this.product.images[0];  
     return this.defaultImage;    

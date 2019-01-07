@@ -7,7 +7,7 @@ import {ResetpasswordComponent} from './_auth/resetpassword/resetpassword.compon
 import {ProductCreateStepperComponent} from './_admin/product-create-stepper/product-create-stepper.component';
 import {ProductCreateUpdateComponent} from './_admin/product-create-update/product-create-update.component';
 import {ProductsComponent} from './_admin/products/products.component';
-import {ProductItemComponent} from './product-item/product-item.component';
+import {ProductItemDetailComponent} from './product-item-detail/product-item-detail.component';
 import {MembersComponent} from './_admin/members/members.component';
 import { VehiclesComponent } from './vehicles/vehicles.component';
 import { PiecesComponent } from './pieces/pieces.component';
@@ -77,10 +77,10 @@ const routes: Routes = [
   },
 
   {
-    path: 'tmp',
+    path: 'produit/:id',
     runGuardsAndResolvers: 'always',
-    component: ProductCreateUpdateComponent,
-    //canActivate: [AdminGuard]
+    component: ProductItemDetailComponent,
+    //canActivate: [AnyGuard]
   },   
 /*  {
     path: 'admin-modeles',///:id',
