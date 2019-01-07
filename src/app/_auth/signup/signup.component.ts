@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
 import {Location} from '@angular/common';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
@@ -28,6 +28,10 @@ export class SignupComponent implements OnInit {
   defaultImage :string = "./assets/images/userdefault.jpg";
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
+
+  @ViewChild('avatar') inputImage : InputImagesComponent;
+
+
   constructor(private api: ApiService, 
               private location : Location, 
               private router : Router, 
@@ -123,6 +127,11 @@ export class SignupComponent implements OnInit {
         this.spinner.hide();
         console.log(error);
       })); 
+  }
+
+  resetForm() {
+    this.myForm.reset();
+    this.inputImage.resetImage();
   }
 
 

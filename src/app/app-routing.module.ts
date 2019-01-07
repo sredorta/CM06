@@ -11,6 +11,7 @@ import {ProductItemComponent} from './product-item/product-item.component';
 import {MembersComponent} from './_admin/members/members.component';
 import { VehiclesComponent } from './vehicles/vehicles.component';
 import { PiecesComponent } from './pieces/pieces.component';
+import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [
   {
@@ -60,6 +61,12 @@ const routes: Routes = [
     component: PiecesComponent,
     //canActivate: [AnyGuard]
   },
+  {
+    path: 'contact',
+    component: ContactComponent,
+    //canActivate: [AnyGuard]
+  },
+
   {
     path: 'tmp',
     component: ProductCreateUpdateComponent,

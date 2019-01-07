@@ -24,12 +24,15 @@ export class VehiclesComponent implements OnInit {
   }
 
   getProducts() {
+    console.log("getProducts !!!!");
     if (this.data.getProducts().length>1) {
+      console.log("Got here");
       this.pushProducts();
     } else {
       this.spinner.show();
       this._subscriptions.push(this.api.getProducts().subscribe((res: IApiProduct[]) => {
         this.data.setProducts(res);
+        this.pushProducts();
         this.spinner.hide();
       }, () => this.spinner.hide()));
     }

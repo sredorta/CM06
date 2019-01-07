@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter} from '@angular/core';
 import {FormGroup, FormControl} from '@angular/forms';
 import { Subscription } from 'rxjs';
+import {CustomValidators  } from '../../_helpers/custom.validators';
 
 @Component({
   selector: 'app-input-plus-minus',
@@ -12,6 +13,8 @@ export class InputPlusMinusComponent implements OnInit {
   @Input() fieldName : string = "plusminus";
   @Input() default : number = 0;
   @Input() maxlength : number = 5;
+
+  validation_messages = CustomValidators.getMessages();
 
   value : number;
   constructor() { }

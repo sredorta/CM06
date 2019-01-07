@@ -1,12 +1,7 @@
 
 <div class="admin-theme">  
     <p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast"></p-toast>
-    <ng-container *ngIf="loadingTableProducts">
-          <div fxLayout="column" fxLayoutAlign="center center" style="width:100%;min-height:80vh;">
-              <mat-spinner [diameter]="100"></mat-spinner>
-          </div>
-    </ng-container>
-    <div *ngIf="!loadingTableProducts" fxLayout="column" style="padding-top:20px">
+    <div fxLayout="column" style="padding-top:20px">
       <div>
       <button mat-raised-button type="button" color="primary" routerLink="/admin-product-create"><mat-icon style="margin-right:10px">add_box</mat-icon>{{'create' | translate}}</button>
       </div>  

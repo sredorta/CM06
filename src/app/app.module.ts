@@ -112,6 +112,7 @@ import { ProductsComponent } from './_admin/products/products.component';
 import { MembersComponent } from './_admin/members/members.component';
 import { VehiclesComponent } from './vehicles/vehicles.component';
 import { PiecesComponent } from './pieces/pieces.component';
+import { ContactComponent } from './contact/contact.component';
 
 
 @NgModule({
@@ -146,7 +147,8 @@ import { PiecesComponent } from './pieces/pieces.component';
     MembersComponent,
     MobileFormatPipe,
     VehiclesComponent,
-    PiecesComponent
+    PiecesComponent,
+    ContactComponent
     //End of library
   ],
   imports: [

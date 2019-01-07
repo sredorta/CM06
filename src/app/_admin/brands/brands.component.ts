@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 //import { MediaMatcher } from '@angular/cdk/layout';
 import {BreakpointObserver,Breakpoints,BreakpointState} from '@angular/cdk/layout';
 import {DataService} from '../../_services/data.service';
+import {SpinnerOverlayService} from '../../_library/spinner-overlay.service';
 
 @Component({
   selector: 'app-brands',
@@ -36,7 +37,6 @@ export class BrandsComponent implements OnInit {
   @Input() brand : IApiBrand;                                 //Current brand selected
   @Output() onBrandSelected = new EventEmitter<IApiBrand>();  //Brand selection  
 
-  loadingTableBrands  : boolean = true;
   dataSource = null;          //Store brands array in table format
   expandedElement: any = null;   //Expanded panel for adding brand
   displayedColumns: string[] = ['image','name','modify','delete'];
@@ -62,7 +62,8 @@ export class BrandsComponent implements OnInit {
               private translate: TranslateService, 
               private api : ApiService,
               private dialog: MatDialog,
-              private messageService: MessageService) { }
+              private messageService: MessageService,
+              private spinner : SpinnerOverlayService) { }
 
   @ViewChild('expansion') expansion : MatExpansionPanel;
   @ViewChild('inputImage') inputImage : InputImagesComponent;
@@ -115,24 +116,35 @@ export class BrandsComponent implements OnInit {
   }
 
   getBrands() {
-     let brands = this.data.getBrands();
-      if ( brands !== null) {
-        this.dataSource = new MatTableDataSource(brands);
-        this.brandsCount = this.dataSource.data.length;
-        this.brandsDisplayed = this.brandsCount;
-        //Override filter
-        this.dataSource.filterPredicate = function(data, filter: string): boolean {
-          return data.name.toLowerCase().includes(filter);
-        };
-        this.loadingTableBrands = false;
-        //Init as all not selected
-        this.selected = [];
-        for (let brand of this.dataSource.data) {
-          this.selected[brand.id] = false;
-        }
-      } 
+    if (this.data.getBrands().length>0) {
+      this.initTable(this.data.getBrands());
+    } else {
+      this.spinner.show();
+      this._subscriptions.push(this.api.getBrands().subscribe((res: IApiBrand[]) => {
+        this.data.setBrands(res);
+        this.initTable(res);
+        this.spinner.hide();
+      }, () => this.spinner.hide()));
+    }
   }
 
+  initTable(brands: IApiBrand[]) {
+    if ( brands !== null) {
+      this.dataSource = new MatTableDataSource(brands);
+      this.dataSource.data.sort((a, b) => a.name.localeCompare(b.name));
+      this.brandsCount = this.dataSource.data.length;
+      this.brandsDisplayed = this.brandsCount;
+      //Override filter
+      this.dataSource.filterPredicate = function(data, filter: string): boolean {
+        return data.name.toLowerCase().includes(filter);
+      };
+      //Init as all not selected
+      this.selected = [];
+      for (let brand of this.dataSource.data) {
+        this.selected[brand.id] = false;
+      }
+    } 
+  }
 
   //Filter
   applyFilter(filterValue: string) {

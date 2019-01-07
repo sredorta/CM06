@@ -1,11 +1,7 @@
 <div class="admin-theme">  
   <p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast"></p-toast>
-  <ng-container *ngIf="loadingTableBrands">
-        <div fxLayout="column" fxLayoutAlign="center center" style="width:100%;min-height:80vh;">
-            <mat-spinner [diameter]="100"></mat-spinner>
-        </div>
-  </ng-container>
-  <div *ngIf="!loadingTableBrands" fxLayout="row">
+
+  <div fxLayout="row">
     <div fxFlex="1 1 auto">
     <mat-form-field appearance="outline" style="padding-top:10px;min-width:250px">
         <mat-label>{{'brands.admin.search.label' | translate}}</mat-label>

@@ -15,6 +15,7 @@ import {MessageService} from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
 import { SearchBrandComponent } from '../../_library/search-brand/search-brand.component';
+import {SpinnerOverlayService} from '../../_library/spinner-overlay.service';
 
 @Component({
   selector: 'app-models',
@@ -55,7 +56,8 @@ export class ModelsComponent implements OnInit {
               private translate: TranslateService, 
               private api : ApiService,
               private messageService: MessageService,
-              private dialog : MatDialog) { }
+              private dialog : MatDialog,
+              private spinner : SpinnerOverlayService) { }
 
   createForms() {
     this.myForm =  new FormGroup({    
@@ -88,28 +90,40 @@ export class ModelsComponent implements OnInit {
   }
 
   getModels() {
-    this.loadingTableModels = true;
-    if (this.brand) {
-      this._subscriptions.push(this.api.getModels(this.brand.id).subscribe((res : IApiBrand[]) => {
-        if (res !== null) {
-          this.dataSource = new MatTableDataSource(res);
-          this.modelsCount = this.dataSource.data.length;
-          this.modelsDisplayed = this.modelsCount;
-          //Override filter
-          this.dataSource.filterPredicate = function(data, filter: string): boolean {
-            return data.name.toLowerCase().includes(filter);
-          };
-          //Init as all not selected
-          this.selected = [];
-          for (let brand of this.dataSource.data) {
-            this.setSelected[brand.id] = false;
-          }          
-        }
-        this.loadingTableModels = false;
-      }));    
-    }
+    if (this.brand)
+      if (this.data.getModels().length>0) {
+        this.initTable(this.data.getModels());
+      } else {
+        this.spinner.show();
+        this._subscriptions.push(this.api.getModels().subscribe((res : IApiModel[]) => {
+          console.log("Models:")
+          console.log(res);
+          this.data.setModels(res);
+          this.initTable(res);
+          this.spinner.hide();
+        },() => this.spinner.hide()));
+      }  
   }
 
+  initTable(data: IApiModel[]) {
+    if (data !== null) {
+      data = data.filter(obj=> obj.brand_id == this.brand.id);
+      this.dataSource = new MatTableDataSource(data);
+      this.dataSource.data.sort((a, b) => a.name.localeCompare(b.name));
+      this.modelsCount = this.dataSource.data.length;
+      this.modelsDisplayed = this.modelsCount;
+
+      //Override filter
+      this.dataSource.filterPredicate = function(data, filter: string): boolean {
+        return data.name.toLowerCase().includes(filter);
+      };
+      //Init as all not selected
+      this.selected = [];
+      for (let brand of this.dataSource.data) {
+        this.setSelected[brand.id] = false;
+      }          
+    }
+  }
 
   //Add model submit
   onAddModelSubmit(value) {

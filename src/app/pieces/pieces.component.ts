@@ -30,6 +30,7 @@ export class PiecesComponent implements OnInit {
       this.spinner.show();
       this._subscriptions.push(this.api.getProducts().subscribe((res: IApiProduct[]) => {
         this.data.setProducts(res);
+        this.pushProducts();
         this.spinner.hide();
       }, () => this.spinner.hide()));
     }

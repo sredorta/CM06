@@ -40,15 +40,15 @@
     </mat-card-content>
     <mat-card-actions>
       <div fxLayoutAlign="center center" fxLayoutGap="20px">
-        <button mat-button type="reset" (click)="resetForm()" color="primary" [disabled]="loading">{{'cancel' | translate}}</button>
-        <button mat-raised-button type="submit" color="primary" [disabled]="loading" >{{'login.submit' | translate}}</button>
+        <button mat-button type="reset" (click)="resetForm()" color="primary">{{'cancel' | translate}}</button>
+        <button mat-raised-button type="submit" color="primary" >{{'login.submit' | translate}}</button>
       </div>
     </mat-card-actions>
 
     </form>
     <mat-card-footer>
-        <button mat-button style="width:50%" routerLink="/resetpassword" [disabled]="loading">{{'login.forgot' | translate}}</button>
-        <button mat-button style="width:50%" routerLink="/signup" [disabled]="loading">{{'login.signup' | translate}}</button>
+        <button mat-button style="width:50%" routerLink="/resetpassword">{{'login.forgot' | translate}}</button>
+        <button mat-button style="width:50%" routerLink="/signup">{{'login.signup' | translate}}</button>
       </mat-card-footer>        
     </mat-card>
   </div>

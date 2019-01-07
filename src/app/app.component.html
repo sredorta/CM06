@@ -1,4 +1,4 @@
-<div *ngIf="!loading" class="container" [class.is-mobile]="mobileQuery.matches" >
+<div class="container" [class.is-mobile]="mobileQuery.matches" >
   <!--<div class="banner-theme banner">
   <mat-toolbar fxLayoutAlign="start center" style="height:100%">
     <div><img src="./assets/images/logo.jpg"></div>
@@ -70,7 +70,5 @@
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
-<div *ngIf="loading">
-  <app-init></app-init>
-</div>
+
 

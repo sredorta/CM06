@@ -36,13 +36,15 @@ export class AppComponent {
     //This needs to be moved into config page
     this._subscriptions.push(this.api.getAuthUser().subscribe((res: IApiUserAuth)=> {
       this.api.setCurrent(res); 
-      this._subscriptions.push(this.api.getBrands().subscribe((res:IApiBrand[]) => {
+/*      this._subscriptions.push(this.api.getBrands().subscribe((res:IApiBrand[]) => {
         this.data.setBrands(res);
+        console.log("Setted brands !!!!!!");
+        this.loading = false;
         this._subscriptions.push(this.api.getProducts().subscribe((res:IApiProduct[])=> {
             this.data.setProducts(res);
             this.loading = false;
         }));
-      }));
+      }));*/
       //this.loading = false;
       console.log("Finished loading !!!");
     }));

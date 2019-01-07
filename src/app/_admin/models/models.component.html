@@ -1,11 +1,6 @@
 <div class="admin-theme">  
   <p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast"></p-toast>
-  <ng-container *ngIf="loadingTableModels">
-        <div fxLayout="column" fxLayoutAlign="center center" style="width:100%;min-height:80vh;">
-            <mat-spinner [diameter]="100"></mat-spinner>
-        </div>
-  </ng-container>
-  <div *ngIf="!loadingTableModels">
+
     <!--<app-search-brand [brand]="brand"></app-search-brand>-->  
     <!--Create model part-->
     <div *ngIf="dataSource">
@@ -96,5 +91,4 @@
                 <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
               </table>
     </div>
-  </div>
 </div>

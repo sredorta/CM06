@@ -10,6 +10,8 @@ import { SpinnerOverlayComponent } from '../_library/spinner-overlay/spinner-ove
 export class SpinnerOverlayService {
   private overlayRef: OverlayRef = null;
 
+  public visible = false;
+
   constructor(private overlay: Overlay) {}
 
   public show(message = '') {
@@ -17,6 +19,7 @@ export class SpinnerOverlayService {
 
     if (!this.overlayRef) {
       this.overlayRef = this.overlay.create();
+      this.visible = true;
     }
 
     // Create ComponentPortal that can be attached to a PortalHost
@@ -27,6 +30,7 @@ export class SpinnerOverlayService {
   public hide() {
     if (!!this.overlayRef) {
       this.overlayRef.detach();
+      this.visible = false;
     }
   }
 }

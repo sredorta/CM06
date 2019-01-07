@@ -4,9 +4,9 @@
       <mat-label>{{'product.admin.create.input.stock.label' | translate}}</mat-label>
       <input matInput [formControlName]="fieldName" placeholder="{{'product.admin.create.input.stock.placeholder' | translate}}" autocomplete="off" OnlyNumber inputmode="numeric" pattern="[0-9]*" [maxlength]="maxlength">
       <mat-hint>{{'product.admin.create.input.stock.hint' | translate}}</mat-hint>
-      <mat-error *ngFor="let validation of validation_messages">
-        <mat-error class="error-message" *ngIf="myForm.get('stock').hasError(validation.type) && (myForm.get('stock').dirty || myForm.get('stock').touched)">{{validation.message | translate}}</mat-error>
-      </mat-error>                 
+      <!--<mat-error *ngFor="let validation of validation_messages">
+        <mat-error class="error-message" *ngIf="myForm.get('fieldName').hasError(validation.type) && (myForm.get('stock').dirty || myForm.get('stock').touched)">{{validation.message | translate}}</mat-error>
+      </mat-error> -->                
   </mat-form-field> 
   <div fxLayout="row" fxLayoutGap="10px" style="padding-top:5px;">
     <button  mat-mini-fab color="primary" type="button" (click)="plus()">

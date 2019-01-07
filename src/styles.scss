@@ -9,6 +9,8 @@
 
 @import './themes.scss';
 
+//Load the spinner css
+@import './app/_library/spinner/spinner.component.scss';
 
 
 //Avoid text selection and blue outline

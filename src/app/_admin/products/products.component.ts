@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
 //import { MediaMatcher } from '@angular/cdk/layout';
 import {BreakpointObserver,Breakpoints,BreakpointState} from '@angular/cdk/layout';
 import {DataService} from '../../_services/data.service';
+import {SpinnerOverlayService} from '../../_library/spinner-overlay.service';
 
 @Component({
   selector: 'app-products',
@@ -33,7 +34,6 @@ import {DataService} from '../../_services/data.service';
   ],    
 })
 export class ProductsComponent implements OnInit {
-  loadingTableProducts  : boolean = true;
   dataSource = null;          //Store brands array in table format
   expandedElement: any = null;   //Expanded panel for adding brand
   displayedColumns: string[] = ['image','name','model','stock','created','modify','delete'];
@@ -68,7 +68,8 @@ export class ProductsComponent implements OnInit {
     private translate: TranslateService, 
     private api : ApiService,
     private dialog: MatDialog,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private spinner : SpinnerOverlayService) { }
 
   ngOnInit() {
     this.getProducts();
@@ -94,9 +95,24 @@ export class ProductsComponent implements OnInit {
   }
 
   getProducts() {
-//    this._subscriptions.push(this.api.getProducts().subscribe((res : IApiProduct[]) => {
-      let products = this.data.getProducts();
-      //this.data.setProducts(res);
+    if (this.data.getBrands().length>0) {
+      this.initTable(this.data.getProducts());
+    } else {
+      this.spinner.show();
+      this._subscriptions.push(this.api.getBrands().subscribe((res: IApiBrand[]) => {
+        console.log("Brands :");
+        console.log(res);
+        this.data.setBrands(res);
+        this._subscriptions.push(this.api.getProducts().subscribe((res: IApiProduct[]) => {
+          this.data.setProducts(res);
+          this.initTable(this.data.getProducts());
+          this.spinner.hide();
+        }, () => this.spinner.hide()));
+      }, () => this.spinner.hide()));
+    }
+  }
+
+  initTable(products: IApiProduct[]) {
       if (products !== null) {
         this.dataSource = new MatTableDataSource(products);
         this.productsCount = this.dataSource.data.length;
@@ -111,9 +127,7 @@ export class ProductsComponent implements OnInit {
         for (let brand of this.dataSource.data) {
           this.selected[brand.id] = false;
         }
-        this.loadingTableProducts = false;
-      }
-//    }));    
+      }  
   }
 
 

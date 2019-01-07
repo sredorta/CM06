@@ -1,12 +1,12 @@
 <div class="admin-theme"> 
 <mat-horizontal-stepper linear="true" #stepper>
-    <mat-step [stepControl]="firstFormGroup" [completed]="isBrandCompleted">
+    <mat-step  [completed]="isBrandCompleted">
       <ng-template matStepLabel>{{'stepper.admin.first' | translate}}</ng-template>
       <div fxLayout="row" fxLayoutAlign="center center" class="big-component">
         <app-brands style="width:100%" (onBrandSelected)="goToModels($event)"></app-brands>
       </div>     
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup" [completed]="isModelCompleted">
+    <mat-step [completed]="isModelCompleted">
       <ng-template matStepLabel>{{'stepper.admin.second' | translate}}</ng-template>
       <div fxLayout="row" fxLayoutAlign="center center" class="big-component">
           <app-models style="width:100%" [brand]="currentBrand" (onModelSelected)="goToProducts($event)"></app-models>

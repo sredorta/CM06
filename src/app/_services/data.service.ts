@@ -12,15 +12,17 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
-import { ApiService, EApiImageSizes, IApiBrand, IApiProduct, IApiUser } from '../_services/api.service';
+import { ApiService, EApiImageSizes, IApiBrand, IApiModel, IApiProduct, IApiUser } from '../_services/api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
   private _brands : IApiBrand[] = [];       //Stores downloaded brands
+  private _models : IApiModel[] = [];
   private _products : IApiProduct[] = [];   //Stores downloaded products
   private _users : IApiUser[] = [];              //Stores downloaded users
+
   constructor(private api : ApiService) { }
 
   public getBrands() : IApiBrand[] {
@@ -30,6 +32,15 @@ export class DataService {
   //Sets all available brands
   public setBrands(brands: IApiBrand[]) {
     this._brands = brands;
+  }
+
+  public getModels() : IApiModel[] {
+    return this._models;
+  }
+
+  //Sets all available models
+  public setModels(models: IApiModel[]) {
+    this._models = models;
   }
 
   public getProducts() : IApiProduct[] {

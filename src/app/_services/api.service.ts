@@ -39,7 +39,15 @@ export interface IApiBrand {
   id:number;
   name:string;
   image: IApiAttachment;
+  models: number[];
 }
+
+export interface IApiModel {
+  id:number;
+  name:string;
+  brand_id:number;
+}
+
 
 export interface IApiUser {
   id:number;
@@ -216,8 +224,8 @@ export class ApiService {
   public createModel(idBrand:number, name:string) : Observable<IApiModel>  {  
     return this.http.post<IApiModel>(environment.apiURL +'/models/create', {"id": idBrand, "name":name}).map(res => <IApiModel>res);
   }
-  public getModels(idBrand:number) : Observable<IApiModel[]> {
-    return this.http.post<IApiModel[]>(environment.apiURL +'/models', {'id': idBrand}).map(res => <IApiModel[]>res);
+  public getModels() : Observable<IApiModel[]> {
+    return this.http.get<IApiModel[]>(environment.apiURL +'/models').map(res => <IApiModel[]>res);
   }
   public deleteModel(id:string) : Observable<any>  { 
     return this.http.post<any>(environment.apiURL +'/models/delete', {"id":id});
