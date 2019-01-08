@@ -1,3 +1,13 @@
-<p>
-  product-item-detail works!
-</p>
+<div class="wrapper">
+  <div fxLayout="row" fxLayout.xs="column" style="width:100%" fxLayoutGap="10px">
+    <div fxFlex="50%" class="header-image">
+      <app-gallery *ngIf="images.length>0" [images]="images"></app-gallery>
+    </div>
+    <div fxFlex="50%" class="header-text">
+      <p class="header-title">{{product.title}}</p>
+      <p class="header-price">{{product.getFinalPrice() | currencyFormat}} € <span *ngIf="product.discount>0" class="header-price" [ngClass]="{'strike' : product.discount>0}" style="margin-left:20px">{{product.price}} €</span></p>
+      <p class="header-description">{{product.description}}</p>    
+    </div>
+  </div>
+
+</div>

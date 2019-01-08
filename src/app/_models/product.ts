@@ -1,4 +1,4 @@
-import {IApiProduct, IApiBrand, IApiModel, IApiImage, IApiAttachment} from '../_services/api.service';
+import {IApiProduct, IApiBrand, IApiModel, IApiImage, IApiAttachment, EApiImageSizes} from '../_services/api.service';
 
 
 export class Product {
@@ -37,6 +37,14 @@ export class Product {
 
     public getFinalPrice() {
         return this.price - this.discount;
+    }
+
+    public getImages(size: EApiImageSizes) {
+        let result = [];
+        for (let image of this.images) {
+            result.push(image.sizes[size].url);
+        }
+        return result;
     }
 
 }

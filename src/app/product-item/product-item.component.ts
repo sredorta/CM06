@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {IApiProduct, EApiImageSizes} from '../_services/api.service';
 import {Product} from '../_models/product';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ProductItemDialogComponent} from '../product-item-dialog/product-item-dialog.component';
 import { Subscription } from 'rxjs';
 import { ApiService } from '../_services/api.service';
@@ -9,6 +8,7 @@ import {TooltipModule} from 'primeng/tooltip';
 import {ViewEncapsulation} from '@angular/core';
 import { DataService } from '../_services/data.service';
 import {CurrencyFormatPipe} from '../_pipes/currency-format.pipe';
+import { Router} from'@angular/router';
 
 @Component({
   selector: 'app-product-item',
@@ -23,7 +23,7 @@ export class ProductItemComponent implements OnInit {
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private dialog: MatDialog, private api : ApiService, private data : DataService) { }
+  constructor(private api : ApiService, private data : DataService, private router:Router) { }
 
   ngOnInit() {
 //    this.product = new Product(this.data.getProducts()[11]);
@@ -55,17 +55,7 @@ export class ProductItemComponent implements OnInit {
   }
 
   showDetailDialog() {
-    let dialogRef = this.dialog.open(ProductItemDialogComponent, {
-      disableClose :true,
-      panelClass : "product-item-dialog",
-      data:  {product: this.product} 
-    });
-    this._subscriptions.push(dialogRef.afterClosed().subscribe((result : boolean) => {
-      if (result) {   
-        console.log("Result is : " + result);
-      } 
-    }));        
-    console.log("Showing detail dialog");
+    this.router.navigate(["/produit", this.product.id]);
   }
 
   addToCart() {

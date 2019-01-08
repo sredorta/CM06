@@ -93,6 +93,7 @@ import { SpinnerOverlayComponent } from './_library/spinner-overlay/spinner-over
 
 import {InputImagesComponent} from './_library/input-images/input-images.component';
 import {InputPlusMinusComponent } from './_library/input-plus-minus/input-plus-minus.component';
+import { GalleryComponent } from './_library/gallery/gallery.component';
 
 /////////////////// END LIBRARY //////////////////////////////////////////////
 
@@ -150,7 +151,8 @@ import { ProductItemDetailComponent } from './product-item-detail/product-item-d
     VehiclesComponent,
     PiecesComponent,
     ContactComponent,
-    ProductItemDetailComponent
+    ProductItemDetailComponent,
+    GalleryComponent
     //End of library
   ],
   imports: [

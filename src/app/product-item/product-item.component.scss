@@ -55,8 +55,8 @@
 }
 
 ::ng-deep .mat-raised-button {
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
 }
 .strike {
     text-decoration: line-through;
