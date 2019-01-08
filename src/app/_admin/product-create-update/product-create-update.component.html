@@ -42,7 +42,7 @@
                   <mat-error class="error-message" *ngIf="myForm.get('discount').hasError(validation.type) && (myForm.get('discount').dirty || myForm.get('discount').touched)">{{validation.message | translate}}</mat-error>
                 </mat-error>                 
             </mat-form-field>     
-            <app-input-plus-minus fieldName="stock" [parentForm]="myForm" [default]="stock"></app-input-plus-minus>        
+            <app-input-plus-minus fieldName="stock" [parentForm]="myForm" [default]="stock" [label]="'product.admin.create.input.stock.label' | translate" [placeholder]="'product.admin.create.input.stock.placeholder' | translate" [hint]="'product.admin.create.input.stock.hint' | translate"></app-input-plus-minus>        
             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
                 <mat-slide-toggle formControlName="isVehicle"></mat-slide-toggle>
                 <p style="font-size:14px">{{'product.admin.create.input.vehicle' | translate}}</p>

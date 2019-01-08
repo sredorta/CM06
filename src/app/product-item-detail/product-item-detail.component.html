@@ -1,12 +1,31 @@
-<div class="wrapper">
-  <div fxLayout="row" fxLayout.xs="column" style="width:100%" fxLayoutGap="10px">
+<div class="wrapper" fxLayout="row" fxLayoutAlign="center center">
+  <div class="wrapper-content" fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="center start" fxLayoutAlign.xs="center center">
     <div fxFlex="50%" class="header-image">
       <app-gallery *ngIf="images.length>0" [images]="images"></app-gallery>
     </div>
-    <div fxFlex="50%" class="header-text">
+    <div *ngIf="product.id>0" fxFlex="50%" class="header-text">
       <p class="header-title">{{product.title}}</p>
       <p class="header-price">{{product.getFinalPrice() | currencyFormat}} € <span *ngIf="product.discount>0" class="header-price" [ngClass]="{'strike' : product.discount>0}" style="margin-left:20px">{{product.price}} €</span></p>
-      <p class="header-description">{{product.description}}</p>    
+      <p class="header-label">{{'product.item.detail.description' | translate}}</p>
+      <p class="header-description">{{product.description}}</p> 
+      <p class="header-label">{{'product.item.detail.brand' | translate}}</p>
+      <div class="header-brand" fxLayout="row" fxLayoutAlign="start center">
+        <img class="header-brand-img" [src]="product.brand_url">
+        <p class="header-brand-text"> {{product.brand}}</p>
+      </div> 
+      <p class="header-label">{{'product.item.detail.model' | translate}}</p>
+      <p class="header-description">{{product.model}}</p> 
+      <p *ngIf="product.stock == 0" class="header-no-stock">{{'product.item.detail.nostock' | translate}}</p>
+      <form *ngIf="product.stock>0" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate> 
+          <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="20px">
+            <app-input-plus-minus fieldName="quantity" [parentForm]="myForm" [default]="1" [label]="'product.item.detail.label' | translate" [hint]="'product.item.detail.hint' | translate" [placeholder]="'product.item.detail.placeholder' | translate"></app-input-plus-minus>        
+            <div fxLayout="column" fxLayoutAlign="center center" fxFlex="1 1 auto">
+                <div fxLayoutAlign="center center" fxLayoutGap="20px" fxFlex="1 1 auto">
+                    <button mat-raised-button type="submit" color="primary" [disabled] = "disable"><mat-icon style="margin-right:10px">add_shopping_cart</mat-icon>{{'product.item.detail.addcart' | translate}}</button>
+                </div>
+            </div>
+          </div>
+      </form>   
     </div>
   </div>
 

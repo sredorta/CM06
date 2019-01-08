@@ -1,3 +1,8 @@
+@import "../../themes.scss"; //Import general themeing
+
+$primary: map-get($main-app-theme,primary);
+$accent: map-get($main-app-theme,accent);
+$warn : map-get($main-app-theme,warn);
 
 .strike {
     text-decoration: line-through;
@@ -6,8 +11,22 @@
 
 .wrapper {
     width:100%;
-    min-height:200px;
     padding:10px;
+    height: 100%;
+}
+.wrapper-content {
+    width:100%;
+    max-width: 700px;
+
+}
+.header-image {
+    width:100%;
+    min-width: 300px;
+    max-width: 500px;
+}
+.header-text {
+    width:100%;
+    min-width: 300px;
 }
 
 .header-title {
@@ -15,6 +34,40 @@
     font-weight: bold;
 }
 .header-price {
-    font-size: 25px;
+    margin-top:45px;
+    font-size: 26px;
+}
+
+.header-description {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+.header-brand-img {
+    width:40px;
+    height:40px;
+}
+
+.header-label {
+    opacity: 0.4;
+    width:100%;
     font-weight: bold;
+    font-size: 14px;
+    border-bottom: 1px solid;
+}
+
+.header-brand-text {
+    margin-left: 20px;
+    font-weight: bold;
+}
+.header-no-stock {
+    padding:20px;
+    padding-left:0px;
+    font-size: 16px;
+    font-style: italic;
+    color: mat-color($primary,700) !important;
+}
+
+form {
+    margin-top:20px;
 }

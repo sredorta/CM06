@@ -10,6 +10,7 @@ export class Product {
     stock: number;
     isVehicle: boolean;
     brand: string;
+    brand_url:string;
     model: string;
     brand_id: number;
     model_id: number;
@@ -26,6 +27,7 @@ export class Product {
             this.stock = product.stock;
             this.isVehicle = product.isVehicle;
             this.brand = product.brand;
+            this.brand_url = product.brand_url;
             this.model = product.model;
             this.brand_id = product.brand_id;
             this.model_id = product.brand_id;

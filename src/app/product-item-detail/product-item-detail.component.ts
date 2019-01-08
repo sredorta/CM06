@@ -5,6 +5,11 @@ import { ApiService, IApiProduct, EApiImageSizes } from '../_services/api.servic
 import { DataService } from '../_services/data.service';
 import {Product} from '../_models/product';
 import { GalleryComponent } from '../_library/gallery/gallery.component';
+import {FormGroup,FormControl,Validators} from '@angular/forms';
+import {CustomValidators, ParentErrorStateMatcher  } from '../_helpers/custom.validators';
+import {OnlyNumberDirective} from '../_directives/onlyNumber.directive';
+import { TranslateService } from '@ngx-translate/core';
+import {SpinnerOverlayService} from '../_library/spinner-overlay.service';
 
 @Component({
   selector: 'app-product-item-detail',
@@ -15,40 +20,61 @@ export class ProductItemDetailComponent implements OnInit {
   id:number;
   product : Product = new Product(null);
   images : string[] = [];
+  disable : boolean = false;
+  myForm: FormGroup; 
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
   constructor(private route: ActivatedRoute, 
               private api: ApiService, 
-              private data : DataService) { }
+              private data : DataService,
+              private spinner : SpinnerOverlayService) { }
 
   ngOnInit() {
+    this.myForm =  new FormGroup({    
+      quantity: new FormControl('', Validators.compose([])),    
+    });   
+    this.myForm.controls['quantity'].setValue(1); 
     this._subscriptions.push(this.route.params.subscribe(params => {
       this.id = +params['id']; // (+) converts string 'id' to a number
-      console.log("Showing details for product id : " + this.id);
       this.getProduct();
-
-     /* this._subscriptions.push(this.api.getProduct(this.id).subscribe(res => {
-        console.log(res);
-      }));*/
     }));   
+
+    //Make sure that we do not try to order more than stock available
+    this._subscriptions.push(this.myForm.statusChanges.subscribe(res=> {
+      if (this.myForm.get('quantity').value >  this.product.stock) {
+          this.myForm.controls['quantity'].setValue(this.product.stock); 
+      }
+      if (this.myForm.get('quantity').value == 0) {
+        this.disable = true;
+      } else {
+        this.disable = false;
+      }
+    }))
   }
 
   getProduct() {
     if (this.data.getProducts().length>0) {
       let myProduct = this.data.getProducts().find(obj => obj.id == this.id);
-      console.log(myProduct);
       this.product = new Product(myProduct);
+      this.images = this.product.getImages(EApiImageSizes.large);
     } else {
-      console.log("need to download !");
-      //TODO change this to load only one product !!!!
-      this.api.getProducts().subscribe(res => {
-        let myProduct = res.find(obj => obj.id == this.id);
-        this.product = new Product(myProduct);
-        console.log(this.product.images);
+      this.spinner.show();
+      this._subscriptions.push(this.api.getProduct(this.id).subscribe(res => {
+        this.product = new Product(res);
         this.images = this.product.getImages(EApiImageSizes.large);
-      })
+        this.spinner.hide();
+      },()=> this.spinner.hide()));
     }
   }
 
+  onSubmit() {
+    console.log("Need to add to cart here !!!!");
+  }
 
+  ngOnDestroy() {    
+    //Unsubscribe to all
+    for (let subscription of this._subscriptions) {
+      subscription.unsubscribe();
+    }
+  }
 }

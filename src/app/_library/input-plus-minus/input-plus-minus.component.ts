@@ -13,6 +13,9 @@ export class InputPlusMinusComponent implements OnInit {
   @Input() fieldName : string = "plusminus";
   @Input() default : number = 0;
   @Input() maxlength : number = 5;
+  @Input() label = "";
+  @Input() placeholder = "";
+  @Input() hint = "";
 
   validation_messages = CustomValidators.getMessages();
 

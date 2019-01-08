@@ -158,8 +158,15 @@
     "members.admin.email"                       : "Envoyer email",
     "members.admin.accountcheckbox"             : "Modifier les droits d'admin",
     "members.admin.onlyvalidated"               : "Voir que les membres avec email validé",
-    "members.admin.onlyadmins"                  : "Voir que les membres administrateurs"
-
+    "members.admin.onlyadmins"                  : "Voir que les membres administrateurs",
+    "product.item.detail.description"           : "DESCRIPTIÓN",
+    "product.item.detail.brand"                 : "MARQUE",
+    "product.item.detail.model"                 : "MODELE",
+    "product.item.detail.nostock"               : "Pas de stock disponible pour ce produit",
+    "product.item.detail.label"                 : "Quantité",
+    "product.item.detail.placeholder"           : "Quantité",
+    "product.item.detail.hint"                  : "Entrez la quantité desirée",
+    "product.item.detail.addcart"               : "Ajouter au pannier"
 
 
 

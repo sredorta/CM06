@@ -1,12 +1,11 @@
 
 <div class="gallery-wrapper">
-    <div class="gallery-thumbs" fxLayout="row">
-        <div fxFlex="1 1 auto" *ngFor="let image of images;let i=index;" class="gallery-thumb-wrapper" >
+    <div class="gallery-main-wrapper" fxLayout="row" [ngClass]="{'animate' : animate}" >
+      <img  class="gallery-main-image" [src]="images[current]">
+    </div>  
+    <div class="gallery-thumbs" fxLayout="row" fxLayoutAlign="center center">
+        <div  *ngFor="let image of images;let i=index;" class="gallery-thumb-wrapper" >
             <img  #thumb [src]="image" data-id="{{i}}" alt="picture" (click)="selectImage(thumb)" class="gallery-thumb" [ngClass]="{'selected' : isSelected(i)}">
         </div>
     </div>
-    <div class="gallery-main-wrapper" fxLayout="row" [ngClass]="{'animate' : animate}" >
-    <img  class="gallery-main-image" [src]="images[current]">
-    </div>  
-
 </div>

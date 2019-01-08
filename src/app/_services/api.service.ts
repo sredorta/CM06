@@ -113,6 +113,7 @@ export interface IApiProduct {
   created_at: string;  
   updated_at: string;
   brand:string;
+  brand_url:string;
   model:string;
   brand_id:number;
   model_id:number; 
@@ -269,6 +270,10 @@ export class ApiService {
     return this.http.get<IApiProduct[]>(environment.apiURL +'/products').map(res => <IApiProduct[]>res);
   }
   
+  public getProduct(id) : Observable<IApiProduct> {
+    return this.http.post<IApiProduct>(environment.apiURL +'/product', {id:id}).map(res => <IApiProduct>res);
+  }
+
   public deleteProduct(id:string) : Observable<any>  { 
     return this.http.post<any>(environment.apiURL +'/products/delete', {"id":id});
   }

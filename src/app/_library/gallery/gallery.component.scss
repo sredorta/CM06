@@ -1,5 +1,7 @@
 
-
+.gallery-thumbs {
+    overflow-x:auto;
+}
 .gallery-thumb-wrapper {
     //padding:3px;
     margin:3px;
@@ -7,8 +9,8 @@
 
 .gallery-thumb {
     opacity: 0.4;
-    width:100%;
-    height:100%;
+    width:80px;
+    height:80px;
     max-width:80px;
     max-height: 80px;
     object-fit:scale-down;
@@ -24,7 +26,6 @@
 
 .gallery-wrapper {
     width:100%;
-    height:100%;
     transition: all 0.5s ease-in-out;
 }
 
