@@ -1,0 +1,24 @@
+.wrapper {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: rgba(#fafafa,0.95);
+
+    background-blend-mode: lighten;
+
+    transition: translate 1s ease-in-out;
+}
+.dynamic {
+    padding-top:50px;      //This is the final vertical position
+    padding-left:10vw;
+    animation: header 2s ease-in-out 0s; 
+    animation-fill-mode: forwards;
+    top:-100vh;
+}
+
+  /*Header animation*/
+  @keyframes header {
+    0% { transform: translate(0px,-100%);opacity:0; }
+    100% { transform: translate(0px,0px);opacity:0.9; }
+  }  
+  /*End of header animation*/

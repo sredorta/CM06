@@ -3,137 +3,55 @@
 $primary: map-get($main-app-theme,primary);
 $accent: map-get($main-app-theme,accent);
 
-.initial-header {
-    z-index: 10;
-    position:absolute;
-    left:15vw;
-    top:-30vh;
-    opacity:0.9;
-    color:black;
-    text-shadow: 1px 1px 5px rgba(255,255,255,0.8);
-    animation: header 2s ease-in-out 0s; 
-    animation-fill-mode: forwards;
-}
 
 .initial-title {
     font-weight: bold;
-    text-decoration: underline;
     margin-bottom:0px;
     font-size:4vw;
 }
 .initial-subtitle {
-
     font-size:3vw;
+    opacity:0.7;
 }
-  /*Header animation*/
-  @keyframes header {
-    0% { transform: translate(0px,0px);opacity:0; }
-    100% { transform: translate(0px,30vh);opacity:0.9; }
-  }  
-  /*End of header animation*/
 
 //Do some resizing to fit on small screens
 @media only screen and (max-width: 700px) {
     .initial-title {
         font-size:30px;
+        line-height: 32px;
     }
     .initial-subtitle {
         font-size:22px;
     }
 }  
-
+.header-container {
+    height:80vh;
+    width:100%;
+}
 
 .initial {
     opacity:1;
+    height:100vh;
+    min-height: 300px;
     img {
         height:100%;
         width:100%;
-        opacity:0.2;
+        opacity:0.1;
+        object-fit: cover;
     }
 }
-
-
-/*Start of gaz bubbles*/
-.dot {
-    z-index: 10;
-    height: 20vw;
-    width: 20vw;
-    border-radius: 100%;
-    opacity:0;
-    background: -webkit-gradient(radial, center center,40, center center, 100, from(rgba(165, 143, 103, 0.4)), to(rgba(255,255,255,0)));
-    animation: 1s ease-in-out 0s normal none infinite running load;
-}
-.dot1 {
-    position: absolute;
-    left:2vw;
-    top:8vw;
-}
-
-.dot1-bis {
-    position: absolute;
-    left:-2vw;
-    top:4vw;
-    animation-delay: 0.3s;
-}
-
-.dot2 {
-    position: absolute;
-    left:2vw;
-    top:25vw;
-}
-
-.dot2-bis {
-    position: absolute;
-    left:-2vw;
-    top:22vw;
-    animation-delay: 0.3s;
-}
-
-@keyframes load {
-    0% {
-        opacity:0.9;
-        transform:scale(0.2);
-    }  
-    100% {
-      opacity: 0;
-      transform: scale(2);
-      transform: translate(-10em,-10em);
-    }
-}
-/*End of gaz*/
-
-  /*Engine shake*/
-  .initial img {
-    animation: shake 0.5s; 
-    animation-iteration-count: 1; 
-  }  
-
-  @keyframes shake {
-    0% { transform: translate(1px, 1px) rotate(0deg); }
-    10% { transform: translate(-1px, -2px) rotate(-1deg); }
-    20% { transform: translate(-3px, 0px) rotate(1deg); }
-    30% { transform: translate(3px, 2px) rotate(0deg); }
-    40% { transform: translate(1px, -1px) rotate(1deg); }
-    50% { transform: translate(-1px, 2px) rotate(-1deg); }
-    60% { transform: translate(-3px, 1px) rotate(0deg); }
-    70% { transform: translate(3px, 1px) rotate(-1deg); }
-    80% { transform: translate(-1px, -1px) rotate(1deg); }
-    90% { transform: translate(1px, 2px) rotate(0deg); }
-    100% { transform: translate(1px, -2px) rotate(-1deg); }
-  }  
-  /*End of engine shake*/
 
   /*Start of menu item*/
   .menu-wrapper {
       cursor:pointer;
       box-shadow: 0px 3px 10px  rgba(0, 0, 0, 0.4);
-      margin-left:10px;
-      margin-right:10px;
-      margin-top:20px;
-      margin-bottom:20px;
-      min-height: 300px;  
+      margin:10px;
+      width:100%;
+      min-width: 250px;
+      max-width: 900px;
+      min-height: 250px;  
       //max-height: 300px;
-      height:20vh;
+      //height:20vh;
   }
   
   @media only screen and (max-width: 700px) {
@@ -199,7 +117,15 @@ $accent: map-get($main-app-theme,accent);
         font-size:14px;
     }
 }
-
+//Do some resizing to fit on small screens
+@media only screen and (min-width: 900px) {
+    .menu-text-wrapper-title {
+        font-size:30px;
+    }
+    .menu-text-wrapper-subtitle {
+        font-size:25px;
+    }
+}
 /*
   .initial h1 {
       position: absolute;

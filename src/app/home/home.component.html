@@ -1,38 +1,35 @@
-<div class="initial">
-    <div class="initial-header">
-        <p class="initial-title">BOUTIQUE</p>
-        <p class="initial-subtitle">Chercher c'est trouver</p>
+<app-header background="./assets/images/home-main.jpg">
+    <div class="header-container">
+      <p class="initial-title">{{'home.title' | translate}}</p>
+      <p class="initial-subtitle">{{'home.subtitle' | translate}}</p>
     </div>
-    <div class="dot dot1"></div>
-    <div class="dot dot1-bis"></div>
-    <div class="dot dot2"></div>
-    <div class="dot dot2-bis"></div>
-    <img alt-text="Casse moto 06 boutique" src="./assets/images/motorbike.jpg" class="product-item-main-image">
-</div>
-<div class="menu-wrapper" fxLayout="row" (click)="goToRoute(['/vehicles'])">
-  <div fxFlex="40%" class="menu-text-wrapper" fxLayout="column" fxLayoutAlign="center start">
-    <p class="menu-text-wrapper-title">VEHICLES</p>
-    <p class="menu-text-wrapper-subtitle">Trouvez votre nouvelle moto</p>
-  </div>
-  <div fxFlex="60%" class="menu-image-wrapper">
-      <div #imagevehicle class="menu-image" [ngStyle]="{'background-image': 'url(' + getImage('home-moto.jpg') +')'}"></div>
-  </div>
-</div>
-<div class="menu-wrapper" fxLayout="row" (click)="goToRoute(['/pièces'])">
-    <div fxFlex="40%" class="menu-text-wrapper" fxLayout="column" fxLayoutAlign="center start">
-      <p class="menu-text-wrapper-title">PIÈCES DÉTACHÉES</p>
-      <p class="menu-text-wrapper-subtitle">Trouvez la pièce qui vous manque</p>
+</app-header>
+<div fxLayout="column" fxLayoutAlign="center center">
+    <div class="menu-wrapper" fxLayout="row" (click)="goToRoute(['/vehicles'])">
+    <div fxFlex="50%" class="menu-text-wrapper" fxLayout="column" fxLayoutAlign="center start">
+        <p class="menu-text-wrapper-title">{{'home.menu.first.title' | translate}}</p>
+        <p class="menu-text-wrapper-subtitle">{{'home.menu.first.subtitle' | translate}}</p>
     </div>
-    <div fxFlex="60%" class="menu-image-wrapper">
-        <div class="menu-image" [ngStyle]="{'background-image': 'url(' + getImage('home-parts.jpg') +')'}"></div>
+    <div fxFlex="50%" class="menu-image-wrapper">
+        <div #imagevehicle class="menu-image" [ngStyle]="{'background-image': 'url(' + getImage('home-moto.jpg') +')'}"></div>
     </div>
-</div>
-<div class="menu-wrapper" fxLayout="row" (click)="goToRoute(['/contact'])">
-    <div fxFlex="40%" class="menu-text-wrapper" fxLayout="column" fxLayoutAlign="center start">
-      <p class="menu-text-wrapper-title">CONTACTEZ-NOUS</p>
-      <p class="menu-text-wrapper-subtitle">Trouvez la pièce qui vous manque</p>
     </div>
-    <div fxFlex="60%" class="menu-image-wrapper">
-        <div class="menu-image" [ngStyle]="{'background-image': 'url(' + getImage('home-contact.jpg') +')'}"></div>
+    <div class="menu-wrapper" fxLayout="row" (click)="goToRoute(['/pièces'])">
+        <div fxFlex="50%" class="menu-text-wrapper" fxLayout="column" fxLayoutAlign="center start">
+        <p class="menu-text-wrapper-title">{{'home.menu.second.title' | translate}}</p>
+        <p class="menu-text-wrapper-subtitle">{{'home.menu.second.subtitle' | translate}}</p>
+        </div>
+        <div fxFlex="50%" class="menu-image-wrapper">
+            <div class="menu-image" [ngStyle]="{'background-image': 'url(' + getImage('home-parts.jpg') +')'}"></div>
+        </div>
+    </div>
+    <div class="menu-wrapper" fxLayout="row" (click)="goToRoute(['/contact'])">
+        <div fxFlex="50%" class="menu-text-wrapper" fxLayout="column" fxLayoutAlign="center start">
+        <p class="menu-text-wrapper-title">{{'home.menu.third.title' | translate}}</p>
+        <p class="menu-text-wrapper-subtitle">{{'home.menu.third.subtitle' | translate}}</p>
+        </div>
+        <div fxFlex="50%" class="menu-image-wrapper">
+            <div class="menu-image" [ngStyle]="{'background-image': 'url(' + getImage('home-contact.jpg') +')'}"></div>
+        </div>
     </div>
 </div>
