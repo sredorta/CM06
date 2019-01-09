@@ -1,9 +1,9 @@
 <div class="wrapper" fxLayout="row" fxLayoutAlign="center center">
-  <div class="wrapper-content" fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="center start" fxLayoutAlign.xs="center center">
-    <div fxFlex="50%" class="header-image">
+  <div class="wrapper-content">
+    <div class="header-image" >
       <app-gallery *ngIf="images.length>0" [images]="images"></app-gallery>
     </div>
-    <div *ngIf="product.id>0" fxFlex="50%" class="header-text">
+    <div *ngIf="product.id>0"  class="header-text">
       <p class="header-title">{{product.title}}</p>
       <p class="header-price">{{product.getFinalPrice() | currencyFormat}} € <span *ngIf="product.discount>0" class="header-price" [ngClass]="{'strike' : product.discount>0}" style="margin-left:20px">{{product.price}} €</span></p>
       <p class="header-label">{{'product.item.detail.description' | translate}}</p>
