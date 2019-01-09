@@ -12,6 +12,8 @@ import {MembersComponent} from './_admin/members/members.component';
 import { VehiclesComponent } from './vehicles/vehicles.component';
 import { PiecesComponent } from './pieces/pieces.component';
 import { ContactComponent } from './contact/contact.component';
+import { ProfileComponent } from './_auth/profile/profile.component';
+import { CartComponent } from './cart/cart.component';
 
 const routes: Routes = [
   {
@@ -37,6 +39,13 @@ const routes: Routes = [
     component: ResetpasswordComponent,
     //canActivate: [LoggedOutGuard]
   },  
+  {
+    path: 'profile',
+    runGuardsAndResolvers: 'always',
+    component: ProfileComponent,
+    //canActivate: [LoggedOutGuard]
+  },  
+
   {
     path: 'admin-members',
     runGuardsAndResolvers: 'always',
@@ -69,6 +78,13 @@ const routes: Routes = [
     component: PiecesComponent,
     //canActivate: [AnyGuard]
   },
+  {
+    path: 'pannier',
+    runGuardsAndResolvers: 'always',
+    component: CartComponent,
+    //canActivate: [AnyGuard]
+  },
+
   {
     path: 'contact',
     runGuardsAndResolvers: 'always',

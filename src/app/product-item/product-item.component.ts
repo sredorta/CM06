@@ -54,8 +54,9 @@ export class ProductItemComponent implements OnInit {
     return this.defaultImage;    
   }
 
-  showDetailDialog() {
-    this.router.navigate(["/produit", this.product.id]);
+  showDetail() {
+    if (!this.preview)
+      this.router.navigate(["/produit", this.product.id]);
   }
 
   addToCart() {

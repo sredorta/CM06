@@ -88,6 +88,8 @@ import {SpinnerOverlayService} from './_library/spinner-overlay.service';
 import { LoginComponent } from './_auth/login/login.component';
 import { SignupComponent } from './_auth/signup/signup.component';
 import {ResetpasswordComponent} from './_auth/resetpassword/resetpassword.component';
+import { ProfileComponent } from './_auth/profile/profile.component';
+
 import { SpinnerComponent } from './_library/spinner/spinner.component';
 import { SpinnerOverlayComponent } from './_library/spinner-overlay/spinner-overlay.component';
 
@@ -115,6 +117,7 @@ import { VehiclesComponent } from './vehicles/vehicles.component';
 import { PiecesComponent } from './pieces/pieces.component';
 import { ContactComponent } from './contact/contact.component';
 import { ProductItemDetailComponent } from './product-item-detail/product-item-detail.component';
+import { CartComponent } from './cart/cart.component';
 
 
 @NgModule({
@@ -152,7 +155,9 @@ import { ProductItemDetailComponent } from './product-item-detail/product-item-d
     PiecesComponent,
     ContactComponent,
     ProductItemDetailComponent,
-    GalleryComponent
+    GalleryComponent,
+    ProfileComponent,
+    CartComponent
     //End of library
   ],
   imports: [

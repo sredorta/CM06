@@ -1,49 +1,39 @@
-<div class="container" [class.is-mobile]="mobileQuery.matches" >
-  <!--<div class="banner-theme banner">
-  <mat-toolbar fxLayoutAlign="start center" style="height:100%">
-    <div><img src="./assets/images/logo.jpg"></div>
-    <div fxLayout="row" fxLayoutAlign="center center" style="width:100%">
-    <div fxFlex="1 1 auto"><div><p>Acceuil</p><img src="./assets/images/trace.png" style="height:10px"></div><div></div> </div>
-    <div fxFlex="1 1 auto">Motos</div>
-    <div fxFlex="1 1 auto">Pieces dettaches</div>
-    <div fxFlex="1 1 auto">Nous contacter</div>
-    </div>
-  </mat-toolbar>
-  </div>-->
-  <mat-toolbar  class="toolbar" [class.mat-elevation-z8]="true">
-    <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
-    <div fxFlex="1 1 auto" fxLayoutAlign="end center">
-        <div *ngIf="user.isAvailable()" fxLayout="row" fxLayoutGap="20px">
-          <!--<button  mat-mini-fab color="white" class="scaled">
-                  <div *ngIf="user.notifications>0">
-                    <mat-icon [matBadge]="user.notifications" matBadgeColor="accent" aria-label="Notifications" routerLink='/notifications' >notifications</mat-icon>
-                  </div>
-                  <div *ngIf="user.notifications==0">
-                      <mat-icon  aria-label="Notifications"  routerLink='/notifications'>notifications_none</mat-icon>
-                  </div>
-          </button>   
-          <button  mat-mini-fab color="white" class="scaled">
-                  <div *ngIf="user.messages>0">
-                    <mat-icon [matBadge]="user.messages" matBadgeColor="accent" aria-label="Messages" routerLink='/notifications' >mail</mat-icon>
-                  </div>
-                  <div *ngIf="user.messages==0">
-                      <mat-icon  aria-label="Messages"  routerLink='/messages'>mail_outline</mat-icon>
-                  </div>
-          </button>   -->
-          <div  fxLayout="column" fxLayoutAlign="center center">
-              <button mat-mini-fab color="white" style="background-size:cover;" routerLink='/profile' class="scaled"></button>           
-              <small style="font-size:10px;line-height:10px">{{user.account}}</small>
-          </div>
-        </div>  
-        <div *ngIf="!user.isAvailable()" fxLayout="column" fxLayoutAlign="center center">
-                <button  mat-mini-fab color="white" routerLink='/login' class="scaled">
-                  <mat-icon matBadge="x" matBadgeColor="accent" aria-label="Déconnecté">person</mat-icon>
-                </button> 
-                <small style="font-size:10px;line-height:10px">Deconnecte</small>
-        </div>                                
-    </div>
-  </mat-toolbar>
+<div class="container">
 
+  <div class="toolbar banner-theme banner">
+   <!-- <div class="banner-extra" fxLayout="row" fxLayoutAlign="start center">
+        <div><img src="./assets/images/logo.jpg" alt_text="logo"></div>
+        <div>
+          <h1>Casse moto 06</h1>
+          <h2>La casse moto reference dans les alpes maritimes</h2>
+          </div>  
+    </div>  -->
+  <mat-toolbar [class.mat-elevation-z8]="true">
+    <button class="main-menu" mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+    <div><img src="./assets/images/logo.jpg" alt_text="logo" (click)="user.isAdmin()?snav.toggle():goToRoute([''])"></div>
+    <div class="wide-menu" fxLayout="row" fxLayoutAlign="center center" style="width:100%">
+        <div fxFlex="1 1 auto" fxLayoutAlign="center center"><div class="menu-item" (click)="goToRoute([''])">BOUTIQUE<div></div></div></div>
+        <div fxFlex="1 1 auto" fxLayoutAlign="center center"><div class="menu-item" (click)="goToRoute(['/vehicles'])">VÉHICULES<div></div></div></div>
+        <div fxFlex="1 1 auto" fxLayoutAlign="center center"><div class="menu-item" (click)="goToRoute(['/pièces'])">PIÈCES<div></div></div></div>
+        <div fxFlex="1 1 auto" fxLayoutAlign="center center"><div class="menu-item" (click)="goToRoute(['/contact'])">CONTACT<div></div></div></div>
+    </div>
+    <div fxFlex="1 1 auto" fxLayoutAlign="end center" style="height:100%">
+        <div class="menu-icon menu-icon-text" *ngIf="!user.isAvailable()" fxLayoutAlign="center center" (click)="goToRoute(['/login'])">
+            <small>CONNEXIÓN</small>
+        </div>  
+        <div class="menu-icon menu-icon-text" *ngIf="!user.isAvailable()"  fxLayoutAlign="center center" (click)="goToRoute(['/signup'])">
+            <small>S'INSCRIRE</small>
+        </div>          
+        <div class="menu-icon" *ngIf="user.isAvailable()" fxLayout="column" fxLayoutAlign="center center" (click)="goToRoute(['/profile'])">
+              <mat-icon aria-label="Connected" >person</mat-icon>
+              <small>{{user.firstName}}</small>
+        </div>  
+        <div class="menu-icon" fxLayoutAlign="center center" (click)="goToRoute(['/pannier'])">
+            <mat-icon [matBadge]="0" matBadgeColor="accent" aria-label="Pannier" >shopping_cart</mat-icon>
+        </div>                    
+    </div>
+  </mat-toolbar>
+</div>
   <mat-sidenav-container class="sidenav-container"
                          [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
     <mat-sidenav class="sidenav" #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
@@ -57,7 +47,11 @@
                   <div style="width:100%;padding:5px" fxLayoutAlign="center center"><button mat-stroked-button color="primary"  (click)="snav.toggle();logout()">Logout</button></div>
           </div>      
           <mat-divider></mat-divider>  
-          <a mat-list-item (click)="snav.toggle()" routerLink="">Home</a>
+          <a mat-list-item (click)="snav.toggle()" routerLink="">Boutique</a>
+          <a mat-list-item (click)="snav.toggle()" routerLink="/vehicles">Véhicules</a>
+          <a mat-list-item (click)="snav.toggle()" routerLink="/pièces">Pièces detachées</a>
+          <a mat-list-item (click)="snav.toggle()" routerLink="/contact">Contact</a>
+          <mat-divider></mat-divider>  
           <a mat-list-item (click)="snav.toggle()" routerLink="admin-products">Produits !</a>
           <a mat-list-item (click)="snav.toggle()" routerLink="admin-members">Membres !</a>
           <a mat-list-item (click)="snav.toggle()" routerLink="tmp">Product item !</a>

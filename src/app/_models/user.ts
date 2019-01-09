@@ -47,6 +47,11 @@ export class User {
         if ((this.id !== null) && (this.id !== undefined)) return true;
         return false;
     }
+    
+    isAdmin() :boolean {
+        if (this.account == "Admin") return true;
+        return false;
+    }
 
     /////////////////////////////////////////////////////////////////////////
     // Token related

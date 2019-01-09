@@ -8,6 +8,7 @@ import {User} from './_models/user';
 import {ApiService, IApiUserAuth, EApiImageSizes, IApiBrand, IApiProduct} from './_services/api.service';
 import {DataService} from './_services/data.service';
 import {InitComponent} from './init/init.component';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-root',
@@ -19,11 +20,18 @@ export class AppComponent {
   user : User = new User(null);
   loading : boolean = true;
   mobileQuery: MediaQueryList;
+  isMobile : boolean =  this.device.isMobile();
   private _mobileQueryListener: () => void;
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private data : DataService, private api: ApiService, private router : Router, private translate: TranslateService, changeDetectorRef: ChangeDetectorRef, media: MediaMatcher) {
+  constructor(private data : DataService, 
+              private api: ApiService, 
+              private router : Router, 
+              private device : DeviceDetectorService,
+              private translate: TranslateService, 
+              changeDetectorRef: ChangeDetectorRef, 
+              media: MediaMatcher) {
     this.translate.use("fr");
 
 
@@ -71,6 +79,17 @@ export class AppComponent {
     }));
   }       
 
+  //Goes to the route with delay to show animation on mobile
+  goToRoute(route:string[]) {
+    if (this.isMobile)
+      setTimeout( () => {
+        this.router.navigate(route);
+      },500);
+    else 
+      this.router.navigate(route);  
+  }
+
+  //Remove all subscriptions
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);
     for (let subscription of this._subscriptions) {

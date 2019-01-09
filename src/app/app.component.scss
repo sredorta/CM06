@@ -12,7 +12,6 @@
   }
   
   .toolbar {
-
       z-index: 2; 
       //box-shadow: 1px 2px black;
   }
@@ -44,11 +43,111 @@
       max-width: 300px;
   }
 
+
+  ///////////////////////////    Toolbar part
+
+  .banner-extra {
+    background: #2f3e99;
+  }
+
   .banner {
-    height:100px;
+    //margin-bottom:5px;
     width:100%;
     //background-color:rgb(47,62,153);
   }
   .banner img {
-    height:80px;
+    margin-left:10px;
+    height:50px;
+  }
+  .banner img:hover {
+    cursor:pointer;
+  }
+
+  .menu-item {
+    opacity:0.6;
+    transition: all 0.5s ease-in-out;
+    font-size: 16px;
+  }
+
+  .menu-item:hover {
+    opacity:1;
+    cursor: pointer;
+    div {
+      animation: menu 0.5s;
+      animation-fill-mode: forwards;
+      
+    }
+  }
+
+  .menu-item div {
+    opacity:0;
+    width:100%;
+    height:2px;
+    background-color: white;
+  }
+
+  @keyframes menu {
+    0% {
+        opacity:0;
+        transform: translate(0,20px);
+    }  
+    100% {
+      opacity: 1;
+      transform: translate(0,0);
+    }
+  }
+
+  //Icons part
+  .menu-icon {
+    opacity:0.6;
+    width:60px;
+    height:100%;
+    small {
+      font-size: 12px;
+      line-height: 13px;
+    }
+  }
+  .menu-icon:hover {
+    opacity:1;
+    transition: all 0.5s ease-in-out;
+    cursor:pointer;
+    small {
+      transition: all 0.5s ease-in-out;
+      transform:scale(1.2);
+    }
+  }
+  .menu-icon-text {
+    width:100px;
+  }
+
+  .main-menu {
+    display:none !important;
+  }
+
+  //Hide wide menu and show menu on small screens
+  @media only screen and (max-width: 768px) {
+    .wide-menu {
+      display:none !important;
+    }
+    .main-menu {
+      display:inline-block !important;
+    }
+    .banner img {
+      height:40px;
+    }
+  }
+  @media only screen and (max-width: 450px) {
+    .menu-icon {
+      width:50px;
+      small {
+        font-size: 11px;
+      }
+    }
+    .menu-icon-text {
+      width:75px;
+    }
+    .banner img {
+      margin-left:5px;
+      height:30px;
+    }
   }
