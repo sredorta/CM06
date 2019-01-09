@@ -78,6 +78,72 @@ $banner-theme: create-banner-theme($banner-theme-primary, $banner-theme-accent, 
     @include angular-material-theme($banner-theme);
 }
 
+
+///////////////////////////////////////////////////////////////////////////////////////
+// SideNav theme
+///////////////////////////////////////////////////////////////////////////////////////
+$banner-theme-background: (
+  status-bar: green,
+  app-bar:    rgb(47,62,153),
+  background: black,
+  hover:      rgba(white, 0.04), 
+  card:       map_get($mat-red, 900),
+  dialog:     map_get($mat-grey, 800),
+  disabled-button: $white-12-opacity,
+  raised-button: map-get($mat-grey, 800),
+  focused-button: $white-6-opacity,
+  selected-button: map_get($mat-grey, 900),
+  selected-disabled-button: map_get($mat-grey, 800),
+  disabled-button-toggle: black,
+  unselected-chip: map_get($mat-grey, 700),
+  disabled-list-option: black,
+);
+
+$banner-theme-foreground: (
+  base:              yellow,
+  divider:           rgba(255,255,255,0.3), //$white-12-opacity,
+  dividers:          rgba(255,255,255,0.3),// $white-12-opacity,
+  disabled:          rgba(white, 0.3),
+  disabled-button:   rgba(white, 0.3),
+  disabled-text:     rgba(white, 0.3),
+  hint-text:         rgba(white, 0.3),
+  secondary-text:    rgba(white, 0.7),
+  icon:              white,
+  icons:             white,
+  text:              white,
+  slider-min:        white,
+  slider-off:        rgba(white, 0.3),
+  slider-off-active: rgba(white, 0.3),
+);
+
+// instead of creating a theme with mat-light-theme like a sane person, we will create our own theme-creating function that lets us apply our own foreground and background palettes.
+@function create-sidenav-theme($primary, $accent, $warn: mat-palette($mat-red)) {
+  @return (
+    'primary': $primary,
+    'accent': $accent,
+    'warn': $warn,
+    'is-dark': true,
+    'foreground': $banner-theme-foreground,
+    'background': $banner-theme-background
+  );
+}
+$banner-theme-primary: mat-palette($mat-amber,300);
+$banner-theme-accent : mat-palette($mat-deep-orange);
+$banner-theme-warn: mat-palette($mat-red);
+$sidenav-theme: create-sidenav-theme($banner-theme-primary, $banner-theme-accent, $banner-theme-warn);
+
+
+.sidenav-theme {
+  background-color: rgb(20, 20, 20);
+    @include angular-material-theme($sidenav-theme);
+}
+
+
+
+
+
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 // ADMIN THEME
 /////////////////////////////////////////////////////////////////////////////////////////////

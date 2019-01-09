@@ -35,27 +35,29 @@
   </mat-toolbar>
 </div>
   <mat-sidenav-container class="sidenav-container"
-                         [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav class="sidenav" #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
-                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+                         [style.marginTop.px]="mobileQuery.matches ? 0 : 0"> 
+    <mat-sidenav class="sidenav sidenav-theme" #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">      
       <mat-nav-list>
           <div *ngIf="!user.isAvailable()"> 
-              <div style="width:100%;padding:5px" fxLayoutAlign="center center"><button mat-raised-button color="primary" routerLink="/login" (click)="snav.toggle()">Login</button></div>
-              <div style="width:100%;padding:5px" fxLayoutAlign="center center"><button mat-stroked-button color="primary" routerLink="/signup" (click)="snav.toggle()">Signup</button></div>            
+              <div style="width:100%;padding:5px" fxLayoutAlign="center center"><button mat-raised-button color="primary" routerLink="/login" (click)="snav.toggle()">CONNEXIÓN</button></div>
+              <div style="width:100%;padding:5px" fxLayoutAlign="center center"><button mat-stroked-button color="primary" routerLink="/signup" (click)="snav.toggle()">S'INSCRIRE</button></div>            
           </div>
           <div *ngIf="user.isAvailable()"> 
                   <div style="width:100%;padding:5px" fxLayoutAlign="center center"><button mat-stroked-button color="primary"  (click)="snav.toggle();logout()">Logout</button></div>
           </div>      
           <mat-divider></mat-divider>  
-          <a mat-list-item (click)="snav.toggle()" routerLink="">Boutique</a>
-          <a mat-list-item (click)="snav.toggle()" routerLink="/vehicles">Véhicules</a>
-          <a mat-list-item (click)="snav.toggle()" routerLink="/pièces">Pièces detachées</a>
-          <a mat-list-item (click)="snav.toggle()" routerLink="/contact">Contact</a>
-          <mat-divider></mat-divider>  
-          <a mat-list-item (click)="snav.toggle()" routerLink="admin-products">Produits !</a>
-          <a mat-list-item (click)="snav.toggle()" routerLink="admin-members">Membres !</a>
-          <a mat-list-item (click)="snav.toggle()" routerLink="tmp">Product item !</a>
-
+          <a mat-list-item (click)="snav.toggle()" routerLink="" class="sidenav-item">BOUTIQUE</a>
+          <a mat-list-item (click)="snav.toggle()" routerLink="/vehicles" class="sidenav-item">VÉHICULES</a>
+          <a mat-list-item (click)="snav.toggle()" routerLink="/pièces" class="sidenav-item">PIÊCES DÉTACHÉES</a>
+          <a mat-list-item (click)="snav.toggle()" routerLink="/contact" class="sidenav-item">CONTACT</a>
+          <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>ADMIN</mat-panel-title>
+              </mat-expansion-panel-header>   
+              <a mat-list-item (click)="snav.toggle()" class="sidenav-item" routerLink="admin-products">PRODUITS</a>
+              <a mat-list-item (click)="snav.toggle()" class="sidenav-item" routerLink="admin-members">MEMBRES</a>
+          </mat-expansion-panel>
       </mat-nav-list>
     </mat-sidenav>
 

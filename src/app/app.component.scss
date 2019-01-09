@@ -1,5 +1,6 @@
 @import "../themes.scss"; //Import general themeing
 
+
 .container {
     min-width:300px;
     display: flex;
@@ -121,8 +122,27 @@
   }
 
   .main-menu {
+    transition: all 0.5s ease-in-out;
     display:none !important;
+    mat-icon {
+      transition: all 1s ease-in-out;
+    }
   }
+  .main-menu:active {
+    transform:scale(1.2);
+    mat-icon {
+      animation-name: spin;
+      animation-duration: 0.4s;
+      animation-iteration-count: 2;
+      animation-timing-function: linear;
+    }
+  }
+
+  @keyframes spin { 
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
 
   //Hide wide menu and show menu on small screens
   @media only screen and (max-width: 768px) {
@@ -151,3 +171,13 @@
       height:30px;
     }
   }
+
+//sidenav
+.sidenav-item {
+  opacity:0.6;
+  transition: all 0.5s ease-in-out;
+}
+.sidenav-item:hover {
+  opacity:1;
+  transform:scale(1.1);
+}
