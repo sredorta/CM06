@@ -13,7 +13,6 @@ import { Subscription } from 'rxjs';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {MakeSureDialogComponent} from '../../_library/make-sure-dialog/make-sure-dialog.component';
 
-import {MessageService} from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 //import { MediaMatcher } from '@angular/cdk/layout';
@@ -43,7 +42,6 @@ export class BrandsComponent implements OnInit {
   brandsCount : number = 0;
   brandsDisplayed : number = 0;
   lastBrandFilter : string = null;
-//  currentBrand : IApiBrand = null;
 
   expand : boolean = false;
   myForm: FormGroup; 
@@ -62,7 +60,6 @@ export class BrandsComponent implements OnInit {
               private translate: TranslateService, 
               private api : ApiService,
               private dialog: MatDialog,
-              private messageService: MessageService,
               private spinner : SpinnerOverlayService) { }
 
   @ViewChild('expansion') expansion : MatExpansionPanel;
@@ -161,12 +158,11 @@ export class BrandsComponent implements OnInit {
     if (this.myForm.invalid) {
       return;
     }
-    this._subscriptions.push(this.translate.get(["brands.admin.toast.create.summary", "brands.admin.toast.create.detail"]).subscribe( trans => {
-      this._subscriptions.push(this.api.createBrand(value.name,value.image).subscribe((res: IApiBrand) => {
+    this.spinner.show();
+    this._subscriptions.push(this.api.createBrand(value.name,value.image).subscribe((res: IApiBrand) => {
         this._addBrand(res);
-        this.messageService.add({severity:'success', summary:trans['brands.admin.toast.create.summary'], detail:trans['brands.admin.toast.create.detail']});
-      }));
-    }));
+        this.spinner.hide();
+      },()=>this.spinner.hide()));
     this.onAddBrandReset();
   }
 
@@ -196,12 +192,12 @@ export class BrandsComponent implements OnInit {
     //Hide the expansion
     this.expand = false;
     this.table.renderRows();
-    this._subscriptions.push(this.translate.get(["brands.admin.toast.modify.summary", "brands.admin.toast.modify.detail"]).subscribe( trans => {
-      this._subscriptions.push(this.api.updateBrand(id,value.name,value.image).subscribe((res: IApiBrand) => {
+
+    this.spinner.show();
+    this._subscriptions.push(this.api.updateBrand(id,value.name,value.image).subscribe((res: IApiBrand) => {
         this._updateBrand(res);
-        this.messageService.add({severity:'success', summary:trans['brands.admin.toast.modify.summary'], detail:trans['brands.admin.toast.modify.detail']});
-      }));
-    }));
+        this.spinner.hide();
+      },()=>this.spinner.hide()));
   }
 
   //Update the datamodel
@@ -224,14 +220,14 @@ export class BrandsComponent implements OnInit {
       this.inputImageUpdateDataIn[0] = brand.image.sizes['full'].url;
     else 
       this.inputImageUpdateDataIn[0] = this.defaultImage; 
-
-    console.log("We are setting inputImageUpdateDataIn ");
-    console.log(this.inputImageUpdateDataIn);  
   }
 
   //Delete the brand when clicking to delete
-  onDeleteBrand(id) {
-    this._subscriptions.push(this.translate.get(["brands.admin.dialog.delete.header","brands.admin.dialog.delete.content","brands.admin.toast.delete.summary", "brands.admin.toast.delete.detail"]).subscribe( trans => {
+  onDeleteBrand(id) {   
+    //let count = this.data.getProducts().filter(obj=> obj.brand_id == id).length;
+    //console.log("Removing : " + count);
+
+    this._subscriptions.push(this.translate.get(["brands.admin.dialog.delete.header","brands.admin.dialog.delete.content"]).subscribe( trans => {
       let dialogRef = this.dialog.open(MakeSureDialogComponent, {
         disableClose :true,
         panelClass : "admin-theme",
@@ -241,10 +237,11 @@ export class BrandsComponent implements OnInit {
       });
       this._subscriptions.push(dialogRef.afterClosed().subscribe((result : boolean) => {
         if (result) {   
+          this.spinner.show();
           this._subscriptions.push(this.api.deleteBrand(id).subscribe(res=> {
             this._deleteBrand(id);
-            this.messageService.add({severity:'success', summary: trans['brands.admin.toast.delete.summary'], detail:trans['brands.admin.toast.delete.detail']});
-          }));           
+            this.spinner.hide();
+          },()=>this.spinner.hide()));           
         } 
       }));    
     }));

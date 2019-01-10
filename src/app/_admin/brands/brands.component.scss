@@ -3,14 +3,6 @@
 $primary: map-get($admin-theme,primary);
 $accent: map-get($admin-theme,accent);
 
-//Color for toasts
-:host ::ng-deep .custom-toast .ui-toast-message {
-    color: #012908;
-    background: rgb(180, 216, 192);
-}  
-:host ::ng-deep .custom-toast .ui-toast-close-icon {
-    color: #012908;
-}
 
 
 //Table formatting

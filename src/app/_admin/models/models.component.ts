@@ -11,10 +11,7 @@ import { Subscription } from 'rxjs';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {MakeSureDialogComponent} from '../../_library/make-sure-dialog/make-sure-dialog.component';
 
-import {MessageService} from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
-import { ActivatedRoute } from '@angular/router';
-import { SearchBrandComponent } from '../../_library/search-brand/search-brand.component';
 import {SpinnerOverlayService} from '../../_library/spinner-overlay.service';
 
 @Component({
@@ -55,7 +52,6 @@ export class ModelsComponent implements OnInit {
   constructor(private data : DataService, 
               private translate: TranslateService, 
               private api : ApiService,
-              private messageService: MessageService,
               private dialog : MatDialog,
               private spinner : SpinnerOverlayService) { }
 
@@ -96,8 +92,6 @@ export class ModelsComponent implements OnInit {
       } else {
         this.spinner.show();
         this._subscriptions.push(this.api.getModels().subscribe((res : IApiModel[]) => {
-          console.log("Models:")
-          console.log(res);
           this.data.setModels(res);
           this.initTable(res);
           this.spinner.hide();
@@ -131,12 +125,11 @@ export class ModelsComponent implements OnInit {
     if (this.myForm.invalid) {
       return;
     }
-    this._subscriptions.push(this.translate.get(["models.admin.toast.create.summary", "models.admin.toast.create.detail"]).subscribe( trans => {
+    this.spinner.show()
       this._subscriptions.push(this.api.createModel(this.brand.id,value.name).subscribe((res: IApiModel) => {
         this._addModel(res);
-        this.messageService.add({severity:'success', summary:trans['models.admin.toast.create.summary'], detail:trans['models.admin.toast.create.detail']});
-      }));
-    }));
+        this.spinner.hide();
+      },()=>this.spinner.hide()));
     this.myForm.reset();
     this.onAddModelReset();
   }
@@ -167,7 +160,7 @@ export class ModelsComponent implements OnInit {
 
   //Delete the brand when clicking to delete
   onDeleteModel(id) {
-    this._subscriptions.push(this.translate.get(["models.admin.dialog.delete.header","models.admin.dialog.delete.content","models.admin.toast.delete.summary", "models.admin.toast.delete.detail"]).subscribe( trans => {
+    this._subscriptions.push(this.translate.get(["models.admin.dialog.delete.header","models.admin.dialog.delete.content"]).subscribe( trans => {
       let dialogRef = this.dialog.open(MakeSureDialogComponent, {
         disableClose :true,
         panelClass : "admin-theme",
@@ -177,10 +170,11 @@ export class ModelsComponent implements OnInit {
       });
       this._subscriptions.push(dialogRef.afterClosed().subscribe((result : boolean) => {
         if (result) {   
+          this.spinner.show();
           this._subscriptions.push(this.api.deleteModel(id).subscribe(res=> {
             this._deleteModel(id);
-            this.messageService.add({severity:'success', summary: trans['models.admin.toast.delete.summary'], detail:trans['models.admin.toast.delete.detail']});
-          }));           
+            this.spinner.hide();
+          },()=>this.spinner.hide()));           
         } 
       }));    
     }));
@@ -210,12 +204,11 @@ export class ModelsComponent implements OnInit {
     //Hide the expansion
     this.expand = false;
     this.table.renderRows();
-    this._subscriptions.push(this.translate.get(["models.admin.toast.modify.summary", "models.admin.toast.modify.detail"]).subscribe( trans => {
-      this._subscriptions.push(this.api.updateModel(id,value.name).subscribe((res: IApiModel) => {
+    this.spinner.show();
+    this._subscriptions.push(this.api.updateModel(id,value.name).subscribe((res: IApiModel) => {
         this._updateModel(res);
-        this.messageService.add({severity:'success', summary:trans['models.admin.toast.modify.summary'], detail:trans['models.admin.toast.modify.detail']});
-      }));
-    }));
+        this.spinner.hide();
+    },()=>this.spinner.hide()));
   }
 
   //Update the datamodel

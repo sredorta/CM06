@@ -6,11 +6,11 @@
     <div *ngIf="product.id>0"  class="header-text">
       <p class="header-title">{{product.title}}</p>
       <p class="header-price">{{product.getFinalPrice() | currencyFormat}} € <span *ngIf="product.discount>0" class="header-price" [ngClass]="{'strike' : product.discount>0}" style="margin-left:20px">{{product.price}} €</span></p>
-      <p class="header-label">{{'product.item.detail.description' | translate}}</p>
-      <p class="header-description">{{product.description}}</p> 
+      <!--<p class="header-label">{{'product.item.detail.description' | translate}}</p>-->
+      <p class="header-description">{{product.description}}</p>
       <p class="header-label">{{'product.item.detail.brand' | translate}}</p>
       <div class="header-brand" fxLayout="row" fxLayoutAlign="start center">
-        <img class="header-brand-img" [src]="product.brand_url">
+        <img class="header-brand-img" [src]="product.getBrandUrl()">
         <p class="header-brand-text"> {{product.brand}}</p>
       </div> 
       <p class="header-label">{{'product.item.detail.model' | translate}}</p>

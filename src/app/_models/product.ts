@@ -49,4 +49,10 @@ export class Product {
         return result;
     }
 
+    public getBrandUrl() {
+        if (this.brand_url)
+            if (this.brand_url.length>0) return this.brand_url;
+        return "./assets/images/no-photo-available.jpg";    
+    }
+
 }

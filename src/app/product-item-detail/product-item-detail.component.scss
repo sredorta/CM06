@@ -59,7 +59,8 @@ $warn : map-get($main-app-theme,warn);
 
 .header-description {
     font-size: 16px;
-    opacity: 0.9;
+    opacity: 0.7;
+    font-style: italic;
 }
 
 .header-brand-img {
