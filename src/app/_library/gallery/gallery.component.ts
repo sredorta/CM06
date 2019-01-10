@@ -13,13 +13,15 @@ import { trigger, style, animate, transition, state } from '@angular/animations'
 
 
 export class GalleryComponent implements OnInit {
-  @Input() images :string[] = [];
+  @Input() images :string[];
   current:number = 0;
   animate : boolean = false;
   currentElement :HTMLImageElement;
   constructor() { }
 
   ngOnInit() {
+    if (this.images.length == 0)
+       this.images[0] = "./assets/images/no-photo-available.jpg";
     console.log("We are in app-gallery");
     console.log(this.images);
   }

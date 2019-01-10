@@ -9,11 +9,9 @@
       </mat-form-field>-->
     </div>
 </app-header>
-<h1>debug</h1>
-<h1>debug</h1>
-<div fxLayout="row wrap">
-    <div *ngFor="let product of products">
-  <app-product-item  [product]="product"></app-product-item>
 
-</div>
+<div fxLayout="row wrap" fxLayoutAlign="center start">
+    <div *ngFor="let product of products">
+      <app-product-item  [product]="product"></app-product-item>
+    </div>
 </div>

@@ -64,19 +64,7 @@ export class ProductCreateUpdateComponent implements OnInit {
 
     //If there is an input product then we set all fields
     if (this.currentProduct) {
-      this.product = new Product(this.currentProduct);
-      this.myForm.controls['title'].setValue(this.product.title);
-      this.myForm.controls['description'].setValue(this.product.description);
-      this.myForm.controls['price'].setValue(this.product.price);
-      this.myForm.controls['discount'].setValue(this.product.discount);
-      this.stock = this.product.stock;
-      this.images = [];
-      for(let image of this.product.images) {
-          this.images.push(image.sizes['full'].url);
-      }
-      this.product.images = this.images;
-      this.myForm.valueChanges.scan
-      this.myForm.controls['isVehicle'].setValue(this.product.isVehicle);
+      this.initWithProduct(this.currentProduct);
     } else {
       this.images = null;
     }
@@ -89,13 +77,28 @@ export class ProductCreateUpdateComponent implements OnInit {
     }));
   }
 
+  initWithProduct(product:IApiProduct) {
+    this.product = new Product(product);
+    this.myForm.controls['title'].setValue(this.product.title);
+    this.myForm.controls['description'].setValue(this.product.description);
+    this.myForm.controls['price'].setValue(this.product.price);
+    this.myForm.controls['discount'].setValue(this.product.discount);
+    this.stock = this.product.stock;
+    this.images = [];
+    for(let image of this.product.images) {
+        this.images.push(image.sizes['full'].url);
+    }
+    this.product.images = this.images;
+    this.myForm.valueChanges.scan
+    this.myForm.controls['isVehicle'].setValue(this.product.isVehicle);
+  }
 
 
 
   //On reset form
   onCreateProductReset() {
-    this.myForm.reset();
-    this.imagesElem.resetImage();
+      this.myForm.reset();
+      this.imagesElem.resetImage();
   }
 
   //On create product

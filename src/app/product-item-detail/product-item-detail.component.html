@@ -1,7 +1,7 @@
 <div class="wrapper" fxLayout="row" fxLayoutAlign="center center">
   <div class="wrapper-content">
     <div class="header-image" >
-      <app-gallery *ngIf="images.length>0" [images]="images"></app-gallery>
+      <app-gallery *ngIf="product.id>0" [images]="images"></app-gallery>
     </div>
     <div *ngIf="product.id>0"  class="header-text">
       <p class="header-title">{{product.title}}</p>

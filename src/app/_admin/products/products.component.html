@@ -1,6 +1,5 @@
 
 <div class="admin-theme">  
-    <p-toast [style]="{marginTop: '80px'}" styleClass="custom-toast"></p-toast>
     <div fxLayout="column" style="padding-top:20px">
       <div>
       <button mat-raised-button type="button" color="primary" routerLink="/admin-product-create"><mat-icon style="margin-right:10px">add_box</mat-icon>{{'create' | translate}}</button>
@@ -11,6 +10,10 @@
           <input matInput  (keyup)="applyFilter($event.target.value)" placeholder="{{'products.admin.search.placeholder' | translate}}" autocomplete="off">
           <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
+      <div fxLayout="column" style="padding:20px;padding-top:0px" fxLayoutGap="10px">
+        <mat-checkbox [disabled]="disableVehicles" (change)="showVehicles($event)" > {{'products.admin.onlyVehicles' | translate}}</mat-checkbox>
+        <mat-checkbox [disabled]="disablePieces"   (change)="showPieces($event)" > {{'products.admin.onlyPieces' | translate}}</mat-checkbox>
+      </div>  
       <p style="margin-bottom:5px;margin-top:0px;" class="total">TOTAL : {{productsDisplayed}} / <span style="font-weight:bold">{{productsCount}}</span></p> 
         <table #myTable mat-table [dataSource]="dataSource" multiTemplateDataRows class="table">
           <ng-container matColumnDef="image">

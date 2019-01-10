@@ -1,10 +1,7 @@
 <div  class="product-create-update-wrapper"> 
   <!--In case we don't give brand and models we provide a way to find-->
-  <div fxLayout="row" fxLayoutGap="20px">
+  <div fxLayout="row" fxLayoutGap="20px" fxLayout.xs="column" fxLayoutAlign="center start">
     <div fxFlex="1 1 auto" class="admin-theme detail-wrapper">
-      <!--<div *ngIf="!brand">
-          <app-search-brand [brand]="brand"></app-search-brand>
-      </div>-->
       <!--Missing model selector-->
       <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate> 
           <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="20px">
@@ -44,8 +41,7 @@
             </mat-form-field>     
             <app-input-plus-minus fieldName="stock" [parentForm]="myForm" [default]="stock" [label]="'product.admin.create.input.stock.label' | translate" [placeholder]="'product.admin.create.input.stock.placeholder' | translate" [hint]="'product.admin.create.input.stock.hint' | translate"></app-input-plus-minus>        
             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-                <mat-slide-toggle formControlName="isVehicle"></mat-slide-toggle>
-                <p style="font-size:14px">{{'product.admin.create.input.vehicle' | translate}}</p>
+                <mat-slide-toggle formControlName="isVehicle">{{'product.admin.create.input.vehicle' | translate}}</mat-slide-toggle>
             </div>     
             <app-input-images #imagesCreate [isMultiple]="true" maxSize="800" [crop]="false" fieldName="images" [parentForm]="myForm" defaultImage="./assets/images/no-photo-available.jpg" [images]="images" [disabled] = "myForm.disabled"></app-input-images>            
             <div fxLayout="column" fxLayoutAlign="center center" fxFlex="1 1 auto">
@@ -58,8 +54,8 @@
       </form>   
     </div>
 
-    <div fxFlex="1 1 auto" class="default-theme preview-wrapper" style="padding:5px">
-        <h3 class="admin-label">{{'product.admin.create.preview.header' | translate}}</h3>
+    <div fxFlex="1 1 auto" class="default-theme preview-wrapper">
+        <!--<h3 class="admin-label">{{'product.admin.create.preview.header' | translate}}</h3>-->
         <div fxLayoutAlign="center center">
           <app-product-item  [product]="product" preview="true"></app-product-item>
         </div>

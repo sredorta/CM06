@@ -151,8 +151,8 @@
     "products.admin.table.created"              : "Crée le",      
     "products.admin.dialog.delete.header"       : "Suppresión d'un produit",
     "products.admin.dialog.delete.content"      : " ATTENTION ! Êtes vous sûr de vouloir supprimer le produit ?",
-    "products.admin.toast.delete.summary"       : "Produit supprimé",
-    "products.admin.toast.delete.detail"        : "Le produit vient d'être supprimé",
+    "products.admin.onlyPieces"                 : "Montrer seulement les pièces détachées",
+    "products.admin.onlyVehicles"               : "Montrer seulement les vehicules",
 
     "members.admin.table.picture"               : "Avatar",
     "members.admin.table.last"                  : "Nom",
