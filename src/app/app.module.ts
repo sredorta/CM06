@@ -44,6 +44,8 @@ import {MatAutocompleteModule,
   MatToolbarModule,
   MatTooltipModule,
   MatTreeModule} from '@angular/material';
+//FACEBOOK
+import {FacebookModule} from 'ngx-facebook';
 
 //PRIME-NG COMPONENTS
 import {PasswordModule} from 'primeng/password';
@@ -54,9 +56,9 @@ import {CheckboxModule} from 'primeng/checkbox';
 import {ButtonModule} from 'primeng/button';
 import {GMapModule} from 'primeng/gmap';
 import {TooltipModule} from 'primeng/tooltip';
-import {GalleriaModule} from 'primeng/galleria';
-import {ToastModule} from 'primeng/toast';
-import {MessageService} from 'primeng/api';
+//import {GalleriaModule} from 'primeng/galleria';
+//import {ToastModule} from 'primeng/toast';
+//import {MessageService} from 'primeng/api';
 
 // NGX-TRANSLATE 
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
@@ -119,6 +121,7 @@ import { PiecesComponent } from './pieces/pieces.component';
 import { ContactComponent } from './contact/contact.component';
 import { ProductItemDetailComponent } from './product-item-detail/product-item-detail.component';
 import { CartComponent } from './cart/cart.component';
+import { SearchProductComponent } from './_library/search-product/search-product.component';
 
 
 @NgModule({
@@ -159,7 +162,8 @@ import { CartComponent } from './cart/cart.component';
     GalleryComponent,
     ProfileComponent,
     CartComponent,
-    HeaderComponent
+    HeaderComponent,
+    SearchProductComponent
     //End of library
   ],
   imports: [
@@ -179,8 +183,8 @@ import { CartComponent } from './cart/cart.component';
     ColorPickerModule,
     GMapModule,
     TooltipModule,
-    ToastModule,
-    GalleriaModule
+    //ToastModule,
+    //GalleriaModule
     ],
     [  MatAutocompleteModule, //MATERIAL2
       MatBadgeModule,
@@ -218,6 +222,7 @@ import { CartComponent } from './cart/cart.component';
       MatTooltipModule,
       MatTreeModule         
     ],    
+    FacebookModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,
@@ -228,7 +233,7 @@ import { CartComponent } from './cart/cart.component';
   ],
   entryComponents: [ErrorSheetComponent, SpinnerOverlayComponent, TermsDialogComponent, MakeSureDialogComponent, ProductItemDialogComponent],
   providers: [
-    HttpClient, ApiService, DataService, SpinnerOverlayService, MakeSureDialogComponent, ProductItemDialogComponent, MessageService, CurrencyFormatPipe, MobileFormatPipe,DeviceDetectorService,
+    HttpClient, ApiService, DataService, SpinnerOverlayService, MakeSureDialogComponent, ProductItemDialogComponent, CurrencyFormatPipe, MobileFormatPipe,DeviceDetectorService,
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, 
     {provide: HTTP_INTERCEPTORS, useClass: HttpHeaderInterceptor, multi: true }    
   ],

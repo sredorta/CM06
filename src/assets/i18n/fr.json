@@ -139,8 +139,6 @@
     "product.admin.create.input.stock.placeholder"      : "Stock disponible",
     "product.admin.create.input.stock.hint"             : "Écrivez la quantité de stock disponible",
     "product.admin.create.preview.header"               : "Vue preliminaire",
-    "product.admin.create.toast.summary"                : "Prix incorrect",
-    "product.admin.create.toast.detail"                 : "Le prix doit ètre supperieur a la promotion",
 
     "products.admin.search.label"               : "Chercher un produit",
     "products.admin.search.placeholder"         : "Chercher",

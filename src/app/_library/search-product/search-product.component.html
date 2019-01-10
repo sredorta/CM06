@@ -1,0 +1,7 @@
+<div class="search-wrapper">
+    <mat-form-field appearance="outline" style="padding-top:10px;min-width:250px" class="scale">
+        <mat-label >{{'members.admin.search.label' | translate}}</mat-label>
+        <input matInput  (keyup)="applyFilter($event.target.value)" placeholder="{{'members.admin.search.placeholder' | translate}}" autocomplete="off">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>

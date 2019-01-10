@@ -15,6 +15,7 @@ export class Product {
     brand_id: number;
     model_id: number;
     images: IApiAttachment[];
+    weight: number = 0; //Searching weight
 
 
     constructor(product: IApiProduct) {

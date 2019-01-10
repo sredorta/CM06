@@ -27,7 +27,6 @@ export class ProductItemComponent implements OnInit {
 
   ngOnInit() {
 //    this.product = new Product(this.data.getProducts()[11]);
-    console.log(this.product);
     //For debug only
 /*    this.product.title = "Amortisseur avant titre";
     this.product.description = "Amortisseur avant de 150mm de debatement pour une moto qui dechire";
