@@ -18,7 +18,7 @@ export class InputImagesComponent implements OnInit {
   @Input() parentForm : FormGroup;
   @Input() fieldName : string = "image";
   @Input() defaultImage : string = "./assets/images/no-photo-available.jpg";
-  @Input() images :string[] = [];// = ["./assets/images/logo.jpg","./assets/images/trace.png","./assets/images/galleria-debug-1.jpg","./assets/images/galleria-debug-2.jpg"];  //Input images if any
+  @Input() images :string[] = [];  //Input images if any
   @Input() maxSize : number = 500;
   @Input() crop : boolean = true;
   @Input() isMultiple : boolean = false;
@@ -34,8 +34,8 @@ export class InputImagesComponent implements OnInit {
   base64 : string[] = new Array<string>();
   currentElement : HTMLImageElement;
   defaultImgLoaded : boolean = false;
-//  disable : boolean = false;
-
+  compress : boolean = false; //Define compression when we load from file   
+  compression_rate = 0.9;    //Compression rate when we load a file
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
   constructor() { }
@@ -172,6 +172,7 @@ export class InputImagesComponent implements OnInit {
       const [file] = event.target.files;
       reader.readAsDataURL(file);
       reader.onloadend = () => {
+        this.compress = true; //Compress as we load from file first time
         this.imageToBase64Array(reader.result.toString());
         setTimeout(() => {
             this.currentElement = this.thumb.last.nativeElement;
@@ -228,8 +229,11 @@ export class InputImagesComponent implements OnInit {
         [field] : this.base64[0]
       };  
     }
-    //console.log("Setting final data to:");
-    //console.log(obj);
+    if (this.base64)
+      if (this.base64[0]) {
+        console.log("Final base64 size is:");
+        console.log(this.base64[0].length);
+      }
     this.parentForm.patchValue(obj,{ onlySelf: false, emitEvent: true });
   }
 
@@ -260,7 +264,9 @@ export class InputImagesComponent implements OnInit {
       canvas.nativeElement.height = img.height;
       ctx.drawImage(img, 0, 0);
     }
-    return canvas.nativeElement.toDataURL("image/png");
+    let rate = this.compress?this.compression_rate:1.0;
+    this.compress = false; //Disable compression now
+    return canvas.nativeElement.toDataURL("image/jpeg",rate);
   }
 
   private _resizeAndCropCanvas(img:HTMLImageElement,canvas:ElementRef) {
@@ -282,7 +288,10 @@ export class InputImagesComponent implements OnInit {
     canvas.nativeElement.height= this.maxSize;
     ctx.clearRect(0,0,canvas.nativeElement.width, canvas.nativeElement.height);
     ctx.drawImage(img, sourceX,sourceY, sourceSize, sourceSize, 0, 0, this.maxSize,this.maxSize);
-    return canvas.nativeElement.toDataURL("image/png");
+    let rate = this.compress?this.compression_rate:1.0;
+    this.compress = false; //Disable compression now
+    console.log("Compress rate is: "+ rate);
+    return canvas.nativeElement.toDataURL("image/jpeg",rate);
   }
 
   //Rotate the image by rotating the canvas
@@ -308,7 +317,7 @@ export class InputImagesComponent implements OnInit {
       var origY = -(canvas.nativeElement.height/2) - delta ;
     } 
     ctx.drawImage(img, 0,0,img.width,img.height,origX,origY,img.width,img.height); 
-    return canvas.nativeElement.toDataURL("image/png");
+    return canvas.nativeElement.toDataURL("image/jpeg",1);
   }
 
 
