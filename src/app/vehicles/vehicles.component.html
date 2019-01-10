@@ -10,8 +10,10 @@
     </div>
 </app-header>
 
-<div fxLayout="row wrap" fxLayoutAlign="center start">
-    <div *ngFor="let product of products">
-      <app-product-item  [product]="product"></app-product-item>
-    </div>
+<app-search-product [products]="products" (result)="updateFilter($event)"></app-search-product>
+
+<div *ngIf="products.length>0">
+  <div fxLayout="row wrap" fxLayoutAlign="center start">
+      <app-product-item *ngFor="let product of products" [product]="product" [@productAnim]></app-product-item>
+  </div>
 </div>

@@ -69,4 +69,11 @@ export class PiecesComponent implements OnInit {
     console.log("updateFilter");
     this.products = result;
   }
+
+  ngOnDestroy() {    
+    //Unsubscribe to all
+    for (let subscription of this._subscriptions) {
+      subscription.unsubscribe();
+    }
+  }
 }

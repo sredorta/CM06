@@ -6,11 +6,30 @@ import {SpinnerOverlayService} from '../_library/spinner-overlay.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { ApiService, EApiImageSizes, IApiProduct} from '../_services/api.service';
 import { Subscription } from 'rxjs';
+import { trigger, style, transition, animate, group } from '@angular/animations';
 
 @Component({
   selector: 'app-vehicles',
   templateUrl: './vehicles.component.html',
-  styleUrls: ['./vehicles.component.scss']
+  styleUrls: ['./vehicles.component.scss'],
+  animations: [
+    trigger('productAnim', [
+      transition(':enter', [
+        style({transform: 'translateX(-100vw)'}),
+        animate(350)
+      ]),
+      transition(':leave', [
+        group([
+          animate('0.35s ease', style({
+            transform: 'translateX(100vw)'
+          })),
+          animate('0.35s 0.2s ease', style({
+            opacity: 0
+          }))
+        ])
+      ])
+    ])
+  ]
 })
 export class VehiclesComponent implements OnInit {
 
@@ -46,6 +65,17 @@ export class VehiclesComponent implements OnInit {
         this.products.push(new Product(product));
         console.log("Pushed new product");
       }
+    }
+  }
+  updateFilter(result:Product[]) {
+    console.log("updateFilter");
+    this.products = result;
+  }
+
+  ngOnDestroy() {    
+    //Unsubscribe to all
+    for (let subscription of this._subscriptions) {
+      subscription.unsubscribe();
     }
   }
 }
