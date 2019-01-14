@@ -13,6 +13,7 @@ import {DataService} from '../../_services/data.service';
   styleUrls: ['./search-brand.component.scss']
 })
 export class SearchBrandComponent implements OnInit {
+  @Input() brands : IApiBrand[] = [];
   @Input() brand : IApiBrand;
   @Output() onBrandSelected = new EventEmitter<IApiBrand>();
   @ViewChild('menuBrandTrigger') triggerMenuBrands: MatMenuTrigger;
@@ -23,7 +24,6 @@ export class SearchBrandComponent implements OnInit {
   dataSource = null;          //Store brands array in table format
   lastBrandFilter : string = null;
   formSearchBrand : FormGroup;
-  brands : IApiBrand[] = null;
   defaultImage :string = "./assets/images/no-photo-available.jpg";
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
@@ -33,7 +33,6 @@ export class SearchBrandComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.brands = this.data.getBrands();
     this.dataSource = new MatTableDataSource(this.brands);
     this.formSearchBrand =  new FormGroup({    
       search: new FormControl(null,null)

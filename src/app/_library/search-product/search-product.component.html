@@ -1,8 +1,23 @@
 <div class="search-wrapper">
-    <mat-form-field appearance="outline" style="padding-top:10px;min-width:250px" class="scale">
-        <mat-label >{{'members.admin.search.label' | translate}}</mat-label>
-        <input matInput  (keyup)="applyFilter($event.target.value)" placeholder="{{'members.admin.search.placeholder' | translate}}" autocomplete="off">
+  <div fxLayout="row" fxLayoutAlign="space-between center" fxLayout.xs="column" fxLayoutAlign.xs="center start">
+    <mat-form-field appearance="outline" style="min-width:250px" class="scale">
+        <mat-label >{{'products.search.label' | translate}}</mat-label>
+        <input matInput  (keyup)="applyFilter($event.target.value)" placeholder="{{'products.search.placeholder' | translate}}" autocomplete="off">
         <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
+    <mat-form-field appearance="outline" style="min-width:250px">
+        <mat-label>{{'products.search.order.label' | translate}}</mat-label>
+        <mat-select #sortList (selectionChange)="onOrderChange($event)">
+          <mat-option value="match">{{'products.search.order.match' | translate}}</mat-option>
+          <mat-option value="priceup">{{'products.search.order.priceup' | translate}}</mat-option>
+          <mat-option value="pricedown">{{'products.search.order.pricedown' | translate}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+  </div>
+
+<!--    <p>Filtrer par marque:</p>
+    <app-search-brand *ngIf="brands.length>0" [brands]="brands"></app-search-brand>-->
+
+
   </div>
 

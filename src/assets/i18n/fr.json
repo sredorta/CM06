@@ -7,6 +7,7 @@
     "delete"                        : "Supprimer",
     "save"                          : "Enregistrer",
     "details"                       : "Détails",
+    "found"                         : "articles trouvées",
     "app.menu.home"                 : "BOUTIQUE",
     "app.menu.first"                : "VÉHICULES",
     "app.menu.second"               : "PIÈCES",
@@ -172,7 +173,14 @@
     "product.item.detail.label"                 : "Quantité",
     "product.item.detail.placeholder"           : "Quantité",
     "product.item.detail.hint"                  : "Entrez la quantité desirée",
-    "product.item.detail.addcart"               : "Ajouter au pannier"
+    "product.item.detail.addcart"               : "Ajouter au pannier",
+
+    "products.search.label"                     : "Chercher un produit",
+    "products.search.placeholder"               : "Chercher",
+    "products.search.order.label"               : "TRIER PAR:",
+    "products.search.order.match"               : "PERTINENCE",
+    "products.search.order.priceup"             : "PRIX CROISSANT",
+    "products.search.order.pricedown"           : "PRIX DECROISSANT"
 
 
 

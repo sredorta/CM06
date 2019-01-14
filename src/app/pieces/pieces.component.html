@@ -8,7 +8,7 @@
 
 <app-search-product (result)="updateFilter($event)"></app-search-product>
 <div class="search-result" fxLayout="row" fxLayoutAlign="start center">
-  <p><span>{{matches}}</span> articles trouves</p>
+  <p><span>{{matches}}</span> {{'found' | translate}}</p>
 </div>
 <div *ngIf="products.length>0">
   <div fxLayout="row wrap" fxLayoutAlign="center start">

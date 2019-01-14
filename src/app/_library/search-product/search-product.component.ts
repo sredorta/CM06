@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, Output,EventEmitter, SimpleChanges } from '@angular/core';
-import { MatTableDataSource, MatTab} from '@angular/material';
+import { Component, OnInit, Input, Output,EventEmitter, SimpleChanges, ViewChild} from '@angular/core';
+import { MatTableDataSource, MatTab, MatSelectChange, MatSelect} from '@angular/material';
 import { Product} from '../../_models/product';
-import {ApiService, IApiProduct} from '../../_services/api.service';
+import {ApiService, IApiProduct, IApiBrand} from '../../_services/api.service';
 import {DataService} from '../../_services/data.service';
 import {SpinnerOverlayService} from '../../_library/spinner-overlay.service';
 import { Subscription } from 'rxjs';
@@ -13,16 +13,17 @@ import { Subscription } from 'rxjs';
 })
 export class SearchProductComponent implements OnInit {
   @Output() result = new EventEmitter<Product[]>();  //Brand selection  
-
+  @ViewChild('sortList') sortElem : MatSelect; 
   products : Product[] = [];
+  brands : IApiBrand[] = [];
   private _dataSource;
   private _subscriptions : Subscription[] = new Array<Subscription>();
-
 
   constructor(private data: DataService, private spinner: SpinnerOverlayService, private api: ApiService) { }
 
   ngOnInit() {
     this.getProducts();
+    this.getBrands();
   }
 
   //Get all the products
@@ -38,6 +39,21 @@ export class SearchProductComponent implements OnInit {
       }, () => this.spinner.hide()));
     }
   } 
+
+  getBrands() {
+    if (this.data.getBrands().length==0) {
+      //this.spinner.show();
+      this._subscriptions.push(this.api.getBrands().subscribe((res: IApiBrand[]) => {
+        this.data.setBrands(res);
+        this.brands = res;
+        this.spinner.hide();
+      }, () => this.spinner.hide()));
+    } else {
+      this.brands = this.data.getBrands();
+    }
+  } 
+
+
 
   pushProducts() {
     for (let product of this.data.getProducts()) {
@@ -84,20 +100,36 @@ export class SearchProductComponent implements OnInit {
       if(filterValue!== null) {
          this._dataSource.filter = filterValue.trim().toLowerCase();
          console.log(this._dataSource.filteredData);
-         this.sortByMatch();
+         this.orderBy(this.sortElem.value);
          this.result.emit(this._dataSource.filteredData);
       }
   }
 
-  //Order by match weights
-  sortByMatch() {
-    this._dataSource.filteredData.sort((a, b) => b.weight - a.weight); //Order by weights
+  orderBy(order: string) {
+    switch (order) {
+         case "match":
+            this._dataSource.filteredData.sort((a, b) => b.weight - a.weight); //Order by weights
+            break;
+         case "pricedown" :
+            this._dataSource.filteredData.sort((a, b) => b.getFinalPrice() - a.getFinalPrice());
+            break;
+         case "priceup" :
+            this._dataSource.filteredData.sort((a, b) => a.getFinalPrice() - b.getFinalPrice());
+            break;
+         default :
+            this._dataSource.filteredData.sort((a, b) => b.weight - a.weight); //Order by weights
+    }
+  }
+ 
+  //When order has been changed by user
+  onOrderChange(selection: MatSelectChange) {
+    console.log("onOrderChange !");
+    this.orderBy(selection.value);
+    this.result.emit(this._dataSource.filteredData);
+    console.log("sortBy");
+    console.log(selection.value);
   }
 
-  //Order by final price
-  sortByPrice() {
-    this._dataSource.filteredData.sort((a, b) => b.getFinalPrice() - a.getFinalPrice()); //Order by weights
-  }
 
   ngOnDestroy() {    
     //Unsubscribe to all
