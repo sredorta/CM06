@@ -6,8 +6,10 @@
   </div>
 </app-header>
 
-<app-search-product [products]="products" (result)="updateFilter($event)"></app-search-product>
-
+<app-search-product (result)="updateFilter($event)"></app-search-product>
+<div class="search-result" fxLayout="row" fxLayoutAlign="start center">
+  <p><span>{{matches}}</span> articles trouves</p>
+</div>
 <div *ngIf="products.length>0">
   <div fxLayout="row wrap" fxLayoutAlign="center start">
       <app-product-item *ngFor="let product of products" [product]="product" [@productAnim]></app-product-item>

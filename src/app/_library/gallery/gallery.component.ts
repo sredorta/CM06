@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input,ViewChildren,QueryList,ElementRef } from '@angular/core';
 import { trigger, style, animate, transition, state } from '@angular/animations';
 
 
@@ -13,6 +13,8 @@ import { trigger, style, animate, transition, state } from '@angular/animations'
 
 
 export class GalleryComponent implements OnInit {
+  @ViewChildren('thumbs') thumbs : QueryList<ElementRef>;
+
   @Input() images :string[];
   current:number = 0;
   animate : boolean = false;
@@ -22,9 +24,16 @@ export class GalleryComponent implements OnInit {
   ngOnInit() {
     if (this.images.length == 0)
        this.images[0] = "./assets/images/no-photo-available.jpg";
-    console.log("We are in app-gallery");
-    console.log(this.images);
   }
+
+  //Select by default first thumb if they exist
+  ngAfterViewInit() {
+    setTimeout(() => {
+      if (this.thumbs.first)
+        this.selectImage(this.thumbs.first.nativeElement.children[0]);
+      });
+  }
+
 
 
   isSelected(id) {
@@ -37,9 +46,6 @@ export class GalleryComponent implements OnInit {
   }
 
   selectImage(img:HTMLImageElement) { 
-    console.log(img);
-
-
     this.animate = true;
     setTimeout(()=> {
       this.animate = false;

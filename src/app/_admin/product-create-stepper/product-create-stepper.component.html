@@ -3,7 +3,7 @@
     <mat-step  [completed]="isBrandCompleted">
       <ng-template matStepLabel>{{'stepper.admin.first' | translate}}</ng-template>
       <div fxLayout="row" fxLayoutAlign="center center" class="big-component">
-        <app-brands style="width:100%" (onBrandSelected)="goToModels($event)"></app-brands>
+        <app-brands *ngIf="hasProducts" style="width:100%" (onBrandSelected)="goToModels($event)"></app-brands>
       </div>     
     </mat-step>
     <mat-step [completed]="isModelCompleted">

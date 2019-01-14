@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {BrandsComponent} from '../brands/brands.component';
-import {ModelsComponent} from '../models/models.component';
-import {ProductCreateUpdateComponent} from '../product-create-update/product-create-update.component';
 import { MatHorizontalStepper } from '@angular/material';
-import { IApiModel,IApiBrand } from '../../_services/api.service';
-import { TranslateService } from '@ngx-translate/core';
+import { IApiModel,IApiBrand, IApiProduct } from '../../_services/api.service';
+import {DataService} from '../../_services/data.service';
+import {ApiService} from '../../_services/api.service';
+import {SpinnerOverlayService} from '../../_library/spinner-overlay.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-create-stepper',
@@ -19,10 +19,30 @@ export class ProductCreateStepperComponent implements OnInit {
   isProductCompleted : boolean = false;
   currentBrand: IApiBrand;
   currentModel: IApiModel;
+  hasProducts : boolean = false;
+  private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private translate : TranslateService) { }
+  constructor(private api : ApiService,
+              private data: DataService,
+              private spinner: SpinnerOverlayService,) { }
 
   ngOnInit() {
+    this.getProducts();
+  }
+
+
+  getProducts() {
+    if (this.data.getProducts().length==0) {
+      this.spinner.show();
+      this._subscriptions.push(this.api.getProducts().subscribe((res: IApiProduct[]) => {
+        console.log("Products :");
+        this.data.setProducts(res);
+        this.spinner.hide();
+        this.hasProducts = true;
+      }, () => this.spinner.hide()));
+    } else {
+      this.hasProducts = true;
+    }
   }
 
   goToModels(brand:IApiBrand) {
@@ -42,4 +62,12 @@ export class ProductCreateStepperComponent implements OnInit {
     //We need to wait some time otherwise it doesn't work
     setTimeout(()=> { this.stepper.next();}, 200);   
   }
+
+  
+  ngOnDestroy() {    
+    //Unsubscribe to all
+    for (let subscription of this._subscriptions) {
+      subscription.unsubscribe();
+    }
+  } 
 }
