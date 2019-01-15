@@ -15,26 +15,38 @@ import { FacebookService, InitParams } from 'ngx-facebook';
 export class HomeComponent implements OnInit {
   isMobile = this.device.isMobile();
   products : Array<Product> = [];
+  selected :number = 0;  //Used for animations in the gui
+  text : string[] = ["home.header1","home.header2","home.header3","home.header4"]
+  imgSrc : string = "./assets/images/icon-moto.jpg";
+
   constructor(private api: ApiService, 
               private route: Router,
               private device: DeviceDetectorService,
               private fb:FacebookService) { }
 
   ngOnInit() {
-    this.api.getModels().subscribe(res => {
-      console.log("!!!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-      console.log(res)
-    });
-    /*for (let product of this.data.getProducts()) {
-      this.products.push(new Product(product));
-    }*/
+ 
+    //Interval for animations
+    setInterval(()=> {
+      this.selected = this.selected + 1;
+      if (this.selected>3) this.selected = 0;
+      switch (this.selected) {
+        case 0: this.imgSrc = "./assets/images/icon-moto.jpg"; break;
+        case 1: this.imgSrc = "./assets/images/icon-pieces.jpg"; break;
+        case 2: this.imgSrc = "./assets/images/icon-pieces-new.jpg"; break;
+        case 3: this.imgSrc = "./assets/images/icon-service.jpg"; break;
+      }
+    },10000);
+
+
+
+
+    //FB part to be moved to footer
     let initParams: InitParams = {
       appId: '397476587654542',
       xfbml: true,
       version: 'v2.8'
     };
-    //href="https://www.facebook.com/cassemoto/"   fb-iframe-plugin-query="app_id=334341610034299&amp;color_scheme=light&amp;container_width=406&amp;header=false&amp;height=200&amp;href=https%3A%2F%2Fwww.facebook.com%2Fcassemoto%2F&amp;locale=en_US&amp;sdk=joey&amp;show_border=false&amp;show_faces=true&amp;stream=false"><span style="vertical-align: bottom; width: 300px; height: 154px;"><iframe name="f20b78bfb670848" width="1000px" height="200px" frameborder="0" allowtransparency="true" allowfullscreen="true" scrolling="no" allow="encrypted-media" title="fb:like_box Facebook Social Plugin" src="https://www.facebook.com/plugins/like_box.php?app_id=334341610034299&amp;channel=https%3A%2F%2Fstaticxx.facebook.com%2Fconnect%2Fxd_arbiter%2Fr%2Fj-GHT1gpo6-.js%3Fversion%3D43%23cb%3Df5730ccb60eccc%26domain%3Dwww.cassemoto06.fr%26origin%3Dhttp%253A%252F%252Fwww.cassemoto06.fr%252Ff38246f7d76b3c%26relation%3Dparent.parent&amp;color_scheme=light&amp;container_width=406&amp;header=false&amp;height=200&amp;href=https%3A%2F%2Fwww.facebook.com%2Fcassemoto%2F&amp;locale=en_US&amp;sdk=joey&amp;show_border=false&amp;show_faces=true&amp;stream=false" style="border: none; visibility: visible; width: 300px; height: 154px;" class=""></iframe></span></div>
-
     this.fb.init(initParams);
   }
 

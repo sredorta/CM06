@@ -2,6 +2,22 @@
     <div class="header-container">
       <p class="initial-title">{{'home.title' | translate}}</p>
       <p class="initial-subtitle">{{'home.subtitle' | translate}}</p>
+      <div fxLayout="column" fxLayoutAlign="center center" style="width:100%">
+
+            <div fxLayout="column" fxLayoutAlign="start center" style="width:100%;padding-top:20px">
+                <div><img [src]="imgSrc" class="main-icon"></div>
+                <p class="main-icon-text">{{text[selected] | translate}}</p>
+            </div> 
+<!--          <div fxLayout="row" fxLayoutAlign="start center" class="main-icon-wrapper">
+                <div fxFlex="1 1 auto"><img  src="./assets/images/icon-moto.jpg"       class="main-icon" [ngClass]="{'icon-selected' : selected==0?true:false}"></div>
+                <div fxFlex="1 1 auto"><img  src="./assets/images/icon-pieces.jpg"     class="main-icon" [ngClass]="{'icon-selected' : selected==1?true:false}"></div>
+                <div fxFlex="1 1 auto"><img  src="./assets/images/icon-pieces-new.jpg" class="main-icon" [ngClass]="{'icon-selected' : selected==2?true:false}"></div>
+                <div fxFlex="1 1 auto"><img  src="./assets/images/icon-service.jpg"    class="main-icon"  [ngClass]="{'icon-selected' : selected==3?true:false}"></div>
+          </div> 
+          <div fxLayout="column" fxLayoutAlign="center center" class="main-icon-text-wrapper"> 
+            <p class="main-icon-text">{{text[selected] | translate}}</p>
+          </div>-->
+      </div>
     </div>
     <fb-like href="https://www.facebook.com/cassemoto"  layout="button_count" share="true" size="large"></fb-like>
 
@@ -18,8 +34,8 @@
     </div>
     <div class="menu-wrapper" fxLayout="row" (click)="goToRoute(['/pièces'])">
         <div fxFlex="50%" class="menu-text-wrapper" fxLayout="column" fxLayoutAlign="center start">
-        <p class="menu-text-wrapper-title">{{'home.menu.second.title' | translate}}</p>
-        <p class="menu-text-wrapper-subtitle">{{'home.menu.second.subtitle' | translate}}</p>
+            <p class="menu-text-wrapper-title">{{'home.menu.second.title' | translate}}</p>
+            <p class="menu-text-wrapper-subtitle">{{'home.menu.second.subtitle' | translate}}</p>
         </div>
         <div fxFlex="50%" class="menu-image-wrapper">
             <div class="menu-image" [ngStyle]="{'background-image': 'url(' + getImage('home-parts.jpg') +')'}"></div>
@@ -35,3 +51,4 @@
         </div>
     </div>
 </div>
+<app-footer></app-footer>

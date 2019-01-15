@@ -99,6 +99,9 @@ import {InputImagesComponent} from './_library/input-images/input-images.compone
 import {InputPlusMinusComponent } from './_library/input-plus-minus/input-plus-minus.component';
 import { GalleryComponent } from './_library/gallery/gallery.component';
 import { HeaderComponent } from './_library/header/header.component';
+import { FooterComponent } from './_library/footer/footer.component';
+
+import { SearchProductComponent } from './_library/search-product/search-product.component';
 
 /////////////////// END LIBRARY //////////////////////////////////////////////
 
@@ -121,7 +124,7 @@ import { PiecesComponent } from './pieces/pieces.component';
 import { ContactComponent } from './contact/contact.component';
 import { ProductItemDetailComponent } from './product-item-detail/product-item-detail.component';
 import { CartComponent } from './cart/cart.component';
-import { SearchProductComponent } from './_library/search-product/search-product.component';
+
 
 
 @NgModule({
@@ -163,7 +166,8 @@ import { SearchProductComponent } from './_library/search-product/search-product
     ProfileComponent,
     CartComponent,
     HeaderComponent,
-    SearchProductComponent
+    SearchProductComponent,
+    FooterComponent
     //End of library
   ],
   imports: [
