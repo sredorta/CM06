@@ -1,6 +1,6 @@
 <div class="wrapper" fxLayout="column" fxLayoutAlign="start center">
     <div fxFlex="1 1 auto" class="content">
-      <mat-list-item class="back-link" (click)="goBack()"><p class="back-link-text">{{'back' | translate}}</p></mat-list-item>
+      <mat-list-item *ngIf="!onlyText" class="back-link" (click)="goBack()"><p class="back-link-text">{{'back' | translate}}</p></mat-list-item>
       <p class="title">{{'cgv.title' | translate}}</p>
       <p class="subtitle">{{'cgv.subtitle1' | translate}}</p>
       <p class="text">{{'cgv.text1' | translate}}</p>
@@ -46,4 +46,4 @@
       <p class="text">{{'cgv.text32' | translate}}</p>
     </div>
 </div>  
-<app-footer></app-footer>
+<app-footer *ngIf="!onlyText"></app-footer>

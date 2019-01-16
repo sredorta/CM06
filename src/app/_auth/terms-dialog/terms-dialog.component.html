@@ -1,17 +1,6 @@
 
-  <h2 style="margin-top:0px;margin-bottom:0px">{{'terms.title' | translate}}</h2>
-  <h3 style="margin-top:0px;opacity:0.6">{{'terms.subtitle' | translate}}</h3>
-  <mat-divider></mat-divider>
-  <p>{{'terms.section.1' | translate}}</p>
-  <p>{{'terms.section.2' | translate}}</p>
-  <p>{{'terms.section.3' | translate}}</p>
-  <ul>
-  <li>{{'terms.options.1' | translate}}</li>
-  <li>{{'terms.options.2' | translate}}</li>
-  <li>{{'terms.options.3' | translate}}</li>
-  <li>{{'terms.options.4' | translate}} <div style="padding-left:20px"><div><small>{{address1}}</small></div> <div><small>{{address2}}</small></div> <div><small>{{address3}}</small></div></div></li>
- </ul>
-  <mat-dialog-actions>
+  <app-conditions-generales-vente onlyText="true"></app-conditions-generales-vente>
+  <mat-dialog-actions fxLayoutAlign="end end">
      <button mat-button mat-dialog-close color="primary" [mat-dialog-close]="false">{{'terms.cancel' | translate}}</button>
-      <button mat-raised-button mat-dialog-close color="primary" [mat-dialog-close]="true">{{'terms.accept' | translate}}</button>
+     <button mat-raised-button mat-dialog-close color="primary" [mat-dialog-close]="true">{{'terms.accept' | translate}}</button>
   </mat-dialog-actions>  

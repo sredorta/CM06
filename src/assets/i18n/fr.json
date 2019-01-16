@@ -119,15 +119,6 @@
     "signup.terms2"                 : "conditions d'utilization des donnees personnelles",
     "signup.submit"                 : "S'enregistrer",
 
-    "terms.title"                   : "Conditions générales",
-    "terms.subtitle"                : "Conditions générales d'utilization du site et des données personnelles",
-    "terms.section.1"               : "Les informations demandées à l’inscription au site sont nécessaires et obligatoires pour la création du compte de l'Utilisateur. En particulier, l'adresse électronique et le telephone pourront être utilisées par le site pour l'administration, la gestion et l'animation du service.",
-    "terms.section.2"               : "Le site assure à l'Utilisateur une collecte et un traitement d'informations personnelles dans le respect de la vie privée conformément à la loi n°78-17 du 6 janvier 1978 relative à l'informatique, aux fichiers et aux libertés.",
-    "terms.section.3"               : "En vertu des articles 39 et 40 de la loi en date du 6 janvier 1978, l'Utilisateur dispose d'un droit d'accès, de rectification, de suppression et d'opposition de ses données personnelles. L'Utilisateur exerce ce droit via :",
-    "terms.options.1"               : "son espace personnel",
-    "terms.options.2"               : "un formulaire de contact",
-    "terms.options.3"               : "par email à : {{email}}",
-    "terms.options.4"               : "par voie postale au :",
     "terms.accept"                  : "J'accepte",
     "terms.cancel"                 : "Je decline",
 

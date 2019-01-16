@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
 
 @Component({
@@ -7,7 +7,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./conditions-generales-vente.component.scss']
 })
 export class ConditionsGeneralesVenteComponent implements OnInit {
-
+ @Input() onlyText : boolean = false;
   constructor(private _location: Location) { }
 
   ngOnInit() {
