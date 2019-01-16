@@ -7,7 +7,6 @@ import { TranslateService } from '@ngx-translate/core'; //NGX-TRANSLATE
 import {User} from './_models/user';
 import {ApiService, IApiUserAuth, EApiImageSizes, IApiBrand, IApiProduct} from './_services/api.service';
 import {DataService} from './_services/data.service';
-import {InitComponent} from './init/init.component';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({

@@ -64,6 +64,9 @@ import {TooltipModule} from 'primeng/tooltip';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
+//GMAPS
+import {AgmCoreModule} from '@agm/core';
+
 /////////////////// LIBRARY //////////////////////////////////////////////////
 //HTTP
 import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -193,6 +196,9 @@ import { PayementSecuriseComponent } from './payement-securise/payement-securise
     ColorPickerModule,
     GMapModule,
     TooltipModule,
+    AgmCoreModule.forRoot( { //GMAPS
+      apiKey: 'AIzaSyDJX3_xSyhfZCyA2Z20f1d74X8sHOkX9dE'
+    })
     //ToastModule,
     //GalleriaModule
     ],

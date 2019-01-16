@@ -9,6 +9,7 @@
     "details"                       : "Détails",
     "found"                         : "articles trouvées",
     "address"                       : "SARL Casse Moto 06, 80 chemin des cardelines, 06370 Mouans Sartoux, France",
+    "phone"                         : "04 92 92 91 80",
     "back"                          : "Retour à la page précédante",
     "email.contact"                 : "contact@cassemoto06.fr",
     "app.menu.home"                 : "BOUTIQUE",
@@ -112,6 +113,12 @@
     "payment.legal.text2"           : "Le paiement par carte bancaire est intégralement sécurisé. Les données échangées lors de la transaction sont cryptées par certificat SSL émis par Paypal.",
     "payment.legal.text3"           : "Cela signifie qu’aucune information bancaire ne nous est transmise. Votre numéro de carte ne sera jamais connu ni conservé.",
     "payment.legal.text4"           : "Pour le paiement par carte bancaire, nous utilisons Paypal.",
+
+    "contact.timetable.title"       : "Horaires",
+    "contact.timetable.line1"       : "De lundi au vendredi",
+    "contact.timetable.line2"       : "De 9h a 12h",
+    "contact.timetable.line3"       : "De 14h à 18h",
+    "contact.address.title"         : "Adresse",
 
     "signup.title"                  : "Creer un compte",
     "signup.subtitle"               : "Creer votre espace personnel",
