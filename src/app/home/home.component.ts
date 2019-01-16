@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
         case 2: this.imgSrc = "./assets/images/icon-pieces-new.jpg"; break;
         case 3: this.imgSrc = "./assets/images/icon-service.jpg"; break;
       }
-    },10000);
+    },5000);
 
 
 

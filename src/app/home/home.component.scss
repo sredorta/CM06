@@ -36,18 +36,17 @@ $accent: map-get($main-app-theme,accent);
 }
 .main-icon:not(.icon-selected) {
     transform: scale(0.8);
-    -webkit-filter: grayscale(100%) brightness(30%) sepia(100%) hue-rotate(-180deg) saturate(700%) contrast(0.2);
-    filter: grayscale(100%) brightness(30%) sepia(100%) hue-rotate(-180deg) saturate(700%) contrast(0.2);
+    filter: grayscale(100%) contrast(0.4);
+    -webkit-filter: grayscale(100%) contrast(0.4);
+    //-webkit-filter: grayscale(100%) brightness(30%) sepia(100%) hue-rotate(-180deg) saturate(700%) contrast(0.2);
+    //filter: grayscale(100%) brightness(30%) sepia(100%) hue-rotate(-180deg) saturate(700%) contrast(0.2);
 }
 
 .main-icon-text {
     font-size:40px;
     line-height: 45px;
-    //font-weight: bold;
-    color:rgb(255,206,0);
-    color:rgba(white,0.7);
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-    animation: 10s ease-in-out 0s normal none infinite running text-infinite;
+    color:rgba(white,0.9);
+    animation: 5s ease-in-out 0s normal none infinite running text-infinite;
 }
 
 

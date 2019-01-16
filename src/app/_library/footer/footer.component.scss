@@ -1,12 +1,39 @@
 .footer-wrapper {
+    
     padding:10px;
     padding-bottom:20px;
     background-color:#546e7a;
    * {
-    color:#eceff1 !important;
+    //color:#eceff1 !important;
+    color: #cfd8dc;
    }
+
 }
-mat-list-item:hover {
-    color:white !important;
+
+
+.clickable {
+    transition:all 0.5s ease-in-out;
+}
+.clickable:hover {
+    //color:white !important;
+    color:#eceff1 !important;
     cursor:pointer;
+}
+mat-icon {
+    color:white !important;
+}
+.scale {
+    transform:scale(1.4);
+    padding-right: 10px;
+}
+.highlight {
+    color: white !important;
+}
+
+.link {
+    text-decoration: none !important;
+    transition:all 0.5s ease-in-out;
+}
+.link:hover {
+    color:white;
 }
