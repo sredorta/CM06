@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FacebookService, InitParams } from 'ngx-facebook';
 
 @Component({
   selector: 'app-footer',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private fb:FacebookService) { }
 
   ngOnInit() {
+        //FB part to be moved to footer
+        let initParams: InitParams = {
+          appId: '397476587654542',
+          xfbml: true,
+          version: 'v2.8'
+        };
+        this.fb.init(initParams);
   }
 
 }

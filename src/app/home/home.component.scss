@@ -43,9 +43,10 @@ $accent: map-get($main-app-theme,accent);
 }
 
 .main-icon-text {
-    font-size:40px;
-    line-height: 45px;
-    color:rgba(white,0.9);
+    font-size:30px;
+    line-height: 35px;
+    //color:rgba(white,0.9);
+    color:rgba(255,206,0,0.8);
     animation: 5s ease-in-out 0s normal none infinite running text-infinite;
 }
 

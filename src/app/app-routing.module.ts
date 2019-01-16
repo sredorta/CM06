@@ -14,6 +14,10 @@ import { PiecesComponent } from './pieces/pieces.component';
 import { ContactComponent } from './contact/contact.component';
 import { ProfileComponent } from './_auth/profile/profile.component';
 import { CartComponent } from './cart/cart.component';
+import { LivraisonComponent } from './livraison/livraison.component';
+import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component';
+import { ConditionsGeneralesVenteComponent } from './conditions-generales-vente/conditions-generales-vente.component';
+import { PayementSecuriseComponent } from './payement-securise/payement-securise.component';
 
 const routes: Routes = [
   {
@@ -98,6 +102,34 @@ const routes: Routes = [
     component: ProductItemDetailComponent,
     //canActivate: [AnyGuard]
   },   
+
+  {
+    path: 'livraison',
+    runGuardsAndResolvers: 'always',
+    component: LivraisonComponent,
+    //canActivate: [AnyGuard]
+  },
+  {
+    path: 'mentions-legales',
+    runGuardsAndResolvers: 'always',
+    component: MentionsLegalesComponent,
+    //canActivate: [AnyGuard]
+  },  
+  {
+    path: 'conditions-generales-de-vente',
+    runGuardsAndResolvers: 'always',
+    component: ConditionsGeneralesVenteComponent,
+    //canActivate: [AnyGuard]
+  }, 
+  {
+    path: 'payement-securise',
+    runGuardsAndResolvers: 'always',
+    component: PayementSecuriseComponent,
+    //canActivate: [AnyGuard]
+  },   
+
+
+
 /*  {
     path: 'admin-modeles',///:id',
     component: ModelsComponent,

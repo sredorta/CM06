@@ -1,24 +1,27 @@
+<div fxLayout="row" fxLayoutAlign="end end" style="width:100%;padding-top:10px"><fb-like href="https://www.facebook.com/cassemoto"  layout="button_count" share="true" size="large"></fb-like></div>
+
 <div class="footer-wrapper">
-  <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutAlign.xs="start start">
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center start" fxLayoutAlign.xs="start start">
       <div fxFlex="50%" fxLayoutAlign="center start">
           <mat-list>
-              <mat-list-item class="clickable">Livraison </mat-list-item>
-              <mat-list-item class="clickable">Mentions légales </mat-list-item>
-              <mat-list-item class="clickable">Conditions Générales de Ventes </mat-list-item>
-              <mat-list-item class="clickable">Payement sécurisé </mat-list-item>
+              <mat-list-item  routerLink="/livraison"><p class="clickable" >{{'footer.item1' | translate}}</p> </mat-list-item>
+              <mat-list-item  routerLink="/mentions-legales"><p class="clickable" >{{'footer.item2' | translate}}</p> </mat-list-item>
+              <mat-list-item  routerLink="/conditions-generales-de-vente"><p class="clickable">{{'footer.item3' | translate}}</p> </mat-list-item>
+              <mat-list-item  routerLink="/payement-securise"><p class="clickable">{{'footer.item4' | translate}}</p> </mat-list-item>
           </mat-list>
       </div>
       <div fxFlex="50%" fxLayoutAlign="center start">
           <mat-list>
-              <mat-list-item> <mat-icon class="scale">location_on</mat-icon> <span class="highlight">Adresse</span></mat-list-item>
-              <mat-list-item>SARL Casse Moto 06, 80 chemin des cardelines, 06370 Mouans Sartoux, France </mat-list-item>
+              <mat-list-item> <mat-icon class="scale">location_on</mat-icon> <span class="highlight">{{'footer.address.header' | translate}}</span></mat-list-item>
+              <p class="text">{{'address' | translate}}</p>
               <!--<mat-list-item class="highlight"> <mat-icon class="scale">phone_android</mat-icon> 04 92 92 91 80 </mat-list-item>-->
-              <mat-list-item> <mat-icon class="scale">email</mat-icon><a href="mailto:contact@cassemoto06" class="link">contact@cassemoto06.fr</a> </mat-list-item>
+              <mat-list-item> <mat-icon class="scale">email</mat-icon><span class="highlight">{{'footer.email.header' | translate}}</span></mat-list-item>
+              <p class="text"><a href="mailto:contact@cassemoto06" class="link">{{'email.contact' | translate}}</a></p>
           </mat-list>
       </div>
   </div>
   <div fxLayout="row" fxLayoutAlign="center center" style="width:100%">
-    <a href="http://www.kubiiks.com" class="link kubiiks">Site réalisé par kubiiks SAS</a> 
+    <a href="http://www.kubiiks.com" class="link kubiiks">{{'footer.kubiiks' | translate}}</a> 
   </div>
 </div>
 

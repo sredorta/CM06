@@ -1,0 +1,40 @@
+.wrapper {
+    width:100%;
+}
+.content {
+    max-width: 800px;
+    padding:15px;
+    opacity: 0.8;
+}
+
+.title {
+    font-size: 25px;
+    line-height: 27px;
+    font-weight: bold;
+    margin-bottom:5px;
+}
+
+.subtitle {
+    font-size: 20px;
+    line-height: 22px;
+}
+
+.back-link:hover {
+   .back-link-text {
+       opacity:1;
+       cursor:pointer;
+   }
+}
+
+.back-link-text {
+    color: rgb(47,62,153);
+    padding-left:10px;
+    border-left: 5px solid;
+    transition: all 0.3s ease-in-out;
+    font-size: 16px;
+    opacity:0.5;
+}
+
+.bold {
+    font-weight: bold;
+}

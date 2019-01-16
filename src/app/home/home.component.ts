@@ -4,7 +4,6 @@ import {ProductItemComponent} from '../product-item/product-item.component';
 import {Product} from '../_models/product';
 import {ApiService} from '../_services/api.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { FacebookService, InitParams } from 'ngx-facebook';
 //import {SpinnerComponent} from '../_library/spinner/spinner.component';
 
 @Component({
@@ -21,8 +20,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private api: ApiService, 
               private route: Router,
-              private device: DeviceDetectorService,
-              private fb:FacebookService) { }
+              private device: DeviceDetectorService) { }
 
   ngOnInit() {
  
@@ -37,17 +35,6 @@ export class HomeComponent implements OnInit {
         case 3: this.imgSrc = "./assets/images/icon-service.jpg"; break;
       }
     },5000);
-
-
-
-
-    //FB part to be moved to footer
-    let initParams: InitParams = {
-      appId: '397476587654542',
-      xfbml: true,
-      version: 'v2.8'
-    };
-    this.fb.init(initParams);
   }
 
   //Goes to the route with delay to show animation on mobile

@@ -112,7 +112,6 @@ import { HomeComponent } from './home/home.component';
 import { BrandsComponent } from './_admin/brands/brands.component';
 import { ModelsComponent } from './_admin/models/models.component';
 import { SearchBrandComponent } from './_library/search-brand/search-brand.component';
-import { InitComponent } from './init/init.component';
 import { ProductCreateUpdateComponent } from './_admin/product-create-update/product-create-update.component';
 import { ProductCreateStepperComponent } from './_admin/product-create-stepper/product-create-stepper.component';
 import { ProductItemComponent } from './product-item/product-item.component';
@@ -124,6 +123,10 @@ import { PiecesComponent } from './pieces/pieces.component';
 import { ContactComponent } from './contact/contact.component';
 import { ProductItemDetailComponent } from './product-item-detail/product-item-detail.component';
 import { CartComponent } from './cart/cart.component';
+import { LivraisonComponent } from './livraison/livraison.component';
+import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component';
+import { ConditionsGeneralesVenteComponent } from './conditions-generales-vente/conditions-generales-vente.component';
+import { PayementSecuriseComponent } from './payement-securise/payement-securise.component';
 
 
 
@@ -144,7 +147,6 @@ import { CartComponent } from './cart/cart.component';
     BrandsComponent,
     ModelsComponent,
     SearchBrandComponent,
-    InitComponent,
     ProductCreateUpdateComponent,
     ProductCreateStepperComponent,
     ProductItemComponent,
@@ -167,7 +169,11 @@ import { CartComponent } from './cart/cart.component';
     CartComponent,
     HeaderComponent,
     SearchProductComponent,
-    FooterComponent
+    FooterComponent,
+    LivraisonComponent,
+    MentionsLegalesComponent,
+    ConditionsGeneralesVenteComponent,
+    PayementSecuriseComponent
     //End of library
   ],
   imports: [

@@ -1,5 +1,5 @@
 .footer-wrapper {
-    
+    margin-top:5px;
     padding:10px;
     padding-bottom:20px;
     background-color:#546e7a;
@@ -12,12 +12,15 @@
 
 
 .clickable {
-    transition:all 0.5s ease-in-out;
+    padding-left: 10px;
+    transition:all 0.3s ease-in-out;
+    border-left:5px solid rgba(255,255,255,0.1);
 }
 .clickable:hover {
     //color:white !important;
     color:#eceff1 !important;
     cursor:pointer;
+    border-left:5px solid;
 }
 mat-icon {
     color:white !important;
@@ -37,3 +40,13 @@ mat-icon {
 .link:hover {
     color:white;
 }
+
+.kubiiks {
+    margin-top:15px;
+}
+
+.text {
+    margin-top: 0px;
+    padding-left:10px;
+}
+
