@@ -3,12 +3,7 @@
       <p class="initial-title">{{'home.title' | translate}}</p>
       <p class="initial-subtitle">{{'home.subtitle' | translate}}</p>
       <div fxLayout="column" fxLayoutAlign="center center" style="width:100%">
-
-            <div fxLayout="column" fxLayoutAlign="start center" style="width:100%;padding-top:20px">
-                <div><img [src]="imgSrc" class="main-icon"></div>
-                <p class="main-icon-text">{{text[selected] | translate}}</p>
-            </div> 
-<!--          <div fxLayout="row" fxLayoutAlign="start center" class="main-icon-wrapper">
+          <div fxLayout="row" fxLayoutAlign="start center" class="main-icon-wrapper" fxLayoutGap="10px">
                 <div fxFlex="1 1 auto"><img  src="./assets/images/icon-moto.jpg"       class="main-icon" [ngClass]="{'icon-selected' : selected==0?true:false}"></div>
                 <div fxFlex="1 1 auto"><img  src="./assets/images/icon-pieces.jpg"     class="main-icon" [ngClass]="{'icon-selected' : selected==1?true:false}"></div>
                 <div fxFlex="1 1 auto"><img  src="./assets/images/icon-pieces-new.jpg" class="main-icon" [ngClass]="{'icon-selected' : selected==2?true:false}"></div>
@@ -16,10 +11,10 @@
           </div> 
           <div fxLayout="column" fxLayoutAlign="center center" class="main-icon-text-wrapper"> 
             <p class="main-icon-text">{{text[selected] | translate}}</p>
-          </div>-->
+          </div>
       </div>
     </div>
-    <fb-like href="https://www.facebook.com/cassemoto"  layout="button_count" share="true" size="large"></fb-like>
+    <!--<fb-like href="https://www.facebook.com/cassemoto"  layout="button_count" share="true" size="large"></fb-like>-->
 
 </app-header>
 <div fxLayout="column" fxLayoutAlign="center center">

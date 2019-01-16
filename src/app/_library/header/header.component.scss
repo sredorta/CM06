@@ -10,11 +10,12 @@
 }
 .dynamic {
     padding-top:20px;      //This is the final vertical position
-    padding-left:10vw;
+    background-color: rgba(black,0.8);
+    color:rgb(255,206,0);
     animation: header 2s ease-in-out 0s; 
     animation-fill-mode: forwards;
     top:-100vh;
-    padding-bottom:10px;
+    padding-bottom:0px;
 }
 
   /*Header animation*/
