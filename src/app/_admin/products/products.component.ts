@@ -117,10 +117,7 @@ export class ProductsComponent implements OnInit {
         this.productsCount = this.dataSource.data.length;
         this.productsDisplayed = this.productsCount;
         //Override filter
-        this.dataSource.filterPredicate = function(data, filter: string): boolean {
-          //TODO add here brand/model
-          return data.title.toLowerCase().includes(filter) || data.brand.toLowerCase().includes(filter) || data.model.toLowerCase().includes(filter);
-        };
+        this._setFilter();
         //Init as all not selected
         this.selected = [];
         for (let brand of this.dataSource.data) {
@@ -129,14 +126,54 @@ export class ProductsComponent implements OnInit {
       }  
   }
 
+  private _setFilter() {
+    let obj = this;
+    this.dataSource.filterPredicate = function(data, filter: string): boolean {
+      //Do not process when two short filter
+      if (filter.length<=1) {
+        data.weight=0;
+        return true;
+      }
+
+      let weight = 0;
+      let words = filter.split(" ");
+      for (let word of words) {
+        if(word.length>1) {  //Only process from two letters
+            word = word.toLowerCase();
+            weight = weight + obj._find(data.title,word)*4;
+            weight = weight + obj._find(data.description,word)*2;
+            weight = weight + obj._find(data.brand,word)*1;
+            weight = weight + obj._find(data.model,word)*3;
+        }
+      }
+      data.weight = weight;  //Add weight of search in data
+      if (weight>0)
+       return true;
+      else
+       return false; 
+    };
+  }
+
+  private _find(str, find) {
+    let regex = new RegExp(find, "i"),result=false;
+    return regex.exec(str)==null?0:1;
+  }
 
   //Filter
   applyFilter(filterValue: string) {
-     if(filterValue!== null) {
+     if(filterValue!== null && filterValue !== "") {
       this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.dataSource.filteredData.sort((a, b) => b.weight - a.weight); //Order by weights
+      this.dataSource.data.sort((a, b) => b.weight - a.weight);
+      console.log(this.dataSource.filteredData);
       this.productsDisplayed = this.dataSource.filteredData.length;
       this.lastProductFilter = filterValue;
-     }
+     } else {
+      //Reorder by creation date
+      this.dataSource.filteredData.sort((a, b) => a.id - b.id); //Order by id
+      this.dataSource.data.sort((a, b) => a.id - b.id);
+      this.table.renderRows();
+    }
   }
 
     //When we click on update we update the expanded pannel values

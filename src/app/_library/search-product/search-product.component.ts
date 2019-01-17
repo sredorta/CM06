@@ -68,25 +68,28 @@ export class SearchProductComponent implements OnInit {
   private _setFilter() {
     let obj = this;
     this._dataSource.filterPredicate = function(data, filter: string): boolean {
-      let value = false;
-//      let words = filter.split(" ");
+      //Do not process when two short filter
+      if (filter.length<=1) {
+        data.weight = 0;
+        return true;
+      }
+
       let weight = 0;
-      let word = filter;
- //     let wordweight = words.length - 1;
- //     for (let word of words) {
- //         if (word.length>0) {
+      let words = filter.split(" ");
+      for (let word of words) {
+        if(word.length>1) {  //Only process from two letters
             word = word.toLowerCase();
-            weight = weight + obj._find(data.title,word)*10;
-            weight = weight + obj._find(data.description,word)*5;
+            weight = weight + obj._find(data.title,word)*4;
+            weight = weight + obj._find(data.description,word)*2;
             weight = weight + obj._find(data.brand,word)*1;
-            weight = weight + obj._find(data.model,word)*1;
-            if (data.title.toLowerCase().includes(word) || (data.description==null?false:data.description.toLowerCase().includes(word)) || data.brand.toLowerCase().includes(word) || data.model.toLowerCase().includes(word))
-              value = true;
-  //        }
- //         wordweight = wordweight - 1;
- //     }
-      data.weight = weight;
-      return value;
+            weight = weight + obj._find(data.model,word)*3;
+        }
+      }
+      data.weight = weight;  //Add weight of search in data
+      if (weight>0)
+       return true;
+      else
+       return false; 
     };
   }
 
@@ -102,7 +105,7 @@ export class SearchProductComponent implements OnInit {
          console.log(this._dataSource.filteredData);
          this.orderBy(this.sortElem.value);
          this.result.emit(this._dataSource.filteredData);
-      }
+      } 
   }
 
   orderBy(order: string) {
