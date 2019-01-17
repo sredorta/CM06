@@ -131,6 +131,7 @@ import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.co
 import { ConditionsGeneralesVenteComponent } from './conditions-generales-vente/conditions-generales-vente.component';
 import { PayementSecuriseComponent } from './payement-securise/payement-securise.component';
 import { environment } from '../environments/environment';
+import { CartDialogComponent } from './cart-dialog/cart-dialog.component';
 
 
 
@@ -177,7 +178,8 @@ import { environment } from '../environments/environment';
     LivraisonComponent,
     MentionsLegalesComponent,
     ConditionsGeneralesVenteComponent,
-    PayementSecuriseComponent
+    PayementSecuriseComponent,
+    CartDialogComponent
     //End of library
   ],
   imports: [
@@ -248,9 +250,9 @@ import { environment } from '../environments/environment';
       }
     }),
   ],
-  entryComponents: [ErrorSheetComponent, SpinnerOverlayComponent, TermsDialogComponent, MakeSureDialogComponent, ProductItemDialogComponent],
+  entryComponents: [ErrorSheetComponent, SpinnerOverlayComponent, TermsDialogComponent, MakeSureDialogComponent, ProductItemDialogComponent, CartDialogComponent],
   providers: [
-    HttpClient, ApiService, DataService, SpinnerOverlayService, MakeSureDialogComponent, ProductItemDialogComponent, CurrencyFormatPipe, MobileFormatPipe,DeviceDetectorService,
+    HttpClient, ApiService, DataService, SpinnerOverlayService, MakeSureDialogComponent,CartDialogComponent, ProductItemDialogComponent, CurrencyFormatPipe, MobileFormatPipe,DeviceDetectorService,
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, 
     {provide: HTTP_INTERCEPTORS, useClass: HttpHeaderInterceptor, multi: true }    
   ],

@@ -13,6 +13,7 @@ import 'rxjs/add/observable/throw';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
 import { ApiService, EApiImageSizes, IApiBrand, IApiModel, IApiProduct, IApiUser } from '../_services/api.service';
+import {Cart, CartItem} from '../_models/cart';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,9 @@ export class DataService {
   private _products : IApiProduct[] = [];    //Stores downloaded products
   private _users : IApiUser[] = [];          //Stores downloaded users
   private _HOLDDATASECONDS : number = 60*60; //Hold data for 1hr and if not reload 
-
   private _timeStamps : string[] = [];      //Stores timestamps
+  private _cart = new BehaviorSubject<number>(Cart.getCount()); //Stores the current user
+
 
   constructor(private api : ApiService) { }
 
@@ -100,4 +102,19 @@ export class DataService {
     }
     this._users = users;
   }
+
+
+
+  //Returns current user
+  getCartCount() : Observable<number> {
+    return this._cart;
+  }
+
+  //Sets current user
+  setCartCount(count: number) {
+    console.log("setCurrent::");
+    console.log(count);
+    this._cart.next(count);
+  }
+
 }

@@ -24,7 +24,7 @@ export class CurrencyFormatPipe implements PipeTransform {
       : "";
 
     integer = integer.replace(/\B(?=(\d{3})+(?!\d))/g, this.THOUSANDS_SEPARATOR);
-
+    if(integer == "") return "0";
     return integer + fraction;
   }
 

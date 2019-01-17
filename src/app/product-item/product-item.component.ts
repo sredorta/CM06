@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {IApiProduct, EApiImageSizes} from '../_services/api.service';
 import {Product} from '../_models/product';
+import {Cart, CartItem} from '../_models/cart';
 import {ProductItemDialogComponent} from '../product-item-dialog/product-item-dialog.component';
 import { Subscription } from 'rxjs';
 import { ApiService } from '../_services/api.service';
@@ -19,7 +20,9 @@ import { Router} from'@angular/router';
 export class ProductItemComponent implements OnInit {
   @Input() product : Product;           //Product to display
   @Input() preview : boolean = false;   //When we are in preview mode
+
   defaultImage :string = "./assets/images/no-photo-available.jpg";
+  cart : Cart = new Cart(null);
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
@@ -61,6 +64,10 @@ export class ProductItemComponent implements OnInit {
   addToCart() {
     if (!this.preview) {
         console.log("Adding to cart");
+        this.cart.fromStorage();
+        this.cart.add(new CartItem({id:this.product.id,quantity:1}));    
+        console.log("Sending count of cart to : " + this.cart.getCount());
+        this.data.setCartCount(this.cart.getCount());
     }
   }
 }

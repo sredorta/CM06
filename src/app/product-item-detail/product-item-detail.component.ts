@@ -10,6 +10,7 @@ import {CustomValidators, ParentErrorStateMatcher  } from '../_helpers/custom.va
 import {OnlyNumberDirective} from '../_directives/onlyNumber.directive';
 import { TranslateService } from '@ngx-translate/core';
 import {SpinnerOverlayService} from '../_library/spinner-overlay.service';
+import {Cart, CartItem} from '../_models/cart';
 
 @Component({
   selector: 'app-product-item-detail',
@@ -67,8 +68,12 @@ export class ProductItemDetailComponent implements OnInit {
     }
   }
 
+  //Add to cart the element
   onSubmit() {
-    console.log("Need to add to cart here !!!!");
+      let cart = new Cart(null);
+      cart.fromStorage();
+      cart.add(new CartItem({id:this.product.id,quantity:this.myForm.controls["quantity"].value}));    
+      this.data.setCartCount(cart.getCount());
   }
 
   ngOnDestroy() {    

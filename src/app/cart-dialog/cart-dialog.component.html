@@ -1,0 +1,39 @@
+<div class="wrapper" fxLayout="column">
+    <div fxFlex="row" fxLayoutAlign="center center" class="title"><mat-icon>shopping_cart</mat-icon><p>Mon pannier</p></div>
+    <div class="content">
+      <div *ngFor="let product of products;let i = index">
+        <div fxLayout="column" class="cart-item-wrapper">
+          <p class="product-title">{{product.title}}</p>
+          <div fxLayout="row">
+            <div fxLayoutAlign="center center" mat-card-avatar [style.backgroundImage]="getImageUrl(product)" class="image"></div>
+            <div fxLayout="column" fxLayoutAlign="center center" class="counter">
+                
+                <p class="product-count">x {{cart.data[i].quantity}}</p>
+                <div fxLayout="row" fxFlex="1 1 auto" fxLayoutAlign="center center" fxLayoutGap="10px">
+                    <div class="mybutton" (click)="plusCount(i)"><mat-icon>add</mat-icon></div>
+                    <div class="mybutton" (click)="minusCount(i)"><mat-icon>remove</mat-icon></div>
+                </div>
+            </div>
+            <div fxlayoutAlign="end end" class="price-wrapper">
+                <div fxLayoutAlign="end center">
+                  <p class="product-price">{{product.getFinalPrice()*cart.data[i].quantity | currencyFormat}} €</p>
+                </div>
+                <button mat-button class="scaled" style="margin-top:10px" (click)="removeItem(i)">Supprimer</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="total-wrapper">
+        <div class="total-item total" fxLayout="row" fxLayoutAlign="space-between center">
+          <p>TOTAL</p> <p>{{getTotal() | currencyFormat}} €</p>
+        </div>
+        <div class="total-item" fxLayout="row" fxLayoutAlign="space-between center">
+            <p>FRAIS DE LIVRAISON:</p> <p>{{getLivraison() | currencyFormat }} €</p>
+        </div>
+      </div>
+      <div class="order">
+        <button mat-raised-button color="primary" style="width:100%">Passer commande</button>
+      </div>
+    </div>
+</div>
+

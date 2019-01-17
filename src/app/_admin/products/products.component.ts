@@ -245,4 +245,10 @@ export class ProductsComponent implements OnInit {
       console.log("Row click " + id);
     }
 
+  ngOnDestroy() {    
+    //Unsubscribe to all
+    for (let subscription of this._subscriptions) {
+      subscription.unsubscribe();
+    }
+  }  
 }

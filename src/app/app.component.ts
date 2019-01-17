@@ -8,7 +8,10 @@ import {User} from './_models/user';
 import {ApiService, IApiUserAuth, EApiImageSizes, IApiBrand, IApiProduct} from './_services/api.service';
 import {DataService} from './_services/data.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
-
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material';
+import {CartDialogComponent} from './cart-dialog/cart-dialog.component';
+import { calcBindingFlags } from '@angular/core/src/view/util';
+import {Cart} from './_models/cart';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,6 +23,7 @@ export class AppComponent {
   loading : boolean = true;
   mobileQuery: MediaQueryList;
   isMobile : boolean =  this.device.isMobile();
+  cartCount : number = Cart.getCount();
   private _mobileQueryListener: () => void;
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
@@ -29,30 +33,14 @@ export class AppComponent {
               private router : Router, 
               private device : DeviceDetectorService,
               private translate: TranslateService, 
+              private dialog: MatDialog,
               changeDetectorRef: ChangeDetectorRef, 
               media: MediaMatcher) {
     this.translate.use("fr");
 
-
-/*    this._subscriptions.push(this.api.getBrands(EApiImageSizes.thumbnail).subscribe((res : IApiBrand[])=> {
-      //Get brands once and store in the global vars
-      console.log("We got all brands !!!");
-      console.log(res);
-      this.data.setBrands(res);
-*/
     //This needs to be moved into config page
     this._subscriptions.push(this.api.getAuthUser().subscribe((res: IApiUserAuth)=> {
       this.api.setCurrent(res); 
-/*      this._subscriptions.push(this.api.getBrands().subscribe((res:IApiBrand[]) => {
-        this.data.setBrands(res);
-        console.log("Setted brands !!!!!!");
-        this.loading = false;
-        this._subscriptions.push(this.api.getProducts().subscribe((res:IApiProduct[])=> {
-            this.data.setProducts(res);
-            this.loading = false;
-        }));
-      }));*/
-      //this.loading = false;
       console.log("Finished loading !!!");
     }));
 
@@ -61,6 +49,9 @@ export class AppComponent {
       //this.loading = false;
     }));
 
+    this._subscriptions.push(this.data.getCartCount().subscribe(res => {
+      this.cartCount = res;
+    }));
 //    }));
 
 
@@ -86,6 +77,22 @@ export class AppComponent {
       },500);
     else 
       this.router.navigate(route);  
+  }
+
+  //Terms and conditions dialog  
+  openCartDialog(): void {
+    let dialogRef = this.dialog.open(CartDialogComponent, {
+      panelClass: 'cart-dialog',
+      width: '300px',
+      height: '100vh',
+      position: {top:'0',right:'0'},
+      data:  null 
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+      //this.myForm.patchValue({"terms" : result});
+    });
   }
 
   //Remove all subscriptions

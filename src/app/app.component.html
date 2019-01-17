@@ -28,9 +28,11 @@
               <mat-icon aria-label="Connected" >person</mat-icon>
               <small>{{user.firstName}}</small>
         </div>  
-        <div class="menu-icon" fxLayoutAlign="center center" (click)="goToRoute(['/pannier'])">
-            <mat-icon [matBadge]="0" matBadgeColor="accent" aria-label="Pannier" >shopping_cart</mat-icon>
-        </div>                    
+        <div class="menu-icon" fxLayoutAlign="center center" (click)="openCartDialog()"> <!--goToRoute(['/pannier'])">-->
+            <mat-icon *ngIf="cartCount==0" aria-label="Pannier" >shopping_cart</mat-icon>
+            <mat-icon *ngIf="cartCount>0"  [matBadge]="cartCount"  matBadgeColor="accent" aria-label="Pannier" >shopping_cart</mat-icon>
+        </div>     
+            
     </div>
   </mat-toolbar>
 </div>
