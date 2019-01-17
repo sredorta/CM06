@@ -1,18 +1,24 @@
 
 <div class="admin-theme">  
 
-    <div fxLayout="column" style="padding-top:20px"> 
+    <div fxLayout="column"> 
       <div fxFlex="1 1 auto">
-      <mat-form-field appearance="outline" style="padding-top:10px;min-width:250px">
-          <mat-label>{{'members.admin.search.label' | translate}}</mat-label>
-          <input matInput  (keyup)="applyFilter($event.target.value)" placeholder="{{'members.admin.search.placeholder' | translate}}" autocomplete="off">
-          <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
-      <div fxLayout="column" style="padding:20px;padding-top:0px" fxLayoutGap="10px">
-      <mat-checkbox [disabled] = "disabledValidated" (change)="showOnlyValidated($event)" > {{'members.admin.onlyvalidated' | translate}}</mat-checkbox>
-      <mat-checkbox [disabled] = "disabledAdmins"    (change)="showOnlyAdmins($event)" > {{'members.admin.onlyadmins' | translate}}</mat-checkbox>
-      </div>
-
+        <div style="padding:20px;">  
+            <mat-form-field appearance="outline" style="padding-top:10px;min-width:250px">
+                <mat-label>{{'members.admin.search.label' | translate}}</mat-label>
+                <input matInput  (keyup)="applyFilter($event.target.value)" placeholder="{{'members.admin.search.placeholder' | translate}}" autocomplete="off">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+            <div fxLayout="column" style="padding:20px;padding-top:0px" fxLayoutGap="10px">
+                <mat-checkbox [disabled] = "disabledValidated" (change)="showOnlyValidated($event)" > {{'members.admin.onlyvalidated' | translate}}</mat-checkbox>
+                <mat-checkbox [disabled] = "disabledAdmins"    (change)="showOnlyAdmins($event)" > {{'members.admin.onlyadmins' | translate}}</mat-checkbox>
+            </div>
+            <div fxLayout="column" style="display:block;margin-bottom:15px;">
+                <div>
+                    <a [href]="getEmails()" mat-raised-button color="primary"><mat-icon aria-label="Message" style="margin-right:10px">email</mat-icon>{{'members.admin.emailall' | translate}}</a>
+                </div>
+            </div>
+        </div>
       <p style="margin-bottom:5px;margin-top:0px;" class="total">TOTAL : {{displayedCount}} / <span style="font-weight:bold">{{totalCount}}</span></p> 
         <table #myTable mat-table [dataSource]="dataSource" multiTemplateDataRows class="table">
 

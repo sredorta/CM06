@@ -99,11 +99,9 @@ export class ProductsComponent implements OnInit {
     } else {
       this.spinner.show();
       this._subscriptions.push(this.api.getBrands().subscribe((res: IApiBrand[]) => {
-        console.log("Brands :");
-        console.log(res);
-        this.data.setBrands(res);
+        this.data.setBrands(res,true);
         this._subscriptions.push(this.api.getProducts().subscribe((res: IApiProduct[]) => {
-          this.data.setProducts(res);
+          this.data.setProducts(res,true);
           this.initTable(this.data.getProducts());
           this.spinner.hide();
         }, () => this.spinner.hide()));

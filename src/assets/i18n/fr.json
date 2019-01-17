@@ -250,6 +250,7 @@
     "members.admin.search.placeholder"          : "Chercher",
     "members.admin.call"                        : "Appeler",
     "members.admin.email"                       : "Envoyer email",
+    "members.admin.emailall"                    : "Envoyer email a tous",
     "members.admin.accountcheckbox"             : "Modifier les droits d'admin",
     "members.admin.onlyvalidated"               : "Voir que les membres avec email validé",
     "members.admin.onlyadmins"                  : "Voir que les membres administrateurs",

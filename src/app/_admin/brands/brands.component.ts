@@ -119,7 +119,7 @@ export class BrandsComponent implements OnInit {
     } else {
       this.spinner.show();
       this._subscriptions.push(this.api.getBrands().subscribe((res: IApiBrand[]) => {
-        this.data.setBrands(res);
+        this.data.setBrands(res,true);
         this.initTable(res);
         this.spinner.hide();
       }, () => this.spinner.hide()));

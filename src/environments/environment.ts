@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  apiURL: 'http://localhost/api'  //If virtual host is set in xampp to localhost !!!
+  apiURL: 'http://localhost/api',  //If virtual host is set in xampp to localhost !!!
+  gmapKey: 'AIzaSyDJX3_xSyhfZCyA2Z20f1d74X8sHOkX9dE',
+  fbKey : '397476587654542'
 };
 
 /*

@@ -130,6 +130,7 @@ import { LivraisonComponent } from './livraison/livraison.component';
 import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component';
 import { ConditionsGeneralesVenteComponent } from './conditions-generales-vente/conditions-generales-vente.component';
 import { PayementSecuriseComponent } from './payement-securise/payement-securise.component';
+import { environment } from '../environments/environment';
 
 
 
@@ -197,7 +198,7 @@ import { PayementSecuriseComponent } from './payement-securise/payement-securise
     GMapModule,
     TooltipModule,
     AgmCoreModule.forRoot( { //GMAPS
-      apiKey: 'AIzaSyDJX3_xSyhfZCyA2Z20f1d74X8sHOkX9dE'
+      apiKey: environment.gmapKey
     })
     //ToastModule,
     //GalleriaModule

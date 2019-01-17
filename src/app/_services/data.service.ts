@@ -18,46 +18,86 @@ import { ApiService, EApiImageSizes, IApiBrand, IApiModel, IApiProduct, IApiUser
   providedIn: 'root'
 })
 export class DataService {
-  private _brands : IApiBrand[] = [];       //Stores downloaded brands
-  private _models : IApiModel[] = [];
-  private _products : IApiProduct[] = [];   //Stores downloaded products
-  private _users : IApiUser[] = [];              //Stores downloaded users
+  private _brands : IApiBrand[] = [];        //Stores downloaded brands
+  private _models : IApiModel[] = [];        //Stores downloaded models
+  private _products : IApiProduct[] = [];    //Stores downloaded products
+  private _users : IApiUser[] = [];          //Stores downloaded users
+  private _HOLDDATASECONDS : number = 60*60; //Hold data for 1hr and if not reload 
+
+  private _timeStamps : string[] = [];      //Stores timestamps
 
   constructor(private api : ApiService) { }
 
   public getBrands() : IApiBrand[] {
+    if (this._timeStamps["brands"] !== undefined) {
+      let diff = (new Date().getTime() - this._timeStamps["brands"])/1000;
+      if (diff> this._HOLDDATASECONDS) {
+        this._brands = [];
+      }
+    } 
     return this._brands;
   }
 
   //Sets all available brands
-  public setBrands(brands: IApiBrand[]) {
+  public setBrands(brands: IApiBrand[], api = false) {
+    if (api) {
+      this._timeStamps["brands"] = new Date().getTime()
+    }
     this._brands = brands;
   }
 
+
   public getModels() : IApiModel[] {
+    if (this._timeStamps["models"] !== undefined) {
+      let diff = (new Date().getTime() - this._timeStamps["models"])/1000;
+      if (diff> this._HOLDDATASECONDS) {
+        this._models = [];
+      }
+    } 
     return this._models;
   }
 
   //Sets all available models
-  public setModels(models: IApiModel[]) {
+  public setModels(models: IApiModel[], api=false) {
+    if (api) {
+      this._timeStamps["models"] = new Date().getTime()
+    }
     this._models = models;
   }
 
   public getProducts() : IApiProduct[] {
+    if (this._timeStamps["products"] !== undefined) {
+      let diff = (new Date().getTime() - this._timeStamps["products"])/1000;
+      if (diff> this._HOLDDATASECONDS) {
+        this._products = [];
+      }
+    } 
     return this._products;
   }
 
   //Sets all available brands
-  public setProducts(products: IApiProduct[]) {
+  public setProducts(products: IApiProduct[], api = false) {
+    if (api) {
+      this._timeStamps["products"] = new Date().getTime()
+    }
     this._products = products;
   }
 
   public getUsers() : IApiUser[]  {
+    if (this._timeStamps["users"] !== undefined) {
+      let diff = (new Date().getTime() - this._timeStamps["users"])/1000;
+      if (diff> this._HOLDDATASECONDS) {
+        this._users = [];
+      }
+    } 
     return this._users;
   }
 
   //Sets all available brands
-  public setUsers(users: IApiUser[]) {
+  public setUsers(users: IApiUser[], api = false) {
+    if (api) {
+      this._timeStamps["users"] = new Date().getTime()
+    }
     this._users = users;
   }
 }

@@ -74,11 +74,23 @@ export class MembersComponent implements OnInit {
     } else {
       this.spinner.show();
       this._subscriptions.push(this.api.getUsers().subscribe((res: IApiUser[]) => {
-        this.data.setUsers(res);
+        this.data.setUsers(res,true);
         this.initTable(res);
         this.spinner.hide();
       }, () => this.spinner.hide()));
     }
+  }
+
+  //Geneate mailto all emails
+  getEmails() {
+    let emails = "";
+    for (let member of this.data.getUsers()) {
+      if (emails != "")
+        emails = emails + ";" + member.email;
+      else  
+        emails = member.email;  
+    }
+    return "mailto:" + emails;
   }
 
   getImageUrl(user: IApiUser) {

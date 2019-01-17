@@ -28,12 +28,13 @@ export class SearchProductComponent implements OnInit {
 
   //Get all the products
   getProducts() {
+    console.log("In get Products !!!!");
     if (this.data.getProducts().length>0) {
       this.pushProducts();
     } else {
       this.spinner.show();
       this._subscriptions.push(this.api.getProducts().subscribe((res: IApiProduct[]) => {
-        this.data.setProducts(res);
+        this.data.setProducts(res,true);
         this.pushProducts();
         this.spinner.hide();
       }, () => this.spinner.hide()));
@@ -44,7 +45,7 @@ export class SearchProductComponent implements OnInit {
     if (this.data.getBrands().length==0) {
       //this.spinner.show();
       this._subscriptions.push(this.api.getBrands().subscribe((res: IApiBrand[]) => {
-        this.data.setBrands(res);
+        this.data.setBrands(res,true);
         this.brands = res;
         this.spinner.hide();
       }, () => this.spinner.hide()));

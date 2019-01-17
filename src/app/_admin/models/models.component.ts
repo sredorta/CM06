@@ -92,7 +92,7 @@ export class ModelsComponent implements OnInit {
       } else {
         this.spinner.show();
         this._subscriptions.push(this.api.getModels().subscribe((res : IApiModel[]) => {
-          this.data.setModels(res);
+          this.data.setModels(res,true);
           this.initTable(res);
           this.spinner.hide();
         },() => this.spinner.hide()));
