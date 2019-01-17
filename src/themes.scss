@@ -134,6 +134,7 @@ $sidenav-theme: create-sidenav-theme($banner-theme-primary, $banner-theme-accent
 
 
 .sidenav-theme {
+  color:white;
   background-color: rgb(20, 20, 20);
     @include angular-material-theme($sidenav-theme);
 }

@@ -51,6 +51,7 @@ export class BrandsComponent implements OnInit {
   defaultImage :string = "./assets/images/no-photo-available.jpg";
   //defaultImageUpdate : string = "./assets/images/no-photo-available.jpg";
   inputImageUpdateDataIn : string[] = [];
+  expandedBrandId : number = 0;
   selected = [];
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
@@ -220,7 +221,16 @@ export class BrandsComponent implements OnInit {
       this.inputImageUpdateDataIn[0] = brand.image.sizes['full'].url;
     else 
       this.inputImageUpdateDataIn[0] = this.defaultImage; 
+    
+    this.expandedBrandId = id;
   }
+
+/*  onUpdateProduct(id) {
+    console.log("OnUpdateProduct");
+    let product : IApiProduct = this.dataSource.data[this.dataSource.data.findIndex(obj => obj.id === id)];
+    this.expandedProductId = id;
+  }*/
+
 
   //Delete the brand when clicking to delete
   onDeleteBrand(id) {   
@@ -259,6 +269,9 @@ export class BrandsComponent implements OnInit {
       }
     this.dataSource.data.splice(itemIndex, 1); 
     this.data.setBrands(this.dataSource.data);
+    //Remove all products of the brand
+    let products = this.data.getProducts();
+    this.data.setProducts(products.filter(obj => obj.brand_id != id));
 
     const itemIndexFilter = this.dataSource.filteredData.findIndex(obj => obj.id === id);
     if (itemIndexFilter>=0) {

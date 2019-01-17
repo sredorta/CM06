@@ -5,8 +5,9 @@
     <p class="initial-subtitle">{{'home.menu.second.subtitle' | translate}}</p>
   </div>
 </app-header>
-
-<app-search-product (result)="updateFilter($event)"></app-search-product>
+<div class="sidenav-theme">
+  <app-search-product (result)="updateFilter($event)"></app-search-product>
+</div>
 <div class="search-result" fxLayout="row" fxLayoutAlign="start center">
   <p><span>{{matches}}</span> {{'found' | translate}}</p>
 </div>

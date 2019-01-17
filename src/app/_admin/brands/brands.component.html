@@ -67,7 +67,7 @@
             <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
               <div class="element-detail"
                   [@detailExpand]="(element == expandedElement) && expand ? 'expanded' : 'collapsed'">
-                <div style="padding:10px;width:100%" fxLayout="column" fxLayoutGap="20px"> 
+                <div *ngIf="element.id == expandedBrandId" style="padding:10px;width:100%" fxLayout="column" fxLayoutGap="20px"> 
                   <h3>{{'brands.admin.modify.header' | translate}}</h3>
                   <form [formGroup]="myFormUpdate" (ngSubmit)="onSubmit(myFormUpdate.value)" novalidate> 
                       <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="20px">

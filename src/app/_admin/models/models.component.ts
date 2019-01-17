@@ -141,6 +141,11 @@ export class ModelsComponent implements OnInit {
 
   //Update the datamodel by push new element to array
   private _addModel(model: IApiModel) {
+    //Add model in the data
+    let models = this.data.getModels();
+    models.push(model)
+    this.data.setModels(models);
+
     this.dataSource.data.push(model);
     this.dataSource.data.sort((a, b) => a.name.localeCompare(b.name));
     this.modelsCount = this.dataSource.data.length;
@@ -182,6 +187,16 @@ export class ModelsComponent implements OnInit {
 
   //Update the data model
   private _deleteModel(id:number) {
+    
+    //Delete the model in the data
+    let models = this.data.getModels();
+    models.splice(models.findIndex(obj => obj.id === id), 1); 
+    this.data.setModels(models);
+    //Delete all products of the model
+    let products = this.data.getProducts();
+    this.data.setProducts(products.filter(obj => obj.model_id != id));
+
+
     //Find the corresponding datasource element
     const itemIndex = this.dataSource.data.findIndex(obj => obj.id === id);
     this.dataSource.data.splice(itemIndex, 1); 
@@ -212,9 +227,14 @@ export class ModelsComponent implements OnInit {
   }
 
   //Update the datamodel
-  private _updateModel(brand:IApiModel) {
-    const itemIndex = this.dataSource.data.findIndex(obj => obj.id === brand.id);
-    this.dataSource.data[itemIndex] = brand;
+  private _updateModel(model:IApiModel) {
+    //Delete the model in the data
+    let models = this.data.getModels();
+    models[models.findIndex(obj => obj.id === model.id)] = model; 
+    this.data.setModels(models);
+
+    const itemIndex = this.dataSource.data.findIndex(obj => obj.id === model.id);
+    this.dataSource.data[itemIndex] = model;
     this.applyFilter(this.lastFilter);
     this.table.renderRows();
   }
