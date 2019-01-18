@@ -23,6 +23,7 @@ export class ProductItemDetailComponent implements OnInit {
   images : string[] = [];
   disable : boolean = false;
   myForm: FormGroup; 
+  unknown: boolean = false; //Determines if a product is no longer available
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
   constructor(private route: ActivatedRoute, 
@@ -56,13 +57,24 @@ export class ProductItemDetailComponent implements OnInit {
   getProduct() {
     if (this.data.getProducts().length>0) {
       let myProduct = this.data.getProducts().find(obj => obj.id == this.id);
-      this.product = new Product(myProduct);
+      if (myProduct == undefined) {
+        this.unknown = true;
+      } else {
+        this.product = new Product(myProduct);
+        this.images = this.product.getImages(EApiImageSizes.large);
+      }
       this.images = this.product.getImages(EApiImageSizes.large);
     } else {
       this.spinner.show();
-      this._subscriptions.push(this.api.getProduct(this.id).subscribe(res => {
-        this.product = new Product(res);
-        this.images = this.product.getImages(EApiImageSizes.large);
+      this._subscriptions.push(this.api.getProducts().subscribe(res => {
+        this.data.setProducts(res, true);
+        let myProduct = this.data.getProducts().find(obj => obj.id == this.id);
+        if (myProduct == undefined) {
+          this.unknown = true;
+        } else {
+          this.product = new Product(myProduct);
+          this.images = this.product.getImages(EApiImageSizes.large);
+        }
         this.spinner.hide();
       },()=> this.spinner.hide()));
     }

@@ -4,18 +4,32 @@ $primary: map-get($main-app-theme,primary);
 $accent: map-get($main-app-theme,accent);
 $warn : map-get($main-app-theme,warn);
 
-.strike {
-    text-decoration: line-through;
-    opacity:0.5;
+
+.unknown {
+    margin-top:20vh;
+    margin-bottom:20vh;
+    border-left: 5px solid rgba(black,0.6);
+    padding-left:15px;
 }
+.unknown-title {
+    font-size: 25px;
+    font-weight: bold;
+    opacity:0.8;
+}
+.unknown-subtitle {
+    font-size:16px;
+    opacity:0.6;
+}
+
 
 .wrapper {
     width:100%;
     padding:10px;
 }
 .wrapper-content {
+    padding-top:20px;
     width:100%;
-    max-width: 900px;
+    max-width: 1000px;
 
 }
 .header-image {
@@ -23,8 +37,6 @@ $warn : map-get($main-app-theme,warn);
     //margin:0 auto;
     width:45%;
     min-width: 300px;
-    max-width: 500px;
-    max-height: 500px;
     min-height: 300px;
     //box-sizing: border-box;
     //max-width: 600px;
@@ -44,24 +56,45 @@ $warn : map-get($main-app-theme,warn);
     }
     .header-text {
         margin-left:0px;
+        margin-top:20px;
         display:block;
         width:100%;
     }
 }
 
 .header-title {
-    font-size: 30px;
-    font-weight: bold;
+    margin-top:0px;
+    font-size: 36px;
+    line-height: 34px;
+    font-weight: 800;
+    opacity:0.8;
 }
 .header-price {
     margin-top:45px;
-    font-size: 26px;
+    font-size: 34px;
+    font-weight: 800;
+    color:rgba(51, 83, 45,0.8);
+}
+.header-discount {
+    font-size: 30px;
+    padding:3px;
+    background-color: rgba(red,0.8);
+    padding:5px;
+    color: rgba(white,0.8);
+}
+
+.left-border {
+    border-left:3px solid rgba(black,0.6);
+    padding:5px;
+    padding-left:15px;
+    margin-top:10px;
+    margin-bottom:10px;
 }
 
 .header-description {
     font-size: 16px;
-    opacity: 0.7;
-    font-style: italic;
+    opacity: 0.8;
+    //font-style: italic;
 }
 
 .header-brand-img {
@@ -70,11 +103,12 @@ $warn : map-get($main-app-theme,warn);
 }
 
 .header-label {
-    opacity: 0.4;
+    opacity: 0.3;
     width:100%;
     font-weight: bold;
-    font-size: 14px;
-    border-bottom: 1px solid;
+    font-size: 18px;
+    margin-top:0px;
+    margin-bottom:3px;
 }
 
 .header-brand-text {

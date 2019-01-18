@@ -1,11 +1,11 @@
 <div class="product-item-container">
-  <div fxLayout="column" fxLayoutAlign="center start" (click)="showDetail()" pTooltip="Click pour voir details" tooltipPosition="top">
+  <div fxLayout="column" fxLayoutAlign="center start" (click)="showDetail()">
       <img [src]="getProductPrimaryImage()" class="product-item-main-image">
       <div class="product-item-bottom-container" style="width:100%">
         <p class="product-item-title">{{product.title}}</p>
         <div fxLayout="row" fxLayoutAlign="space-between center" style="width:100%">
           <p class="product-item-price-discount">{{product.getFinalPrice() | currencyFormat}} €</p>
-          <p *ngIf="product.discount>0" class="product-item-discount" [ngClass]="{'discount' : product.discount>0}">{{product.getDiscount()}}%</p>
+          <p *ngIf="product.discount>0" class="product-item-discount">{{product.getDiscount()}}%</p>
         </div>
       </div>
   </div>

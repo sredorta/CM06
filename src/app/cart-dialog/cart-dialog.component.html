@@ -42,7 +42,7 @@
           <button mat-raised-button color="primary" style="width:100%"[disabled]="getTotal()==0?true:false">{{'cart.dialog.order' | translate}}</button>
         </div>
       </div>
-      <div *ngIf="products.length==0" class="cart-item-wrapper">
+      <div *ngIf="products.length==0 && !spinner.visible" class="cart-item-wrapper">
         <p class="empty-title">{{'cart.dialog.empty.title' | translate}}</p>
         <p>{{'cart.dialog.empty.message' | translate}}</p>
       </div>

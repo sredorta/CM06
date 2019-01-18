@@ -5,7 +5,6 @@ import {Cart, CartItem} from '../_models/cart';
 import {ProductItemDialogComponent} from '../product-item-dialog/product-item-dialog.component';
 import { Subscription } from 'rxjs';
 import { ApiService } from '../_services/api.service';
-import {TooltipModule} from 'primeng/tooltip';
 import {ViewEncapsulation} from '@angular/core';
 import { DataService } from '../_services/data.service';
 import {CurrencyFormatPipe} from '../_pipes/currency-format.pipe';

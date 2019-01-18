@@ -79,7 +79,7 @@ export class AppComponent {
       this.router.navigate(route);  
   }
 
-  //Terms and conditions dialog  
+  //Open cart dialog  
   openCartDialog(): void {
     let dialogRef = this.dialog.open(CartDialogComponent, {
       panelClass: 'cart-dialog',
@@ -94,6 +94,16 @@ export class AppComponent {
       //this.myForm.patchValue({"terms" : result});
     });
   }
+
+  //Each time a route is activated we come here
+  onActivate(event) {
+    console.log("onActivate !");
+    //Scroll to sidenav top !
+    const contentContainer = document.querySelector('.mat-sidenav-content') || window;
+    contentContainer.scrollTo(0, 0);
+  }  
+
+
 
   //Remove all subscriptions
   ngOnDestroy(): void {
