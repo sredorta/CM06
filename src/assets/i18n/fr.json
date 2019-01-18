@@ -268,7 +268,17 @@
     "products.search.order.label"               : "TRIER PAR:",
     "products.search.order.match"               : "PERTINENCE",
     "products.search.order.priceup"             : "PRIX CROISSANT",
-    "products.search.order.pricedown"           : "PRIX DECROISSANT"
+    "products.search.order.pricedown"           : "PRIX DECROISSANT",
+
+    "cart.dialog.title"                         : "Mon pannier",
+    "cart.dialog.total"                         : "TOTAL",
+    "cart.dialog.delivery.title"                : "FRAIS DE LIVRAISON*",
+    "cart.dialog.delivery.message"              : "(*) Les frais de livraison sont calculés en fonction du poids aproximatif des articles choisis. Ces frais s'appliquent uniquement en cas de livraison et sont à ajouter au total.",
+    "cart.dialog.order"                         : "Passer commande",
+    "cart.dialog.empty.title"                   : "Le pannier est vide",
+    "cart.dialog.empty.message"                 : "Selectioner les articles que vous desirez et revenez au pannier pour passer commande"
+
+
 
 
 
