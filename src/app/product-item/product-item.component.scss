@@ -1,3 +1,10 @@
+@import "../../themes.scss";
+.mat-raised-button {
+    border-top-left-radius: 0px !important;
+    border-top-right-radius: 0px !important;
+}
+
+
 .product-item-container {
     margin:5px;
     width:160px;
@@ -37,31 +44,47 @@
 
 
 .product-item-title {
-    font-size:16px;
+    font-size:15px;
+    font-weight: bold;
+    margin:0px;
+    padding-bottom:10px;
+    padding-top:0px;
+    height:45px;
+    color: rgba(black,0.6);
 }
 
-.product-item-price {
+/*.product-item-price {
     margin-top:0px;
     font-size:18px;
     font-weight: bold;
     color:black;
-}
+}*/
 
 .product-item-price-discount {
     margin-top:0px;
     font-size:18px;
     font-weight: bold;
     color:rgb(25, 59, 19);
+    padding:3px;
 }
 
-::ng-deep .mat-raised-button {
-    border-top-left-radius: 0px !important;
-    border-top-right-radius: 0px !important;
+.product-item-discount {
+    margin-top:0px;
+    font-size:18px;
+    font-weight: bold;
+    padding:3px;
+    background-color: rgba(red,0.8);
+    padding:3px;
+    color: rgba(white,0.8);
 }
-.strike {
-    text-decoration: line-through;
-    opacity:0.5;
-}
+/*
+.discount {
+    background-color: rgba(red,0.8);
+    padding:3px;
+    color: rgba(white,0.8);
+    //text-decoration: line-through;
+    //opacity:0.5;
+}*/
 
 //Dialog component
 .product-item-dialog {

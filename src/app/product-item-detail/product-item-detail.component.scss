@@ -12,11 +12,9 @@ $warn : map-get($main-app-theme,warn);
 .wrapper {
     width:100%;
     padding:10px;
-    height: 100%;
 }
 .wrapper-content {
     width:100%;
-    height:100%;
     max-width: 900px;
 
 }
@@ -25,6 +23,9 @@ $warn : map-get($main-app-theme,warn);
     //margin:0 auto;
     width:45%;
     min-width: 300px;
+    max-width: 500px;
+    max-height: 500px;
+    min-height: 300px;
     //box-sizing: border-box;
     //max-width: 600px;
 }

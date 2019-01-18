@@ -29,20 +29,6 @@ export class ProductItemComponent implements OnInit {
   constructor(private api : ApiService, private data : DataService, private router:Router) { }
 
   ngOnInit() {
-//    this.product = new Product(this.data.getProducts()[11]);
-    //For debug only
-/*    this.product.title = "Amortisseur avant titre";
-    this.product.description = "Amortisseur avant de 150mm de debatement pour une moto qui dechire";
-    this.product.price = 2800;
-    this.product.discount = 10;
-    this.api.getBrands().subscribe(res => {
-/*      this.product.brand = res[0];
-      this.api.getModels(this.product.brand.id).subscribe(res => {
-        this.product.model = res[0];
-        console.log(this.product.model);
-      });
-    });*/
-
   }
 
 
@@ -60,6 +46,8 @@ export class ProductItemComponent implements OnInit {
     if (!this.preview)
       this.router.navigate(["/produit", this.product.id]);
   }
+
+
 
   addToCart() {
     if (!this.preview) {

@@ -5,12 +5,8 @@
         <p class="product-item-title">{{product.title}}</p>
         <div fxLayout="row" fxLayoutAlign="space-between center" style="width:100%">
           <p class="product-item-price-discount">{{product.getFinalPrice() | currencyFormat}} €</p>
-          <p *ngIf="product.discount>0" class="product-item-price" [ngClass]="{'strike' : product.discount>0}">{{product.price}} €</p>
+          <p *ngIf="product.discount>0" class="product-item-discount" [ngClass]="{'discount' : product.discount>0}">{{product.getDiscount()}}%</p>
         </div>
-        <!--<div fxLayout="row" fxLayout="center center">
-            <img *ngIf="product.brand"  src="{{product.brand.image.url}}" class="product-item-brand-image">
-            <p *ngIf="product.model" class="product-item-model">{{product.model.name}}</p>
-        </div>-->
       </div>
   </div>
   <button style="width:100%" mat-raised-button color="primary" (click)="addToCart()"><mat-icon style="margin-right:10px">add_shopping_cart</mat-icon>Pannier</button>

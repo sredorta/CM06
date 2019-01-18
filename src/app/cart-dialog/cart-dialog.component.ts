@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 export class CartDialogComponent implements OnInit {
   cart : Cart = new Cart(null);
   products : Product[] = [];
-  size : EApiImageSizes = EApiImageSizes.tinythumbnail;
+  size : EApiImageSizes = EApiImageSizes.medium;  //We use medium as it´s already loaded
   defaultImage :string = "./assets/images/no-photo-available.jpg";
   //count : number[] = [];
   private _subscriptions : Subscription[] = new Array<Subscription>();

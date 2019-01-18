@@ -42,6 +42,10 @@ export class Product {
         return this.price - this.discount;
     }
 
+    public getDiscount() {
+        return Math.round(-(this.discount/this.price)*100);
+    }
+
     public getImages(size: EApiImageSizes) {
         let result = [];
         for (let image of this.images) {
