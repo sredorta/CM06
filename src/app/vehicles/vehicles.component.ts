@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ProductItemComponent} from '../product-item/product-item.component';
 import {Product} from '../_models/product';
 import { Subscription } from 'rxjs';
-import { trigger, style, transition, animate, group } from '@angular/animations';
+import { trigger, style, transition, animate, group, query,stagger,keyframes } from '@angular/animations';
 
 @Component({
   selector: 'app-vehicles',
@@ -10,20 +10,23 @@ import { trigger, style, transition, animate, group } from '@angular/animations'
   styleUrls: ['./vehicles.component.scss'],
   animations: [
     trigger('productAnim', [
-      transition(':enter', [
-        style({transform: 'translateX(-100vw)'}),
-        animate(350)
-      ]),
-      transition(':leave', [
-        group([
-          animate('0.35s ease', style({
-            transform: 'translateX(100vw)'
-          })),
-          animate('0.35s 0.2s ease', style({
-            opacity: 0
-          }))
-        ])
+      transition('* => *', [
+        query(':enter', style({ opacity: 0 }), {optional: true}),
+        query(':enter',
+          animate('0.6s ease-in', keyframes([
+            style({opacity: 0, transform: 'translateY(-75%)', offset: 0}),
+            style({opacity: .5, transform: 'translateY(35px)',  offset: 0.3}),
+            style({opacity: 1, transform: 'translateY(0)',     offset: 1.0}),
+          ])), {optional: true}),
+        query(':leave', 
+            animate('0.6s ease-in', keyframes([
+              style({opacity: 1, transform: 'translateY(0)', offset: 0}),
+              style({opacity: .5, transform: 'translateY(35px)',  offset: 0.3}),
+              style({opacity: 0, transform: 'translateY(-75%)',     offset: 1.0}),
+            ])), {optional: true})
       ])
+      
+
     ])
   ]
 })

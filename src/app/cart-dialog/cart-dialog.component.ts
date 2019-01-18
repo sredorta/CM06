@@ -18,7 +18,7 @@ export class CartDialogComponent implements OnInit {
   //count : number[] = [];
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private data : DataService, private api : ApiService, private spinner : SpinnerOverlayService) { }
+  constructor(private data : DataService, private api : ApiService, public spinner : SpinnerOverlayService) { }
 
   ngOnInit() {
     this.getProducts();
