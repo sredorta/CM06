@@ -1,7 +1,8 @@
 <div class="wrapper">
 <div *ngIf="user" class="profile-container"> 
   <div fxLayout="column" fxLayoutAlign="center center">
-    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate class="form"> 
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate class="form left-border"> 
+      <p class="title">{{'profile.update.title' | translate}}</p>
       <div fxLayout="row" fxLayout.xs = "column-reverse" fxLayoutGap="20px" fxLayoutAlign="start center" class="width100">
         <div fxLayout="column" fxLayoutAlign="center center">
           <div [style.backgroundImage]="user.getAvatar()" class="avatar"></div>
@@ -41,18 +42,18 @@
         <p class="expand-form" (click)="showPassword==false?showPassword=true:showPassword=false">{{'profile.update.password.title' | translate}}</p>
         <div [@detailExpand]="showPassword==true ? 'expanded' : 'collapsed'">
           <div *ngIf="showPassword" class="password-update">
-            <mat-form-field class="field">
+            <mat-form-field class="field" style="margin-bottom:10px">
               <mat-label>{{'input.password.old.label' | translate}}</mat-label>
-              <input matInput formControlName="password_old" placeholder="{{'input.password.old.label' | translate}}" required type="password">
+              <input matInput formControlName="password_old" placeholder="{{'input.password.old.label' | translate}}" type="password">
               <mat-hint>{{'input.password.old.hint' | translate}}</mat-hint>
               <mat-error *ngFor="let validation of validation_messages">
-                <mat-error class="error-message" *ngIf="myForm.get('matching_passwords_group').get('password').hasError(validation.type) && (myForm.get('matching_passwords_group').get('password').dirty || myForm.get('matching_passwords_group').get('password').touched)">{{validation.message | translate}}</mat-error>
+                <mat-error class="error-message" *ngIf="myForm.get('password_old').hasError(validation.type) && (myForm.get('password_old').dirty || myForm.get('password_old').touched)">{{validation.message | translate}}</mat-error>
               </mat-error>                 
             </mat-form-field>  
-            <div formGroupName="matching_passwords_group" fxLayout="column" fxLayoutAlign="center center">
+            <div formGroupName="matching_passwords_group" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
                 <mat-form-field class="field">
                   <mat-label>{{'input.password.new.label' | translate}}</mat-label>
-                  <input matInput formControlName="password" placeholder="{{'input.password.new.label' | translate}}" required type="password">
+                  <input matInput formControlName="password" placeholder="{{'input.password.new.label' | translate}}" type="password">
                   <mat-hint>{{'input.password.new.hint' | translate}}</mat-hint>
                   <mat-error *ngFor="let validation of validation_messages">
                     <mat-error class="error-message" *ngIf="myForm.get('matching_passwords_group').get('password').hasError(validation.type) && (myForm.get('matching_passwords_group').get('password').dirty || myForm.get('matching_passwords_group').get('password').touched)">{{validation.message | translate}}</mat-error>
@@ -60,7 +61,7 @@
                 </mat-form-field>  
                 <mat-form-field class="field">
                   <mat-label>{{'input.passwordconfirm.label' | translate}}</mat-label>
-                  <input matInput formControlName="confirm_password" placeholder="{{'input.passwordconfirm.label' | translate}}" required type="password" [errorStateMatcher]="parentErrorStateMatcher">
+                  <input matInput formControlName="confirm_password" placeholder="{{'input.passwordconfirm.label' | translate}}" type="password" [errorStateMatcher]="parentErrorStateMatcher">
                   <mat-hint>{{'input.passwordconfirm.hint' | translate}}</mat-hint>
                   <mat-error *ngFor="let validation of validation_messages">
                     <mat-error class="error-message" *ngIf="(myForm.get('matching_passwords_group').hasError(validation.type)||myForm.get('matching_passwords_group').get('confirm_password').hasError(validation.type)) && (myForm.get('matching_passwords_group').get('confirm_password').dirty || myForm.get('matching_passwords_group').get('confirm_password').touched)">{{validation.message | translate}}</mat-error>

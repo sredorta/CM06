@@ -88,7 +88,23 @@ export class CustomValidators {
     }
 
 }
-
+  //Guarantees a minimum password quality
+  static validPasswordOrNull(fc: FormControl) {
+    if (fc.value == null || fc.value == undefined) {
+        return(null);
+    }
+    if (fc.value == "") {
+        return(null);
+    }
+    if (fc.value.length < 5 ) 
+      return({tooShortPassword : true})
+    var re = '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{5,}';
+    if (fc.value.match(re)) {
+        return (null);
+    } else {
+        return({validPassword : true})
+    }
+  }
 
 }
 

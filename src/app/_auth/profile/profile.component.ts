@@ -7,6 +7,7 @@ import { User } from '../../_models/user';
 import { ApiService} from '../../_services/api.service';
 import { Subscription } from 'rxjs';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {SpinnerOverlayService} from '../../_library/spinner-overlay.service';
 
 @Component({
   selector: 'app-profile',
@@ -31,7 +32,7 @@ export class ProfileComponent implements OnInit {
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private api : ApiService) { }
+  constructor(private api : ApiService, private spinner : SpinnerOverlayService) { }
 
   ngOnInit() {
    this.createForm();
@@ -64,14 +65,13 @@ export class ProfileComponent implements OnInit {
         Validators.email
       ])),
       password_old: new FormControl('', Validators.compose([
-        CustomValidators.validPassword
+        CustomValidators.validPasswordOrNull
       ])),      
       matching_passwords_group : new FormGroup({
         password: new FormControl('', Validators.compose([
-          CustomValidators.validPassword
+          CustomValidators.validPasswordOrNull,
         ])),
         confirm_password: new FormControl('', Validators.compose([
-          Validators.required
         ]))},
         (formGroup: FormGroup) => {
           return CustomValidators.areEqual(formGroup);
@@ -79,6 +79,18 @@ export class ProfileComponent implements OnInit {
       ),
       avatar: new FormControl(null,null)
     });
+  }
+
+
+  onSubmit(result) {
+    console.log(result);
+    if (this.myForm.invalid) {
+      console.log("Invalid !!!");
+      this.showPassword = true;
+      console.log(this.myForm.controls["password_old"].errors);
+      return;
+    }
+
   }
 
   ngOnDestroy() {    
