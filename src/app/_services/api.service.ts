@@ -12,6 +12,15 @@ import 'rxjs/add/operator/catch';
 
 import {User} from '../_models/user';
 
+
+export interface IApiConfig {
+  id: number;
+  key: string;
+  value: string;
+  created_at:string;
+  updated_at:string;
+}
+
 export interface IApiLogin {
   token?:string;
   access?: Array<string>;
@@ -144,6 +153,10 @@ export class ApiService {
     this._user.next(new User(user));
   }
 
+
+  public getConfig() : Observable<IApiConfig[]> {
+    return this.http.get<IApiConfig[]>(environment.apiURL + '/config').map(res => <IApiConfig[]>res);
+  }
 
 
   public login(email:string, password:string, keepconnected:boolean, access:string) : Observable<IApiLogin> {

@@ -4,39 +4,40 @@
     <p class="initial-subtitle">{{'home.menu.third.subtitle' | translate}}</p>
   </div>
 </app-header>
-<div class="wrapper"  fxLayout="column" fxLayoutAlign="center center">
+<div *ngIf="config.isLoaded" class="wrapper"  fxLayout="column" fxLayoutAlign="center center">
     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center start" fxLayoutGap="10px" class="map-wrapper" >
-        <div fxFlex="100%"  class="bucket blue">
-            <div fxLayout="row" fxLayoutAlign="start center"><mat-icon>info</mat-icon><span>Info</span></div>
-            <p>Le magasin serà fermé du 20 Juillet au 30 Juillet</p>
+        <div *ngIf="config.hasMessage" fxFlex="100%"  class="bucket blue">
+            <div fxLayout="row" fxLayoutAlign="start center"><mat-icon>info</mat-icon><span>{{config.message_title}}</span></div>
+            <p style="padding-left:35px">{{config.message_text}}</p>
+            <small>{{config.message_updated | niceDateFormat}}</small>      
         </div>
     </div>  
     <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center start" fxLayoutGap="10px" class="map-wrapper" >
         <div fxFlex="50%" fxFlex.xs = "100%" class="bucket">
             <div fxLayout="row" fxLayoutAlign="start center"><mat-icon>location_on</mat-icon><span>{{'contact.timetable.title' | translate}}</span></div>
-            <p>{{'contact.timetable.line1' | translate}}</p>
-            <p>{{'contact.timetable.line2' | translate}}</p>
-            <p>{{'contact.timetable.line3' | translate}}</p>
+            <p>{{config.timetable1}}</p>
+            <p>{{config.timetable2}}</p>
+            <p>{{config.timetable3}}</p>
         </div>
         <div fxFlex="50%" fxFlex.xs = "100%" fxLayout="column">
           <div class="bucket">
-            <div fxLayout="row" fxLayoutAlign="start center"><mat-icon class="scale">phone_android</mat-icon><span>{{'phone' | translate}}</span></div>
+            <div fxLayout="row" fxLayoutAlign="start center"><mat-icon class="scale">phone_android</mat-icon><span>{{config.phone}}</span></div>
           </div>  
           <div class="bucket">
-              <div fxLayout="row" fxLayoutAlign="start center"><mat-icon class="scale">email</mat-icon><a href="mailto:contact@cassemoto06" class="link">{{'email.contact' | translate}}</a></div>
+              <div fxLayout="row" fxLayoutAlign="start center"><mat-icon class="scale">email</mat-icon><a href='mailto:{{config.email}}' class="link">{{config.email}}</a></div>
             </div> 
         </div>
   </div>
   <div fxLayout="row" fxLayout.xs="column-reverse" fxLayoutAlign="center start" fxLayoutGap="10px" class="map-wrapper">
     <div fxFlex="50%" fxFlex.xs="100%" style="width:100%">
-      <agm-map [latitude]="lat" [longitude]="lng"  [zoom]="zoom" [disableDefaultUI]="false" [zoomControl]="true">
-        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+      <agm-map [latitude]="config.latitude" [longitude]="config.longitude"  [zoom]="config.zoom" [disableDefaultUI]="false" [zoomControl]="true">
+        <agm-marker [latitude]="config.latitude" [longitude]="config.longitude"></agm-marker>
       </agm-map>
     </div>
     <div fxFlex="50%" fxFlex.xs = "100%" class="bucket">
         <div fxLayout="row" fxLayoutAlign="start center"><mat-icon>location_on</mat-icon><span>{{'contact.address.title' | translate}}</span></div>
-        <p>{{'address' | translate}}</p>
-        <p>{{lat}} , {{lng}}</p>
+        <p>{{config.address}}</p>
+        <p>LAT: {{config.latitude}} , LONG: {{config.longitude}}</p>
     </div>
   </div>
 </div>

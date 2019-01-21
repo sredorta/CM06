@@ -12,13 +12,14 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/delay';
-import { ApiService, EApiImageSizes, IApiBrand, IApiModel, IApiProduct, IApiUser } from '../_services/api.service';
+import { ApiService, EApiImageSizes, IApiBrand, IApiModel, IApiProduct, IApiUser, IApiConfig } from '../_services/api.service';
 import {Cart, CartItem} from '../_models/cart';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+  private _config : IApiConfig[] = [];       //Stores global info of project, address...
   private _brands : IApiBrand[] = [];        //Stores downloaded brands
   private _models : IApiModel[] = [];        //Stores downloaded models
   private _products : IApiProduct[] = [];    //Stores downloaded products
@@ -28,7 +29,18 @@ export class DataService {
   private _cart = new BehaviorSubject<number>(Cart.getCount()); //Stores the current user
 
 
+
   constructor(private api : ApiService) { }
+
+
+  public setConfig(data: IApiConfig[]) {
+    this._config = data;
+  }
+
+  public getConfig() : IApiConfig[] {
+    return this._config;
+  }
+
 
   public getBrands() : IApiBrand[] {
     if (this._timeStamps["brands"] !== undefined) {

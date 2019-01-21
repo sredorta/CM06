@@ -13,10 +13,10 @@
       <div fxFlex="50%" fxLayoutAlign="center start">
           <mat-list>
               <mat-list-item> <mat-icon class="scale">location_on</mat-icon> <span class="highlight">{{'footer.address.header' | translate}}</span></mat-list-item>
-              <p class="text">{{'address' | translate}}</p>
+              <p class="text">{{config.address}}</p>
               <!--<mat-list-item class="highlight"> <mat-icon class="scale">phone_android</mat-icon> 04 92 92 91 80 </mat-list-item>-->
               <mat-list-item> <mat-icon class="scale">email</mat-icon><span class="highlight">{{'footer.email.header' | translate}}</span></mat-list-item>
-              <p class="text"><a href="mailto:contact@cassemoto06" class="link">{{'email.contact' | translate}}</a></p>
+              <p class="text"><a href="mailto:{{config.email}}" class="link">{{config.email}}</a></p>
           </mat-list>
       </div>
   </div>

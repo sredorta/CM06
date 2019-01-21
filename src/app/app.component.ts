@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import {LoginComponent} from './_auth/login/login.component';
 import { TranslateService } from '@ngx-translate/core'; //NGX-TRANSLATE
 import {User} from './_models/user';
-import {ApiService, IApiUserAuth, EApiImageSizes, IApiBrand, IApiProduct} from './_services/api.service';
+import {ApiService, IApiUserAuth, EApiImageSizes, IApiBrand, IApiProduct, IApiConfig} from './_services/api.service';
 import {DataService} from './_services/data.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig} from '@angular/material';
@@ -24,6 +24,7 @@ export class AppComponent {
   mobileQuery: MediaQueryList;
   isMobile : boolean =  this.device.isMobile();
   cartCount : number = Cart.getCount();
+  initialLoading : boolean = true;
   private _mobileQueryListener: () => void;
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
@@ -41,7 +42,12 @@ export class AppComponent {
     //This needs to be moved into config page
     this._subscriptions.push(this.api.getAuthUser().subscribe((res: IApiUserAuth)=> {
       this.api.setCurrent(res); 
-      console.log("Finished loading !!!");
+      this._subscriptions.push(this.api.getConfig().subscribe( (res : IApiConfig[]) => {
+        console.log("CONFIG !!!!");
+        console.log(res);
+        this.data.setConfig(res);
+        this.initialLoading = false;
+      }));
     }));
 
     this._subscriptions.push(this.api.getCurrent().subscribe((res:User) => {
@@ -54,6 +60,8 @@ export class AppComponent {
     this._subscriptions.push(this.data.getCartCount().subscribe(res => {
       this.cartCount = res;
     }));
+
+
 //    }));
 
 
