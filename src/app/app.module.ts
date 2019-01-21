@@ -125,7 +125,6 @@ import { VehiclesComponent } from './vehicles/vehicles.component';
 import { PiecesComponent } from './pieces/pieces.component';
 import { ContactComponent } from './contact/contact.component';
 import { ProductItemDetailComponent } from './product-item-detail/product-item-detail.component';
-import { CartComponent } from './cart/cart.component';
 import { LivraisonComponent } from './livraison/livraison.component';
 import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component';
 import { ConditionsGeneralesVenteComponent } from './conditions-generales-vente/conditions-generales-vente.component';
@@ -171,7 +170,6 @@ import { CartDialogComponent } from './cart-dialog/cart-dialog.component';
     ProductItemDetailComponent,
     GalleryComponent,
     ProfileComponent,
-    CartComponent,
     HeaderComponent,
     SearchProductComponent,
     FooterComponent,

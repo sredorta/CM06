@@ -1,5 +1,5 @@
 
-import {IApiUserAuth} from '../_services/api.service';
+import {IApiUserAuth, IApiAttachment, EApiImageSizes} from '../_services/api.service';
 
 /*export enum avatarSizes  {
     full = 0, large = 1, big = 2, medium = 3, small = 4, thumbnail = 5, tinythumbnail = 6
@@ -15,6 +15,7 @@ export class User {
     updated_at:string;
     created_at:string;
     account:string;   
+    avatar:IApiAttachment;
 /*    notifications:number;
     messages:number;
     roles:Array<String>;
@@ -30,6 +31,7 @@ export class User {
             this.updated_at = user.updated_at;
             this.created_at = user.created_at;
             this.account = user.account;
+            this.avatar = user.avatar;
 /*            this.notifications = user.notifications;
             this.messages = user.messages;
             this.roles = user.roles;
@@ -51,6 +53,14 @@ export class User {
     isAdmin() :boolean {
         if (this.account == "Admin") return true;
         return false;
+    }
+
+    getAvatar() {
+        if (this.avatar) {
+            return "url(" + this.avatar.sizes["thumbnail"].url + ")";
+        } else {
+            return "url(./assets/images/userdefault.jpg)";
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////

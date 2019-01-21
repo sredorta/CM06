@@ -166,6 +166,10 @@
     "input.email.hint"              : "Écrivez votre courrier électronique",
     "input.password.label"          : "Mot de passe",
     "input.password.hint"           : "Écrivez votre mot de passe",
+    "input.password.old.label"      : "Ancien mot de passe",
+    "input.password.old.hint"       : "Écrivez votre ancien mot de passe",
+    "input.password.new.label"      : "Nouveau mot de passe",
+    "input.password.new.hint"       : "Écrivez votre nouveau mot de passe",    
     "input.passwordconfirm.label"   : "Confirmation mot de passe",
     "input.passwordconfirm.hint"    : "Confirmez votre mot de passe",
 
@@ -177,6 +181,13 @@
     "validator.areEqual"            : "Mot de passe différents",    
     "validator.tooShortPassword"    : "Mot de passe trop court",
     "validator.validPassword"       : "Le mot de passe doit avoir une minuscule, une majuscule et un numero",
+
+    "profile.update.password.title" : "Modifier le mot de passe",
+    "profile.update.avatar.title"   : "Modifier l'image de profile",
+    "profile.update.submit"         : " Enregistrer",
+
+
+
 
     "brands.admin.search.label"             : "Chercher une marque",
     "brands.admin.search.placeholder"       : "Nom de la  marque",

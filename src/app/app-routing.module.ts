@@ -13,7 +13,6 @@ import { VehiclesComponent } from './vehicles/vehicles.component';
 import { PiecesComponent } from './pieces/pieces.component';
 import { ContactComponent } from './contact/contact.component';
 import { ProfileComponent } from './_auth/profile/profile.component';
-import { CartComponent } from './cart/cart.component';
 import { LivraisonComponent } from './livraison/livraison.component';
 import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component';
 import { ConditionsGeneralesVenteComponent } from './conditions-generales-vente/conditions-generales-vente.component';
@@ -80,12 +79,6 @@ const routes: Routes = [
     path: 'pièces',
     runGuardsAndResolvers: 'always',
     component: PiecesComponent,
-    //canActivate: [AnyGuard]
-  },
-  {
-    path: 'pannier',
-    runGuardsAndResolvers: 'always',
-    component: CartComponent,
     //canActivate: [AnyGuard]
   },
 

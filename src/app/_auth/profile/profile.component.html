@@ -1,3 +1,88 @@
-<p>
-  profile works!
-</p>
+<div class="wrapper">
+<div *ngIf="user" class="profile-container"> 
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate class="form"> 
+      <div fxLayout="row" fxLayout.xs = "column-reverse" fxLayoutGap="20px" fxLayoutAlign="start center" class="width100">
+        <div fxLayout="column" fxLayoutAlign="center center">
+          <div [style.backgroundImage]="user.getAvatar()" class="avatar"></div>
+        </div>   
+        <div fxLayout="column" fxLayoutAlign="center start" fxFlex.xs="100%" style="width:100%">
+            <mat-form-field class="field">
+              <mat-label>{{'input.firstname.label' | translate}}</mat-label>
+              <input matInput formControlName="firstName" placeholder="{{'input.firstname.label' | translate}}" required>
+              <mat-error *ngFor="let validation of validation_messages">
+                <mat-error class="error-message" *ngIf="myForm.get('firstName').hasError(validation.type) && (myForm.get('firstName').dirty || myForm.get('firstName').touched)">{{validation.message | translate}}</mat-error>
+              </mat-error>                 
+            </mat-form-field>          
+            <mat-form-field class="field">
+              <mat-label>{{'input.lastname.label' | translate}}</mat-label>
+              <input matInput formControlName="lastName" placeholder="{{'input.lastname.label' | translate}}" required>
+              <mat-error *ngFor="let validation of validation_messages">
+                <mat-error class="error-message" *ngIf="myForm.get('lastName').hasError(validation.type) && (myForm.get('lastName').dirty || myForm.get('lastName').touched)">{{validation.message | translate}}</mat-error>
+              </mat-error>                 
+            </mat-form-field>
+            <mat-form-field class="field">
+              <mat-label>{{'input.phone.label' | translate}}</mat-label>
+              <input matInput formControlName="mobile" placeholder="06XXXXXXXX" required OnlyNumber inputmode="numeric" pattern="[0-9]*">
+                <mat-error *ngFor="let validation of validation_messages">
+                  <mat-error class="error-message" *ngIf="myForm.get('mobile').hasError(validation.type) && (myForm.get('mobile').dirty || myForm.get('mobile').touched)">{{validation.message | translate}}</mat-error>
+                </mat-error>
+            </mat-form-field>      
+            <mat-form-field  class="field">
+              <mat-label>{{'input.email.label' | translate}}</mat-label>
+              <input matInput formControlName="email" placeholder="{{'input.email.label' | translate}}" required>
+              <mat-error *ngFor="let validation of validation_messages">
+                <mat-error class="error-message" *ngIf="myForm.get('email').hasError(validation.type) && (myForm.get('email').dirty || myForm.get('email').touched)">{{validation.message | translate}}</mat-error>
+              </mat-error>                 
+            </mat-form-field> 
+        </div>
+      </div>  
+      <div fxLayout="column">
+        <p class="expand-form" (click)="showPassword==false?showPassword=true:showPassword=false">{{'profile.update.password.title' | translate}}</p>
+        <div [@detailExpand]="showPassword==true ? 'expanded' : 'collapsed'">
+          <div *ngIf="showPassword" class="password-update">
+            <mat-form-field class="field">
+              <mat-label>{{'input.password.old.label' | translate}}</mat-label>
+              <input matInput formControlName="password_old" placeholder="{{'input.password.old.label' | translate}}" required type="password">
+              <mat-hint>{{'input.password.old.hint' | translate}}</mat-hint>
+              <mat-error *ngFor="let validation of validation_messages">
+                <mat-error class="error-message" *ngIf="myForm.get('matching_passwords_group').get('password').hasError(validation.type) && (myForm.get('matching_passwords_group').get('password').dirty || myForm.get('matching_passwords_group').get('password').touched)">{{validation.message | translate}}</mat-error>
+              </mat-error>                 
+            </mat-form-field>  
+            <div formGroupName="matching_passwords_group" fxLayout="column" fxLayoutAlign="center center">
+                <mat-form-field class="field">
+                  <mat-label>{{'input.password.new.label' | translate}}</mat-label>
+                  <input matInput formControlName="password" placeholder="{{'input.password.new.label' | translate}}" required type="password">
+                  <mat-hint>{{'input.password.new.hint' | translate}}</mat-hint>
+                  <mat-error *ngFor="let validation of validation_messages">
+                    <mat-error class="error-message" *ngIf="myForm.get('matching_passwords_group').get('password').hasError(validation.type) && (myForm.get('matching_passwords_group').get('password').dirty || myForm.get('matching_passwords_group').get('password').touched)">{{validation.message | translate}}</mat-error>
+                  </mat-error>                 
+                </mat-form-field>  
+                <mat-form-field class="field">
+                  <mat-label>{{'input.passwordconfirm.label' | translate}}</mat-label>
+                  <input matInput formControlName="confirm_password" placeholder="{{'input.passwordconfirm.label' | translate}}" required type="password" [errorStateMatcher]="parentErrorStateMatcher">
+                  <mat-hint>{{'input.passwordconfirm.hint' | translate}}</mat-hint>
+                  <mat-error *ngFor="let validation of validation_messages">
+                    <mat-error class="error-message" *ngIf="(myForm.get('matching_passwords_group').hasError(validation.type)||myForm.get('matching_passwords_group').get('confirm_password').hasError(validation.type)) && (myForm.get('matching_passwords_group').get('confirm_password').dirty || myForm.get('matching_passwords_group').get('confirm_password').touched)">{{validation.message | translate}}</mat-error>
+                  </mat-error>                 
+                </mat-form-field>
+              </div>  
+          </div> 
+        </div>
+        <p class="expand-form" (click)="showAvatar==false?showAvatar=true:showAvatar=false">{{'profile.update.avatar.title' | translate}}</p>
+        <div class="avatar-update" [@detailExpand]="showAvatar==true ? 'expanded' : 'collapsed'">
+            <div  *ngIf="showAvatar" fxLayoutAlign="center center" style="width:100%">
+              <app-input-images #avatar [isMultiple]="false" maxSize="100" [crop]="true" fieldName="avatar" [parentForm]="myForm" [defaultImage]="defaultImage" style="margin:5px"></app-input-images>            
+            </div>
+        </div>
+      </div>
+  
+      <div fxLayoutAlign="end center" fxLayoutGap="20px">
+        <button mat-raised-button type="submit" color="primary" ><mat-icon>save</mat-icon>{{'profile.update.submit' | translate}}</button>
+      </div>
+    </form>       
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
