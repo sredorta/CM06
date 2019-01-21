@@ -1,37 +1,41 @@
 <div class="wrapper">
+  <div class="width100 buttons-top" fxLayout="row" fxLayoutAlign="space-between center" >
+      <button mat-button (click)="deleteAuth()" ><mat-icon>delete</mat-icon> {{'profile.update.delete' | translate}}</button>
+      <button mat-button color="primary" (click)="logout()">{{'profile.update.logout' | translate}}</button>
+  </div>
 <div *ngIf="user" class="profile-container"> 
   <div fxLayout="column" fxLayoutAlign="center center">
     <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate class="form left-border"> 
       <p class="title">{{'profile.update.title' | translate}}</p>
-      <div fxLayout="row" fxLayout.xs = "column-reverse" fxLayoutGap="20px" fxLayoutAlign="start center" class="width100">
+      <div fxLayout="row" fxLayout.xs = "column-reverse" fxLayoutGap="20px" fxLayoutAlign="start center" fxLayout.xs="center start" class="width100">
         <div fxLayout="column" fxLayoutAlign="center center">
           <div [style.backgroundImage]="user.getAvatar()" class="avatar"></div>
         </div>   
         <div fxLayout="column" fxLayoutAlign="center start" fxFlex.xs="100%" style="width:100%">
             <mat-form-field class="field">
               <mat-label>{{'input.firstname.label' | translate}}</mat-label>
-              <input matInput formControlName="firstName" placeholder="{{'input.firstname.label' | translate}}" required>
+              <input matInput formControlName="firstName" placeholder="{{'input.firstname.label' | translate}}" required [ngClass]="{'bold' : isModified('firstName')}">
               <mat-error *ngFor="let validation of validation_messages">
                 <mat-error class="error-message" *ngIf="myForm.get('firstName').hasError(validation.type) && (myForm.get('firstName').dirty || myForm.get('firstName').touched)">{{validation.message | translate}}</mat-error>
               </mat-error>                 
             </mat-form-field>          
             <mat-form-field class="field">
               <mat-label>{{'input.lastname.label' | translate}}</mat-label>
-              <input matInput formControlName="lastName" placeholder="{{'input.lastname.label' | translate}}" required>
+              <input matInput formControlName="lastName" placeholder="{{'input.lastname.label' | translate}}" required [ngClass]="{'bold' : isModified('lastName')}">
               <mat-error *ngFor="let validation of validation_messages">
                 <mat-error class="error-message" *ngIf="myForm.get('lastName').hasError(validation.type) && (myForm.get('lastName').dirty || myForm.get('lastName').touched)">{{validation.message | translate}}</mat-error>
               </mat-error>                 
             </mat-form-field>
             <mat-form-field class="field">
               <mat-label>{{'input.phone.label' | translate}}</mat-label>
-              <input matInput formControlName="mobile" placeholder="06XXXXXXXX" required OnlyNumber inputmode="numeric" pattern="[0-9]*">
+              <input matInput formControlName="mobile" placeholder="06XXXXXXXX" required OnlyNumber inputmode="numeric" pattern="[0-9]*" [ngClass]="{'bold' : isModified('mobile')}">
                 <mat-error *ngFor="let validation of validation_messages">
                   <mat-error class="error-message" *ngIf="myForm.get('mobile').hasError(validation.type) && (myForm.get('mobile').dirty || myForm.get('mobile').touched)">{{validation.message | translate}}</mat-error>
                 </mat-error>
             </mat-form-field>      
             <mat-form-field  class="field">
               <mat-label>{{'input.email.label' | translate}}</mat-label>
-              <input matInput formControlName="email" placeholder="{{'input.email.label' | translate}}" required>
+              <input matInput formControlName="email" placeholder="{{'input.email.label' | translate}}" required [ngClass]="{'bold' : isModified('email')}">
               <mat-error *ngFor="let validation of validation_messages">
                 <mat-error class="error-message" *ngIf="myForm.get('email').hasError(validation.type) && (myForm.get('email').dirty || myForm.get('email').touched)">{{validation.message | translate}}</mat-error>
               </mat-error>                 
@@ -50,7 +54,7 @@
                 <mat-error class="error-message" *ngIf="myForm.get('password_old').hasError(validation.type) && (myForm.get('password_old').dirty || myForm.get('password_old').touched)">{{validation.message | translate}}</mat-error>
               </mat-error>                 
             </mat-form-field>  
-            <div formGroupName="matching_passwords_group" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
+            <div formGroupName="matching_passwords_group" fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center start">
                 <mat-form-field class="field">
                   <mat-label>{{'input.password.new.label' | translate}}</mat-label>
                   <input matInput formControlName="password" placeholder="{{'input.password.new.label' | translate}}" type="password">
@@ -79,7 +83,7 @@
       </div>
   
       <div fxLayoutAlign="end center" fxLayoutGap="20px">
-        <button mat-raised-button type="submit" color="primary" ><mat-icon>save</mat-icon>{{'profile.update.submit' | translate}}</button>
+        <button mat-stroked-button type="submit" color="primary" ><mat-icon>save</mat-icon>{{'profile.update.submit' | translate}}</button>
       </div>
     </form>       
     </div>

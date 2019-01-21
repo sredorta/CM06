@@ -186,6 +186,8 @@
     "profile.update.avatar.title"   : "Modifier l'image de profile",
     "profile.update.submit"         : " Enregistrer",
     "profile.update.title"          : "Mon compte",
+    "profile.update.logout"         : "Déconnexión",
+    "profile.update.delete"         : "Supprimer ce compte",
 
 
 

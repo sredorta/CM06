@@ -182,6 +182,12 @@ export class ApiService {
     return this.http.post<any>(environment.apiURL +'/auth/logout', {});
   }
 
+
+  //Deletes current user
+  public deleteAuth() : Observable<any> {
+    return this.http.delete<any>(environment.apiURL +'/auth/deleteAuth');
+  }  
+
   //Resets password and send email to user
   public resetPassword(email:string,access:string) : Observable<any> {
     return this.http.post<any>(environment.apiURL +'/auth/resetpassword', {email,access});

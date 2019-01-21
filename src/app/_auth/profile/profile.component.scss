@@ -14,6 +14,8 @@ $accent: map-get($main-app-theme,accent);
 
 .field {
     width:100%;
+    min-width: 250px;
+    max-width: 300px;
 }
 
 .expand-form {
@@ -52,4 +54,11 @@ $accent: map-get($main-app-theme,accent);
     font-size:30px;
     font-weight: bold;
     opacity:0.4;
+}
+.buttons-top {
+    margin-bottom:15px;
+}
+
+.bold {
+    font-weight: bold;
 }

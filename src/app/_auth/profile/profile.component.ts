@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
 import { OnlyNumberDirective } from '../../_directives/onlyNumber.directive';
 import {CustomValidators, ParentErrorStateMatcher  } from '../../_helpers/custom.validators';
-
+import { Router} from '@angular/router';
 import { User } from '../../_models/user';
 import { ApiService} from '../../_services/api.service';
 import { Subscription } from 'rxjs';
@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit {
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private api : ApiService, private spinner : SpinnerOverlayService) { }
+  constructor(private api : ApiService, private spinner : SpinnerOverlayService, private router : Router) { }
 
   ngOnInit() {
    this.createForm();
@@ -92,6 +92,50 @@ export class ProfileComponent implements OnInit {
     }
 
   }
+
+  logout() {
+    this.spinner.show();
+    this._subscriptions.push(this.api.logout().subscribe(res=> {
+      this.api.setCurrent(null);
+      User.removeToken();
+      this.router.navigate([""]); //Go back home
+      this.spinner.hide();
+    },() =>this.spinner.hide()));    
+  }
+
+  deleteAuth() {
+    this.spinner.show();
+    this._subscriptions.push(this.api.deleteAuth().subscribe(res=> {
+      console.log(res);
+      this.api.setCurrent(null);
+      User.removeToken();
+      this.router.navigate([""]); //Go back home*/
+      this.spinner.hide();
+    },()=> this.spinner.hide()));        
+  }
+
+  //Highlight if we have modified the field
+  isModified(control:string) {
+    if (control == "firstName")
+      if (this.myForm.controls["firstName"].value != this.user.firstName) {
+        return true;
+      }
+    if (control == "lastName")
+      if (this.myForm.controls["lastName"].value != this.user.lastName) {
+        return true;
+      }
+    if (control == "mobile")
+      if (this.myForm.controls["mobile"].value != this.user.mobile) {
+        return true;
+      }
+    if (control == "email")
+      if (this.myForm.controls["email"].value != this.user.email) {
+        return true;
+      }            
+    return false;
+ 
+  }
+
 
   ngOnDestroy() {    
     //Unsubscribe to all
