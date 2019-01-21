@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import 'rxjs/add/operator/do';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { ApiService } from '../_services/api.service';
 
 //We intercept all http requests and parse error and return correct error message
 
@@ -17,7 +18,7 @@ import { Subscription } from 'rxjs';
 export class ErrorInterceptor implements HttpInterceptor {
     private _subscription : Subscription = new Subscription();
 
-    constructor(private bottomSheet: MatBottomSheet, private router : Router,private translate: TranslateService) {}
+    constructor(private bottomSheet: MatBottomSheet, private router : Router,private translate: TranslateService, private api: ApiService) {}
     
     //Opens bottomsheet with error or success message
     openBottomSheet(type:string, code:number,  message:string): void {
@@ -54,24 +55,16 @@ export class ErrorInterceptor implements HttpInterceptor {
                     console.log(error);
                     if (error.error.exception === 'Tymon\\JWTAuth\\Exceptions\\TokenExpiredException' || 
                     error.error.exception === 'Tymon\\JWTAuth\\Exceptions\\TokenBlacklistedException') {
-                        //this.userService.logout();
+                        this.api.setCurrent(null);
                         User.removeToken();
-                        //this.userService.setCurrent(new User(null));  
-                        if (error.error.message != null) 
-                            this.openBottomSheet("error",error.status,this.getText(error.error.message));
-                        else
-                            this.openBottomSheet("error",error.status,trans["interceptor.session.invalid"]);                     
+                        this.openBottomSheet("error",error.status,trans["interceptor.session.invalid"]);                     
                         this.router.navigate(['/login']);  
                     } 
                     if (error.status === 401 || error.status === 403) {
-                        //this.userService.logout();
-                        //User.removeToken();
-                        //this.userService.setCurrent(new User(null));  
                         if (error.error.message != null) 
                             this.openBottomSheet("error",error.status,this.getText(error.error.message));
                         else
                             this.openBottomSheet("error",error.status,trans["interceptor.session.access"]);                     
-                        //this.router.navigate(['/login']);  
                         } else {
                             this.openBottomSheet(error.error.response, error.status, this.getText(error.error.message) || error.statusText);
                     } 

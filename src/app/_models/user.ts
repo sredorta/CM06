@@ -57,10 +57,13 @@ export class User {
 
     getAvatar() {
         if (this.avatar) {
-            return "url(" + this.avatar.sizes["thumbnail"].url + ")";
+            return  this.avatar["thumbnail"].url;
         } else {
-            return "url(./assets/images/userdefault.jpg)";
+            return "./assets/images/userdefault.jpg";
         }
+    }
+    getAvatarUrl() {
+        return "url(" + this.getAvatar() + ")";
     }
 
     /////////////////////////////////////////////////////////////////////////

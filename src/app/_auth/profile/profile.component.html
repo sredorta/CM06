@@ -9,7 +9,7 @@
       <p class="title">{{'profile.update.title' | translate}}</p>
       <div fxLayout="row" fxLayout.xs = "column-reverse" fxLayoutGap="20px" fxLayoutAlign="start center" fxLayout.xs="center start" class="width100">
         <div fxLayout="column" fxLayoutAlign="center center">
-          <div [style.backgroundImage]="user.getAvatar()" class="avatar"></div>
+          <div [style.backgroundImage]="user.getAvatarUrl()" class="avatar"></div>
         </div>   
         <div fxLayout="column" fxLayoutAlign="center start" fxFlex.xs="100%" style="width:100%">
             <mat-form-field class="field">
@@ -77,7 +77,7 @@
         <p class="expand-form" (click)="showAvatar==false?showAvatar=true:showAvatar=false">{{'profile.update.avatar.title' | translate}}</p>
         <div class="avatar-update" [@detailExpand]="showAvatar==true ? 'expanded' : 'collapsed'">
             <div  *ngIf="showAvatar" fxLayoutAlign="center center" style="width:100%">
-              <app-input-images #avatar [isMultiple]="false" maxSize="100" [crop]="true" fieldName="avatar" [parentForm]="myForm" [defaultImage]="defaultImage" style="margin:5px"></app-input-images>            
+              <app-input-images #avatar [isMultiple]="false" maxSize="200" [crop]="true" fieldName="avatar" [parentForm]="myForm" [defaultImage]="defaultImage" style="margin:5px" [images]="[user.getAvatar()]"></app-input-images>            
             </div>
         </div>
       </div>

@@ -45,6 +45,8 @@ export class AppComponent {
     }));
 
     this._subscriptions.push(this.api.getCurrent().subscribe((res:User) => {
+      console.log("USER CHANGE IN APP !!!! : ");
+      console.log(res);
       this.user = res; 
       //this.loading = false;
     }));

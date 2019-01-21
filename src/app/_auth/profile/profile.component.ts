@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
 import { OnlyNumberDirective } from '../../_directives/onlyNumber.directive';
 import {CustomValidators, ParentErrorStateMatcher  } from '../../_helpers/custom.validators';
@@ -8,7 +8,7 @@ import { ApiService} from '../../_services/api.service';
 import { Subscription } from 'rxjs';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {SpinnerOverlayService} from '../../_library/spinner-overlay.service';
-
+import {InputImagesComponent} from '../../_library/input-images/input-images.component';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -22,6 +22,7 @@ import {SpinnerOverlayService} from '../../_library/spinner-overlay.service';
   ],      
 })
 export class ProfileComponent implements OnInit {
+  @ViewChild('avatar') inputImage : InputImagesComponent;
   user : User;
   myForm: FormGroup; 
   parentErrorStateMatcher = new ParentErrorStateMatcher();
@@ -38,12 +39,17 @@ export class ProfileComponent implements OnInit {
    this.createForm();
    this._subscriptions.push(this.api.getAuthUser().subscribe(res => {
       this.user = new User(res);
-      this.myForm.controls["firstName"].setValue(this.user.firstName);
-      this.myForm.controls["lastName"].setValue(this.user.lastName);
-      this.myForm.controls["email"].setValue(this.user.email);
-      this.myForm.controls["mobile"].setValue(this.user.mobile);
+      this.setForm();
     }));
   }
+
+  setForm() {
+    this.myForm.controls["firstName"].setValue(this.user.firstName);
+    this.myForm.controls["lastName"].setValue(this.user.lastName);
+    this.myForm.controls["email"].setValue(this.user.email);
+    this.myForm.controls["mobile"].setValue(this.user.mobile);
+  }
+
   createForm() {
     this.myForm =  new FormGroup({    
       firstName: new FormControl('', Validators.compose([
@@ -90,6 +96,21 @@ export class ProfileComponent implements OnInit {
       console.log(this.myForm.controls["password_old"].errors);
       return;
     }
+    //Case of reset avatar
+    if (result.avatar == undefined) {
+      result.avatar = "reset";
+    }
+    this.spinner.show();
+    this._subscriptions.push(this.api.updateUser(result.firstName, result.lastName, result.email, result.mobile, result.password_old, result.matching_passwords_group.password, result.avatar).subscribe(res => {
+      console.log(res);
+      this._subscriptions.push(this.api.getAuthUser().subscribe(res => {
+        console.log(res);
+        this.api.setCurrent(res);
+        this.user = new User(res);
+        this.setForm();
+        this.spinner.hide();
+      },()=>this.spinner.hide()))
+    },()=> {if (this.spinner.visible) this.spinner.hide();}));
 
   }
 

@@ -188,6 +188,23 @@ export class ApiService {
     return this.http.delete<any>(environment.apiURL +'/auth/deleteAuth');
   }  
 
+  //Updates current user
+  public updateUser(firstName:string,lastName:string,email:string,mobile:string,password_old:string, password:string, avatar: string) {
+    let data = {
+      'firstName' : firstName,
+      'lastName'  : lastName,
+      'email'     : email,
+      'mobile'    : mobile,
+      'password_old'  : password_old,
+      'password_new'  : password,
+      'avatar'    : avatar
+    };
+    console.log("Sending data: " );
+    console.log(data); 
+    return this.http.post<any>(environment.apiURL +'/auth/update', data);
+  }
+
+
   //Resets password and send email to user
   public resetPassword(email:string,access:string) : Observable<any> {
     return this.http.post<any>(environment.apiURL +'/auth/resetpassword', {email,access});
