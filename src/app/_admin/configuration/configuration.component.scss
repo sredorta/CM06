@@ -1,0 +1,30 @@
+@import "../../../themes.scss";
+
+$primary: map-get($admin-theme,primary);
+$accent: map-get($admin-theme,accent);
+
+.wrapper {
+    padding:10px;
+}
+.main-title {
+    font-size:30px;
+    opacity:0.6;
+    margin-bottom:0px;
+}
+
+.main-subtitle {
+    font-size:20px;
+    line-height: 21px;
+    opacity:0.8;
+    color:mat-color($primary);
+    opacity:0.6;
+    border-bottom: 1px solid;
+}
+form {
+    max-width: 500px;
+}
+
+.highlight {
+    font-weight: bold;
+    font-size:16px;
+}

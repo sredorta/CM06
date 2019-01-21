@@ -17,6 +17,9 @@ import { LivraisonComponent } from './livraison/livraison.component';
 import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component';
 import { ConditionsGeneralesVenteComponent } from './conditions-generales-vente/conditions-generales-vente.component';
 import { PayementSecuriseComponent } from './payement-securise/payement-securise.component';
+import { ConfigurationComponent } from './_admin/configuration/configuration.component';
+
+
 
 const routes: Routes = [
   {
@@ -63,6 +66,14 @@ const routes: Routes = [
     component: ProductsComponent,
     //canActivate: [AdminGuard]
   },    
+
+  {
+    path: 'admin-configuration',
+    runGuardsAndResolvers: 'always',
+    component: ConfigurationComponent,
+    //canActivate: [AdminGuard]
+  },  
+
   {
     path: 'admin-product-create',
     runGuardsAndResolvers: 'always',

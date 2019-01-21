@@ -158,6 +158,10 @@ export class ApiService {
     return this.http.get<IApiConfig[]>(environment.apiURL + '/config').map(res => <IApiConfig[]>res);
   }
 
+  public setConfig(data:any) : Observable<IApiConfig[]> {
+    return this.http.post<IApiConfig[]>(environment.apiURL + '/config',data).map(res => <IApiConfig[]>res)
+  }
+
 
   public login(email:string, password:string, keepconnected:boolean, access:string) : Observable<IApiLogin> {
     return this.http.post<IApiLogin>(environment.apiURL + '/auth/login', {email, password, keepconnected,access}).map(res => <IApiLogin>res);;

@@ -131,6 +131,7 @@ import { ConditionsGeneralesVenteComponent } from './conditions-generales-vente/
 import { PayementSecuriseComponent } from './payement-securise/payement-securise.component';
 import { environment } from '../environments/environment';
 import { CartDialogComponent } from './cart-dialog/cart-dialog.component';
+import { ConfigurationComponent } from './_admin/configuration/configuration.component';
 
 
 
@@ -177,7 +178,8 @@ import { CartDialogComponent } from './cart-dialog/cart-dialog.component';
     MentionsLegalesComponent,
     ConditionsGeneralesVenteComponent,
     PayementSecuriseComponent,
-    CartDialogComponent
+    CartDialogComponent,
+    ConfigurationComponent
     //End of library
   ],
   imports: [

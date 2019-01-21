@@ -56,6 +56,7 @@
               <mat-expansion-panel-header>
                 <mat-panel-title>{{'app.menu.admin' | translate}}</mat-panel-title>
               </mat-expansion-panel-header>   
+              <a mat-list-item (click)="snav.toggle()" class="sidenav-item" routerLink="admin-configuration">{{'app.menu.configuration' | translate}}</a>
               <a mat-list-item (click)="snav.toggle()" class="sidenav-item" routerLink="admin-products">{{'app.menu.products' | translate}}</a>
               <a mat-list-item (click)="snav.toggle()" class="sidenav-item" routerLink="admin-members">{{'app.menu.members' | translate}}</a>
           </mat-expansion-panel>
