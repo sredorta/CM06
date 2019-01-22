@@ -31,6 +31,21 @@ export class ConfigurationComponent implements OnInit {
       ])),
       message_text: new FormControl('', Validators.compose([
       ])),
+      delivery1: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.max(1000),
+        Validators.min(1)
+      ])), 
+      delivery2: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.max(1000),
+        Validators.min(1)
+      ])),
+      delivery3: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.max(1000),
+        Validators.min(1)
+      ])),
       address: new FormControl('', Validators.compose([
         Validators.minLength(5)
       ])),
@@ -64,6 +79,9 @@ export class ConfigurationComponent implements OnInit {
   setValues() {
     this.myForm.controls["message_title"].setValue(this.config.get(EApiConfigKeys.message_title));
     this.myForm.controls["message_text"].setValue(this.config.get(EApiConfigKeys.message_text));
+    this.myForm.controls["delivery1"].setValue(this.config.get(EApiConfigKeys.delivery1));
+    this.myForm.controls["delivery2"].setValue(this.config.get(EApiConfigKeys.delivery2));
+    this.myForm.controls["delivery3"].setValue(this.config.get(EApiConfigKeys.delivery3));
     this.myForm.controls["address"].setValue(this.config.get(EApiConfigKeys.address));
     this.myForm.controls["latitude"].setValue(this.config.get(EApiConfigKeys.latitude));
     this.myForm.controls["longitude"].setValue(this.config.get(EApiConfigKeys.longitude));
@@ -88,6 +106,18 @@ export class ConfigurationComponent implements OnInit {
         }
       if (control == "message_text")
         if (this.myForm.controls["message_text"].value != this.config.get(EApiConfigKeys.message_text)) {
+          return true;
+        }
+      if (control == "delivery1")
+        if (this.myForm.controls["delivery1"].value != this.config.get(EApiConfigKeys.delivery1)) {
+          return true;
+        }
+      if (control == "delivery2")
+        if (this.myForm.controls["delivery2"].value != this.config.get(EApiConfigKeys.delivery2)) {
+          return true;
+        }
+      if (control == "delivery3")
+        if (this.myForm.controls["delivery1"].value != this.config.get(EApiConfigKeys.delivery3)) {
           return true;
         }
       if (control == "address")

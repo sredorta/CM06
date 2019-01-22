@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Cart, CartItem} from '../_models/cart';
 import {Product} from '../_models/product';
 import {DataService} from '../_services/data.service';
+import {Config, EApiConfigKeys} from '../_models/config';
 import {ApiService, IApiProduct, EApiImageSizes} from '../_services/api.service';
 import {SpinnerOverlayService} from '../_library/spinner-overlay.service';
 import { Subscription } from 'rxjs';
@@ -11,6 +12,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./cart-dialog.component.scss']
 })
 export class CartDialogComponent implements OnInit {
+  config : Config = new Config(this.data.getConfig());
   cart : Cart = new Cart(null);
   products : Product[] = [];
   size : EApiImageSizes = EApiImageSizes.medium;  //We use medium as it´s already loaded
@@ -42,9 +44,14 @@ export class CartDialogComponent implements OnInit {
     this.cart.fromStorage();
     let i = 0;
     for (let item of this.cart.data) {
-      this.products.push(new Product(this.data.getProducts().find(obj => obj.id == item.id)));
-      //this.count[i] = item.quantity;
-      i = i + 1;
+      let obj = this.data.getProducts().find(obj => obj.id == item.id);
+      if (obj != undefined) {
+        this.products.push(new Product(this.data.getProducts().find(obj => obj.id == item.id)));
+        i = i + 1;
+      } else {
+        //Product has been removed so we update the cart
+        this.cart.remove(item);
+      }
     }
     console.log("This is your cart !!!");
     console.log(this.cart);
@@ -76,9 +83,15 @@ export class CartDialogComponent implements OnInit {
   }
 
   //Estimate the price depending on total weight
-  //TODO
   getLivraison() {
-    return 100;
+    if (this.cart.getWeight()<=2) 
+      return this.config.get(EApiConfigKeys.delivery1);
+    if (this.cart.getWeight()<=10)  
+      return this.config.get(EApiConfigKeys.delivery2);
+    if (this.cart.getWeight()<=30)
+      return this.config.get(EApiConfigKeys.delivery3);  
+
+    //return this.cart.getWeight();
   }
   getTotal() {
     let result = 0;

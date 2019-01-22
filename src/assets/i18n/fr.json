@@ -191,8 +191,13 @@
     "input.config.timetable2.label" : "Horaires 2",
     "input.config.timetable2.hint"  : "Deuxième ligne des horaires",
     "input.config.timetable3.label" : "Horaires 3",
-    "input.config.timetable3.hint"  : "Troisième ligne des horaires",    
-
+    "input.config.timetable3.hint"  : "Troisième ligne des horaires",  
+    "input.config.delivery1.label"  : "Livraison <2Kg",
+    "input.config.delivery1.hint"   : "Frais de livraison pour commande <2Kg",
+    "input.config.delivery2.label"  : "Livraison 2Kg - 10Kg",
+    "input.config.delivery2.hint"   : "Frais de livraison pour commande 2Kg - 10Kg",    
+    "input.config.delivery3.label"  : "Livraison >10Kg",  
+    "input.config.delivery3.hint"   : "Frais de livraison pour commande > 10Kg",
 
 
     "validator.required"            : "Champ obligatoire",
@@ -214,8 +219,12 @@
     "profile.update.logout"         : "Déconnexión",
     "profile.update.delete"         : "Supprimer ce compte",
 
-
-
+    "config.admin.title"                    : "Configuratión",
+    "config.admin.subtitle.message"         : "Message", 
+    "config.admin.subtitle.delivery"        : "Frais de livraison",
+    "config.admin.subtitle.address"         : "Adresse et google maps",
+    "config.admin.subtitle.phone"           : "Telephone et email",
+    "config.admin.subtitle.timetable"       : "Horaires d'overture",   
 
     "brands.admin.search.label"             : "Chercher une marque",
     "brands.admin.search.placeholder"       : "Nom de la  marque",

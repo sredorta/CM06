@@ -2,11 +2,13 @@ import {Product} from './product';
 
 export class CartItem {
     id:number;
+    weight:number;
     quantity:number;
 
     constructor(elem: any) {
         if (elem !== null) {
             this.id = elem.id;
+            this.weight = elem.weight;
             this.quantity = elem.quantity;
         } else {
             this.id = null;
@@ -19,7 +21,6 @@ export class CartItem {
 export class Cart {
     data : CartItem[] = [];
 
- 
     constructor(items: CartItem[] = null) {
         if (items != null)
             for (let item of items ) {
@@ -95,6 +96,15 @@ export class Cart {
         }
     }
 
+    //Calculates the weight of the cart
+    getWeight() {
+        let weight = 0;
+        for (let item of this.data) {
+            console
+            weight = weight + (item.quantity*item.weight);
+        }
+        return weight;
+    }
 
 
 }

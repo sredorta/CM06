@@ -4,6 +4,9 @@ import { MESSAGES_CONTAINER_ID } from "@angular/cdk/a11y";
 export enum EApiConfigKeys  {
     message_title = "message_title", 
     message_text = "message_text", 
+    delivery1 = "delivery1",
+    delivery2 = "delivery2",
+    delivery3 = "delivery3",
     address = "address", 
     email = "email", 
     phone = "phone", 
@@ -50,6 +53,9 @@ export class Config {
     timetable3:string;
     message_title : string;
     message_text : string;
+    delivery1: number;
+    delivery2:number;
+    delivery3:number;
     message_updated : string;
     hasMessage : boolean;
 
@@ -67,6 +73,9 @@ export class Config {
             this.message_title = this.get(EApiConfigKeys.message_title);
             this.message_text = this.get(EApiConfigKeys.message_text);
             this.message_updated = this.get(EApiConfigKeys.message_text,"modified");
+            this.delivery1 = parseFloat(this.get(EApiConfigKeys.delivery1));
+            this.delivery2 = parseFloat(this.get(EApiConfigKeys.delivery2));
+            this.delivery3 = parseFloat(this.get(EApiConfigKeys.delivery3));
             this.hasMessage  = (this.message_text!=null||this.message_title!=null)?true:false;  
             this.phone = this.get(EApiConfigKeys.phone);
             this.email = this.get(EApiConfigKeys.email);

@@ -1,8 +1,8 @@
 <div class="admin-theme">  
   <div class="wrapper" fxLayout="column"> 
     <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate> 
-      <p class="main-title">Configuratión</p>  
-      <p class="main-subtitle">Message</p>    
+      <p class="main-title">{{'config.admin.title' | translate}}</p>  
+      <p class="main-subtitle">{{'config.admin.subtitle.message' | translate}}</p>    
             <p>
                 <mat-form-field appearance="outline" style="width:100%">
                     <mat-label>{{'input.config.title.label' | translate}}</mat-label>
@@ -17,13 +17,46 @@
                   <mat-hint>{{'input.config.subtitle.hint' | translate}}</mat-hint>                
                 </mat-form-field>
             </p>       
-
-      <p class="main-subtitle">Adresse et google maps</p>
+      <p class="main-subtitle">{{'config.admin.subtitle.delivery' | translate}}</p>
+            <p>
+                <mat-form-field appearance="outline" style="width:100%">
+                    <mat-label>{{'input.config.delivery1.label' | translate}}</mat-label>
+                    <input matInput formControlName="delivery1" placeholder="{{'input.config.delivery1.label' | translate}}" required OnlyNumber inputmode="numeric" [ngClass]="{'highlight' : isModified('delivery1')}">
+                    <mat-hint>{{'input.config.delivery1.hint' | translate}}</mat-hint> 
+                    <mat-icon matSuffix>euro_symbol</mat-icon>
+                    <mat-error *ngFor="let validation of validation_messages">
+                        <mat-error class="error-message" *ngIf="myForm.get('delivery1').hasError(validation.type) && (myForm.get('delivery1').dirty || myForm.get('delivery1').touched)">{{validation.message | translate}}</mat-error>
+                    </mat-error>                 
+                </mat-form-field>
+            </p>   
+            <p>
+                    <mat-form-field appearance="outline" style="width:100%">
+                        <mat-label>{{'input.config.delivery2.label' | translate}}</mat-label>
+                        <input matInput formControlName="delivery2" placeholder="{{'input.config.delivery2.label' | translate}}" required OnlyNumber inputmode="numeric" [ngClass]="{'highlight' : isModified('delivery2')}">
+                        <mat-hint>{{'input.config.delivery2.hint' | translate}}</mat-hint> 
+                        <mat-icon matSuffix>euro_symbol</mat-icon>
+                        <mat-error *ngFor="let validation of validation_messages">
+                            <mat-error class="error-message" *ngIf="myForm.get('delivery2').hasError(validation.type) && (myForm.get('delivery2').dirty || myForm.get('delivery2').touched)">{{validation.message | translate}}</mat-error>
+                        </mat-error>                 
+                    </mat-form-field>
+            </p>  
+            <p>
+                    <mat-form-field appearance="outline" style="width:100%">
+                        <mat-label>{{'input.config.delivery3.label' | translate}}</mat-label>
+                        <input matInput formControlName="delivery3" placeholder="{{'input.config.delivery3.label' | translate}}" required OnlyNumber inputmode="numeric" [ngClass]="{'highlight' : isModified('delivery3')}">
+                        <mat-hint>{{'input.config.delivery3.hint' | translate}}</mat-hint> 
+                        <mat-icon matSuffix>euro_symbol</mat-icon>
+                        <mat-error *ngFor="let validation of validation_messages">
+                            <mat-error class="error-message" *ngIf="myForm.get('delivery3').hasError(validation.type) && (myForm.get('delivery3').dirty || myForm.get('delivery3').touched)">{{validation.message | translate}}</mat-error>
+                        </mat-error>                 
+                    </mat-form-field>
+            </p>        
+      <p class="main-subtitle">{{'config.admin.subtitle.address' | translate}}</p>
             <p>  
                 <mat-form-field appearance="outline" style="width:100%">
                   <mat-label>{{'input.config.address.label' | translate}}</mat-label>
                   <textarea matInput formControlName="address" placeholder="{{'input.config.address.label' | translate}}" autocomplete="off" required  [ngClass]="{'highlight' : isModified('address')}"></textarea>
-                  <mat-hint>{{'input.address.subtitle.hint' | translate}}</mat-hint>         
+                  <mat-hint>{{'input.config.address.hint' | translate}}</mat-hint>         
                   <mat-error *ngFor="let validation of validation_messages">
                       <mat-error class="error-message" *ngIf="myForm.get('address').hasError(validation.type) && (myForm.get('address').dirty || myForm.get('address').touched)">{{validation.message | translate}}</mat-error>
                   </mat-error>         
@@ -31,7 +64,7 @@
             </p> 
             <p>
                 <mat-form-field appearance="outline" style="width:100%">
-                    <mat-label>{{'input.latitude.label' | translate}}</mat-label>
+                    <mat-label>{{'input.config.latitude.label' | translate}}</mat-label>
                     <input matInput formControlName="latitude" placeholder="{{'input.config.latitude.label' | translate}}" required OnlyNumber inputmode="numeric" [ngClass]="{'highlight' : isModified('latitude')}">
                     <mat-hint>{{'input.config.latitude.hint' | translate}}</mat-hint> 
                     <mat-error *ngFor="let validation of validation_messages">
@@ -59,7 +92,7 @@
                     </mat-error>               
                 </mat-form-field>
             </p>                           
-      <p class="main-subtitle">Telephone et email</p>
+      <p class="main-subtitle">{{'config.admin.subtitle.phone' | translate}}</p>
             <p>
                 <mat-form-field appearance="outline" style="width:100%">
                     <mat-label>{{'input.config.phone.label' | translate}}</mat-label>
@@ -80,7 +113,7 @@
                     </mat-error>               
                 </mat-form-field>
             </p>       
-      <p class="main-subtitle">Horaires</p>
+      <p class="main-subtitle">{{'config.admin.subtitle.timetable' | translate}}</p>
             <p>
                 <mat-form-field appearance="outline" style="width:100%">
                     <mat-label>{{'input.config.timetable1.label' | translate}}</mat-label>

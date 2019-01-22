@@ -54,7 +54,7 @@
                 <mat-label>{{'product.admin.create.input.weight.label' | translate}}</mat-label>
                 <input matInput formControlName="weight" placeholder="{{'product.admin.create.input.weight.placeholder' | translate}}" autocomplete="off" OnlyNumber inputmode="numeric" maxlength="9" CurrencyFormatter>
                 <mat-hint>{{'product.admin.create.input.weight.hint' | translate}}</mat-hint>
-                <mat-icon matSuffix>euro_symbol</mat-icon>
+                <p matSuffix style="font-size:18px;font-weight:bold;margin:3px;">Kg</p>
                 <mat-error *ngFor="let validation of validation_messages">
                   <mat-error class="error-message" *ngIf="myForm.get('weight').hasError(validation.type) && (myForm.get('weight').dirty || myForm.get('weight').touched)">{{validation.message | translate}}</mat-error>
                 </mat-error>                 
