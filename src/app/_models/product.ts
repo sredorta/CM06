@@ -9,13 +9,16 @@ export class Product {
     discount:number;
     stock: number;
     isVehicle: boolean;
+    isNew : boolean;
+    isDeliverable: boolean;
+    weight:number;
     brand: string;
     brand_url:string;
     model: string;
     brand_id: number;
     model_id: number;
     images: IApiAttachment[];
-    weight: number = 0; //Searching weight
+    fweight: number = 0; //Searching weight
 
 
     constructor(product: IApiProduct) {
@@ -27,6 +30,9 @@ export class Product {
             this.discount = isNaN(product.discount)?0:product.discount;
             this.stock = product.stock;
             this.isVehicle = product.isVehicle;
+            this.isNew = product.isNew;
+            this.isDeliverable = product.isDeliverable;
+            this.weight = product.weight;
             this.brand = product.brand;
             this.brand_url = product.brand_url;
             this.model = product.model;

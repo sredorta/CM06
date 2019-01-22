@@ -71,7 +71,7 @@ export class SearchProductComponent implements OnInit {
     this._dataSource.filterPredicate = function(data, filter: string): boolean {
       //Do not process when two short filter
       if (filter.length<=1) {
-        data.weight = 0;
+        data.fweight = 0;
         return true;
       }
 
@@ -86,7 +86,7 @@ export class SearchProductComponent implements OnInit {
             weight = weight + obj._find(data.model,word)*3;
         }
       }
-      data.weight = weight;  //Add weight of search in data
+      data.fweight = weight;  //Add weight of search in data
       if (weight>0)
        return true;
       else
@@ -112,7 +112,7 @@ export class SearchProductComponent implements OnInit {
   orderBy(order: string) {
     switch (order) {
          case "match":
-            this._dataSource.filteredData.sort((a, b) => b.weight - a.weight); //Order by weights
+            this._dataSource.filteredData.sort((a, b) => b.fweight - a.fweight); //Order by weights
             break;
          case "pricedown" :
             this._dataSource.filteredData.sort((a, b) => b.getFinalPrice() - a.getFinalPrice());
@@ -121,7 +121,7 @@ export class SearchProductComponent implements OnInit {
             this._dataSource.filteredData.sort((a, b) => a.getFinalPrice() - b.getFinalPrice());
             break;
          default :
-            this._dataSource.filteredData.sort((a, b) => b.weight - a.weight); //Order by weights
+            this._dataSource.filteredData.sort((a, b) => b.fweight - a.fweight); //Order by weights
     }
   }
  

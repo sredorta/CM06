@@ -57,10 +57,18 @@ export class ProductCreateUpdateComponent implements OnInit {
         Validators.maxLength(7)
       ])),  
       stock: new FormControl('', Validators.compose([])),    
-      isVehicle: new FormControl('', Validators.compose([])),  
+      isVehicle: new FormControl('', Validators.compose([])), 
+      isNew: new FormControl('', Validators.compose([])), 
+      isDeliverable: new FormControl('', Validators.compose([])), 
+      weight: new FormControl('', Validators.compose([
+        Validators.min(0),
+        Validators.max(500)
+      ])),  
       images: new FormControl(null,null),
     });   
     this.myForm.controls['isVehicle'].setValue(false); 
+    this.myForm.controls['isNew'].setValue(false); 
+    this.myForm.controls['isDeliverable'].setValue(true); 
 
     //If there is an input product then we set all fields
     if (this.currentProduct) {
@@ -91,6 +99,9 @@ export class ProductCreateUpdateComponent implements OnInit {
     this.product.images = this.images;
     this.myForm.valueChanges.scan
     this.myForm.controls['isVehicle'].setValue(this.product.isVehicle);
+    this.myForm.controls['isNew'].setValue(this.product.isNew); 
+    this.myForm.controls['isDeliverable'].setValue(this.product.isDeliverable); 
+    this.myForm.controls['weight'].setValue(this.product.weight); 
   }
 
 
@@ -108,10 +119,11 @@ export class ProductCreateUpdateComponent implements OnInit {
       return;
     }
     if (!value.discount) value.discount = 0;
+    if (!value.weight) value.weight = 0;
     //this.myForm.disable();
     this.spinner.show();
     if (!this.currentProduct)
-      this._subscriptions.push(this.api.createProduct(this.model.id,value.title,value.description,value.price,value.discount,value.stock,value.isVehicle,value.images).subscribe((res: IApiProduct) => {
+      this._subscriptions.push(this.api.createProduct(this.model.id,value.title,value.description,value.price,value.discount,value.stock,value.isVehicle,value.isNew, value.isDeliverable, value.weight,value.images).subscribe((res: IApiProduct) => {
         this.spinner.hide();
         this.products = this.data.getProducts();
         this.products.push(res);
@@ -120,7 +132,7 @@ export class ProductCreateUpdateComponent implements OnInit {
       }, () => this.spinner.hide()));
     else {
       //Case of update product
-      this._subscriptions.push(this.api.updateProduct(this.currentProduct.id,value.title,value.description,value.price,value.discount,value.stock,value.isVehicle,value.images).subscribe((res: IApiProduct) => {
+      this._subscriptions.push(this.api.updateProduct(this.currentProduct.id,value.title,value.description,value.price,value.discount,value.stock,value.isVehicle,value.isNew, value.isDeliverable, value.weight, value.images).subscribe((res: IApiProduct) => {
         this.spinner.hide();
         this.products = this.data.getProducts();
         const itemIndex = this.products.findIndex(obj => obj.id === this.currentProduct.id);

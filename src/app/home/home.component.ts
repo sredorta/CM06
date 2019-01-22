@@ -47,11 +47,8 @@ export class HomeComponent implements OnInit {
       this.route.navigate(route);  
   }
 
-  //Gets correct image size depending if is mobile or not
+  //Gets correct image 
   getImage(image:string) {
-    if (this.isMobile)
-      return "./assets/images/small/" + image;
-    else 
       return "./assets/images/" + image;  
   }
 }

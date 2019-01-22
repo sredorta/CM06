@@ -129,7 +129,7 @@ export class ProductsComponent implements OnInit {
     this.dataSource.filterPredicate = function(data, filter: string): boolean {
       //Do not process when two short filter
       if (filter.length<=1) {
-        data.weight=0;
+        data.fweight=0;
         return true;
       }
 
@@ -144,7 +144,7 @@ export class ProductsComponent implements OnInit {
             weight = weight + obj._find(data.model,word)*3;
         }
       }
-      data.weight = weight;  //Add weight of search in data
+      data.fweight = weight;  //Add weight of search in data
       if (weight>0)
        return true;
       else
@@ -161,8 +161,8 @@ export class ProductsComponent implements OnInit {
   applyFilter(filterValue: string) {
      if(filterValue!== null && filterValue !== "") {
       this.dataSource.filter = filterValue.trim().toLowerCase();
-      this.dataSource.filteredData.sort((a, b) => b.weight - a.weight); //Order by weights
-      this.dataSource.data.sort((a, b) => b.weight - a.weight);
+      this.dataSource.filteredData.sort((a, b) => b.fweight - a.fweight); //Order by weights
+      this.dataSource.data.sort((a, b) => b.fweight - a.fweight);
       console.log(this.dataSource.filteredData);
       this.productsDisplayed = this.dataSource.filteredData.length;
       this.lastProductFilter = filterValue;

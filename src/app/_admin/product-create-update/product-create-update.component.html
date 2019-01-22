@@ -43,6 +43,23 @@
             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
                 <mat-slide-toggle formControlName="isVehicle">{{'product.admin.create.input.vehicle' | translate}}</mat-slide-toggle>
             </div>     
+
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+                <mat-slide-toggle formControlName="isNew">{{'product.admin.create.input.new' | translate}}</mat-slide-toggle>
+            </div>  
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+                <mat-slide-toggle formControlName="isDeliverable">{{'product.admin.create.input.deliverable' | translate}}</mat-slide-toggle>
+            </div>  
+            <mat-form-field appearance="outline" style="width:100%">
+                <mat-label>{{'product.admin.create.input.weight.label' | translate}}</mat-label>
+                <input matInput formControlName="weight" placeholder="{{'product.admin.create.input.weight.placeholder' | translate}}" autocomplete="off" OnlyNumber inputmode="numeric" maxlength="9" CurrencyFormatter>
+                <mat-hint>{{'product.admin.create.input.weight.hint' | translate}}</mat-hint>
+                <mat-icon matSuffix>euro_symbol</mat-icon>
+                <mat-error *ngFor="let validation of validation_messages">
+                  <mat-error class="error-message" *ngIf="myForm.get('weight').hasError(validation.type) && (myForm.get('weight').dirty || myForm.get('weight').touched)">{{validation.message | translate}}</mat-error>
+                </mat-error>                 
+            </mat-form-field> 
+
             <app-input-images #imagesCreate [isMultiple]="true" maxSize="800" [crop]="false" fieldName="images" [parentForm]="myForm" defaultImage="./assets/images/no-photo-available.jpg" [images]="images" [disabled] = "myForm.disabled"></app-input-images>            
             <div fxLayout="column" fxLayoutAlign="center center" fxFlex="1 1 auto">
                 <div fxLayoutAlign="center center" fxLayoutGap="20px" fxFlex="1 1 auto">

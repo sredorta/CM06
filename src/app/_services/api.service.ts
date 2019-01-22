@@ -119,6 +119,9 @@ export interface IApiProduct {
   discount:number;
   stock: number;
   isVehicle : boolean;
+  isNew : boolean;
+  isDeliverable : boolean;
+  weight : number;
   created_at: string;  
   updated_at: string;
   brand:string;
@@ -275,7 +278,7 @@ export class ApiService {
     return this.http.post<IApiModel>(environment.apiURL +'/models/update', {"id":id, "name":name}).map(res => <IApiModel>res);
   }  
 
-  public createProduct(idModel:number,title:string,description:string,price:number,discount:number,stock:number,isVehicle:boolean,images:Array<string>) : Observable<IApiProduct> {
+  public createProduct(idModel:number,title:string,description:string,price:number,discount:number,stock:number,isVehicle:boolean, isNew:boolean, isDeliverable:boolean, weight:number, images:Array<string>) : Observable<IApiProduct> {
     let data = {
       'model_id'    : idModel,
       'title'       : title,
@@ -284,12 +287,15 @@ export class ApiService {
       'discount'    : discount,
       'stock'       : stock,
       'isVehicle'   : isVehicle,
+      'isNew'       : isNew,
+      'isDeliverable': isDeliverable,
+      'weight'      : weight,
       'images'      : images
     };
     return this.http.post<IApiProduct>(environment.apiURL +'/products/create',data ).map(res => <IApiProduct>res);
   }
 
-  public updateProduct(idProduct:number,title:string,description:string,price:number,discount:number,stock:number,isVehicle:boolean,images:Array<string>) : Observable<IApiProduct> {
+  public updateProduct(idProduct:number,title:string,description:string,price:number,discount:number,stock:number,isVehicle:boolean, isNew:boolean, isDeliverable:boolean, weight:number, images:Array<string>) : Observable<IApiProduct> {
     let data = {
       'id'          : idProduct,
       'title'       : title,
@@ -298,6 +304,9 @@ export class ApiService {
       'discount'    : discount,
       'stock'       : stock,
       'isVehicle'   : isVehicle,
+      'isNew'       : isNew,
+      'isDeliverable': isDeliverable,
+      'weight'      : weight,
       'images'      : images
     };
     console.log("UPDATE");
