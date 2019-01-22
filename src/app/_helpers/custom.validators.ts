@@ -19,6 +19,9 @@ export class CustomValidators {
         { type: 'areEqual', message: 'validator.areEqual' },
         { type: 'tooShortPassword', message: 'validator.tooShortPassword'},
         { type: 'validPassword', message: 'validator.validPassword' },
+        { type: 'pattern', message: 'validator.pattern'},
+        { type: 'min', message: 'validator.min'},
+        { type: 'max', message: 'validator.max'}
       ]
 
   }

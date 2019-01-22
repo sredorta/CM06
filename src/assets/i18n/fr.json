@@ -206,6 +206,9 @@
     "validator.areEqual"            : "Mot de passe différents",    
     "validator.tooShortPassword"    : "Mot de passe trop court",
     "validator.validPassword"       : "Le mot de passe doit avoir une minuscule, une majuscule et un numero",
+    "validator.pattern"             : "Format incorrecte",
+    "validator.min"                 : "Numero trop petit",
+    "validator.max"                 : "Numero trop grand",
 
     "profile.update.password.title" : "Modifier le mot de passe",
     "profile.update.avatar.title"   : "Modifier l'image de profile",

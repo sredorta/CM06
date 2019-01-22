@@ -73,7 +73,7 @@
             <p>
                 <mat-form-field appearance="outline" style="width:100%">
                     <mat-label>{{'input.config.email.label' | translate}}</mat-label>
-                    <input matInput formControlName="email" placeholder="{{'input.config.email.label' | translate}}" required OnlyNumber inputmode="numeric" [ngClass]="{'highlight' : isModified('email')}">
+                    <input matInput formControlName="email" placeholder="{{'input.config.email.label' | translate}}" required [ngClass]="{'highlight' : isModified('email')}">
                     <mat-hint>{{'input.config.email.hint' | translate}}</mat-hint>   
                     <mat-error *ngFor="let validation of validation_messages">
                         <mat-error class="error-message" *ngIf="myForm.get('email').hasError(validation.type) && (myForm.get('email').dirty || myForm.get('email').touched)">{{validation.message | translate}}</mat-error>
@@ -94,7 +94,7 @@
             <p>
                 <mat-form-field appearance="outline" style="width:100%">
                     <mat-label>{{'input.config.timetable2.label' | translate}}</mat-label>
-                    <input matInput formControlName="timetable2" placeholder="{{'input.config.timetable2.label' | translate}}" required [ngClass]="{'highlight' : isModified('timetable2')}">
+                    <input matInput formControlName="timetable2" placeholder="{{'input.config.timetable2.label' | translate}}" [ngClass]="{'highlight' : isModified('timetable2')}">
                     <mat-hint>{{'input.config.timetable2.hint' | translate}}</mat-hint>   
                     <mat-error *ngFor="let validation of validation_messages">
                         <mat-error class="error-message" *ngIf="myForm.get('timetable2').hasError(validation.type) && (myForm.get('timetable2').dirty || myForm.get('timetable2').touched)">{{validation.message | translate}}</mat-error>
@@ -104,7 +104,7 @@
             <p>
                 <mat-form-field appearance="outline" style="width:100%">
                     <mat-label>{{'input.config.timetable3.label' | translate}}</mat-label>
-                    <input matInput formControlName="timetable3" placeholder="{{'input.config.timetable3.label' | translate}}" required [ngClass]="{'highlight' : isModified('timetable3')}">
+                    <input matInput formControlName="timetable3" placeholder="{{'input.config.timetable3.label' | translate}}" [ngClass]="{'highlight' : isModified('timetable3')}">
                     <mat-hint>{{'input.config.timetable3.hint' | translate}}</mat-hint>   
                     <mat-error *ngFor="let validation of validation_messages">
                         <mat-error class="error-message" *ngIf="myForm.get('timetable3').hasError(validation.type) && (myForm.get('timetable3').dirty || myForm.get('timetable3').touched)">{{validation.message | translate}}</mat-error>

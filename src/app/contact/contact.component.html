@@ -21,7 +21,7 @@
         </div>
         <div fxFlex="50%" fxFlex.xs = "100%" fxLayout="column">
           <div class="bucket">
-            <div fxLayout="row" fxLayoutAlign="start center"><mat-icon class="scale">phone_android</mat-icon><span>{{config.phone}}</span></div>
+            <div fxLayout="row" fxLayoutAlign="start center"><mat-icon class="scale">phone_android</mat-icon><span>{{config.phone | mobileFormat}}</span></div>
           </div>  
           <div class="bucket">
               <div fxLayout="row" fxLayoutAlign="start center"><mat-icon class="scale">email</mat-icon><a href='mailto:{{config.email}}' class="link">{{config.email}}</a></div>

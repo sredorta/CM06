@@ -79,8 +79,6 @@ export class Config {
     }
 
     get(key: EApiConfigKeys, field="value") : string {
-        console.log("data is");
-        console.log(this.data);
         let data = this.data.find(obj=>obj.key == key);
         if (!data) return null;
         if (field == "value")

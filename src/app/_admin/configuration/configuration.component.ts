@@ -41,10 +41,12 @@ export class ConfigurationComponent implements OnInit {
         Validators.required
       ])),
       zoom: new FormControl('', Validators.compose([
-        Validators.required
+        Validators.required,
+        Validators.max(30),
+        Validators.min(1)
       ])),      
       phone: new FormControl('', Validators.compose([
-        Validators.required, Validators.pattern('[0-9]+')
+        Validators.required, Validators.pattern('[0-9]+'),Validators.minLength(10),Validators.maxLength(10)
       ])),  
       email: new FormControl('', Validators.compose([
         Validators.email
@@ -53,10 +55,8 @@ export class ConfigurationComponent implements OnInit {
         Validators.required
       ])),        
       timetable2: new FormControl('', Validators.compose([
-        Validators.required
       ])),
       timetable3: new FormControl('', Validators.compose([
-        Validators.required
       ])),            
     });
     this.setValues();
@@ -141,8 +141,10 @@ export class ConfigurationComponent implements OnInit {
     this._subscriptions.push(this.api.setConfig(values).subscribe(res => {
       console.log("RESULT:");
       console.log(res);
+      this.data.setConfig(res);
       //TODO get new config and update the this.data.setConfig
       this.spinner.hide();
+
     },()=>this.spinner.hide()));
   }
 

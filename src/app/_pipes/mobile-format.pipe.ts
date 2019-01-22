@@ -12,8 +12,8 @@ export class MobileFormatPipe implements PipeTransform {
 
   constructor() {
     // TODO comes from configuration settings
-    this.DECIMAL_SEPARATOR = ".";
-    this.THOUSANDS_SEPARATOR = ".";
+    this.DECIMAL_SEPARATOR = " ";
+    this.THOUSANDS_SEPARATOR = " ";
   }
   transform(value: number | string, fractionSize: number = 0): string {
     let [ integer, fraction = "" ] = (value || "").toString()

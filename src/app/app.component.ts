@@ -12,6 +12,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig} from '@angula
 import {CartDialogComponent} from './cart-dialog/cart-dialog.component';
 import { calcBindingFlags } from '@angular/core/src/view/util';
 import {Cart} from './_models/cart';
+import { SpinnerOverlayService } from './_library/spinner-overlay.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -32,6 +33,7 @@ export class AppComponent {
   constructor(private data : DataService, 
               private api: ApiService, 
               private router : Router, 
+              private spinner : SpinnerOverlayService,
               private device : DeviceDetectorService,
               private translate: TranslateService, 
               private dialog: MatDialog,
@@ -39,16 +41,21 @@ export class AppComponent {
               media: MediaMatcher) {
     this.translate.use("fr");
 
-    //This needs to be moved into config page
-    this._subscriptions.push(this.api.getAuthUser().subscribe((res: IApiUserAuth)=> {
-      this.api.setCurrent(res); 
-      this._subscriptions.push(this.api.getConfig().subscribe( (res : IApiConfig[]) => {
-        console.log("CONFIG !!!!");
-        console.log(res);
-        this.data.setConfig(res);
+    //Initial loading
+    this.spinner.show()
+    this._subscriptions.push(this.api.getConfig().subscribe( (res : IApiConfig[]) => {
+      this.data.setConfig(res);
+      this._subscriptions.push(this.api.getAuthUser().subscribe((res: IApiUserAuth)=> {
+        this.api.setCurrent(res); 
+        this.spinner.hide();
         this.initialLoading = false;
+      },()=> {
+        this.initialLoading = false;
+        this.spinner.hide();
       }));
+      
     }));
+
 
     this._subscriptions.push(this.api.getCurrent().subscribe((res:User) => {
       console.log("USER CHANGE IN APP !!!! : ");
