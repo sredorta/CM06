@@ -14,22 +14,21 @@ import { trigger, style, transition, animate, group, query,stagger,keyframes } f
         query(':enter', style({ opacity: 0 }), {optional: true}),
         query(':enter',
           animate('0.6s ease-in', keyframes([
-            style({opacity: 0, transform: 'translateY(-75%)', offset: 0}),
-            style({opacity: .5, transform: 'translateY(35px)',  offset: 0.3}),
-            style({opacity: 1, transform: 'translateY(0)',     offset: 1.0}),
+            style({opacity: 0, transform: 'rotateY(-90deg)', width:"0%", offset: 0}),
+            style({opacity: 0, transform: 'rotateY(-90deg)', width:"100%", offset: 0.4}),
+            style({opacity: 1, transform: 'rotateY(0deg)', width:"100%",    offset: 1.0}),
           ])), {optional: true}),
         query(':leave', 
-            animate('0.6s ease-in', keyframes([
-              style({opacity: 1, transform: 'translateY(0)', offset: 0}),
-              style({opacity: .5, transform: 'translateY(35px)',  offset: 0.3}),
-              style({opacity: 0, transform: 'translateY(-75%)',     offset: 1.0}),
+            animate('0.6s ease-out', keyframes([
+              style({opacity: 1, transform: 'rotateY(0)',     width:"100%", offset: 0}),
+              style({opacity: 1, transform: 'rotateY(90deg)', width:"100%", offset: 0.6}),
+              style({opacity: 0, transform: 'rotateY(90deg)', width:"0%",    offset: 1.0}),
             ])), {optional: true})
       ])
-      
-
     ])
   ]
 })
+
 export class VehiclesComponent implements OnInit {
 
   matches  : number = 0;

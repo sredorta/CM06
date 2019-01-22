@@ -329,8 +329,8 @@
     "cart.dialog.delivery.message"              : "(*) Les frais de livraison sont calculés en fonction du poids aproximatif des articles choisis. Ces frais s'appliquent uniquement en cas de livraison et sont à ajouter au total.",
     "cart.dialog.order"                         : "Passer commande",
     "cart.dialog.empty.title"                   : "Le pannier est vide",
-    "cart.dialog.empty.message"                 : "Selectioner les articles que vous desirez et revenez au pannier pour passer commande"
-
+    "cart.dialog.empty.message"                 : "Selectioner les articles que vous desirez et revenez au pannier pour passer commande",
+    "cart.dialog.delivery.notdelivrable"        : "ATTENTION: Cette commande ne pourra pas être livré !"
 
 
 

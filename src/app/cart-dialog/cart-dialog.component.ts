@@ -17,7 +17,7 @@ export class CartDialogComponent implements OnInit {
   products : Product[] = [];
   size : EApiImageSizes = EApiImageSizes.medium;  //We use medium as it´s already loaded
   defaultImage :string = "./assets/images/no-photo-available.jpg";
-  //count : number[] = [];
+
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
   constructor(private data : DataService, private api : ApiService, public spinner : SpinnerOverlayService) { }
@@ -83,16 +83,26 @@ export class CartDialogComponent implements OnInit {
   }
 
   //Estimate the price depending on total weight
-  getLivraison() {
+  getDeliveryPrice() {
     if (this.cart.getWeight()<=2) 
       return this.config.get(EApiConfigKeys.delivery1);
     if (this.cart.getWeight()<=10)  
       return this.config.get(EApiConfigKeys.delivery2);
-    if (this.cart.getWeight()<=30)
-      return this.config.get(EApiConfigKeys.delivery3);  
-
+//    if (this.cart.getWeight()<=30)
+    return this.config.get(EApiConfigKeys.delivery3);  
     //return this.cart.getWeight();
   }
+
+  //Return if cart is deliverable
+  isDeliverable() {
+    if (this.products.find(obj => obj.isDeliverable == false)!= undefined) return false;
+    if (this.cart.getWeight()>30) return false;
+    return true;
+  }
+
+
+
+
   getTotal() {
     let result = 0;
     let i = 0;

@@ -13,8 +13,8 @@
   <p><span>{{matches}}</span> {{'found' | translate}}</p>
 </div>
 <div *ngIf="products.length>0">
-  <div fxLayout="row wrap" fxLayoutAlign="center start" [@productAnim]="products.length">
-      <app-product-item *ngFor="let product of products" [product]="product" ></app-product-item>
+  <div fxLayout="row wrap" fxLayoutAlign="center center" [@productAnim]="products.length" class="product-wrapper">
+      <app-product-item *ngFor="let product of products" [product]="product"></app-product-item>
   </div>
 </div>
 <app-footer></app-footer>
