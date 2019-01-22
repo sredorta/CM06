@@ -1,24 +1,42 @@
-import { Component, OnInit, Input,ViewChildren,QueryList,ElementRef } from '@angular/core';
-import { trigger, style, animate, transition, state } from '@angular/animations';
-
-
-
+import { Component, OnInit, Input,ViewChildren,QueryList,ElementRef, ViewChild,HostBinding } from '@angular/core';
+import { trigger, state, style, transition, animate, group, query,stagger,keyframes } from '@angular/animations';
+import { Observable, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
-  styleUrls: ['./gallery.component.scss']
+  styleUrls: ['./gallery.component.scss'],
+  animations: [
+    trigger('galleryAnim', [
+        state('enter', style({
+          //opacity:1,
+          //height:"100%"
+        })),
+        
+        state('leave', style({
+          //opacity:0,
+          //height:"0%",
+        })),
+        transition('enter <=> leave', [
+          animate('1s ease-in-out', keyframes([
+            style({opacity: 1, transform: 'rotateY(0deg)', offset: 0}),
+            style({opacity: 0, transform: 'rotateY(90deg)', offset: 0.3}),
+            style({opacity: 0, transform: 'rotateY(90deg)', offset: 0.6}),
+            style({opacity: 1, transform: 'rotateY(0deg)',  offset: 1}),
+          ]))
+        ])
+      ])
+    ]
 })
-
 
 
 export class GalleryComponent implements OnInit {
   @ViewChildren('thumbs') thumbs : QueryList<ElementRef>;
-
   @Input() images :string[];
   current:number = 0;
-  animate : boolean = false;
   currentElement :HTMLImageElement;
+  state = "start";
+  startHeight :number;
   constructor() { }
 
   ngOnInit() {
@@ -46,10 +64,8 @@ export class GalleryComponent implements OnInit {
   }
 
   selectImage(img:HTMLImageElement) { 
-    this.animate = true;
-    setTimeout(()=> {
-      this.animate = false;
-    },1000);
+    this.state=="enter"?this.state = "leave":this.state="enter";
+
     setTimeout(()=>{
       this.current = img.attributes['id'].value;
       this.currentElement = img;
