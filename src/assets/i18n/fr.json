@@ -330,7 +330,14 @@
     "cart.dialog.order"                         : "Passer commande",
     "cart.dialog.empty.title"                   : "Le pannier est vide",
     "cart.dialog.empty.message"                 : "Selectioner les articles que vous desirez et revenez au pannier pour passer commande",
-    "cart.dialog.delivery.notdelivrable"        : "ATTENTION: Cette commande ne pourra pas être livré !"
+    "cart.dialog.delivery.notdelivrable"        : "ATTENTION: Cette commande ne pourra pas être livré !",
+
+    "stepper.order.first"                       : "Donnés personnelles",
+    "stepper.order.second"                      : "Livraison",
+    "stepper.order.third"                       : "Récapitulatif",
+    "stepper.order.fourth"                      : "Payement",
+    "stepper.order.fifth"                       : "Confirmation"
+
 
 
 

@@ -18,6 +18,7 @@ import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.co
 import { ConditionsGeneralesVenteComponent } from './conditions-generales-vente/conditions-generales-vente.component';
 import { PayementSecuriseComponent } from './payement-securise/payement-securise.component';
 import { ConfigurationComponent } from './_admin/configuration/configuration.component';
+import { OrderStepperComponent } from './order-stepper/order-stepper.component';
 
 
 
@@ -106,7 +107,12 @@ const routes: Routes = [
     component: ProductItemDetailComponent,
     //canActivate: [AnyGuard]
   },   
-
+  {
+    path: 'commande',
+    runGuardsAndResolvers: 'always',
+    component: OrderStepperComponent,
+    //canActivate: [AnyGuard]    
+  },
   {
     path: 'livraison',
     runGuardsAndResolvers: 'always',

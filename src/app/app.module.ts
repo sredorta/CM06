@@ -132,6 +132,8 @@ import { PayementSecuriseComponent } from './payement-securise/payement-securise
 import { environment } from '../environments/environment';
 import { CartDialogComponent } from './cart-dialog/cart-dialog.component';
 import { ConfigurationComponent } from './_admin/configuration/configuration.component';
+import { OrderStepperComponent } from './order-stepper/order-stepper.component';
+import { OrderPersonalDataComponent } from './order-personal-data/order-personal-data.component';
 
 
 
@@ -179,7 +181,9 @@ import { ConfigurationComponent } from './_admin/configuration/configuration.com
     ConditionsGeneralesVenteComponent,
     PayementSecuriseComponent,
     CartDialogComponent,
-    ConfigurationComponent
+    ConfigurationComponent,
+    OrderStepperComponent,
+    OrderPersonalDataComponent
     //End of library
   ],
   imports: [

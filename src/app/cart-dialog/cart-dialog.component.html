@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="order">
-          <button mat-raised-button color="primary" style="width:100%"[disabled]="getTotal()==0?true:false">{{'cart.dialog.order' | translate}}</button>
+          <button mat-raised-button color="primary" style="width:100%"[disabled]="getTotal()==0?true:false" [mat-dialog-close]="true" routerLink="/commande">{{'cart.dialog.order' | translate}}</button>
         </div>
       </div>
       <div *ngIf="products.length==0 && !spinner.visible" class="cart-item-wrapper">

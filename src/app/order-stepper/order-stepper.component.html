@@ -1,0 +1,35 @@
+<div *ngIf="user" class="wrapper"> 
+    <mat-vertical-stepper linear="true" #stepper>
+        <mat-step  [completed]="step>1">
+          <ng-template matStepLabel>{{'stepper.order.first' | translate}}</ng-template>
+          <div fxLayout="row" fxLayoutAlign="center center" class="big-component">
+            <app-order-personal-data [user]="user"></app-order-personal-data>
+          </div>     
+        </mat-step>
+        <mat-step [completed]="step>2">
+          <ng-template matStepLabel>{{'stepper.order.second' | translate}}</ng-template>
+          <div fxLayout="row" fxLayoutAlign="center center" class="big-component">
+            <p>test2</p>
+          </div>      
+        </mat-step>
+        <mat-step [completed]="step>3">
+          <ng-template matStepLabel>{{'stepper.order.third' | translate}}</ng-template>
+          <div fxLayout="row" fxLayoutAlign="center center" class="big-component">
+            <p>test3</p>
+          </div>      
+        </mat-step>
+        <mat-step [completed]="step>4">
+            <ng-template matStepLabel>{{'stepper.order.fourth' | translate}}</ng-template>
+            <div fxLayout="row" fxLayoutAlign="center center" class="big-component">
+              <p>test4</p>
+            </div>      
+        </mat-step>
+        <mat-step [completed]="step>5">
+            <ng-template matStepLabel>{{'stepper.order.fifth' | translate}}</ng-template>
+            <div fxLayout="row" fxLayoutAlign="center center" class="big-component">
+              <p>test4</p>
+            </div>      
+        </mat-step>    
+      </mat-vertical-stepper>
+    </div>
+<app-footer></app-footer>

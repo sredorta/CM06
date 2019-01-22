@@ -1,0 +1,19 @@
+<div class="wrapper">
+  <div *ngIf="user.id!=null">
+      <div class="left-border">
+        <p class="title">Connecté</p>
+        <p class="subtitle">Vous êtes connecté et on outilize les donnés de votre compte</p>
+      </div>
+      <div class="left-border">
+          <p class="title">Données utilizés</p>
+          <p class="subtitle">{{user.firstName}} {{user.lastName}}</p>
+          <p class="subtitle">{{user.email}}</p>
+          <p class="subtitle">{{user.mobile}}</p>
+          <button mat-button color="primary" routerLink="/profile">Modifier</button>
+      </div>
+  </div>
+  <div *ngIf="user.id==null">
+    <p>need to create account or fill data or connect</p>
+  </div>
+
+</div>

@@ -53,9 +53,6 @@ export class CartDialogComponent implements OnInit {
         this.cart.remove(item);
       }
     }
-    console.log("This is your cart !!!");
-    console.log(this.cart);
-    //console.log(this.count);
   }
 
   getImageUrl(product: Product) {
