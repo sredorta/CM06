@@ -53,8 +53,7 @@ export class ProductItemComponent implements OnInit {
         console.log("Adding to cart");
         this.cart.fromStorage();
         this.cart.add(new CartItem({id:this.product.id,weight:this.product.weight,quantity:1}));    
-        console.log("Sending count of cart to : " + this.cart.getCount());
-        this.data.setCartCount(this.cart.getCount());
+        this.data.setCart(this.cart);
     }
   }
 }

@@ -85,7 +85,7 @@ export class ProductItemDetailComponent implements OnInit {
       let cart = new Cart(null);
       cart.fromStorage();
       cart.add(new CartItem({id:this.product.id,weight:this.product.weight,quantity:this.myForm.controls["quantity"].value}));    
-      this.data.setCartCount(cart.getCount());
+      this.data.setCart(cart);
   }
 
   ngOnDestroy() {    

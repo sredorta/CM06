@@ -13,7 +13,6 @@ import { Subscription } from 'rxjs';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {MakeSureDialogComponent} from '../../_library/make-sure-dialog/make-sure-dialog.component';
 
-import {MessageService} from 'primeng/api';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 //import { MediaMatcher } from '@angular/cdk/layout';

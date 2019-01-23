@@ -24,7 +24,7 @@ export class AppComponent {
   loading : boolean = true;
   mobileQuery: MediaQueryList;
   isMobile : boolean =  this.device.isMobile();
-  cartCount : number = Cart.getCount();
+  cartCount : number;
   initialLoading : boolean = true;
   private _mobileQueryListener: () => void;
 
@@ -56,16 +56,19 @@ export class AppComponent {
       
     }));
 
-
+    
     this._subscriptions.push(this.api.getCurrent().subscribe((res:User) => {
       console.log("USER CHANGE IN APP !!!! : ");
       console.log(res);
       this.user = res; 
       //this.loading = false;
     }));
-
-    this._subscriptions.push(this.data.getCartCount().subscribe(res => {
-      this.cartCount = res;
+    let cart = new Cart();
+    cart.fromStorage();
+    this.data.setCart(cart);
+    this.cartCount = cart.getCount();
+    this._subscriptions.push(this.data.getCart().subscribe(res => {
+      this.cartCount = res.getCount();
     }));
 
 

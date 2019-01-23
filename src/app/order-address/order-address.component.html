@@ -1,7 +1,7 @@
 <div class="wrapper">
     <div class="left-border">
-        <p class="title">Adresse de livraison</p>
-        <p class="subtitle-small">Livraisons possibles seulement en France metropolitaine</p>
+        <p class="title">{{'order.address.title' | translate}}</p>
+        <p class="subtitle-small">{{'order.address.subtitle' | translate}}</p>
         <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate> 
             <div fxLayout="column" fxLayoutAlign="center center">
                   <mat-form-field appearance="outline" class="field wide">

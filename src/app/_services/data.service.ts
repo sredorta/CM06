@@ -26,7 +26,7 @@ export class DataService {
   private _users : IApiUser[] = [];          //Stores downloaded users
   private _HOLDDATASECONDS : number = 60*60; //Hold data for 1hr and if not reload 
   private _timeStamps : string[] = [];      //Stores timestamps
-  private _cart = new BehaviorSubject<number>(Cart.getCount()); //Stores the current user
+  private _cart = new BehaviorSubject<Cart>(new Cart()); //Stores the current user
 
 
 
@@ -118,15 +118,15 @@ export class DataService {
 
 
   //Returns current user
-  getCartCount() : Observable<number> {
+  getCart() : Observable<Cart> {
     return this._cart;
   }
 
   //Sets current user
-  setCartCount(count: number) {
+  setCart(cart: Cart) {
     console.log("setCurrent::");
-    console.log(count);
-    this._cart.next(count);
+    console.log(cart);
+    this._cart.next(cart);
   }
 
 }

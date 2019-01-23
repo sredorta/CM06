@@ -344,7 +344,27 @@
     "stepper.order.second"                      : "Livraison",
     "stepper.order.third"                       : "Récapitulatif",
     "stepper.order.fourth"                      : "Payement",
-    "stepper.order.fifth"                       : "Confirmation"
+    "stepper.order.fifth"                       : "Confirmation",
+    "order.data.connected.title"                : "Connecté",
+    "order.data.connected.subtitle"             : "Vous êtes connecté, on utilize les donnés fournies dans votre compte",
+    "order.data.connected.data"                 : "Données utilizés",
+    "order.data.signup"                         : "Creer un compte",
+    "order.data.login"                          : "Me connecter à mon compte",
+    "order.data.noaccount"                      : "Pursuivre sans compte",
+    "order.data.submit"                         : "Suivant",
+    "order.address.title"                       : "Adresse de livraison",
+    "order.address.subtitle"                    : "Livraisons possibles seulement en France metropolitaine",
+    "order.address.submit"                      : "Suivant",
+    "order.recap.products.title"                : "Produits",
+    "order.recap.products.subtitle"             : "Produits séléctionés",
+    "order.recap.products.total"                : "TOTAL",
+    "order.recap.products.delivery.title"       : "FRAIS DE LIVRAISON*",
+    "order.recap.data.title"                    : "Coordonées",
+    "order.recap.data.subtitle"                 : "Coordonées en cas de contact",
+    "order.recap.delivery.title"                : "Livraison",
+    "order.recap.delivery.subtitle"             : "Adresse de livraison",
+    "order.recap.total"                         : "MONTANT:",
+    "order.recap.submit"                        : "Suivant"
 
 
 

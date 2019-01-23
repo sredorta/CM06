@@ -53,6 +53,7 @@ export class CartDialogComponent implements OnInit {
         this.cart.remove(item);
       }
     }
+//    this.data.setCart(this.cart);
   }
 
   getImageUrl(product: Product) {
@@ -67,6 +68,7 @@ export class CartDialogComponent implements OnInit {
   plusCount(index:number) {
     if (this.products[index].stock > this.cart.data[index].quantity) {
       this.cart.data[index].quantity++;
+      this.data.setCart(this.cart);
       this.cart.toStorage();
     }
   }
@@ -75,6 +77,7 @@ export class CartDialogComponent implements OnInit {
   minusCount(index:number) {
     if (this.cart.data[index].quantity>0) {
       this.cart.data[index].quantity--;
+      this.data.setCart(this.cart);
       this.cart.toStorage();
     }
   }
@@ -115,7 +118,8 @@ export class CartDialogComponent implements OnInit {
   removeItem(index:number) {
     this.cart.remove(this.cart.data[index]);
     this.products.splice(index,1);
-    this.data.setCartCount(this.cart.getCount());
+    this.data.setCart(this.cart);
+    this.cart.toStorage();
   }
 
   ngOnDestroy() {    

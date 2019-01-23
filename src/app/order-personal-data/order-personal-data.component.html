@@ -1,24 +1,24 @@
 <div class="wrapper">
   <div *ngIf="user.isAvailable()">
       <div class="left-border">
-        <p class="title">Connecté</p>
-        <p class="subtitle">Vous êtes connecté et on outilize les donnés de votre compte</p>
+        <p class="title">{{'order.data.connected.title' | translate}}</p>
+        <p class="subtitle">{{'order.data.connected.subtitle' | translate}}</p>
       </div>
       <div class="left-border">
-          <p class="title">Données utilizés</p>
+          <p class="title">{{'order.data.connected.data' | translate}}</p>
           <p class="subtitle-small">{{user.firstName}} {{user.lastName}}</p>
           <p class="subtitle-small">{{user.email}}</p>
           <p class="subtitle-small">{{user.mobile}}</p>
-          <button mat-button color="primary" routerLink="/profile">Modifier</button>
+          <button mat-button color="primary" routerLink="/profile">{{'modify' | translate}}</button>
       </div>
   </div>
   <div *ngIf="!user.isAvailable()" fxLayout="column">
     <div>
-      <button mat-button color="primary" routerLink="/signup">Creer un compte</button>
-      <button mat-button color="primary" routerLink="/login">Me connecter a mon compte</button>
+      <button mat-button color="primary" routerLink="/signup">{{'order.data.signup' | translate}}</button>
+      <button mat-button color="primary" routerLink="/login">{{'order.data.login' | translate}}</button>
     </div>
     <div class="left-border">
-        <p class="title">Pursuivre sans compte</p>
+        <p class="title">{{'order.data.noaccount' | translate}}</p>
         <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate> 
               <div fxLayout="row wrap" fxLayoutAlign="center center">
                     <mat-form-field appearance="outline" class="field">

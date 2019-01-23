@@ -61,21 +61,12 @@ export class Cart {
         return this.data.length;
     }
 
-    //Gets count of the session cart
-    public static getCount() {
-        let cart = new Cart(null);
-        cart.fromStorage();
-        console.log("RETURNING COUNT : " + cart.getCount());
-        return cart.getCount();
-    }
 
     private _toJSON() {
         return JSON.stringify(this.data);
     }
 
     private _fromJSON(obj:string) {
-        console.log("fromJSON");
-        console.log(JSON.parse(obj));
         this.data  = []
         for (let item of JSON.parse(obj)) {
             this.data.push(new CartItem(item));
