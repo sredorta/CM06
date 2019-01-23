@@ -3,19 +3,19 @@
         <mat-step  [completed]="step>1">
           <ng-template matStepLabel>{{'stepper.order.first' | translate}}</ng-template>
           <div fxLayout="row" fxLayoutAlign="center center" class="big-component">
-            <app-order-personal-data [user]="user"></app-order-personal-data>
+            <app-order-personal-data [user]="user" (data)="onDataReady($event)"></app-order-personal-data>
           </div>     
         </mat-step>
         <mat-step [completed]="step>2">
           <ng-template matStepLabel>{{'stepper.order.second' | translate}}</ng-template>
           <div fxLayout="row" fxLayoutAlign="center center" class="big-component">
-            <p>test2</p>
+              <app-order-address (data)="onAddressReady($event)"></app-order-address>
           </div>      
         </mat-step>
         <mat-step [completed]="step>3">
           <ng-template matStepLabel>{{'stepper.order.third' | translate}}</ng-template>
           <div fxLayout="row" fxLayoutAlign="center center" class="big-component">
-            <p>test3</p>
+            <app-order-recap [order]="order"></app-order-recap>
           </div>      
         </mat-step>
         <mat-step [completed]="step>4">

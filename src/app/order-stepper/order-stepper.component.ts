@@ -6,7 +6,7 @@ import {ApiService} from '../_services/api.service';
 import {SpinnerOverlayService} from '../_library/spinner-overlay.service';
 import { Subscription } from 'rxjs';
 import { User } from '../_models/user';
-
+import { Order } from '../_models/order';
 @Component({
   selector: 'app-order-stepper',
   templateUrl: './order-stepper.component.html',
@@ -16,6 +16,7 @@ export class OrderStepperComponent implements OnInit {
   @ViewChild('stepper') stepper: MatVerticalStepper;
   step : number = 1;              //Current complted step
   user : User;                    //User if connected
+  order : Order = new Order();//We store here the order
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
   constructor(private api : ApiService) { }
@@ -24,7 +25,11 @@ export class OrderStepperComponent implements OnInit {
     //If we are logged in we skip pass one
     this._subscriptions.push(this.api.getAuthUser().subscribe(res=> {
       this.user = new User(res);
-      if (this.user.id !=null) {
+      if (this.user.isAvailable()) {
+        this.order.firstName = this.user.firstName;
+        this.order.lastName = this.user.lastName;
+        this.order.mobile = this.user.mobile;
+        this.order.email = this.user.email;
         this.nextStep();
       }
     }));
@@ -34,6 +39,24 @@ export class OrderStepperComponent implements OnInit {
 
   }
 
+  //When first step is completed without having a user we get here
+  onDataReady(data:any) {
+    console.log("WE are in onDataReady");
+    this.order.firstName = data.firstName;
+    this.order.lastName = data.lastName;
+    this.order.mobile = data.mobile;
+    this.order.email = data.email;
+    this.nextStep();
+  }
+  //When address is ready
+  onAddressReady(data:any) {
+    console.log("onAddressReady");
+    this.order.address1 = data.address1;
+    this.order.address2 = data.address2;
+    this.order.city = data.city;
+    this.order.cp = data.cp;
+    this.nextStep();
+  }
 
   //Go to nextStep
   nextStep() {

@@ -7,7 +7,7 @@
   <div fxLayout="column" fxLayoutAlign="center center">
     <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate class="form left-border"> 
       <p class="title">{{'profile.update.title' | translate}}</p>
-      <div fxLayout="row" fxLayout.xs = "column-reverse" fxLayoutGap="20px" fxLayoutAlign="start center" fxLayout.xs="center start" class="width100">
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="start center" fxLayoutAlign.xs="center start" class="width100">
         <div fxLayout="column" fxLayoutAlign="center center">
           <div [style.backgroundImage]="user.getAvatarUrl()" class="avatar"></div>
         </div>   

@@ -134,6 +134,9 @@ import { CartDialogComponent } from './cart-dialog/cart-dialog.component';
 import { ConfigurationComponent } from './_admin/configuration/configuration.component';
 import { OrderStepperComponent } from './order-stepper/order-stepper.component';
 import { OrderPersonalDataComponent } from './order-personal-data/order-personal-data.component';
+import { SpinnerOverlayComponentComponent } from './_library/spinner-overlay-component/spinner-overlay-component.component';
+import { OrderAddressComponent } from './order-address/order-address.component';
+import { OrderRecapComponent } from './order-recap/order-recap.component';
 
 
 
@@ -183,7 +186,10 @@ import { OrderPersonalDataComponent } from './order-personal-data/order-personal
     CartDialogComponent,
     ConfigurationComponent,
     OrderStepperComponent,
-    OrderPersonalDataComponent
+    OrderPersonalDataComponent,
+    SpinnerOverlayComponentComponent,
+    OrderAddressComponent,
+    OrderRecapComponent
     //End of library
   ],
   imports: [
