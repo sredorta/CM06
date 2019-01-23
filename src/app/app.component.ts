@@ -46,6 +46,13 @@ export class AppComponent {
     this._subscriptions.push(this.api.getConfig().subscribe( (res : IApiConfig[]) => {
       this.data.setConfig(res);
       this._subscriptions.push(this.api.getAuthUser().subscribe((res: IApiUserAuth)=> {
+        //If we return empty it means user has been removed in db
+        console.log("HERE !!!!!!!!!!!!!!!!!");
+        console.log(res);
+        if (res.id == null) {
+          console.log("REMOVING TOKEN BECAUSE USER REMOVED !!");
+          User.removeToken();
+        }
         this.api.setCurrent(res); 
         this.spinner.hide();
         this.initialLoading = false;
