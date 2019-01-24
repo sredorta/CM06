@@ -15,7 +15,7 @@
         <mat-step [completed]="step>3">
           <ng-template matStepLabel>{{'stepper.order.third' | translate}}</ng-template>
           <div fxLayout="row" fxLayoutAlign="center center" class="big-component">
-            <app-order-recap [order]="order"></app-order-recap>
+            <app-order-recap *ngIf="step==3" [order]="order"></app-order-recap>
           </div>      
         </mat-step>
         <mat-step [completed]="step>4" >

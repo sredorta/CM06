@@ -88,21 +88,6 @@ export class BrandsComponent implements OnInit {
 
 
   ngOnInit() {
-/*    this._subscriptions.push(this.breakpointObserver.observe(['(max-width:400px)']).subscribe((state: BreakpointState) => {
-      //console.log(state);
-      if (state.matches) {
-        console.log('We are in mobile device');
-        this.size = EApiImageSizes.tinythumbnail;
-      }
-    }));
-    this._subscriptions.push(this.breakpointObserver.observe(['(min-width:400px)']).subscribe((state: BreakpointState) => {
-      //console.log(state);
-      if (state.matches) {
-        console.log('We are in large device');
-        this.size = EApiImageSizes.thumbnail;
-      }
-    }));*/
-
     this.createForms();
     this.getBrands();
   }
@@ -225,18 +210,10 @@ export class BrandsComponent implements OnInit {
     this.expandedBrandId = id;
   }
 
-/*  onUpdateProduct(id) {
-    console.log("OnUpdateProduct");
-    let product : IApiProduct = this.dataSource.data[this.dataSource.data.findIndex(obj => obj.id === id)];
-    this.expandedProductId = id;
-  }*/
 
 
   //Delete the brand when clicking to delete
   onDeleteBrand(id) {   
-    //let count = this.data.getProducts().filter(obj=> obj.brand_id == id).length;
-    //console.log("Removing : " + count);
-
     this._subscriptions.push(this.translate.get(["brands.admin.dialog.delete.header","brands.admin.dialog.delete.content"]).subscribe( trans => {
       let dialogRef = this.dialog.open(MakeSureDialogComponent, {
         disableClose :true,

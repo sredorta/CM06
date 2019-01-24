@@ -35,8 +35,6 @@ export class Brand {
         } else {
             this.id = null;
         }
-        console.log("Resulting brand: ");
-        console.log(this);
     }
 
 }

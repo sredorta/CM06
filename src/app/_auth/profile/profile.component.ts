@@ -37,10 +37,12 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
    this.createForm();
+   this.spinner.show();
    this._subscriptions.push(this.api.getAuthUser().subscribe(res => {
       this.user = new User(res);
       this.setForm();
-    }));
+      this.spinner.hide();
+    },()=> this.spinner.hide()));
   }
 
   setForm() {
@@ -89,11 +91,8 @@ export class ProfileComponent implements OnInit {
 
 
   onSubmit(result) {
-    console.log(result);
     if (this.myForm.invalid) {
-      console.log("Invalid !!!");
       this.showPassword = true;
-      console.log(this.myForm.controls["password_old"].errors);
       return;
     }
     //Case of reset avatar
@@ -102,9 +101,7 @@ export class ProfileComponent implements OnInit {
     }
     this.spinner.show();
     this._subscriptions.push(this.api.updateUser(result.firstName, result.lastName, result.email, result.mobile, result.password_old, result.matching_passwords_group.password, result.avatar).subscribe(res => {
-      console.log(res);
       this._subscriptions.push(this.api.getAuthUser().subscribe(res => {
-        console.log(res);
         this.api.setCurrent(res);
         this.user = new User(res);
         this.setForm();
@@ -127,7 +124,6 @@ export class ProfileComponent implements OnInit {
   deleteAuth() {
     this.spinner.show();
     this._subscriptions.push(this.api.deleteAuth().subscribe(res=> {
-      console.log(res);
       this.api.setCurrent(null);
       User.removeToken();
       this.router.navigate([""]); //Go back home*/

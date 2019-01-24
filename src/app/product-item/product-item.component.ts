@@ -50,7 +50,6 @@ export class ProductItemComponent implements OnInit {
 
   addToCart() {
     if (!this.preview) {
-        console.log("Adding to cart");
         this.cart.fromStorage();
         this.cart.add(new CartItem({id:this.product.id,weight:this.product.weight,quantity:1}));    
         this.data.setCart(this.cart);

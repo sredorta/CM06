@@ -47,11 +47,10 @@ export class AppComponent {
       this.data.setConfig(res);
       this._subscriptions.push(this.api.getAuthUser().subscribe((res: IApiUserAuth)=> {
         //If we return empty it means user has been removed in db
-        console.log("HERE !!!!!!!!!!!!!!!!!");
-        console.log(res);
-        if (res.id == null) {
-          console.log("REMOVING TOKEN BECAUSE USER REMOVED !!");
-          User.removeToken();
+        if (res) {
+          if (res.id == null) {
+            User.removeToken();
+          }
         }
         this.api.setCurrent(res); 
         this.spinner.hide();
@@ -65,8 +64,6 @@ export class AppComponent {
 
     
     this._subscriptions.push(this.api.getCurrent().subscribe((res:User) => {
-      console.log("USER CHANGE IN APP !!!! : ");
-      console.log(res);
       this.user = res; 
       //this.loading = false;
     }));
@@ -116,8 +113,6 @@ export class AppComponent {
       data:  null 
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
       //this.myForm.patchValue({"terms" : result});
     });
   }

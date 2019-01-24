@@ -40,7 +40,6 @@ export class PiecesComponent implements OnInit {
   ngOnInit() {}
 
   updateFilter(result:Product[]) {
-    console.log("updateFilter");
     this.products = result.filter(obj => obj.isVehicle == false);
     this.matches = this.products.length;
   }

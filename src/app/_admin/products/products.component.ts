@@ -163,7 +163,6 @@ export class ProductsComponent implements OnInit {
       this.dataSource.filter = filterValue.trim().toLowerCase();
       this.dataSource.filteredData.sort((a, b) => b.fweight - a.fweight); //Order by weights
       this.dataSource.data.sort((a, b) => b.fweight - a.fweight);
-      console.log(this.dataSource.filteredData);
       this.productsDisplayed = this.dataSource.filteredData.length;
       this.lastProductFilter = filterValue;
      } else {
@@ -176,14 +175,12 @@ export class ProductsComponent implements OnInit {
 
     //When we click on update we update the expanded pannel values
     onUpdateProduct(id) {
-      console.log("OnUpdateProduct");
       let product : IApiProduct = this.dataSource.data[this.dataSource.data.findIndex(obj => obj.id === id)];
       this.expandedProductId = id;
     }
   
     //Delete the brand when clicking to delete
     onDeleteProduct(id) {
-      console.log("OnDeleteProduct");
       this._subscriptions.push(this.translate.get(["products.admin.dialog.delete.header","products.admin.dialog.delete.content"]).subscribe( trans => {
         let dialogRef = this.dialog.open(MakeSureDialogComponent, {
           disableClose :true,
@@ -242,7 +239,6 @@ export class ProductsComponent implements OnInit {
 
 
     rowClick(id) {
-      console.log("Row click " + id);
     }
 
   ngOnDestroy() {    

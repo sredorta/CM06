@@ -40,8 +40,6 @@ export class User {
         } else {
             this.id = null;
         }
-        console.log("Resulting user: ");
-        console.log(this);
     }
 
     //Returns if we have an user (i.e. we are logged in for current user!)

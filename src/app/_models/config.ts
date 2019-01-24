@@ -35,8 +35,6 @@ export class ConfigItem {
         } else {
             this.id = null;
         }
-        console.log("Resulting brand: ");
-        console.log(this);
     }     
     
 }
@@ -61,8 +59,6 @@ export class Config {
 
     data : ConfigItem[] = [];
     constructor(items: ConfigItem[] = null) {
-        console.log("in constructor");
-        console.log(items);
         if (items != null) {
             for (let item of items ) {
                 this.data.push(item);

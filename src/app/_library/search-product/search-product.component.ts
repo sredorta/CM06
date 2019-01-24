@@ -28,7 +28,6 @@ export class SearchProductComponent implements OnInit {
 
   //Get all the products
   getProducts() {
-    console.log("In get Products !!!!");
     if (this.data.getProducts().length>0) {
       this.pushProducts();
     } else {
@@ -103,7 +102,6 @@ export class SearchProductComponent implements OnInit {
   applyFilter(filterValue: string) {
       if(filterValue!== null) {
          this._dataSource.filter = filterValue.trim().toLowerCase();
-         console.log(this._dataSource.filteredData);
          this.orderBy(this.sortElem.value);
          this.result.emit(this._dataSource.filteredData);
       } 
@@ -127,11 +125,8 @@ export class SearchProductComponent implements OnInit {
  
   //When order has been changed by user
   onOrderChange(selection: MatSelectChange) {
-    console.log("onOrderChange !");
     this.orderBy(selection.value);
     this.result.emit(this._dataSource.filteredData);
-    console.log("sortBy");
-    console.log(selection.value);
   }
 
 

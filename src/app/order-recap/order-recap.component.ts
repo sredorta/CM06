@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output,EventEmitter, SimpleChanges } from '@angular/core';
 import { Order } from '../_models/order';
 import {Cart} from '../_models/cart';
 import {Product} from '../_models/product';
 import {Config, EApiConfigKeys} from '../_models/config';
 import {MobileFormatPipe} from '../_pipes/mobile-format.pipe';
-import {ApiService, EApiImageSizes, IApiProduct} from '../_services/api.service';
+import {ApiService, EApiImageSizes, IApiProduct, IApiOrder} from '../_services/api.service';
 import {DataService} from '../_services/data.service';
 import { Subscription } from 'rxjs';
 import { SpinnerOverlayService } from '../_library/spinner-overlay.service';
@@ -16,7 +16,6 @@ import { SpinnerOverlayService } from '../_library/spinner-overlay.service';
 })
 export class OrderRecapComponent implements OnInit {
   config : Config = new Config(this.data.getConfig());
-  cart = new Cart();
   products : Product[] = [];
   size : EApiImageSizes = EApiImageSizes.medium;  //We use medium as it´s already loaded
   defaultImage :string = "./assets/images/no-photo-available.jpg";
@@ -26,23 +25,36 @@ export class OrderRecapComponent implements OnInit {
   @Input() order : Order;
   constructor(private api : ApiService, private data : DataService) { }
 
+  // We check first order by sending to API check order (i.e.: like create order but without creation)
+  // The check order returns all prices and details that we show here
+  // If there is a cart change then we redo a check order
+  // We will go to payment after and if payment is accepted then we do the create order
+
   ngOnInit() {
+    console.log("RECAP ON INIT !");
     this._subscriptions.push(this.data.getCart().subscribe(res => {
-      this.cart = res;
-      this.getProducts();
+      this.order.cart = res;
+      this.checkOrder();
     }));
-
   }
 
-  getProducts() {
-    this.spinner = true;
-    this._subscriptions.push(this.api.getProducts().subscribe((res: IApiProduct[]) => {
-      this.data.setProducts(res,true);
-      this.initCart();
-      this.spinner = false;
-    }, () => this.spinner = false));    
+  ngOnChanges(changes : SimpleChanges) {
+    this.order = changes.order.currentValue;
+    this.checkOrder();
   }
 
+  //Sends all data to api and gets as if order was done
+  checkOrder() {
+      this.spinner = true;
+      this._subscriptions.push(this.api.checkOrder(this.order).subscribe((res: IApiOrder) => {
+        console.log("Result of checkOrder :");
+        console.log(res);
+  /*      this.data.setProducts(res,true);
+        this.initCart();*/
+        this.spinner = false;
+      }, () => this.spinner = false));  
+  }
+/*
   initCart() {
       let i = 0;
       this.products = [];
@@ -69,7 +81,6 @@ export class OrderRecapComponent implements OnInit {
 
   //Return if cart is deliverable
   isDeliverable() {
-    console.log("WEIGHT : " + this.cart.getWeight());
     if (this.products.find(obj => obj.isDeliverable == false)!= undefined) return false;
     if (this.cart.getWeight()>30) return false;
     return true;
@@ -106,7 +117,7 @@ export class OrderRecapComponent implements OnInit {
     //TODO add emit here of the total to pay and any other things
     console.log("Payment !!");
   }
-
+*/
   ngOnDestroy() {    
     //Unsubscribe to all
     for (let subscription of this._subscriptions) {

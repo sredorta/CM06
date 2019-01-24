@@ -51,8 +51,6 @@ export class ErrorInterceptor implements HttpInterceptor {
         }, (error: any) => {    
             this._subscription = this.translate.get(["interceptor.session.invalid","interceptor.unknown"]).subscribe( trans => {
                 if (error instanceof HttpErrorResponse) {
-                    console.log("Error interceptor");
-                    console.log(error);
                     if (error.error.exception === 'Tymon\\JWTAuth\\Exceptions\\TokenExpiredException' || 
                     error.error.exception === 'Tymon\\JWTAuth\\Exceptions\\TokenBlacklistedException') {
                         this.api.setCurrent(null);

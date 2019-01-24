@@ -57,14 +57,11 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit(value) {
-    console.log(value);
     if (this.myForm.invalid) {
-      console.log("invalid");
       return;
     }
     this.spinner.show();
     this._subscriptions.push(this.api.login(value.email,value.password,value.keepconnected,value.access).subscribe((res:IApiLogin) => {
-      console.log(res);
       if (res.access != null) {
         this.accounts = res.access;
         this.spinner.hide();

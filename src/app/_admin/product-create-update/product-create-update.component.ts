@@ -114,7 +114,6 @@ export class ProductCreateUpdateComponent implements OnInit {
 
   //On create product
   onSubmit(value) {
-    console.log(value);
     if (this.myForm.invalid) {
       return;
     }
@@ -145,9 +144,9 @@ export class ProductCreateUpdateComponent implements OnInit {
       
   }
 
-  addToCart() {
+/*  addToCart() {
     console.log("Adding to cart");
-  }
+  }*/
 
 
   ngOnDestroy() {    

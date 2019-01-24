@@ -109,7 +109,6 @@ export class InputImagesComponent implements OnInit {
 
 
   rotateImage() {
-    console.log("Rotate image");
     let obj = this;
     let myImage = new Image();
     myImage.src = this.base64[this.currentElement.attributes['id'].value];
@@ -231,8 +230,6 @@ export class InputImagesComponent implements OnInit {
     }
     if (this.base64)
       if (this.base64[0]) {
-        console.log("Final base64 size is:");
-        console.log(this.base64[0].length);
       }
     this.parentForm.patchValue(obj,{ onlySelf: false, emitEvent: true });
   }
@@ -290,7 +287,6 @@ export class InputImagesComponent implements OnInit {
     ctx.drawImage(img, sourceX,sourceY, sourceSize, sourceSize, 0, 0, this.maxSize,this.maxSize);
     let rate = this.compress?this.compression_rate:1.0;
     this.compress = false; //Disable compression now
-    console.log("Compress rate is: "+ rate);
     return canvas.nativeElement.toDataURL("image/jpeg",rate);
   }
 

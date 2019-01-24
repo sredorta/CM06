@@ -355,6 +355,10 @@
     "order.address.title"                       : "Adresse de livraison",
     "order.address.subtitle"                    : "Livraisons possibles seulement en France metropolitaine",
     "order.address.submit"                      : "Suivant",
+    "order.noaddress.title"                     : "Sans livraison",
+    "order.noaddress.subtitle"                  : "Je passerai chercher la commande au magasin",
+    "order.noaddress.checkbox"                  : "Faire la commande sans livraison",
+    "order.noaddress.submit"                    : "Suivant",
     "order.recap.products.title"                : "Produits",
     "order.recap.products.subtitle"             : "Produits séléctionés",
     "order.recap.products.total"                : "TOTAL",
@@ -363,6 +367,8 @@
     "order.recap.data.subtitle"                 : "Coordonées en cas de contact",
     "order.recap.delivery.title"                : "Livraison",
     "order.recap.delivery.subtitle"             : "Adresse de livraison",
+    "order.recap.nodelivery.title"              : "Sans livraison",
+    "order.recap.nodelivery.subtitle"           : "Vous passerez chercher la commande au magasin",
     "order.recap.total"                         : "MONTANT:",
     "order.recap.submit"                        : "Suivant"
 

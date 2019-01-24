@@ -51,10 +51,13 @@ export class OrderStepperComponent implements OnInit {
   //When address is ready
   onAddressReady(data:any) {
     console.log("onAddressReady");
+    this.order.delivery = data.delivery;
     this.order.address1 = data.address1;
     this.order.address2 = data.address2;
     this.order.city = data.city;
     this.order.cp = data.cp;
+    console.log("ORDER IS:");
+    console.log(this.order);
     this.nextStep();
   }
 

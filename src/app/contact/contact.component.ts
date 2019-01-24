@@ -22,9 +22,6 @@ export class ContactComponent implements OnInit {
   constructor(private data: DataService) { }
 
   ngOnInit() {
-    //console.log("OnInit contact");
-    //console.log(this.data.getConfig());
-    //this.config =  new Config(this.data.getConfig());
   }
 
   ngOnDestroy() {    

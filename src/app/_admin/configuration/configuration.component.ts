@@ -162,15 +162,11 @@ export class ConfigurationComponent implements OnInit {
 
 
   onSubmit(values) {
-    console.log(values)
     if (this.myForm.invalid) {
-      console.log("invalid");
       return;
     }
     this.spinner.show();
     this._subscriptions.push(this.api.setConfig(values).subscribe(res => {
-      console.log("RESULT:");
-      console.log(res);
       this.data.setConfig(res);
       //TODO get new config and update the this.data.setConfig
       this.spinner.hide();

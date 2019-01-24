@@ -98,16 +98,12 @@ export class SignupComponent implements OnInit {
       data:  null 
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
       this.myForm.patchValue({"terms" : result});
     });
   }
 
   //From submit
   onSubmit(value) {
-   console.log(value);
-   //return;
     this.highlight = false;
     if (!this.myForm.controls.terms.value) {
       this.highlight = true;
@@ -125,7 +121,6 @@ export class SignupComponent implements OnInit {
       },
       error => {
         this.spinner.hide();
-        console.log(error);
       })); 
   }
 

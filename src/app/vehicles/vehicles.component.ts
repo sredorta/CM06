@@ -41,7 +41,6 @@ export class VehiclesComponent implements OnInit {
   }
 
   updateFilter(result:Product[]) {
-    console.log("updateFilter");
     this.products = result.filter(obj => obj.isVehicle == true);
     this.matches = this.products.length;
   }

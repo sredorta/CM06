@@ -58,7 +58,6 @@ export class SearchBrandComponent implements OnInit {
      this.dataSource.filter = filterValue.trim().toLowerCase();
      this.lastBrandFilter = filterValue;
     }
-    console.log(this.dataSource.filteredData.length);
     if (this.dataSource.filteredData.length< 5 && this.dataSource.filteredData.length>1) {
       this.menuBrands.yPosition
       this.menuBrands.setPositionClasses();

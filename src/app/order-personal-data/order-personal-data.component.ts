@@ -18,7 +18,6 @@ export class OrderPersonalDataComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.user);
     this.createForm();
   }
   createForm() {

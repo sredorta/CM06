@@ -11,7 +11,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import {User} from '../_models/user';
-
+import {Order} from '../_models/order';
 
 export interface IApiConfig {
   id: number;
@@ -132,6 +132,19 @@ export interface IApiProduct {
   images: IApiAttachment[];
 }
 
+export interface IApiOrder {
+  id:number;
+  firstName:string;
+  lastName:string;
+  email:string;
+  mobile:string;
+  delivery:boolean;
+  address1:string;
+  address2:string;
+  cp:string;
+  city:string;
+  cart: any[];  
+}
 
 @Injectable({
   providedIn: 'root'
@@ -163,6 +176,26 @@ export class ApiService {
 
   public setConfig(data:any) : Observable<IApiConfig[]> {
     return this.http.post<IApiConfig[]>(environment.apiURL + '/config',data).map(res => <IApiConfig[]>res)
+  }
+
+
+  public checkOrder(order:Order) : Observable<IApiOrder> {
+    let data = {
+      firstName:  order.firstName,
+      lastName:   order.lastName,
+      email:      order.email,
+      mobile:     order.mobile,
+      delivery:   order.delivery,
+      address1:   order.address1,
+      address2:   order.address2,
+      cp:         order.cp,
+      city:       order.city,
+      cart:       order.cart.data          
+    };
+    console.log("orderCheck");
+    console.log("Sending data");
+    console.log(data);
+    return this.http.post<IApiOrder>(environment.apiURL + '/order/check',data).map(res => <IApiOrder>res)
   }
 
 

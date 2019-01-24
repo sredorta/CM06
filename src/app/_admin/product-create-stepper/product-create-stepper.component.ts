@@ -35,7 +35,6 @@ export class ProductCreateStepperComponent implements OnInit {
     if (this.data.getProducts().length==0) {
       this.spinner.show();
       this._subscriptions.push(this.api.getProducts().subscribe((res: IApiProduct[]) => {
-        console.log("Products :");
         this.data.setProducts(res);
         this.spinner.hide();
         this.hasProducts = true;

@@ -124,8 +124,6 @@ export class DataService {
 
   //Sets current user
   setCart(cart: Cart) {
-    console.log("setCurrent::");
-    console.log(cart);
     this._cart.next(cart);
   }
 
