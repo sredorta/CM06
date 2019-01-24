@@ -11,6 +11,7 @@ export class Order {
     address2:string;
     cp:string;
     city:string;
+    total:number;
     cart: Cart = new Cart();
     constructor() {
     }

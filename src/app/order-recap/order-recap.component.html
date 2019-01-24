@@ -1,37 +1,35 @@
 <app-spinner-overlay-component [show]="spinner">
 <div *ngIf="!spinner" class="wrapper" fxLayout="column" fxLayoutAlign="center center">
   <div fxLayout="row" fxLayout.xs="column-reverse" fxLayoutGap="20px" class="wrapper-center">
-<!--    <div class="item-wrapper">
+    <div class="item-wrapper">
       <p class="title">{{'order.recap.products.title' | translate}}</p>
       <p class="subtitle">{{'order.recap.products.subtitle' | translate}}</p>
-        <div *ngFor="let product of products;let i = index">
-          <div fxLayout="column" class="cart-item" [ngClass]="{'undeliverable' : !product.isDeliverable}">
-            <p class="product-title">{{product.title}}</p>
+        <div *ngFor="let item of order.cart.data">
+          <div fxLayout="column" class="cart-item">
+            <p class="product-title">{{item.title}}</p>
             <div fxLayout="row">
-              <div fxLayoutAlign="center center" mat-card-avatar [style.backgroundImage]="getImageUrl(product)" class="image"></div>
+              <div fxLayoutAlign="center center" mat-card-avatar [style.backgroundImage]="getImageUrl(item.url)" class="image"></div>
               <div fxLayout="column" fxLayoutAlign="center center" class="counter">
-                  <p class="product-count">x {{cart.data[i].quantity}}</p>
+                  <p class="product-count">x {{item.quantity}}</p>
               </div>
               <div fxLayoutAlign="end center" class="price-wrapper">
-                  <p class="product-price">{{product.getFinalPrice()*cart.data[i].quantity | currencyFormat}} €</p>
+                  <p class="product-price">{{item.tprice | currencyFormat}} €</p>
               </div>
             </div>
-            <p *ngIf="!product.isDeliverable" class="warning">Produit non livrable !</p>
-
           </div>  
         </div>
         <div class="total-wrapper">
             <div class="total-item total" fxLayout="row" fxLayoutAlign="space-between center">
-              <p>{{'order.recap.products.total' | translate}}</p> <p>{{getTotal() | currencyFormat}} €</p>
+              <p>{{'order.recap.products.total' | translate}}</p> <p>{{order.cart.price | currencyFormat}} €</p>
             </div>
-            <div *ngIf="isDeliverable()==true">
-                <div class="total-item" fxLayout="row" fxLayoutAlign="space-between center">
-                    <p>{{'order.recap.products.delivery.title' | translate}}</p> <p>{{getDeliveryPrice() | currencyFormat }} €</p>
-                </div>
-                <p class="livraison-detail">{{'cart.dialog.delivery.message' | translate}}</p>
+            <div *ngIf="!order.cart.isWeightExceeded && order.delivery == true">
+              <div class="total-item" fxLayout="row" fxLayoutAlign="space-between center">
+                <p>{{'order.recap.products.delivery.title' | translate}}</p> <p>{{order.cart.deliveryCost | currencyFormat }} €</p>
               </div>
-              <div *ngIf="isDeliverable()==false">
-                <p class="livraison-detail">{{'cart.dialog.delivery.notdelivrable' | translate}}</p>
+              <p class="livraison-detail">{{'cart.dialog.delivery.message' | translate}}</p>
+            </div>
+            <div *ngIf="order.cart.isWeightExceeded && order.delivery == true">
+                <p class="livraison-detail-exceeded">{{'order.recap.delivery.exceeded' | translate}}</p>
               </div>
         </div>
     </div>
@@ -60,11 +58,10 @@
       </div>  
     </div>
   </div> 
-  <div *ngIf="getTotal()>0" style="width:100%" fxLayout="row" fxLayoutAlign="center center">
-    <p class="final">{{'order.recap.total' | translate}} {{getFinalPrice() | currencyFormat}}</p><mat-icon>euro_symbol</mat-icon>
-  -->
+  <div *ngIf="order.total" style="width:100%" fxLayout="row" fxLayoutAlign="center center">
+    <p class="final">{{'order.recap.total' | translate}} {{order.total | currencyFormat}}</p><mat-icon>euro_symbol</mat-icon>
   </div>
- <!-- <button mat-raised-button type="submit" color="primary" style="margin-top:10px" [disabled]="getTotal()<=0" (click)="goToPayment()">{{'order.recap.submit' | translate}}</button>-->
- 
+  <button mat-raised-button type="submit" color="primary" style="margin-top:10px" [disabled]="order.total<=0 || (order.cart.isWeightExceeded && order.delivery)" (click)="goToPayment()">{{'order.recap.submit' | translate}}</button>
+
 </div>
 </app-spinner-overlay-component>

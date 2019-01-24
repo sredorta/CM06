@@ -19,7 +19,7 @@ export class OrderRecapComponent implements OnInit {
   products : Product[] = [];
   size : EApiImageSizes = EApiImageSizes.medium;  //We use medium as it´s already loaded
   defaultImage :string = "./assets/images/no-photo-available.jpg";
-  spinner :boolean = true;
+  spinner :boolean = false;
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
   @Input() order : Order;
@@ -41,86 +41,40 @@ export class OrderRecapComponent implements OnInit {
 
   //When trigger changes we recheck the order
   ngOnChanges(changes : SimpleChanges) {
-    this.checkOrder();
+    if (changes.trigger)
+      this.checkOrder();
   }
 
   //Sends all data to api and gets as if order was done
   checkOrder() {
-    if(this.order.delivery!=undefined) { //Only check if delivery is set
+    this.order.cart.fromStorage()
+    if(this.order.delivery!=undefined && this.order.cart.data.length>0) { //Only check if delivery is set and we have items
       this.spinner = true;
-      this._subscriptions.push(this.api.checkOrder(this.order).subscribe((res: IApiOrder) => {
-        console.log("Result of checkOrder :");
+      this._subscriptions.push(this.api.checkOrder(this.order).subscribe((res: any) => {
         console.log(res);
-  /*      this.data.setProducts(res,true);
-        this.initCart();*/
+        this.order.cart = new Cart(res.cart);
+        this.order.cart.deliveryCost = res.deliveryCost;
+        this.order.cart.price = res.price;
+        this.order.cart.isWeightExceeded = res.isWeightExceeded;
+        this.order.total = res.total;
+        console.log(this.order);
         this.spinner = false;
       }, () => this.spinner = false));  
     }
   }
-/*
-  initCart() {
-      let i = 0;
-      this.products = [];
-      for (let item of this.cart.data) {
-        let obj = this.data.getProducts().find(obj => obj.id == item.id);
-        if (obj != undefined) {
-          this.products.push(new Product(this.data.getProducts().find(obj => obj.id == item.id)));
-          i = i + 1;
-        } else {
-          //Product has been removed so we update the cart
-          this.cart.remove(item);
-        }
-      }
-  }
 
-  getImageUrl(product: Product) {
-    if (product.getImages(this.size)[0] == undefined) {
+  getImageUrl(url:string) {
+    if (url==undefined || url == "") {
       return "url(" + this.defaultImage + ")";
     }
-    return "url(" + product.getImages(this.size)[0] + ")";
-
-  }
-
-
-  //Return if cart is deliverable
-  isDeliverable() {
-    if (this.products.find(obj => obj.isDeliverable == false)!= undefined) return false;
-    if (this.cart.getWeight()>30) return false;
-    return true;
-  }
-
-  //Estimate the price depending on total weight
-  getDeliveryPrice() {
-    if (this.cart.getWeight()<=2) 
-      return this.config.get(EApiConfigKeys.delivery1);
-    if (this.cart.getWeight()<=10)  
-      return this.config.get(EApiConfigKeys.delivery2);
-    return this.config.get(EApiConfigKeys.delivery3);  
-  }
-
-
-  getTotal() {
-    let result = 0;
-    let i = 0;
-    for (let product of this.products) {
-      result = result + product.getFinalPrice()*this.cart.data[i].quantity;
-      i++;
-    }
-    return result;
-  }
-
-  getFinalPrice() {
-    if (this.isDeliverable())
-      return this.getTotal() + parseFloat(this.getDeliveryPrice());
-    else
-    return this.getTotal();
+    return "url(" + url + ")";
   }
 
   goToPayment() {
     //TODO add emit here of the total to pay and any other things
     console.log("Payment !!");
   }
-*/
+
   ngOnDestroy() {    
     //Unsubscribe to all
     for (let subscription of this._subscriptions) {

@@ -184,7 +184,7 @@ export class ApiService {
     return this.http.post<any>(environment.apiURL + '/cart/check',{cart:cart.data}).map(res => <any>res)
   }
 
-  public checkOrder(order:Order) : Observable<IApiOrder> {
+  public checkOrder(order:Order) : Observable<any> {
     let data = {
       firstName:  order.firstName,
       lastName:   order.lastName,
@@ -200,7 +200,7 @@ export class ApiService {
     console.log("orderCheck");
     console.log("Sending data");
     console.log(data);
-    return this.http.post<IApiOrder>(environment.apiURL + '/order/check',data).map(res => <IApiOrder>res)
+    return this.http.post<any>(environment.apiURL + '/order/check',data).map(res => <any>res)
   }
 
 

@@ -367,6 +367,7 @@
     "order.recap.delivery.subtitle"             : "Adresse de livraison",
     "order.recap.nodelivery.title"              : "Sans livraison",
     "order.recap.nodelivery.subtitle"           : "Vous passerez chercher la commande au magasin",
+    "order.recap.delivery.exceeded"             : "ATTENTION: Votre commande depasse le poids maximum, veuillez nous contacter si vous voulez une livraison",
     "order.recap.total"                         : "MONTANT:",
     "order.recap.submit"                        : "Suivant"
 

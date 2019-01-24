@@ -124,7 +124,7 @@ export class DataService {
 
   //Sets current user
   setCart(cart: Cart) {
-    this._cart.next(cart);
+    this._cart.next(new Cart(cart.data));
   }
 
 }

@@ -54,30 +54,22 @@ export class CartDialogComponent implements OnInit {
     if (item.stock > item.quantity) {
       item.quantity++;
       item.tprice = item.quantity * item.price;
-      this.data.setCart(this.cart);
       this.cart.toStorage();
+      this.data.setCart(this.cart);
     }
   }
+
 
   //Decrements counter of the specific index
   minusCount(item:CartItem) {
+    
     if (item.quantity>0) {
       item.quantity--;
       item.tprice = item.quantity * item.price;
-      this.data.setCart(this.cart);
       this.cart.toStorage();
+      this.data.setCart(this.cart);
     }
   }
-
-  //Return if cart is deliverable
-  isDeliverable() {
-    if (this.products.find(obj => obj.isDeliverable == false)!= undefined) return false;
-    if (this.cart.getWeight()>30) return false;
-    return true;
-  }
-
-
-
 
   getTotal() {
     let result = 0;
