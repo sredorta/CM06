@@ -12,6 +12,7 @@ import 'rxjs/add/operator/catch';
 
 import {User} from '../_models/user';
 import {Order} from '../_models/order';
+import {Cart} from '../_models/cart';
 
 export interface IApiConfig {
   id: number;
@@ -178,6 +179,10 @@ export class ApiService {
     return this.http.post<IApiConfig[]>(environment.apiURL + '/config',data).map(res => <IApiConfig[]>res)
   }
 
+
+  public checkCart(cart:Cart) : Observable<any> {
+    return this.http.post<any>(environment.apiURL + '/cart/check',{cart:cart.data}).map(res => <any>res)
+  }
 
   public checkOrder(order:Order) : Observable<IApiOrder> {
     let data = {

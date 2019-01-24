@@ -6,6 +6,7 @@ import {Config, EApiConfigKeys} from '../_models/config';
 import {ApiService, IApiProduct, EApiImageSizes} from '../_services/api.service';
 import {SpinnerOverlayService} from '../_library/spinner-overlay.service';
 import { Subscription } from 'rxjs';
+import { isTemplateExpression } from 'typescript';
 @Component({
   selector: 'app-cart-dialog',
   templateUrl: './cart-dialog.component.html',
@@ -23,74 +24,49 @@ export class CartDialogComponent implements OnInit {
   constructor(private data : DataService, private api : ApiService, public spinner : SpinnerOverlayService) { }
 
   ngOnInit() {
-    this.getProducts();
+    this.initCart();
   }
-
-
-  getProducts() {
-    if (this.data.getProducts().length>0) {
-      this.initCart();
-    } else {
-      this.spinner.show();
-      this._subscriptions.push(this.api.getProducts().subscribe((res: IApiProduct[]) => {
-        this.data.setProducts(res,true);
-        this.initCart();
-        this.spinner.hide();
-      }, () => this.spinner.hide()));
-    }
-  } 
 
   initCart() {
     this.cart.fromStorage();
-    let i = 0;
-    for (let item of this.cart.data) {
-      let obj = this.data.getProducts().find(obj => obj.id == item.id);
-      if (obj != undefined) {
-        this.products.push(new Product(this.data.getProducts().find(obj => obj.id == item.id)));
-        i = i + 1;
-      } else {
-        //Product has been removed so we update the cart
-        this.cart.remove(item);
-      }
+    if (this.cart.data.length>0) {
+      this.spinner.show();
+      this._subscriptions.push(this.api.checkCart(this.cart).subscribe((res:any)=> {
+        this.cart = new Cart(res.cart);
+        this.cart.deliveryCost = res.deliveryCost;
+        this.cart.price = res.price;
+        this.cart.isWeightExceeded = res.isWeightExceeded;
+        console.log(this.cart);
+        this.spinner.hide();
+      },()=>this.spinner.hide()));
     }
-//    this.data.setCart(this.cart);
   }
-
-  getImageUrl(product: Product) {
-    if (product.getImages(this.size)[0] == undefined) {
+  getImageUrl(url:string) {
+    if (url==undefined || url == "") {
       return "url(" + this.defaultImage + ")";
     }
-    return "url(" + product.getImages(this.size)[0] + ")";
-
+    return "url(" + url + ")";
   }
 
+
   //Increments counter of the specific index
-  plusCount(index:number) {
-    if (this.products[index].stock > this.cart.data[index].quantity) {
-      this.cart.data[index].quantity++;
+  plusCount(item:CartItem) {
+    if (item.stock > item.quantity) {
+      item.quantity++;
+      item.tprice = item.quantity * item.price;
       this.data.setCart(this.cart);
       this.cart.toStorage();
     }
   }
 
   //Decrements counter of the specific index
-  minusCount(index:number) {
-    if (this.cart.data[index].quantity>0) {
-      this.cart.data[index].quantity--;
+  minusCount(item:CartItem) {
+    if (item.quantity>0) {
+      item.quantity--;
+      item.tprice = item.quantity * item.price;
       this.data.setCart(this.cart);
       this.cart.toStorage();
     }
-  }
-
-  //Estimate the price depending on total weight
-  getDeliveryPrice() {
-    if (this.cart.getWeight()<=2) 
-      return this.config.get(EApiConfigKeys.delivery1);
-    if (this.cart.getWeight()<=10)  
-      return this.config.get(EApiConfigKeys.delivery2);
-//    if (this.cart.getWeight()<=30)
-    return this.config.get(EApiConfigKeys.delivery3);  
-    //return this.cart.getWeight();
   }
 
   //Return if cart is deliverable
@@ -106,18 +82,16 @@ export class CartDialogComponent implements OnInit {
   getTotal() {
     let result = 0;
     let i = 0;
-    for (let product of this.products) {
-      result = result + product.getFinalPrice()*this.cart.data[i].quantity;
-      i++;
+    for (let item of this.cart.data) {
+      result = result + item.tprice;
     }
     return result;
   }
 
 
   //Remove item from cart
-  removeItem(index:number) {
-    this.cart.remove(this.cart.data[index]);
-    this.products.splice(index,1);
+  removeItem(item:CartItem) {
+    this.cart.remove(item);
     this.data.setCart(this.cart);
     this.cart.toStorage();
   }

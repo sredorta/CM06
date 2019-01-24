@@ -84,7 +84,7 @@ export class ProductItemDetailComponent implements OnInit {
   onSubmit() {
       let cart = new Cart(null);
       cart.fromStorage();
-      cart.add(new CartItem({id:this.product.id,weight:this.product.weight,quantity:this.myForm.controls["quantity"].value}));    
+      cart.add(new CartItem({id:this.product.id,quantity:this.myForm.controls["quantity"].value}));    
       this.data.setCart(cart);
   }
 

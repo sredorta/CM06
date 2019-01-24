@@ -6,25 +6,25 @@
       </div>
     </div>
     <div class="content">
-      <div *ngIf="products.length>0">
-        <div *ngFor="let product of products;let i = index">
+      <div *ngIf="cart.data.length>0">
+        <div *ngFor="let item of cart.data;let i = index">
           <div fxLayout="column" class="cart-item-wrapper">
-            <p class="product-title">{{product.title}}</p>
+            <p class="product-title">{{item.title}}</p>
             <div fxLayout="row">
-              <div fxLayoutAlign="center center" mat-card-avatar [style.backgroundImage]="getImageUrl(product)" class="image"></div>
+              <div fxLayoutAlign="center center" mat-card-avatar [style.backgroundImage]="getImageUrl(item.url)" class="image"></div>
               <div fxLayout="column" fxLayoutAlign="center center" class="counter">
                   
-                  <p class="product-count">x {{cart.data[i].quantity}}</p>
+                  <p class="product-count">x {{item.quantity}}</p>
                   <div fxLayout="row" fxFlex="1 1 auto" fxLayoutAlign="center center" fxLayoutGap="10px">
-                      <div class="mybutton" (click)="plusCount(i)"><mat-icon>add</mat-icon></div>
-                      <div class="mybutton" (click)="minusCount(i)"><mat-icon>remove</mat-icon></div>
+                      <div class="mybutton" (click)="plusCount(item)"><mat-icon>add</mat-icon></div>
+                      <div class="mybutton" (click)="minusCount(item)"><mat-icon>remove</mat-icon></div>
                   </div>
               </div>
               <div fxlayoutAlign="end end" class="price-wrapper">
                   <div fxLayoutAlign="end center">
-                    <p class="product-price">{{product.getFinalPrice()*cart.data[i].quantity | currencyFormat}} €</p>
+                    <p class="product-price">{{item.tprice | currencyFormat}} €</p>
                   </div>
-                  <button mat-button class="scaled" style="margin-top:10px" (click)="removeItem(i)">{{'delete' | translate}}</button>
+                  <button mat-button class="scaled" style="margin-top:10px" (click)="removeItem(item)">{{'delete' | translate}}</button>
               </div>
             </div>
           </div>
@@ -33,21 +33,13 @@
           <div class="total-item total" fxLayout="row" fxLayoutAlign="space-between center">
             <p>{{'cart.dialog.total' | translate}}</p> <p>{{getTotal() | currencyFormat}} €</p>
           </div>
-          <div *ngIf="isDeliverable()==true">
-            <div class="total-item" fxLayout="row" fxLayoutAlign="space-between center">
-                <p>{{'cart.dialog.delivery.title' | translate}}</p> <p>{{getDeliveryPrice() | currencyFormat }} €</p>
-            </div>
-            <p class="livraison-detail">{{'cart.dialog.delivery.message' | translate}}</p>
-          </div>
-          <div *ngIf="isDeliverable()==false">
-            <p class="livraison-detail">{{'cart.dialog.delivery.notdelivrable' | translate}}</p>
-          </div>
+          <p class="livraison-detail">{{'cart.dialog.delivery.message' | translate}}</p>
         </div>
         <div class="order">
           <button mat-raised-button color="primary" style="width:100%"[disabled]="getTotal()==0?true:false" [mat-dialog-close]="true" routerLink="/commande">{{'cart.dialog.order' | translate}}</button>
         </div>
       </div>
-      <div *ngIf="products.length==0 && !spinner.visible" class="cart-item-wrapper">
+      <div *ngIf="cart.data.length==0 && !spinner.visible" class="cart-item-wrapper">
         <p class="empty-title">{{'cart.dialog.empty.title' | translate}}</p>
         <p>{{'cart.dialog.empty.message' | translate}}</p>
       </div>

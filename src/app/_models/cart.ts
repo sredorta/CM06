@@ -2,23 +2,37 @@ import {Product} from './product';
 
 export class CartItem {
     id:number;
+    title:string;
+    price:number;
+    stock:number;
     weight:number;
+    url:string;
     quantity:number;
+    tprice:number;
 
     constructor(elem: any) {
         if (elem !== null) {
             this.id = elem.id;
+            this.title = elem.title;
+            this.price = elem.price;
+            this.stock = elem.stock;
             this.weight = elem.weight;
+            this.url = elem.url;
             this.quantity = elem.quantity;
+            this.tprice = elem.tprice;
         } else {
             this.id = null;
         }
     }     
     
 }
+
 export class Cart {
     data : CartItem[] = [];
-
+    price:number;
+    isWeightExceeded:boolean;
+    deliveryCost:number;
+    
     constructor(items: CartItem[] = null) {
         if (items != null)
             for (let item of items ) {

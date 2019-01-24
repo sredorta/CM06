@@ -333,12 +333,10 @@
 
     "cart.dialog.title"                         : "Mon pannier",
     "cart.dialog.total"                         : "TOTAL",
-    "cart.dialog.delivery.title"                : "FRAIS DE LIVRAISON*",
-    "cart.dialog.delivery.message"              : "(*) Les frais de livraison sont calculés en fonction du poids aproximatif des articles choisis. Ces frais s'appliquent uniquement en cas de livraison et sont à ajouter au total.",
+    "cart.dialog.delivery.message"              : "(*) Les frais de livraison sont calculés en fonction du poids aproximatif des articles choisis. Ces frais s'appliquent uniquement en cas de livraison et sont à ajouter au total. Si le poids total excede les 30kg la livraison ne sera possible",
     "cart.dialog.order"                         : "Passer commande",
     "cart.dialog.empty.title"                   : "Le pannier est vide",
     "cart.dialog.empty.message"                 : "Selectioner les articles que vous desirez et revenez au pannier pour passer commande",
-    "cart.dialog.delivery.notdelivrable"        : "ATTENTION: Cette commande ne pourra pas être livré !",
 
     "stepper.order.first"                       : "Donnés personnelles",
     "stepper.order.second"                      : "Livraison",
