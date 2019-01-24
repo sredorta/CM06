@@ -23,6 +23,8 @@ export class OrderRecapComponent implements OnInit {
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
   @Input() order : Order;
+  @Input() trigger : number = 0;
+
   constructor(private api : ApiService, private data : DataService) { }
 
   // We check first order by sending to API check order (i.e.: like create order but without creation)
@@ -31,20 +33,20 @@ export class OrderRecapComponent implements OnInit {
   // We will go to payment after and if payment is accepted then we do the create order
 
   ngOnInit() {
-    console.log("RECAP ON INIT !");
     this._subscriptions.push(this.data.getCart().subscribe(res => {
       this.order.cart = res;
       this.checkOrder();
     }));
   }
 
+  //When trigger changes we recheck the order
   ngOnChanges(changes : SimpleChanges) {
-    this.order = changes.order.currentValue;
     this.checkOrder();
   }
 
   //Sends all data to api and gets as if order was done
   checkOrder() {
+    if(this.order.delivery!=undefined) { //Only check if delivery is set
       this.spinner = true;
       this._subscriptions.push(this.api.checkOrder(this.order).subscribe((res: IApiOrder) => {
         console.log("Result of checkOrder :");
@@ -53,6 +55,7 @@ export class OrderRecapComponent implements OnInit {
         this.initCart();*/
         this.spinner = false;
       }, () => this.spinner = false));  
+    }
   }
 /*
   initCart() {

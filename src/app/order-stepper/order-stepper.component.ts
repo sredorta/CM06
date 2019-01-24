@@ -17,6 +17,7 @@ export class OrderStepperComponent implements OnInit {
   step : number = 1;              //Current complted step
   user : User;                    //User if connected
   order : Order = new Order();//We store here the order
+  triggerChange : number = 0;
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
   constructor(private api : ApiService) { }
@@ -58,6 +59,7 @@ export class OrderStepperComponent implements OnInit {
     this.order.cp = data.cp;
     console.log("ORDER IS:");
     console.log(this.order);
+    this.triggerChange++; //Force onChanges to work !
     this.nextStep();
   }
 
