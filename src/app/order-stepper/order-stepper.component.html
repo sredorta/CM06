@@ -1,27 +1,27 @@
 <div *ngIf="user" class="wrapper"> 
     <mat-vertical-stepper linear="true" #stepper>
-        <mat-step  [completed]="step>1">
+        <mat-step  [completed]="step>1" [editable]="isEditable">
           <ng-template matStepLabel>{{'stepper.order.first' | translate}}</ng-template>
           <div fxLayout="row" fxLayoutAlign="center center" class="big-component">
             <app-order-personal-data [user]="user" (data)="onDataReady($event)"></app-order-personal-data>
           </div>     
         </mat-step>
-        <mat-step [completed]="step>2">
+        <mat-step [completed]="step>2" [editable]="isEditable">
           <ng-template matStepLabel>{{'stepper.order.second' | translate}}</ng-template>
           <div fxLayout="row" fxLayoutAlign="center center" class="big-component">
               <app-order-address (data)="onAddressReady($event)"></app-order-address>
           </div>      
         </mat-step>
-        <mat-step [completed]="step>3">
+        <mat-step [completed]="step>3" [editable]="isEditable">
           <ng-template matStepLabel>{{'stepper.order.third' | translate}}</ng-template>
           <div fxLayout="row" fxLayoutAlign="center center" class="big-component">
-            <app-order-recap [order]="order" [trigger]="triggerChange"></app-order-recap>
+            <app-order-recap [order]="order" [trigger]="triggerChange" (result)="onOrderReady($event)"></app-order-recap>
           </div>      
         </mat-step>
-        <mat-step [completed]="step>4" >
+        <mat-step [completed]="step>4" [editable]="isEditable">
             <ng-template matStepLabel>{{'stepper.order.fourth' | translate}}</ng-template>
             <div fxLayout="row" fxLayoutAlign="center center" class="big-component">
-              <p>test4</p>
+              <app-order-payment *ngIf="step==4" [order]="finalOrder"></app-order-payment>
             </div>      
         </mat-step>
         <mat-step [completed]="step>5" >

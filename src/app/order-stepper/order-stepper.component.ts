@@ -17,7 +17,9 @@ export class OrderStepperComponent implements OnInit {
   step : number = 1;              //Current complted step
   user : User;                    //User if connected
   order : Order = new Order();//We store here the order
+  finalOrder: Order = new Order(); //Final order not modifiable before payment
   triggerChange : number = 0;
+  isEditable : boolean = true;
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
   constructor(private api : ApiService) { }
@@ -60,6 +62,14 @@ export class OrderStepperComponent implements OnInit {
     console.log("ORDER IS:");
     console.log(this.order);
     this.triggerChange++; //Force onChanges to work !
+    this.nextStep();
+  }
+
+  onOrderReady(order:Order) {
+    console.log("onOrderReady");
+    this.finalOrder = order;
+    console.log(order);
+    this.isEditable = false; //Not allow changes from now
     this.nextStep();
   }
 

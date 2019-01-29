@@ -300,6 +300,7 @@
     "products.admin.dialog.delete.content"      : " ATTENTION ! Êtes vous sûr de vouloir supprimer le produit ?",
     "products.admin.onlyPieces"                 : "Montrer seulement les pièces détachées",
     "products.admin.onlyVehicles"               : "Montrer seulement les vehicules",
+    "products.admin.onlyZeroStock"              : "Montrer seulement les articles sans stock",
 
     "members.admin.table.picture"               : "Avatar",
     "members.admin.table.last"                  : "Nom",
@@ -323,6 +324,8 @@
     "product.item.detail.placeholder"           : "Quantité",
     "product.item.detail.hint"                  : "Entrez la quantité desirée",
     "product.item.detail.addcart"               : "Ajouter au pannier",
+    "product.new"                               : "Article neuf",
+    "product.old"                               : "Article d'occasion",
 
     "products.search.label"                     : "Chercher un produit",
     "products.search.placeholder"               : "Chercher",

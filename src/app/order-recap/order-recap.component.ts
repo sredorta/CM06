@@ -24,6 +24,7 @@ export class OrderRecapComponent implements OnInit {
 
   @Input() order : Order;
   @Input() trigger : number = 0;
+  @Output() result = new EventEmitter<Order>();
 
   constructor(private api : ApiService, private data : DataService) { }
 
@@ -73,6 +74,7 @@ export class OrderRecapComponent implements OnInit {
   goToPayment() {
     //TODO add emit here of the total to pay and any other things
     console.log("Payment !!");
+    this.result.emit(this.order);
   }
 
   ngOnDestroy() {    

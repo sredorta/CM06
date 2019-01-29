@@ -7,7 +7,9 @@
           <p class="product-item-price-discount">{{product.getFinalPrice() | currencyFormat}} €</p>
           <p *ngIf="product.discount>0" class="product-item-discount">{{product.getDiscount()}}%</p>
         </div>
+        <small *ngIf="product.isNew" class="old-new isNew">{{'product.new' | translate}}</small>
+        <small *ngIf="!product.isNew" class="old-new isOld">{{'product.old' | translate}}</small>
       </div>
   </div>
-  <button style="width:100%" mat-raised-button color="primary" (click)="addToCart()"><mat-icon style="margin-right:10px">add_shopping_cart</mat-icon>Pannier</button>
+  <button style="width:100%" mat-raised-button color="primary" (click)="addToCart()" [disabled]="!product.isDeliverable"><mat-icon style="margin-right:10px">add_shopping_cart</mat-icon>Pannier</button>
 <div> 

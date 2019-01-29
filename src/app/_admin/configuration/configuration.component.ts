@@ -117,7 +117,7 @@ export class ConfigurationComponent implements OnInit {
           return true;
         }
       if (control == "delivery3")
-        if (this.myForm.controls["delivery1"].value != this.config.get(EApiConfigKeys.delivery3)) {
+        if (this.myForm.controls["delivery3"].value != this.config.get(EApiConfigKeys.delivery3)) {
           return true;
         }
       if (control == "address")

@@ -54,6 +54,7 @@ export class ProductsComponent implements OnInit {
   expandedProductId : number = 0;
   disableVehicles : boolean = false;  //Disable filtering
   disablePieces : boolean = false;
+  disableZeroStock:boolean = false;
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
   @ViewChild('expansion') expansion : MatExpansionPanel;
@@ -221,9 +222,11 @@ export class ProductsComponent implements OnInit {
     if (checkbox.checked) {
       this.initTable(this.dataSource.data.filter(obj => obj.isVehicle == 1));
       this.disablePieces = true;
+      this.disableZeroStock = true;
     } else {
       this.getProducts();
       this.disablePieces = false;
+      this.disableZeroStock = false;
     }
   }
 
@@ -231,10 +234,24 @@ export class ProductsComponent implements OnInit {
     if (checkbox.checked) {
       this.initTable(this.dataSource.data.filter(obj => obj.isVehicle == 0));
       this.disableVehicles = true;
+      this.disableZeroStock = true;
     } else {
       this.getProducts();
       this.disableVehicles = false;
+      this.disableZeroStock = false;
     }
+  }
+
+  showZeroStock(checkbox: MatCheckboxChange) {
+    if (checkbox.checked) {
+      this.initTable(this.dataSource.data.filter(obj => obj.stock == 0));
+      this.disableVehicles = true;
+      this.disablePieces = true;
+    } else {
+      this.getProducts();
+      this.disableVehicles = false;
+      this.disablePieces = false;
+    }    
   }
 
 

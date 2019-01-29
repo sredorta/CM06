@@ -18,6 +18,7 @@ export class CartDialogComponent implements OnInit {
   products : Product[] = [];
   size : EApiImageSizes = EApiImageSizes.medium;  //We use medium as it´s already loaded
   defaultImage :string = "./assets/images/no-photo-available.jpg";
+  loading : boolean = false;
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
@@ -31,6 +32,7 @@ export class CartDialogComponent implements OnInit {
     this.cart.fromStorage();
     if (this.cart.data.length>0) {
       this.spinner.show();
+      this.loading = true;
       this._subscriptions.push(this.api.checkCart(this.cart).subscribe((res:any)=> {
         this.cart = new Cart(res.cart);
         this.cart.deliveryCost = res.deliveryCost;
@@ -38,7 +40,11 @@ export class CartDialogComponent implements OnInit {
         this.cart.isWeightExceeded = res.isWeightExceeded;
         console.log(this.cart);
         this.spinner.hide();
-      },()=>this.spinner.hide()));
+        this.loading = false;
+      },()=> {
+        this.spinner.hide();
+        this.loading = false;
+      }));
     }
   }
   getImageUrl(url:string) {

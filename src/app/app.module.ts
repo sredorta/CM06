@@ -47,6 +47,10 @@ import {MatAutocompleteModule,
 //FACEBOOK
 import {FacebookModule} from 'ngx-facebook';
 
+//PAYPAL
+import { NgxPayPalModule } from 'ngx-paypal';
+
+
 //PRIME-NG COMPONENTS
 import {PasswordModule} from 'primeng/password';
 import {InputTextModule} from 'primeng/inputtext';
@@ -137,6 +141,7 @@ import { OrderPersonalDataComponent } from './order-personal-data/order-personal
 import { SpinnerOverlayComponentComponent } from './_library/spinner-overlay-component/spinner-overlay-component.component';
 import { OrderAddressComponent } from './order-address/order-address.component';
 import { OrderRecapComponent } from './order-recap/order-recap.component';
+import { OrderPaymentComponent } from './order-payment/order-payment.component';
 
 
 
@@ -189,7 +194,8 @@ import { OrderRecapComponent } from './order-recap/order-recap.component';
     OrderPersonalDataComponent,
     SpinnerOverlayComponentComponent,
     OrderAddressComponent,
-    OrderRecapComponent
+    OrderRecapComponent,
+    OrderPaymentComponent
     //End of library
   ],
   imports: [
@@ -211,7 +217,8 @@ import { OrderRecapComponent } from './order-recap/order-recap.component';
     TooltipModule,
     AgmCoreModule.forRoot( { //GMAPS
       apiKey: environment.gmapKey
-    })
+    }),
+    NgxPayPalModule, //PAYPAL
     //ToastModule,
     //GalleriaModule
     ],

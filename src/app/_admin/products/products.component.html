@@ -14,6 +14,8 @@
             <div fxLayout="column" style="padding:20px;padding-top:0px" fxLayoutGap="10px">
                 <mat-checkbox [disabled]="disableVehicles" (change)="showVehicles($event)" > {{'products.admin.onlyVehicles' | translate}}</mat-checkbox>
                 <mat-checkbox [disabled]="disablePieces"   (change)="showPieces($event)" > {{'products.admin.onlyPieces' | translate}}</mat-checkbox>
+                <mat-checkbox [disabled]="disableZeroStock"   (change)="showZeroStock($event)" > {{'products.admin.onlyZeroStock' | translate}}</mat-checkbox>
+
             </div>  
             <p style="margin-bottom:5px;margin-top:0px;" class="total">TOTAL : {{productsDisplayed}} / <span style="font-weight:bold">{{productsCount}}</span></p> 
         </div>

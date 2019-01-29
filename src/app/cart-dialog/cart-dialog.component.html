@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="content">
-      <div *ngIf="cart.data.length>0">
+      <div *ngIf="cart.data.length>0 && !loading">
         <div *ngFor="let item of cart.data;let i = index">
           <div fxLayout="column" class="cart-item-wrapper">
             <p class="product-title">{{item.title}}</p>
