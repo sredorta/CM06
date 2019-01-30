@@ -19,7 +19,7 @@ import { ConditionsGeneralesVenteComponent } from './conditions-generales-vente/
 import { PayementSecuriseComponent } from './payement-securise/payement-securise.component';
 import { ConfigurationComponent } from './_admin/configuration/configuration.component';
 import { OrderStepperComponent } from './order-stepper/order-stepper.component';
-
+import { OrdersComponent} from './_admin/orders/orders.component';
 //Guards
 import {AdminGuard} from './_guards/admin.guard';
 import {RegisteredGuard} from './_guards/registered.guard';
@@ -69,7 +69,13 @@ const routes: Routes = [
     component: ProductsComponent,
     canActivate: [AdminGuard]
   },    
-
+  {
+    path: 'admin-commandes',
+    runGuardsAndResolvers: 'always',
+    component: OrdersComponent,
+    canActivate: [AdminGuard]
+  },   
+  
   {
     path: 'admin-configuration',
     runGuardsAndResolvers: 'always',

@@ -143,6 +143,8 @@ import { OrderAddressComponent } from './order-address/order-address.component';
 import { OrderRecapComponent } from './order-recap/order-recap.component';
 import { OrderPaymentComponent } from './order-payment/order-payment.component';
 import { OrderItemComponent } from './order-item/order-item.component';
+import { OrdersComponent } from './_admin/orders/orders.component';
+import { OrderItemAdminComponent } from './_admin/order-item-admin/order-item-admin.component';
 
 
 
@@ -197,7 +199,9 @@ import { OrderItemComponent } from './order-item/order-item.component';
     OrderAddressComponent,
     OrderRecapComponent,
     OrderPaymentComponent,
-    OrderItemComponent
+    OrderItemComponent,
+    OrdersComponent,
+    OrderItemAdminComponent
     //End of library
   ],
   imports: [

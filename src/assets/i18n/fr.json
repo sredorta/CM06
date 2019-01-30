@@ -21,6 +21,7 @@
     "app.menu.logout"               : "DÉCONNEXIÓN",
     "app.menu.admin"                : "ADMIN",
     "app.menu.products"             : "PRODUITS",
+    "app.menu.orders"               : "COMMANDES",
     "app.menu.members"              : "MEMBRES", 
     "app.menu.configuration"        : "CONFIGURATIÓN",   
     "home.title"                    : "BOUTIQUE",
@@ -388,6 +389,19 @@
     "order.item.delivery"                       : "Livraison",
     "order.item.executed"                       : "Éxécuté",
     "order.item.updated"                        : "Modifié",
-    "order.item.nodelivery"                     : "Sans livraison, vous devez passer chercher votre commande"
-
+    "order.item.nodelivery"                     : "Sans livraison, vous devez passer chercher votre commande",
+    "order.item.name"                           : "Prénom et Nom",
+    "order.item.email"                          : "Email",
+    "order.item.mobile"                         : "Mobile",
+    "order.item.status.input.label"             : "Modifier l'état",
+    "order.item.status.input.placeholder"       : "Status",
+    "order.item.status.input.hint"              : "État de la commande",
+    "orders.admin.orderId"                      : "ID",
+    "orders.admin.total"                        : "TOTAL",
+    "orders.admin.status"                       : "ÉTAT",
+    "orders.admin.created"                      : "Crée",
+    "orders.admin.search.label"                 : "Chercher une commande",
+    "orders.admin.search.placeholder"           : "Chercher",
+    "orders.admin.dialog.delete.header"         : "Suppression de commande",
+    "orders.admin.dialog.delete.content"        : "ATTENTION: Cette operation est irreversible. Êtes vous sûr de vouloir supprimer cette commande ?"
 }

@@ -1,0 +1,67 @@
+<div class="admin-theme">  
+    <div fxLayout="column"> 
+      <div fxFlex="1 1 auto">
+        <div style="padding:20px;">  
+            <mat-form-field appearance="outline" style="padding-top:10px;min-width:250px">
+                <mat-label>{{'orders.admin.search.label' | translate}}</mat-label>
+                <input matInput  (keyup)="applyFilter($event.target.value)" placeholder="{{'orders.admin.search.placeholder' | translate}}" autocomplete="off">
+                <mat-icon matSuffix>search</mat-icon>
+            </mat-form-field>
+        </div>
+      <p style="margin-bottom:5px;margin-top:0px;" class="total">TOTAL : {{displayedCount}} / <span style="font-weight:bold">{{totalCount}}</span></p> 
+        <table #myTable mat-table [dataSource]="dataSource" multiTemplateDataRows class="table">
+  
+          <ng-container matColumnDef="paypalOrderId">
+              <th mat-header-cell *matHeaderCellDef>{{'orders.admin.orderId' | translate}}</th>
+              <td mat-cell *matCellDef="let row" [class.expanded-row]="false"  (click)="expand = false;rowClick(row);">{{row.paypalOrderId}}</td>
+          </ng-container> 
+
+          <ng-container matColumnDef="total">
+              <th mat-header-cell *matHeaderCellDef>{{'orders.admin.total' | translate}}</th>
+              <td mat-cell *matCellDef="let row" [class.expanded-row]="false"  (click)="expand = false;rowClick(row);">{{row.total}} €</td>
+          </ng-container> 
+
+          <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef>{{'orders.admin.status' | translate}}</th>
+              <td mat-cell *matCellDef="let row" [class.expanded-row]="false"  (click)="expand = false;rowClick(row);">{{row.status}}</td>
+          </ng-container>         
+
+          <ng-container matColumnDef="created">
+              <th mat-header-cell *matHeaderCellDef>{{'orders.admin.created' | translate}}</th>
+              <td mat-cell *matCellDef="let row" [class.expanded-row]="false"  (click)="expand = false;rowClick(row);">{{row.created_at | niceDateFormat}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="modify">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let row"  [class.expanded-row]="expandedElement === row" 
+              (click)="expand=true;expandedElement = row;onDetailsOrder(row.id) ">{{'details' | translate}}</td>
+          </ng-container> 
+  
+          <ng-container matColumnDef="delete">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let row" (click)="onDeleteOrder(row.id)">{{'delete' | translate}}</td>
+          </ng-container> 
+        
+          <ng-container matColumnDef="expandedDetail">
+              <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                <div class="element-detail"
+                    [@detailExpand]="(element == expandedElement) && expand ? 'expanded' : 'collapsed'">
+                  <div style="padding:10px;width:100%" fxLayout="column" fxLayoutGap="20px" class="detail-wrapper"> 
+                    <div *ngIf="element.id == expandedOrderId" style="padding-bottom:15px">
+                        <app-order-item-admin [order]="element" (onUpdatedStatus)="onUpdatedOrder($event)"></app-order-item-admin>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+            class="element-row" [ngClass]="{'selected' : selected[element.id]}"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+        </table>  
+        </div>
+    </div> 
+   
+  </div>
+

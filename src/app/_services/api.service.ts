@@ -232,6 +232,18 @@ export class ApiService {
     return this.http.get<IApiOrder[]>(environment.apiURL + '/order/getAuth').map(res => <IApiOrder[]>res);
   }
 
+  public getOrders() : Observable<IApiOrder[]> {
+    return this.http.get<IApiOrder[]>(environment.apiURL + '/order/get').map(res => <IApiOrder[]>res);
+  }
+
+  public updateOrderStatus(id,status) :Observable<Order> {
+    return this.http.post<IApiOrder>(environment.apiURL + '/order/updatestatus', {"id": id, "status":status}).map(res => new Order(res));
+  }
+
+  public deleteOrder(id) :Observable<any> {
+    return this.http.post<any>(environment.apiURL + '/order/delete', {"id": id}).map(res => <any>res);
+  }
+
 
   public login(email:string, password:string, keepconnected:boolean, access:string) : Observable<IApiLogin> {
     return this.http.post<IApiLogin>(environment.apiURL + '/auth/login', {email, password, keepconnected,access}).map(res => <IApiLogin>res);;
