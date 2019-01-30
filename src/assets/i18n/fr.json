@@ -371,8 +371,13 @@
     "order.recap.nodelivery.title"              : "Sans livraison",
     "order.recap.nodelivery.subtitle"           : "Vous passerez chercher la commande au magasin",
     "order.recap.delivery.exceeded"             : "ATTENTION: Votre commande depasse le poids maximum, veuillez nous contacter si vous voulez une livraison",
-    "order.recap.total"                         : "MONTANT:",
-    "order.recap.submit"                        : "Suivant"
+    "order.recap.total"                         : "TOTAL:",
+    "order.recap.submit"                        : "Suivant",
+    "order.success.title"                       : "Merci pour votre commande",
+    "order.success.subtitle"                    : "Nous mettons tout en place pour que vous recevez votre commande dans les mieux delays",
+    "order.success.email"                       : "Un email de confirmation vous à été envoyé a l'adresse ",
+    "order.error.title"                         : "Payement non effectué",
+    "order.error.subtitle"                      : "Votre commande n'est pas prise en compte, veuillez reessayer le payement ou nous contacter"
 
 
 

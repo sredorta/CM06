@@ -21,13 +21,19 @@
         <mat-step [completed]="step>4" [editable]="isEditable">
             <ng-template matStepLabel>{{'stepper.order.fourth' | translate}}</ng-template>
             <div fxLayout="row" fxLayoutAlign="center center" class="big-component">
-              <app-order-payment *ngIf="step==4" [order]="finalOrder"></app-order-payment>
+              <app-order-payment *ngIf="step==4" [order]="finalOrder" (result)="onPaymentReady($event)"></app-order-payment>
             </div>      
         </mat-step>
         <mat-step [completed]="step>5" >
             <ng-template matStepLabel>{{'stepper.order.fifth' | translate}}</ng-template>
             <div fxLayout="row" fxLayoutAlign="center center" class="big-component">
-              <p>test4</p>
+              <div>
+                  <div class="left-border">
+                      <p class="title">{{'order.success.title' | translate}}</p>
+                      <p class="subtitle">{{'order.success.subtitle' | translate}}</p>
+                      <p class="subtitle small">{{'order.success.email' | translate}} <span>{{order.email}}</span></p>
+                  </div>
+              </div>  
             </div>      
         </mat-step>    
       </mat-vertical-stepper>

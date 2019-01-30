@@ -1,6 +1,12 @@
 <div class="wrap">
-<p>
-  order-payment works!
-</p>
-<ngx-paypal [config]="payPalConfig"></ngx-paypal>
+  <div *ngIf="order.total" style="width:100%" fxLayout="row" fxLayoutAlign="center center">
+    <p class="final">{{'order.recap.total' | translate}} {{order.total | currencyFormat}}</p><mat-icon>euro_symbol</mat-icon>
+  </div>
+  <ngx-paypal [config]="payPalConfig" style="width:100%"></ngx-paypal>
+  <div *ngIf="error" class="message">
+      <div class="left-border">
+          <p class="title">{{'order.error.title' | translate}}</p>
+          <p class="subtitle">{{'order.error.subtitle' | translate}}</p>
+      </div>
+  </div>
 </div>

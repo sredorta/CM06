@@ -1,7 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { PayPalConfig, PayPalEnvironment, PayPalIntegrationType } from 'ngx-paypal';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { PayPalConfig, PayPalEnvironment, PayPalIntegrationType, IPayPalButtonStyle } from 'ngx-paypal';
 import { Order } from '../_models/order';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
+import { Subscription } from 'rxjs';
+import { ApiService } from '../_services/api.service';
 
 @Component({
   selector: 'app-order-payment',
@@ -10,16 +12,27 @@ import { environment } from '../../environments/environment.prod';
 })
 export class OrderPaymentComponent implements OnInit {
   @Input() order : Order;
+  @Output() result = new EventEmitter<Order>();
+
+  error: boolean = false;
+
   public payPalConfig?: PayPalConfig;
-  constructor() { }
+  private _subscriptions : Subscription[] = new Array<Subscription>();
+
+  constructor(private api : ApiService) { }
 
   ngOnInit() {
     console.log("ORDER IS:");
     console.log(this.order);
     console.log("TOTAL IS : " + this.order.total);
-    this.initConfig();
-    }
+    //this.initConfig();
+  }
 
+
+
+  ngAfterViewInit() {
+    setTimeout(()=>this.initConfig());
+  }
     private initConfig(): void {
       this.payPalConfig = new PayPalConfig(PayPalIntegrationType.ClientSideREST, PayPalEnvironment.Sandbox, {
         commit: true,
@@ -28,17 +41,26 @@ export class OrderPaymentComponent implements OnInit {
         },
         button: {
           label: 'paypal',
+          size: 'responsive',
+          fundingicons: true,
+          branding: true
+
         },
         onPaymentComplete: (data, actions) => {
           console.log('OnPaymentComplete');
           console.log(data);
           console.log(actions);
+          this.order.paypalOrderId = data.orderID;
+          this.order.paypalPaymentId = data.paymentID;
+          this.createOrder();
         },
         onCancel: (data, actions) => {
           console.log('OnCancel');
+          this.error = true;
         },
         onError: (err) => {
           console.log('OnError');
+          this.error = true;
         },
         experience: {
           noShipping: true,
@@ -54,5 +76,20 @@ export class OrderPaymentComponent implements OnInit {
       });
   }
   
+  private createOrder() {
+        //Create a preliminary order
+        this._subscriptions.push(this.api.createOrder(this.order).subscribe(res=> {
+          console.log("Order !!!");
+          console.log(res);
+          this.result.emit(this.order);
+        }));
+  }
+
+  ngOnDestroy() {    
+    //Unsubscribe to all
+    for (let subscription of this._subscriptions) {
+      subscription.unsubscribe();
+    }
+  } 
 }
 

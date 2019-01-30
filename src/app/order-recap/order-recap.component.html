@@ -58,9 +58,6 @@
       </div>  
     </div>
   </div> 
-  <div *ngIf="order.total" style="width:100%" fxLayout="row" fxLayoutAlign="center center">
-    <p class="final">{{'order.recap.total' | translate}} {{order.total | currencyFormat}}</p><mat-icon>euro_symbol</mat-icon>
-  </div>
   <button mat-raised-button type="submit" color="primary" style="margin-top:10px" [disabled]="order.total<=0 || (order.cart.isWeightExceeded && order.delivery)" (click)="goToPayment()">{{'order.recap.submit' | translate}}</button>
 
 </div>

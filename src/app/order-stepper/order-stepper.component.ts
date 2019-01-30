@@ -29,6 +29,7 @@ export class OrderStepperComponent implements OnInit {
     this._subscriptions.push(this.api.getAuthUser().subscribe(res=> {
       this.user = new User(res);
       if (this.user.isAvailable()) {
+        this.order.user_id = this.user.id;
         this.order.firstName = this.user.firstName;
         this.order.lastName = this.user.lastName;
         this.order.mobile = this.user.mobile;
@@ -45,6 +46,7 @@ export class OrderStepperComponent implements OnInit {
   //When first step is completed without having a user we get here
   onDataReady(data:any) {
     console.log("WE are in onDataReady");
+    this.order.user_id = null;
     this.order.firstName = data.firstName;
     this.order.lastName = data.lastName;
     this.order.mobile = data.mobile;
@@ -70,6 +72,12 @@ export class OrderStepperComponent implements OnInit {
     this.finalOrder = order;
     console.log(order);
     this.isEditable = false; //Not allow changes from now
+    this.nextStep();
+  }
+
+  onPaymentReady(order:Order) {
+    console.log("We are in onPaymentReady");
+    console.log(order);
     this.nextStep();
   }
 

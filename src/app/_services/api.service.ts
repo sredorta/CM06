@@ -203,6 +203,27 @@ export class ApiService {
     return this.http.post<any>(environment.apiURL + '/order/check',data).map(res => <any>res)
   }
 
+  public createOrder(order:Order) : Observable<any> {
+    let data = {
+      user_id:    order.user_id,
+      firstName:  order.firstName,
+      lastName:   order.lastName,
+      email:      order.email,
+      mobile:     order.mobile,
+      delivery:   order.delivery,
+      address1:   order.address1,
+      address2:   order.address2,
+      cp:         order.cp,
+      city:       order.city,
+      cart:       order.cart.data,
+      paypalOrderId: order.paypalOrderId,
+      paypalPaymentId: order.paypalPaymentId         
+    };
+    return this.http.post<any>(environment.apiURL + '/order/create',data).map(res => <any>res)
+
+  }
+
+
 
   public login(email:string, password:string, keepconnected:boolean, access:string) : Observable<IApiLogin> {
     return this.http.post<IApiLogin>(environment.apiURL + '/auth/login', {email, password, keepconnected,access}).map(res => <IApiLogin>res);;

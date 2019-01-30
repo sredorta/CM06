@@ -20,44 +20,46 @@ import { PayementSecuriseComponent } from './payement-securise/payement-securise
 import { ConfigurationComponent } from './_admin/configuration/configuration.component';
 import { OrderStepperComponent } from './order-stepper/order-stepper.component';
 
-
+//Guards
+import {AdminGuard} from './_guards/admin.guard';
+import {RegisteredGuard} from './_guards/registered.guard';
+import {UnregisteredGuard} from './_guards/unregistered.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    //canActivate: [LoggedOutGuard]
   },  
   {
     path: 'login',
     component: LoginComponent,
     runGuardsAndResolvers: 'always',
-    //canActivate: [LoggedOutGuard]
+    canActivate: [UnregisteredGuard]
   },
   {
     path: 'signup',
     component: SignupComponent,
     runGuardsAndResolvers: 'always',
-    //canActivate: [LoggedOutGuard]
+    canActivate: [UnregisteredGuard]
   },   
   {
     path: 'resetpassword',
     runGuardsAndResolvers: 'always',
     component: ResetpasswordComponent,
-    //canActivate: [LoggedOutGuard]
+    canActivate: [UnregisteredGuard]
   },  
   {
     path: 'profile',
     runGuardsAndResolvers: 'always',
     component: ProfileComponent,
-    //canActivate: [LoggedOutGuard]
+    canActivate: [RegisteredGuard]
   },  
 
   {
     path: 'admin-members',
     runGuardsAndResolvers: 'always',
     component: MembersComponent,
-    //canActivate: [AdminGuard]
+    canActivate: [AdminGuard]
   },    
 
 
@@ -65,86 +67,70 @@ const routes: Routes = [
     path: 'admin-products',
     runGuardsAndResolvers: 'always',
     component: ProductsComponent,
-    //canActivate: [AdminGuard]
+    canActivate: [AdminGuard]
   },    
 
   {
     path: 'admin-configuration',
     runGuardsAndResolvers: 'always',
     component: ConfigurationComponent,
-    //canActivate: [AdminGuard]
+    canActivate: [AdminGuard]
   },  
 
   {
     path: 'admin-product-create',
     runGuardsAndResolvers: 'always',
     component: ProductCreateStepperComponent,
-    //canActivate: [AdminGuard]
+    canActivate: [AdminGuard]
   },    
   {
     path: 'vehicles',
     runGuardsAndResolvers: 'always',
     component: VehiclesComponent,
-    //canActivate: [AnyGuard]
   },
   {
     path: 'pièces',
     runGuardsAndResolvers: 'always',
     component: PiecesComponent,
-    //canActivate: [AnyGuard]
   },
 
   {
     path: 'contact',
     runGuardsAndResolvers: 'always',
     component: ContactComponent,
-    //canActivate: [AnyGuard]
   },
 
   {
     path: 'produit/:id',
     runGuardsAndResolvers: 'always',
     component: ProductItemDetailComponent,
-    //canActivate: [AnyGuard]
   },   
   {
     path: 'commande',
     runGuardsAndResolvers: 'always',
-    component: OrderStepperComponent,
-    //canActivate: [AnyGuard]    
+    component: OrderStepperComponent,    
   },
   {
     path: 'livraison',
     runGuardsAndResolvers: 'always',
     component: LivraisonComponent,
-    //canActivate: [AnyGuard]
   },
   {
     path: 'mentions-legales',
     runGuardsAndResolvers: 'always',
     component: MentionsLegalesComponent,
-    //canActivate: [AnyGuard]
   },  
   {
     path: 'conditions-generales-de-vente',
     runGuardsAndResolvers: 'always',
     component: ConditionsGeneralesVenteComponent,
-    //canActivate: [AnyGuard]
   }, 
   {
     path: 'payement-securise',
     runGuardsAndResolvers: 'always',
     component: PayementSecuriseComponent,
-    //canActivate: [AnyGuard]
   },   
 
-
-
-/*  {
-    path: 'admin-modeles',///:id',
-    component: ModelsComponent,
-    //canActivate: [LoggedInGuard]
-  }*/
 ];
 
 @NgModule({

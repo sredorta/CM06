@@ -2,6 +2,7 @@ import {Cart, CartItem } from "./cart";
 
 export class Order {
     id : number;
+    user_id:number;
     firstName:string;
     lastName:string;
     email:string;
@@ -12,6 +13,8 @@ export class Order {
     cp:string;
     city:string;
     total:number;
+    paypalOrderId:string;
+    paypalPaymentId:string;
     cart: Cart = new Cart();
     constructor() {
     }

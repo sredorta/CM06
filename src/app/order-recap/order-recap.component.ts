@@ -77,6 +77,8 @@ export class OrderRecapComponent implements OnInit {
     this.result.emit(this.order);
   }
 
+
+
   ngOnDestroy() {    
     //Unsubscribe to all
     for (let subscription of this._subscriptions) {
