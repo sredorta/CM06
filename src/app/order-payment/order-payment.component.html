@@ -9,4 +9,10 @@
           <p class="subtitle">{{'order.error.subtitle' | translate}}</p>
       </div>
   </div>
+  <div *ngIf="errorAjax" class="message">
+      <div class="left-border">
+          <p class="title">{{'order.errorajax.title' | translate}}</p>
+          <p class="subtitle">{{'order.errorajax.subtitle' | translate}}</p>
+      </div>
+  </div>
 </div>

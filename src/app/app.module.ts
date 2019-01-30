@@ -142,6 +142,7 @@ import { SpinnerOverlayComponentComponent } from './_library/spinner-overlay-com
 import { OrderAddressComponent } from './order-address/order-address.component';
 import { OrderRecapComponent } from './order-recap/order-recap.component';
 import { OrderPaymentComponent } from './order-payment/order-payment.component';
+import { OrderItemComponent } from './order-item/order-item.component';
 
 
 
@@ -195,7 +196,8 @@ import { OrderPaymentComponent } from './order-payment/order-payment.component';
     SpinnerOverlayComponentComponent,
     OrderAddressComponent,
     OrderRecapComponent,
-    OrderPaymentComponent
+    OrderPaymentComponent,
+    OrderItemComponent
     //End of library
   ],
   imports: [

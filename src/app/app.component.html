@@ -37,21 +37,13 @@
 </div>
   <mat-sidenav-container class="sidenav-container"
                          [style.marginTop.px]="mobileQuery.matches ? 0 : 0"> 
-    <mat-sidenav class="sidenav sidenav-theme" #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+    <mat-sidenav class="sidenav sidenav-theme" #snav mode='over'
                  [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">      
       <mat-nav-list>  
           <a mat-list-item (click)="snav.toggle()" routerLink="" class="sidenav-item">{{'app.menu.home' | translate}}</a>
           <a mat-list-item (click)="snav.toggle()" routerLink="/vehicles" class="sidenav-item">{{'app.menu.first' | translate}}</a>
           <a mat-list-item (click)="snav.toggle()" routerLink="/pièces" class="sidenav-item">{{'app.menu.second' | translate}}</a>
           <a mat-list-item (click)="snav.toggle()" routerLink="/contact" class="sidenav-item">{{'app.menu.third' | translate}}</a>
-          <mat-expansion-panel *ngIf="user.isAdmin()">
-              <mat-expansion-panel-header>
-                <mat-panel-title>{{'app.menu.admin' | translate}}</mat-panel-title>
-              </mat-expansion-panel-header>   
-              <a mat-list-item (click)="snav.toggle()" class="sidenav-item" routerLink="admin-configuration">{{'app.menu.configuration' | translate}}</a>
-              <a mat-list-item (click)="snav.toggle()" class="sidenav-item" routerLink="admin-products">{{'app.menu.products' | translate}}</a>
-              <a mat-list-item (click)="snav.toggle()" class="sidenav-item" routerLink="admin-members">{{'app.menu.members' | translate}}</a>
-          </mat-expansion-panel>
           <mat-divider></mat-divider>  
           <div *ngIf="!user.isAvailable()" style="margin-top:10px"> 
             <div style="width:100%;padding:5px" fxLayoutAlign="center center"><button mat-raised-button color="primary" routerLink="/login" (click)="snav.toggle()">{{'app.menu.login' | translate}}</button></div>
@@ -59,7 +51,15 @@
           </div>
           <div *ngIf="user.isAvailable()" style="margin-top:10px"> 
                 <div style="width:100%;padding:5px" fxLayoutAlign="center center"><button mat-stroked-button color="primary"  (click)="snav.toggle();logout()">{{'app.menu.logout' | translate}}</button></div>
-          </div>    
+          </div>   
+          <mat-expansion-panel *ngIf="user.isAdmin()">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>{{'app.menu.admin' | translate}}</mat-panel-title>
+                </mat-expansion-panel-header>   
+                <a mat-list-item (click)="snav.toggle()" class="sidenav-item" routerLink="admin-configuration">{{'app.menu.configuration' | translate}}</a>
+                <a mat-list-item (click)="snav.toggle()" class="sidenav-item" routerLink="admin-products">{{'app.menu.products' | translate}}</a>
+                <a mat-list-item (click)="snav.toggle()" class="sidenav-item" routerLink="admin-members">{{'app.menu.members' | translate}}</a>
+          </mat-expansion-panel> 
       </mat-nav-list>
     </mat-sidenav>
 

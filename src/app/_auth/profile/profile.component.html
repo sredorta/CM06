@@ -5,7 +5,7 @@
   </div>
 <div *ngIf="user" class="profile-container"> 
   <div fxLayout="column" fxLayoutAlign="center center">
-    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate class="form left-border"> 
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate class="form"> 
       <p class="title">{{'profile.update.title' | translate}}</p>
       <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="start center" fxLayoutAlign.xs="center start" class="width100">
         <div fxLayout="column" fxLayoutAlign="center center">
@@ -87,6 +87,10 @@
       </div>
     </form>       
     </div>
+  </div>
+  <div *ngIf="orders.length>0" class="orders-container">
+    <p class="title">{{'profile.orders.title' | translate}}</p>
+    <app-order-item *ngFor="let order of orders" [order]="order"></app-order-item>
   </div>
 </div>
 

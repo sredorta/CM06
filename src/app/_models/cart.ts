@@ -85,6 +85,13 @@ export class Cart {
         }
     }
 
+    fromJSON(obj:string) {
+        this.data  = []
+        for (let item of JSON.parse(obj)) {
+            this.data.push(new CartItem(item));
+        }
+    }
+
     //Saves cart to session Storage
     toStorage() {
         sessionStorage.setItem("cart", this._toJSON());

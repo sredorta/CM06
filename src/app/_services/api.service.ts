@@ -144,7 +144,13 @@ export interface IApiOrder {
   address2:string;
   cp:string;
   city:string;
-  cart: any[];  
+  cart: any[] | string;  
+  status:string;
+  total:number;
+  paypalOrderId:string;
+  paypalPaymentId:string;
+  created_at:string;
+  updated_at:string;
 }
 
 @Injectable({
@@ -222,7 +228,9 @@ export class ApiService {
     return this.http.post<any>(environment.apiURL + '/order/create',data).map(res => <any>res)
 
   }
-
+  public getAuthOrders() : Observable<IApiOrder[]> {
+    return this.http.get<IApiOrder[]>(environment.apiURL + '/order/getAuth').map(res => <IApiOrder[]>res);
+  }
 
 
   public login(email:string, password:string, keepconnected:boolean, access:string) : Observable<IApiLogin> {

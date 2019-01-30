@@ -377,10 +377,17 @@
     "order.success.subtitle"                    : "Nous mettons tout en place pour que vous recevez votre commande dans les mieux delays",
     "order.success.email"                       : "Un email de confirmation vous à été envoyé a l'adresse ",
     "order.error.title"                         : "Payement non effectué",
-    "order.error.subtitle"                      : "Votre commande n'est pas prise en compte, veuillez reessayer le payement ou nous contacter"
-
-
-
-
+    "order.error.subtitle"                      : "Votre commande n'est pas prise en compte, veuillez reessayer le payement ou nous contacter",
+    "order.errorajax.title"                     : "Une erreur est survenue",
+    "order.errorajax.subtitle"                  : "Merci de nous contacter",
+    "profile.orders.title"                      : "Mes commandes",
+    "order.item.ref"                            : "Référence",
+    "order.item.status"                         : "État",
+    "order.item.price"                          : "Prix",
+    "order.item.products"                       : "Articles",
+    "order.item.delivery"                       : "Livraison",
+    "order.item.executed"                       : "Éxécuté",
+    "order.item.updated"                        : "Modifié",
+    "order.item.nodelivery"                     : "Sans livraison, vous devez passer chercher votre commande"
 
 }

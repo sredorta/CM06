@@ -4,11 +4,13 @@ import { OnlyNumberDirective } from '../../_directives/onlyNumber.directive';
 import {CustomValidators, ParentErrorStateMatcher  } from '../../_helpers/custom.validators';
 import { Router} from '@angular/router';
 import { User } from '../../_models/user';
-import { ApiService} from '../../_services/api.service';
+import {Order} from '../../_models/order';
+import { ApiService, IApiOrder} from '../../_services/api.service';
 import { Subscription } from 'rxjs';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {SpinnerOverlayService} from '../../_library/spinner-overlay.service';
 import {InputImagesComponent} from '../../_library/input-images/input-images.component';
+import { Cart } from '../../_models/cart';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -30,6 +32,7 @@ export class ProfileComponent implements OnInit {
   showPassword :boolean = false;
   showAvatar : boolean = false;
   defaultImage :string = "./assets/images/userdefault.jpg";
+  orders : Order[] = [];
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
@@ -43,7 +46,16 @@ export class ProfileComponent implements OnInit {
       this.setForm();
       this.spinner.hide();
     },()=> this.spinner.hide()));
+
+    this._subscriptions.push(this.api.getAuthOrders().subscribe(res => {
+      for(let orderI of res) {
+          this.orders.push(new Order(orderI));
+      }
+      console.log(this.orders);
+    }));
   }
+
+
 
   setForm() {
     this.myForm.controls["firstName"].setValue(this.user.firstName);
