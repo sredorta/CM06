@@ -4,18 +4,38 @@ import {ProductItemComponent} from '../product-item/product-item.component';
 import {Product} from '../_models/product';
 import {ApiService} from '../_services/api.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
-//import {SpinnerComponent} from '../_library/spinner/spinner.component';
+import { trigger, style, transition, animate, group,query,stagger, keyframes,state } from '@angular/animations';
+
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  animations: [
+    trigger('headerAnim', [
+        state('enter', style({
+          //opacity:1,
+        })),
+        
+        state('leave', style({
+
+        })),
+        transition('* <=> *', [
+          animate('5s ease-in-out', keyframes([
+            style({opacity: 0, transform: 'rotateY(90deg)', offset: 0}),
+            style({opacity: 1, transform: 'rotateY(0deg)', offset: 0.2}),
+            style({opacity: 1, transform: 'rotateY(0deg)', offset: 0.8}),
+            style({opacity: 0, transform: 'rotateY(90deg)',  offset: 1}),
+          ]))
+        ]),      
+      ])
+    ]
 })
 export class HomeComponent implements OnInit {
   isMobile = this.device.isMobile();
   products : Array<Product> = [];
   selected :number = 0;  //Used for animations in the gui
-  //text : string[] = ["home.header1","home.header2","home.header3","home.header4"]
+  text : string[] = ["home.header1","home.header2","home.header3","home.header4"]
   imgSrc : string = "./assets/images/icon-moto.jpg";
 
   constructor(private api: ApiService, 
