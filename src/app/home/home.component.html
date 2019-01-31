@@ -10,7 +10,10 @@
                 <div fxFlex="1 1 auto"><img  src="./assets/images/icon-service.jpg"    class="main-icon"  [ngClass]="{'icon-selected' : selected==3?true:false}"></div>
           </div> 
           <div fxLayout="column" fxLayoutAlign="center center" class="main-icon-text-wrapper"> 
-            <p class="main-icon-text">{{text[selected] | translate}}</p>
+            <p *ngIf="selected==0" class="main-icon-text">{{'home.header1' | translate}}</p>
+            <p *ngIf="selected==1" class="main-icon-text">{{'home.header2' | translate}}</p>
+            <p *ngIf="selected==2" class="main-icon-text">{{'home.header3' | translate}}</p>
+            <p *ngIf="selected==3" class="main-icon-text">{{'home.header4' | translate}}</p>
           </div>
       </div>
     </div>

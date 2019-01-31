@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   isMobile = this.device.isMobile();
   products : Array<Product> = [];
   selected :number = 0;  //Used for animations in the gui
-  text : string[] = ["home.header1","home.header2","home.header3","home.header4"]
+  //text : string[] = ["home.header1","home.header2","home.header3","home.header4"]
   imgSrc : string = "./assets/images/icon-moto.jpg";
 
   constructor(private api: ApiService, 

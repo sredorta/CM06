@@ -2,15 +2,14 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: rgba(#fafafa,0.5);
-
-    background-blend-mode: lighten;
+    //background-color: rgba(#fafafa,0.5);
+    background-color: rgba(black,0.5);
+    background-blend-mode: darken;
 
     transition: translate 1s ease-in-out;
 }
 .dynamic {
     padding-top:20px;      //This is the final vertical position
-    background-color: rgba(black,0.8);
     color:rgb(255,206,0);
     animation: header 2s ease-in-out 0s; 
     animation-fill-mode: forwards;
