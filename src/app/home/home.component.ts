@@ -14,17 +14,15 @@ import { trigger, style, transition, animate, group,query,stagger, keyframes,sta
   animations: [
     trigger('headerAnim', [
         state('enter', style({
-          //opacity:1,
         })),
         
         state('leave', style({
-
         })),
         transition('* <=> *', [
           animate('5s ease-in-out', keyframes([
             style({opacity: 0, transform: 'rotateY(90deg)', offset: 0}),
-            style({opacity: 1, transform: 'rotateY(0deg)', offset: 0.2}),
-            style({opacity: 1, transform: 'rotateY(0deg)', offset: 0.8}),
+            style({opacity: 1, transform: 'rotateY(0deg)', offset: 0.1}),
+            style({opacity: 1, transform: 'rotateY(0deg)', offset: 0.9}),
             style({opacity: 0, transform: 'rotateY(90deg)',  offset: 1}),
           ]))
         ]),      

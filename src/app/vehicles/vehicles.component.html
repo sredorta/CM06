@@ -12,9 +12,9 @@
 <div class="search-result" fxLayout="row" fxLayoutAlign="start center">
     <p><span>{{matches}}</span> {{'found' | translate}}</p>
 </div>
-<div *ngIf="products.length>0">
-  <div fxLayout="row wrap" fxLayoutAlign="center start" [@productAnim]="products.length">
+
+  <div fxLayout="row wrap" fxLayoutAlign="center start" [@productAnim]="products.length" style="min-height:100px">
       <app-product-item *ngFor="let product of products" [product]="product"></app-product-item>
   </div>
-</div>
+
 <app-footer></app-footer>
