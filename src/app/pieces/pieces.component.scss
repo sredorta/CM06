@@ -52,6 +52,15 @@
     background-color: rgba(20, 20, 20,0.9);
 }
 
+.wrapper {
+    display:block;
+}
+.item-wrapper {
+    display:block;
+    min-height:120px;
+}
+
 app-product-item {
     max-width:170px;
+    display:inline-block;
 }

@@ -16,6 +16,7 @@ export class SearchProductComponent implements OnInit {
   @ViewChild('sortList') sortElem : MatSelect; 
   products : Product[] = [];
   brands : IApiBrand[] = [];
+  processing : boolean = false;
   private _dataSource;
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
@@ -100,10 +101,12 @@ export class SearchProductComponent implements OnInit {
 
   //Filter
   applyFilter(filterValue: string) {
-      if(filterValue!== null) {
+      if(filterValue!== null && !this.processing) {
+         this.processing = true;
          this._dataSource.filter = filterValue.trim().toLowerCase();
          this.orderBy(this.sortElem.value);
          this.result.emit(this._dataSource.filteredData);
+         this.processing = false;
       } 
   }
 

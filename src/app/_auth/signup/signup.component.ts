@@ -92,9 +92,9 @@ export class SignupComponent implements OnInit {
   //Terms and conditions dialog  
   openTermsAndConditionsDialog(): void {
     let dialogRef = this.dialog.open(TermsDialogComponent, {
-      panelClass: 'big-dialog',
-      width: '95%',
-      height: '95%',
+      panelClass: 'signup-dialog',
+      width: '98%',
+      height: '98%',
       data:  null 
     });
     dialogRef.afterClosed().subscribe(result => {

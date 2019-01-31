@@ -43,6 +43,12 @@
     }
 }
 
+.item-wrapper {
+    display:block;
+    min-height:120px;
+}
+
 app-product-item {
     max-width:170px;
+    display:inline-block;
 }

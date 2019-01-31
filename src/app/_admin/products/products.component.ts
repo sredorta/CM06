@@ -3,7 +3,7 @@ import {InputImagesComponent} from '../../_library/input-images/input-images.com
 import {NiceDateFormatPipe} from '../../_pipes/nice-date-format.pipe';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
 import {MatExpansionPanel,MatCheckboxChange} from '@angular/material';
-import {MatTable, MatTableDataSource} from '@angular/material';
+import {MatTable,MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 
 import {CustomValidators, ParentErrorStateMatcher  } from '../../_helpers/custom.validators';
@@ -33,6 +33,8 @@ import {SpinnerOverlayService} from '../../_library/spinner-overlay.service';
   ],    
 })
 export class ProductsComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   dataSource = null;          //Store brands array in table format
   expandedElement: any = null;   //Expanded panel for adding brand
   displayedColumns: string[] = ['image','name','model','stock','created','modify','delete'];
@@ -113,6 +115,7 @@ export class ProductsComponent implements OnInit {
   initTable(products: IApiProduct[]) {
       if (products !== null) {
         this.dataSource = new MatTableDataSource(products);
+        this.dataSource.paginator = this.paginator;
         this.productsCount = this.dataSource.data.length;
         this.productsDisplayed = this.productsCount;
         //Override filter
@@ -166,10 +169,16 @@ export class ProductsComponent implements OnInit {
       this.dataSource.data.sort((a, b) => b.fweight - a.fweight);
       this.productsDisplayed = this.dataSource.filteredData.length;
       this.lastProductFilter = filterValue;
+      if (this.dataSource.paginator) {
+        this.dataSource.paginator.firstPage();
+      }
      } else {
       //Reorder by creation date
       this.dataSource.filteredData.sort((a, b) => a.id - b.id); //Order by id
       this.dataSource.data.sort((a, b) => a.id - b.id);
+      if (this.dataSource.paginator) {
+        this.dataSource.paginator.firstPage();
+      }
       this.table.renderRows();
     }
   }
