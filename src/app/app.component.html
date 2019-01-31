@@ -30,8 +30,11 @@
         <div class="menu-icon" fxLayoutAlign="center center" (click)="openCartDialog()"> <!--goToRoute(['/pannier'])">-->
             <mat-icon *ngIf="cartCount==0" aria-label="Pannier" >shopping_cart</mat-icon>
             <mat-icon *ngIf="cartCount>0"  [matBadge]="cartCount"  matBadgeColor="accent" aria-label="Pannier" >shopping_cart</mat-icon>
+
         </div>     
-            
+        <div *ngIf="user.isAdmin()" class="menu-icon" fxLayoutAlign="center center" (click)="goToRoute(['/admin-commandes'])">
+            <mat-icon  [matBadge]="orderCount"  matBadgeColor="accent" aria-label="Orders" >calendar_today</mat-icon>
+        </div>
     </div>
   </mat-toolbar>
 </div>
@@ -52,7 +55,7 @@
           <div *ngIf="user.isAvailable()" style="margin-top:10px"> 
                 <div style="width:100%;padding:5px" fxLayoutAlign="center center"><button mat-stroked-button color="primary"  (click)="snav.toggle();logout()">{{'app.menu.logout' | translate}}</button></div>
           </div>   
-          <mat-expansion-panel *ngIf="user.isAdmin()">
+          <mat-expansion-panel *ngIf="user.isAdmin()" style="margin-top:20px;">
                 <mat-expansion-panel-header>
                   <mat-panel-title>{{'app.menu.admin' | translate}}</mat-panel-title>
                 </mat-expansion-panel-header>   

@@ -11,5 +11,9 @@
         <small *ngIf="!product.isNew" class="old-new isOld">{{'product.old' | translate}}</small>
       </div>
   </div>
-  <button style="width:100%" mat-raised-button color="primary" (click)="addToCart()" [disabled]="!product.isDeliverable"><mat-icon style="margin-right:10px">add_shopping_cart</mat-icon>Pannier</button>
+  <button *ngIf="product.isDeliverable && product.stock>0" style="width:100%" mat-raised-button color="primary" (click)="addToCart()"><mat-icon style="margin-right:10px">add_shopping_cart</mat-icon>{{'product.item.cart' | translate}}</button>
+  <button *ngIf="product.isDeliverable && product.stock==0" style="width:100%" mat-raised-button color="primary" (click)="addToCart()" disabled="true"><mat-icon style="margin-right:10px">close</mat-icon>{{'product.item.nostock' | translate}}</button>
+  <button *ngIf="!product.isDeliverable" style="width:100%" mat-raised-button color="primary" (click)="addToCart()" disabled="true">{{'product.item.shop' | translate}}</button>
+
+
 <div> 

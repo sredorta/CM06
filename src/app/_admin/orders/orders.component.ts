@@ -48,7 +48,6 @@ export class OrdersComponent implements OnInit {
   enableToggle : boolean = false;
   disabledValidated : boolean = false;
   disabledAdmins : boolean = false;
-
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
   @ViewChild('myTable') table : MatTable<any>;   
@@ -120,7 +119,7 @@ export class OrdersComponent implements OnInit {
       }));    
     }));
   }
-  
+
   //Update the data model
   private _deleteOrder(id:number) {
     //Find the corresponding datasource element

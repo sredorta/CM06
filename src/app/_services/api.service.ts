@@ -236,6 +236,10 @@ export class ApiService {
     return this.http.get<IApiOrder[]>(environment.apiURL + '/order/get').map(res => <IApiOrder[]>res);
   }
 
+  public getOrdersCount() : Observable<number> {
+    return this.http.get<number>(environment.apiURL + '/order/getcount').map(res => <number>res);
+  }
+
   public updateOrderStatus(id,status) :Observable<Order> {
     return this.http.post<IApiOrder>(environment.apiURL + '/order/updatestatus', {"id": id, "status":status}).map(res => new Order(res));
   }

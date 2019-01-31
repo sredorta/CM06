@@ -116,23 +116,26 @@ $accent: map-get($admin-theme,accent);
     font-size:12px;
   }
 }
+@media only screen and (max-width: 600px) {
+    .mat-column-created {
+        display:none;
+      }
+}
 //Do more reducing on smaller screens
 @media only screen and (max-width: 400px) {
-  .mat-column-created {
-    display:none;
-  }
+
 
   .mat-column-delete {
-    width:50px;
-    min-width:50px;
-    max-width:50px;
+    width:45px;
+    min-width:45px;
+    max-width:45px;
     font-size:10px;
     transition: all 0.3s ease-in-out;
   }
   .mat-column-modify {
-      width:50px;
-      min-width:50px;
-      max-width:50px;
+      width:45px;
+      min-width:45px;
+      max-width:45px;
       font-size:10px;      
       transition: all 0.3s ease-in-out;
   }  

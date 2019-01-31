@@ -35,6 +35,8 @@ export class CartDialogComponent implements OnInit {
       this.loading = true;
       this._subscriptions.push(this.api.checkCart(this.cart).subscribe((res:any)=> {
         this.cart = new Cart(res.cart);
+        this.cart.toStorage();
+        this.data.setCart(this.cart);
         this.cart.deliveryCost = res.deliveryCost;
         this.cart.price = res.price;
         this.cart.isWeightExceeded = res.isWeightExceeded;

@@ -13,6 +13,8 @@ import {CartDialogComponent} from './cart-dialog/cart-dialog.component';
 import { calcBindingFlags } from '@angular/core/src/view/util';
 import {Cart} from './_models/cart';
 import { SpinnerOverlayService } from './_library/spinner-overlay.service';
+import {interval} from "rxjs/internal/observable/interval";
+import {startWith, switchMap} from "rxjs/operators";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -25,6 +27,7 @@ export class AppComponent {
   mobileQuery: MediaQueryList;
   isMobile : boolean =  this.device.isMobile();
   cartCount : number;
+  orderCount : number;
   initialLoading : boolean = true;
   private _mobileQueryListener: () => void;
 
@@ -50,7 +53,12 @@ export class AppComponent {
         if (res) {
           if (res.id == null) {
             User.removeToken();
-          }
+          } else {
+            this.user = new User(res);
+            //If User is adming then start polling for orders
+            console.log("BEFORE POLL !");
+            this.pollOrders();
+          }  
         }
         this.api.setCurrent(res); 
         this.spinner.hide();
@@ -63,11 +71,12 @@ export class AppComponent {
     }));
 
 
-    
+    //Get the user
     this._subscriptions.push(this.api.getCurrent().subscribe((res:User) => {
       this.user = res; 
-      //this.loading = false;
     }));
+
+    //Get the cart
     let cart = new Cart();
     cart.fromStorage();
     this.data.setCart(cart);
@@ -76,14 +85,31 @@ export class AppComponent {
       this.cartCount = res.getCount();
     }));
 
+   
 
-//    }));
 
 
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);   
   }  
+
+  //Do polling on new orders and update the counter
+  pollOrders() {
+    if (this.user.isAdmin()) {
+      interval(1000*60 * 5)    //Polling every xMin
+      .pipe(
+        startWith(1000*20),
+        switchMap(() => this.api.getOrdersCount())
+      )
+      .subscribe(res => {
+        console.log("POLL");console.log(res);
+        if (res > 0)
+          this.orderCount = res;
+      })
+    ;
+    }
+  }
 
 
   logout() {
