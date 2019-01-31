@@ -8,7 +8,7 @@
         <div fxFlex="1 1 auto">
             <mat-form-field appearance="outline" style="padding-top:10px;min-width:250px">
                 <mat-label>{{'products.admin.search.label' | translate}}</mat-label>
-                <input matInput  (keyup)="applyFilter($event.target.value)" placeholder="{{'products.admin.search.placeholder' | translate}}" autocomplete="off">
+                <input matInput  (keyup)="keyUp.next($event.target.value)" placeholder="{{'products.admin.search.placeholder' | translate}}" autocomplete="off">
                 <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
             <div fxLayout="column" style="padding:20px;padding-top:0px" fxLayoutGap="10px">

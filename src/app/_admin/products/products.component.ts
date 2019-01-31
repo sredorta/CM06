@@ -19,6 +19,8 @@ import { Router } from '@angular/router';
 import {BreakpointObserver,Breakpoints,BreakpointState} from '@angular/cdk/layout';
 import {DataService} from '../../_services/data.service';
 import {SpinnerOverlayService} from '../../_library/spinner-overlay.service';
+import {Observable, of, Subject} from 'rxjs';
+import {debounceTime, delay, distinctUntilChanged, flatMap, map, tap,mergeMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-products',
@@ -72,8 +74,24 @@ export class ProductsComponent implements OnInit {
     private api : ApiService,
     private dialog: MatDialog,
     private spinner : SpinnerOverlayService) { }
+    public keyUp = new Subject<string>();
+    public searchString : string = "";
+
 
   ngOnInit() {
+    //Apply the filter with some debounce in order to avoid too slow input
+    this._subscriptions.push(this.keyUp.pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      mergeMap(search => of(search).pipe(
+        delay(100),
+      )),
+    ).subscribe(res => {
+      this.searchString = res;
+      console.log("FILTER: " + res);
+      this.applyFilter(res);
+    }));
+
     this.getProducts();
   }
 
@@ -123,13 +141,17 @@ export class ProductsComponent implements OnInit {
         if (this.onlyZeroStock) {
           products = products.filter(obj => obj.stock == 0);
         }
-
+        
         this.dataSource = new MatTableDataSource(products);
         this.dataSource.paginator = this.paginator;
         this.productsCount = this.dataSource.data.length;
         this.productsDisplayed = this.productsCount;
         //Override filter
         this._setFilter();
+        
+        //Apply filter with value of the string of search !!!!!!!
+        this.applyFilter(this.searchString);
+
         //Init as all not selected
         this.selected = [];
         for (let brand of this.dataSource.data) {
@@ -179,17 +201,13 @@ export class ProductsComponent implements OnInit {
       this.dataSource.data.sort((a, b) => b.fweight - a.fweight);
       this.productsDisplayed = this.dataSource.filteredData.length;
       this.lastProductFilter = filterValue;
-      if (this.dataSource.paginator) {
-        this.dataSource.paginator.firstPage();
-      }
      } else {
       //Reorder by creation date
       this.dataSource.filteredData.sort((a, b) => a.id - b.id); //Order by id
       this.dataSource.data.sort((a, b) => a.id - b.id);
-      if (this.dataSource.paginator) {
-        this.dataSource.paginator.firstPage();
-      }
-      this.table.renderRows();
+    }
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
   }
 
@@ -229,15 +247,7 @@ export class ProductsComponent implements OnInit {
     products.splice(itemIndex, 1); 
     this.data.setProducts(products);
     this.getProducts()
- /*   this.data.setProducts(this.dataSource.data);
 
-    const itemIndexFilter = this.dataSource.filteredData.findIndex(obj => obj.id === id);
-    if (itemIndexFilter>=0) {
-      this.dataSource.filteredData.splice(itemIndexFilter, 1); 
-    }
-    this.table.renderRows();
-    this.productsCount = this.dataSource.data.length;
-    this.productsDisplayed = this.dataSource.filteredData.length;*/
   }
 
   showVehicles(checkbox:MatCheckboxChange) {
