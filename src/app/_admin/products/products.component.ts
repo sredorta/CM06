@@ -54,9 +54,9 @@ export class ProductsComponent implements OnInit {
   selected = [];
 
   expandedProductId : number = 0;
-  disableVehicles : boolean = false;  //Disable filtering
-  disablePieces : boolean = false;
-  disableZeroStock:boolean = false;
+  onlyVehicles : boolean = false;  //Disable filtering
+  onlyPieces : boolean = false;
+  onlyZeroStock:boolean = false;
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
   @ViewChild('expansion') expansion : MatExpansionPanel;
@@ -114,6 +114,16 @@ export class ProductsComponent implements OnInit {
 
   initTable(products: IApiProduct[]) {
       if (products !== null) {
+        if (this.onlyVehicles) {
+          products = products.filter(obj => obj.isVehicle == true);
+        }
+        if (this.onlyPieces) {
+          products = products.filter(obj => obj.isVehicle == false);
+        }
+        if (this.onlyZeroStock) {
+          products = products.filter(obj => obj.stock == 0);
+        }
+
         this.dataSource = new MatTableDataSource(products);
         this.dataSource.paginator = this.paginator;
         this.productsCount = this.dataSource.data.length;
@@ -214,9 +224,12 @@ export class ProductsComponent implements OnInit {
   //Update the data model
   private _deleteProduct(id:number) {
     //Find the corresponding datasource element
-    const itemIndex = this.dataSource.data.findIndex(obj => obj.id === id);
-    this.dataSource.data.splice(itemIndex, 1); 
-    this.data.setProducts(this.dataSource.data);
+    let products = this.data.getProducts();
+    const itemIndex = products.findIndex(obj => obj.id === id);
+    products.splice(itemIndex, 1); 
+    this.data.setProducts(products);
+    this.getProducts()
+ /*   this.data.setProducts(this.dataSource.data);
 
     const itemIndexFilter = this.dataSource.filteredData.findIndex(obj => obj.id === id);
     if (itemIndexFilter>=0) {
@@ -224,43 +237,22 @@ export class ProductsComponent implements OnInit {
     }
     this.table.renderRows();
     this.productsCount = this.dataSource.data.length;
-    this.productsDisplayed = this.dataSource.filteredData.length;
+    this.productsDisplayed = this.dataSource.filteredData.length;*/
   }
 
   showVehicles(checkbox:MatCheckboxChange) {
-    if (checkbox.checked) {
-      this.initTable(this.dataSource.data.filter(obj => obj.isVehicle == 1));
-      this.disablePieces = true;
-      this.disableZeroStock = true;
-    } else {
-      this.getProducts();
-      this.disablePieces = false;
-      this.disableZeroStock = false;
-    }
+    this.onlyVehicles = checkbox.checked;
+    this.getProducts();
   }
 
   showPieces(checkbox:MatCheckboxChange) {
-    if (checkbox.checked) {
-      this.initTable(this.dataSource.data.filter(obj => obj.isVehicle == 0));
-      this.disableVehicles = true;
-      this.disableZeroStock = true;
-    } else {
-      this.getProducts();
-      this.disableVehicles = false;
-      this.disableZeroStock = false;
-    }
+    this.onlyPieces = checkbox.checked;
+    this.getProducts();
   }
 
   showZeroStock(checkbox: MatCheckboxChange) {
-    if (checkbox.checked) {
-      this.initTable(this.dataSource.data.filter(obj => obj.stock == 0));
-      this.disableVehicles = true;
-      this.disablePieces = true;
-    } else {
-      this.getProducts();
-      this.disableVehicles = false;
-      this.disablePieces = false;
-    }    
+    this.onlyZeroStock = checkbox.checked;
+    this.getProducts();
   }
 
 
