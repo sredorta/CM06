@@ -5,13 +5,15 @@
       <p class="initial-subtitle">{{'home.menu.second.subtitle' | translate}}</p>
     </div>
     <div class="sidenav-theme">
-        <app-search-product (result)="updateFilter($event)"></app-search-product>
+        <app-search-product (result)="updateFilter($event)" (loading)="onLoading($event)"></app-search-product>
     </div>
   </app-header>
 
   <div class="search-result" fxLayout="row" fxLayoutAlign="start center">
     <p><span>{{matches}}</span> {{'found' | translate}}</p>
   </div>
+  <app-spinner *ngIf="loading" style="width:100%;height:100px"></app-spinner>
+
   <div [@productAnim]="products.length" class="item-wrapper">
       <app-product-item  *ngFor="let product of products" [product]="product"></app-product-item>
   </div>  

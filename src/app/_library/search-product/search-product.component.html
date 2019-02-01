@@ -2,7 +2,7 @@
   <div fxLayout="row" fxLayoutAlign="space-between center" fxLayout.xs="column" fxLayoutAlign.xs="center start">
     <mat-form-field appearance="outline" style="min-width:250px" class="scale">
         <mat-label >{{'products.search.label' | translate}}</mat-label>
-        <input matInput  (keyup)="applyFilter($event.target.value)" placeholder="{{'products.search.placeholder' | translate}}" autocomplete="off">
+        <input matInput  (keyup)="keyUp.next($event.target.value)" placeholder="{{'products.search.placeholder' | translate}}" autocomplete="off">
         <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
     <mat-form-field appearance="outline" style="min-width:250px">

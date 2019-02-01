@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import {ProductItemComponent} from '../product-item/product-item.component';
 import {Product} from '../_models/product';
 import { Subscription } from 'rxjs';
@@ -33,11 +33,17 @@ export class VehiclesComponent implements OnInit {
 
   matches  : number = 0;
   products : Array<Product> = [];
+  loading : boolean = false;
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
   constructor() { }
 
   ngOnInit() {
+    console.log("ngOnInit");
+    console.log(this.products);
+  }
+  onLoading(res) {
+    this.loading = res;
   }
 
   updateFilter(result:Product[]) {

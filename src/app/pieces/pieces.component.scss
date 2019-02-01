@@ -56,8 +56,12 @@
     display:block;
 }
 .item-wrapper {
-    display:block;
+    //display:block;
     min-height:120px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
 }
 
 app-product-item {

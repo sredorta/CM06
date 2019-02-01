@@ -30,7 +30,7 @@ import { trigger, style, transition, animate, group,query,stagger, keyframes } f
   ]
 })
 export class PiecesComponent implements OnInit {
-
+  loading : boolean = false;
   products : Array<Product> = [];
   matches  : number = 0;
   private _subscriptions : Subscription[] = new Array<Subscription>();
@@ -38,6 +38,10 @@ export class PiecesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {}
+
+  onLoading(res) {
+    this.loading = res;
+  }
 
   updateFilter(result:Product[]) {
     this.products = result.filter(obj => obj.isVehicle == false);

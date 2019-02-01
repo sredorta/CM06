@@ -43,7 +43,9 @@ import {MatAutocompleteModule,
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
-  MatTreeModule} from '@angular/material';
+  MatTreeModule,
+  MatPaginatorIntl} from '@angular/material';
+
 //FACEBOOK
 import {FacebookModule} from 'ngx-facebook';
 
@@ -93,6 +95,8 @@ import { MobileFormatPipe } from './_pipes/mobile-format.pipe';
 import {ApiService} from './_services/api.service';
 import {DataService} from './_services/data.service';
 import {SpinnerOverlayService} from './_library/spinner-overlay.service';
+//HELPERS
+import {getPaginatorIntl} from './_helpers/paginator-translate';
 //COMPONENTS
 import { LoginComponent } from './_auth/login/login.component';
 import { SignupComponent } from './_auth/signup/signup.component';
@@ -201,7 +205,7 @@ import { OrderItemAdminComponent } from './_admin/order-item-admin/order-item-ad
     OrderPaymentComponent,
     OrderItemComponent,
     OrdersComponent,
-    OrderItemAdminComponent
+    OrderItemAdminComponent,
     //End of library
   ],
   imports: [
@@ -262,7 +266,7 @@ import { OrderItemAdminComponent } from './_admin/order-item-admin/order-item-ad
       MatTabsModule,
       MatToolbarModule,
       MatTooltipModule,
-      MatTreeModule         
+      MatTreeModule,
     ],    
     FacebookModule.forRoot(),
     TranslateModule.forRoot({
@@ -277,7 +281,7 @@ import { OrderItemAdminComponent } from './_admin/order-item-admin/order-item-ad
   providers: [
     HttpClient, ApiService, DataService, SpinnerOverlayService, MakeSureDialogComponent,CartDialogComponent, ProductItemDialogComponent, CurrencyFormatPipe, MobileFormatPipe,DeviceDetectorService,
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, 
-    {provide: HTTP_INTERCEPTORS, useClass: HttpHeaderInterceptor, multi: true }    
+    {provide: HTTP_INTERCEPTORS, useClass: HttpHeaderInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

@@ -3,8 +3,9 @@ import { MatTableDataSource, MatTab, MatSelectChange, MatSelect} from '@angular/
 import { Product} from '../../_models/product';
 import {ApiService, IApiProduct, IApiBrand} from '../../_services/api.service';
 import {DataService} from '../../_services/data.service';
-import {SpinnerOverlayService} from '../../_library/spinner-overlay.service';
 import { Subscription } from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
+import {debounceTime, delay, distinctUntilChanged, flatMap, map, tap,mergeMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-product',
@@ -13,16 +14,30 @@ import { Subscription } from 'rxjs';
 })
 export class SearchProductComponent implements OnInit {
   @Output() result = new EventEmitter<Product[]>();  //Brand selection  
+  @Output() loading = new EventEmitter<boolean>(false);  //Brand selection 
   @ViewChild('sortList') sortElem : MatSelect; 
   products : Product[] = [];
   brands : IApiBrand[] = [];
-  processing : boolean = false;
   private _dataSource;
+  keyUp = new Subject<string>();
+  searchString : string = "";
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private data: DataService, private spinner: SpinnerOverlayService, private api: ApiService) { }
+  constructor(private data: DataService, private api: ApiService) { }
 
   ngOnInit() {
+    //Apply the filter with some debounce in order to avoid too slow input
+    this._subscriptions.push(this.keyUp.pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      mergeMap(search => of(search).pipe(
+        delay(100),
+      )),
+    ).subscribe(res => {
+      this.searchString = res;
+      console.log("FILTER: " + res);
+      this.applyFilter(res);
+    }));
     this.getProducts();
     this.getBrands();
   }
@@ -32,23 +47,21 @@ export class SearchProductComponent implements OnInit {
     if (this.data.getProducts().length>0) {
       this.pushProducts();
     } else {
-      this.spinner.show();
+      this.loading.emit(true);
       this._subscriptions.push(this.api.getProducts().subscribe((res: IApiProduct[]) => {
         this.data.setProducts(res,true);
         this.pushProducts();
-        this.spinner.hide();
-      }, () => this.spinner.hide()));
+        this.loading.emit(false)
+      },()=>this.loading.emit(false)));
     }
   } 
 
   getBrands() {
     if (this.data.getBrands().length==0) {
-      //this.spinner.show();
       this._subscriptions.push(this.api.getBrands().subscribe((res: IApiBrand[]) => {
         this.data.setBrands(res,true);
         this.brands = res;
-        this.spinner.hide();
-      }, () => this.spinner.hide()));
+      }));
     } else {
       this.brands = this.data.getBrands();
     }
@@ -101,12 +114,10 @@ export class SearchProductComponent implements OnInit {
 
   //Filter
   applyFilter(filterValue: string) {
-      if(filterValue!== null && !this.processing) {
-         this.processing = true;
+      if(filterValue!== null) {
          this._dataSource.filter = filterValue.trim().toLowerCase();
          this.orderBy(this.sortElem.value);
          this.result.emit(this._dataSource.filteredData);
-         this.processing = false;
       } 
   }
 
