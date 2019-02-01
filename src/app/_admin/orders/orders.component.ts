@@ -3,7 +3,7 @@ import {InputImagesComponent} from '../../_library/input-images/input-images.com
 import {NiceDateFormatPipe} from '../../_pipes/nice-date-format.pipe';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
 import {MatExpansionPanel, MatSlideToggleChange, MatCheckboxChange} from '@angular/material';
-import {MatTable, MatTableDataSource} from '@angular/material';
+import {MatTable, MatPaginator, MatTableDataSource} from '@angular/material';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 
 import {CustomValidators, ParentErrorStateMatcher  } from '../../_helpers/custom.validators';
@@ -21,6 +21,8 @@ import {DataService} from '../../_services/data.service';
 import {SpinnerOverlayService} from '../../_library/spinner-overlay.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Order } from '../../_models/order';
+import {Observable, of, Subject} from 'rxjs';
+import {debounceTime, delay, distinctUntilChanged, flatMap, map, tap,mergeMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-orders',
@@ -46,11 +48,13 @@ export class OrdersComponent implements OnInit {
   selected = [];
   expandedOrderId : number = 0;
   enableToggle : boolean = false;
-  disabledValidated : boolean = false;
-  disabledAdmins : boolean = false;
+  keyUp = new Subject<string>();
+  searchString : string = "";
+  orders : Order[] = [];
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
   @ViewChild('myTable') table : MatTable<any>;   
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor( private translate: TranslateService, 
                private api : ApiService,
@@ -61,17 +65,28 @@ export class OrdersComponent implements OnInit {
 
 
   ngOnInit() {
+    //Apply the filter with some debounce in order to avoid too slow input
+    this._subscriptions.push(this.keyUp.pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      mergeMap(search => of(search).pipe(
+        delay(100),
+      )),
+    ).subscribe(res => {
+      this.searchString = res;
+      console.log("FILTER: " + res);
+      this.applyFilter(res);
+    }));    
     this.getOrders();
   }
 
   getOrders() {
       this.spinner.show();
       this._subscriptions.push(this.api.getOrders().subscribe((res: IApiOrder[]) => {
-        let orders = [];
         for(let orderI of res) {
-          orders.push(new Order(orderI));
+          this.orders.push(new Order(orderI));
         }
-        this.initTable(orders);
+        this.initTable(this.orders);
         this.spinner.hide();
       }, () => this.spinner.hide()));
   
@@ -80,13 +95,17 @@ export class OrdersComponent implements OnInit {
 
 
   initTable(data) {
+
     this.dataSource = new MatTableDataSource(data);
+    this.dataSource.paginator = this.paginator;
     this.totalCount = this.dataSource.data.length;
     this.displayedCount = this.totalCount;
     //Override filter
     this.dataSource.filterPredicate = function(data, filter: string): boolean {
           return data.paypalOrderId.toLowerCase().includes(filter) || data.status.toLowerCase().includes(filter) || data.firstName.toLowerCase().includes(filter) || data.lastName.toLowerCase().includes(filter);
     };
+    //Apply filter with value of the string of search !!!!!!!
+    this.applyFilter(this.searchString);
   }
 
   //Filter
@@ -95,6 +114,9 @@ export class OrdersComponent implements OnInit {
      this.dataSource.filter = filterValue.trim().toLowerCase();
      this.displayedCount = this.dataSource.filteredData.length;
      this.lastFilter = filterValue;
+    }
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
   }
 
@@ -123,16 +145,9 @@ export class OrdersComponent implements OnInit {
   //Update the data model
   private _deleteOrder(id:number) {
     //Find the corresponding datasource element
-    const itemIndex = this.dataSource.data.findIndex(obj => obj.id === id);
-    this.dataSource.data.splice(itemIndex, 1); 
-
-    const itemIndexFilter = this.dataSource.filteredData.findIndex(obj => obj.id === id);
-    if (itemIndexFilter>=0) {
-      this.dataSource.filteredData.splice(itemIndexFilter, 1); 
-    }
-    this.table.renderRows();
-    this.totalCount = this.dataSource.data.length;
-    this.displayedCount = this.dataSource.filteredData.length;
+    const itemIndex = this.orders.findIndex(obj => obj.id === id);
+    this.orders.splice(itemIndex, 1); 
+    this.initTable(this.orders);
   }
 
 
@@ -146,8 +161,9 @@ export class OrdersComponent implements OnInit {
   onUpdatedOrder(order: Order) {
     console.log("updateOrder");
     console.log(order);
-    this.dataSource.data[this.dataSource.data.findIndex(obj => obj.id === order.id)] = order;
-    this.table.renderRows();
+    const itemIndex = this.orders.findIndex(obj => obj.id === order.id);
+    this.orders[itemIndex] = order; 
+    this.initTable(this.orders);
   }
 
 

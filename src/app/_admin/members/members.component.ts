@@ -139,7 +139,7 @@ export class MembersComponent implements OnInit {
 
   //Filter
   applyFilter(filterValue: string) {
-    if(filterValue!== null && filterValue !== "") {
+    if(filterValue!== null) {
       this.dataSource.filter = filterValue.trim().toLowerCase();
       this.dataSource.filteredData.sort((a, b) => a.id - b.id); //Order by creation
       this.dataSource.data.sort((a, b) => a.id - b.id);

@@ -4,7 +4,7 @@
         <div style="padding:20px;">  
             <mat-form-field appearance="outline" style="padding-top:10px;min-width:250px">
                 <mat-label>{{'orders.admin.search.label' | translate}}</mat-label>
-                <input matInput  (keyup)="applyFilter($event.target.value)" placeholder="{{'orders.admin.search.placeholder' | translate}}" autocomplete="off">
+                <input matInput  (keyup)="keyUp.next($event.target.value)" placeholder="{{'orders.admin.search.placeholder' | translate}}" autocomplete="off">
                 <mat-icon matSuffix>search</mat-icon>
             </mat-form-field>
         </div>
@@ -60,6 +60,8 @@
             class="element-row" [ngClass]="{'selected' : selected[element.id]}"></tr>
           <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
         </table>  
+        <mat-paginator [pageSizeOptions]="[20, 50, 100]"></mat-paginator>  
+
         </div>
     </div> 
    
