@@ -54,7 +54,7 @@ import { NgxPayPalModule } from 'ngx-paypal';
 
 
 //PRIME-NG COMPONENTS
-import {PasswordModule} from 'primeng/password';
+/*import {PasswordModule} from 'primeng/password';
 import {InputTextModule} from 'primeng/inputtext';
 import {ListboxModule} from 'primeng/listbox';
 import {ColorPickerModule} from 'primeng/colorpicker';
@@ -64,7 +64,7 @@ import {GMapModule} from 'primeng/gmap';
 import {TooltipModule} from 'primeng/tooltip';
 //import {GalleriaModule} from 'primeng/galleria';
 //import {ToastModule} from 'primeng/toast';
-//import {MessageService} from 'primeng/api';
+//import {MessageService} from 'primeng/api';*/
 
 // NGX-TRANSLATE 
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
@@ -216,14 +216,7 @@ import { OrderItemAdminComponent } from './_admin/order-item-admin/order-item-ad
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    [PasswordModule, //PRIME-NG modules
-    InputTextModule,
-    ListboxModule,
-    CheckboxModule,
-    ButtonModule,
-    ColorPickerModule,
-    GMapModule,
-    TooltipModule,
+    [
     AgmCoreModule.forRoot( { //GMAPS
       apiKey: environment.gmapKey
     }),

@@ -97,6 +97,7 @@ export class AppComponent {
   //Do polling on new orders and update the counter
   pollOrders() {
     if (this.user.isAdmin()) {
+      setTimeout( () => {
       interval(1000*60 * 5)    //Polling every xMin
       .pipe(
         startWith(1000*20),
@@ -106,8 +107,8 @@ export class AppComponent {
         console.log("POLL");console.log(res);
         if (res > 0)
           this.orderCount = res;
-      })
-    ;
+      })},5000);
+
     }
   }
 
