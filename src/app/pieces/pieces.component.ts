@@ -4,6 +4,7 @@ import {Product} from '../_models/product';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Subscription } from 'rxjs';
 import { trigger, style, transition, animate, group,query,stagger, keyframes } from '@angular/animations';
+import { SpinnerOverlayService } from '../_library/spinner-overlay.service';
 
 @Component({
   selector: 'app-pieces',
@@ -33,14 +34,17 @@ export class PiecesComponent implements OnInit {
   loading : boolean = false;
   products : Array<Product> = [];
   matches  : number = 0;
+  showAll : boolean = false;
+
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor() { }
+  constructor(private spinner: SpinnerOverlayService) { }
 
   ngOnInit() {}
 
   onLoading(res) {
-    this.loading = res;
+    if (res) this.spinner.show();
+    else this.spinner.hide();
   }
 
   updateFilter(result:Product[]) {

@@ -95,8 +95,7 @@ import { MobileFormatPipe } from './_pipes/mobile-format.pipe';
 import {ApiService} from './_services/api.service';
 import {DataService} from './_services/data.service';
 import {SpinnerOverlayService} from './_library/spinner-overlay.service';
-//HELPERS
-import {getPaginatorIntl} from './_helpers/paginator-translate';
+
 //COMPONENTS
 import { LoginComponent } from './_auth/login/login.component';
 import { SignupComponent } from './_auth/signup/signup.component';

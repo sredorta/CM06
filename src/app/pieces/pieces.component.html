@@ -12,9 +12,13 @@
   <div class="search-result" fxLayout="row" fxLayoutAlign="start center">
     <p><span>{{matches}}</span> {{'found' | translate}}</p>
   </div>
-  <app-spinner *ngIf="loading" style="width:100%;height:100px"></app-spinner>
-
-  <div [@productAnim]="products.length" class="item-wrapper">
-      <app-product-item  *ngFor="let product of products" [product]="product"></app-product-item>
+  <div  [@productAnim]="products.length" class="item-wrapper">
+      <ng-container *ngFor="let product of products; let i=index">
+          <app-product-item  *ngIf="i<=50 || showAll" [product]="product"></app-product-item>
+      </ng-container>
   </div>  
+  <div *ngIf="products.length>50" style="width:100%;padding:30px" fxLayout="column" fxLayoutAlign="center center">
+          <button *ngIf="!showAll" mat-stroked-button style="width:100%;max-width:800px"  color="accent" (click)="showAll = !showAll" ><mat-icon style="margin-right:10px">add_circle</mat-icon>{{'view_all' | translate}}</button>
+          <button *ngIf="showAll" mat-stroked-button style="width:100%;max-width:800px"  color="accent" (click)="showAll = !showAll" ><mat-icon style="margin-right:10px">remove_circle</mat-icon>{{'mask_all' | translate}}</button>
+  </div>
   <app-footer></app-footer>

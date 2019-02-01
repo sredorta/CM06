@@ -9,6 +9,8 @@
     "details"                       : "Détails",
     "found"                         : "articles trouvées",
     "back"                          : "Retour à la page précédante",
+    "view_all"                      : "Voir tous les resultats",
+    "mask_all"                      : "Voir seulement les premiers resultats",
     "interceptor.session.invalid"   : "Votre session n'est pas pas valide",
     "interceptor.session.access"    : "Votre access ne vous permet pas d'éffectuer cette operatión",
     "interceptor.unknown"           : "Problème de connéxion avec notre serveur",

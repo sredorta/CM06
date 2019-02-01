@@ -3,6 +3,7 @@ import {ProductItemComponent} from '../product-item/product-item.component';
 import {Product} from '../_models/product';
 import { Subscription } from 'rxjs';
 import { trigger, style, transition, animate, group, query,stagger,keyframes } from '@angular/animations';
+import { SpinnerOverlayService } from '../_library/spinner-overlay.service';
 
 @Component({
   selector: 'app-vehicles',
@@ -33,22 +34,24 @@ export class VehiclesComponent implements OnInit {
 
   matches  : number = 0;
   products : Array<Product> = [];
-  loading : boolean = false;
+  showAll : boolean = false;
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor() { }
+  constructor(private spinner : SpinnerOverlayService) { }
 
   ngOnInit() {
     console.log("ngOnInit");
     console.log(this.products);
   }
   onLoading(res) {
-    this.loading = res;
+    if (res) this.spinner.show();
+    else this.spinner.hide();
   }
 
   updateFilter(result:Product[]) {
     this.products = result.filter(obj => obj.isVehicle == true);
     this.matches = this.products.length;
+    //this.products = this.products.spl
   }
 
   ngOnDestroy() {    
