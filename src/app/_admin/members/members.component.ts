@@ -3,7 +3,7 @@ import {InputImagesComponent} from '../../_library/input-images/input-images.com
 import {NiceDateFormatPipe} from '../../_pipes/nice-date-format.pipe';
 import {FormGroup,FormControl,Validators} from '@angular/forms';
 import {MatExpansionPanel, MatSlideToggleChange, MatCheckboxChange} from '@angular/material';
-import {MatTable, MatTableDataSource} from '@angular/material';
+import {MatTable,MatPaginator, MatTableDataSource} from '@angular/material';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 
 import {CustomValidators, ParentErrorStateMatcher  } from '../../_helpers/custom.validators';
@@ -21,6 +21,8 @@ import {DataService} from '../../_services/data.service';
 import {SpinnerOverlayService} from '../../_library/spinner-overlay.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { User } from '../../_models/user';
+import {Observable, of, Subject} from 'rxjs';
+import {debounceTime, delay, distinctUntilChanged, flatMap, map, tap,mergeMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-members',
@@ -46,9 +48,11 @@ export class MembersComponent implements OnInit {
   selected = [];
   expandedUserId : number = 0;
   enableToggle : boolean = false;
-  disabledValidated : boolean = false;
-  disabledAdmins : boolean = false;
-
+  onlyValidated : boolean = false;
+  onlyAdmins : boolean = false;
+  keyUp = new Subject<string>();
+  searchString : string = "";
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
   @ViewChild('myTable') table : MatTable<any>;   
@@ -61,6 +65,19 @@ export class MembersComponent implements OnInit {
                private dialog: MatDialog) { }
 
   ngOnInit() {
+    //Apply the filter with some debounce in order to avoid too slow input
+    this._subscriptions.push(this.keyUp.pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      mergeMap(search => of(search).pipe(
+        delay(100),
+      )),
+    ).subscribe(res => {
+      this.searchString = res;
+      console.log("FILTER: " + res);
+      this.applyFilter(res);
+    }));
+
     this.getMembers();
     this.api.getCurrent().subscribe(res => {
       this.currentUser = res;
@@ -74,7 +91,7 @@ export class MembersComponent implements OnInit {
       this.spinner.show();
       this._subscriptions.push(this.api.getUsers().subscribe((res: IApiUser[]) => {
         this.data.setUsers(res,true);
-        this.initTable(res);
+        this.initTable(this.data.getUsers());
         this.spinner.hide();
       }, () => this.spinner.hide()));
     }
@@ -98,22 +115,43 @@ export class MembersComponent implements OnInit {
     return "url(" + this.defaultImage + ")";  
   }
 
-  initTable(data) {
-    this.dataSource = new MatTableDataSource(data);
-    this.totalCount = this.dataSource.data.length;
-    this.displayedCount = this.totalCount;
-    //Override filter
-    this.dataSource.filterPredicate = function(data, filter: string): boolean {
-          return data.lastName.toLowerCase().includes(filter) || data.firstName.toLowerCase().includes(filter) || data.mobile.toLowerCase().includes(filter) || data.email.toLowerCase().includes(filter);
-    };
+  initTable(members : IApiUser[]) {
+    if (members != null) {
+      this.totalCount = members.length;
+      if (this.onlyValidated) {
+        members = members.filter(obj => obj.isEmailValidated == true);
+      }
+      if (this.onlyAdmins) {
+        members = members.filter(obj => obj.isAdmin == true);
+      }
+      this.dataSource = new MatTableDataSource(members);
+      this.dataSource.paginator = this.paginator;
+      this.displayedCount = members.length;
+      //Override filter
+      this.dataSource.filterPredicate = function(data, filter: string): boolean {
+        return data.lastName.toLowerCase().includes(filter) || data.firstName.toLowerCase().includes(filter) || data.mobile.toLowerCase().includes(filter) || data.email.toLowerCase().includes(filter);
+      };
+      //Apply filter with value of the string of search !!!!!!!
+      this.applyFilter(this.searchString);
+
+    }
   }
 
   //Filter
   applyFilter(filterValue: string) {
-    if(filterValue!== null) {
-     this.dataSource.filter = filterValue.trim().toLowerCase();
-     this.displayedCount = this.dataSource.filteredData.length;
-     this.lastFilter = filterValue;
+    if(filterValue!== null && filterValue !== "") {
+      this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.dataSource.filteredData.sort((a, b) => a.id - b.id); //Order by creation
+      this.dataSource.data.sort((a, b) => a.id - b.id);
+      this.displayedCount = this.dataSource.filteredData.length;
+      this.lastFilter = filterValue;
+     } else {
+      //Reorder by creation date
+      this.dataSource.filteredData.sort((a, b) => a.id - b.id); //Order by creation 
+      this.dataSource.data.sort((a, b) => a.id - b.id);
+    }
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
     }
   }
 
@@ -173,24 +211,14 @@ export class MembersComponent implements OnInit {
 
   //Filter accounts with validated accounts only
   showOnlyValidated(checkbox:MatCheckboxChange) {
-    if (checkbox.checked) {
-      this.disabledAdmins = true;
-      this.initTable(this.dataSource.data.filter(obj => obj.isEmailValidated === 1));
-    } else {
-      this.disabledAdmins = false;
-      this.getMembers();
-    }
+    this.onlyValidated = checkbox.checked;
+    this.getMembers();
   }
 
   //Filter admin accounts
   showOnlyAdmins(checkbox:MatCheckboxChange) {
-    if (checkbox.checked) {
-      this.disabledValidated = true;
-      this.initTable(this.dataSource.data.filter(obj => obj.isAdmin === 1));
-    } else {
-      this.disabledValidated = false;
-      this.getMembers();
-    }
+    this.onlyAdmins = checkbox.checked;
+    this.getMembers();
   }
 
 

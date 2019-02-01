@@ -35,7 +35,7 @@ import {debounceTime, delay, distinctUntilChanged, flatMap, map, tap,mergeMap} f
   ],    
 })
 export class ProductsComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+
 
   dataSource = null;          //Store brands array in table format
   expandedElement: any = null;   //Expanded panel for adding brand
@@ -43,15 +43,10 @@ export class ProductsComponent implements OnInit {
   productsCount : number = 0;
   productsDisplayed : number = 0;
   lastProductFilter : string = null;
-  //brands : IApiBrand[] = null;
-
   expand : boolean = false;
-  //myForm: FormGroup; 
-  //myFormUpdate : FormGroup;
   validation_messages = CustomValidators.getMessages();
   size : EApiImageSizes = EApiImageSizes.thumbnail; //Default image size for logos
   defaultImage :string = "./assets/images/no-photo-available.jpg";
-  //defaultImageUpdate : string = "./assets/images/no-photo-available.jpg";
   inputImageUpdateDataIn : string[] = [];
   selected = [];
 
@@ -59,13 +54,15 @@ export class ProductsComponent implements OnInit {
   onlyVehicles : boolean = false;  //Disable filtering
   onlyPieces : boolean = false;
   onlyZeroStock:boolean = false;
-
+  keyUp = new Subject<string>();
+  searchString : string = "";
   private _subscriptions : Subscription[] = new Array<Subscription>();
+
   @ViewChild('expansion') expansion : MatExpansionPanel;
   @ViewChild('inputImage') inputImage : InputImagesComponent;
   @ViewChild('inputImageUpdate') inputImageUpdate : InputImagesComponent;
   @ViewChild('myTable') table : MatTable<any>;   
-
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private data : DataService, 
     private breakpointObserver: BreakpointObserver,
@@ -74,8 +71,7 @@ export class ProductsComponent implements OnInit {
     private api : ApiService,
     private dialog: MatDialog,
     private spinner : SpinnerOverlayService) { }
-    public keyUp = new Subject<string>();
-    public searchString : string = "";
+
 
 
   ngOnInit() {
@@ -132,6 +128,7 @@ export class ProductsComponent implements OnInit {
 
   initTable(products: IApiProduct[]) {
       if (products !== null) {
+        this.productsCount = products.length;
         if (this.onlyVehicles) {
           products = products.filter(obj => obj.isVehicle == true);
         }
@@ -140,12 +137,10 @@ export class ProductsComponent implements OnInit {
         }
         if (this.onlyZeroStock) {
           products = products.filter(obj => obj.stock == 0);
-        }
-        
+        }        
         this.dataSource = new MatTableDataSource(products);
         this.dataSource.paginator = this.paginator;
-        this.productsCount = this.dataSource.data.length;
-        this.productsDisplayed = this.productsCount;
+        this.productsDisplayed = products.length;
         //Override filter
         this._setFilter();
         
@@ -195,7 +190,7 @@ export class ProductsComponent implements OnInit {
 
   //Filter
   applyFilter(filterValue: string) {
-     if(filterValue!== null && filterValue !== "") {
+     if(filterValue!== null) {
       this.dataSource.filter = filterValue.trim().toLowerCase();
       this.dataSource.filteredData.sort((a, b) => b.fweight - a.fweight); //Order by weights
       this.dataSource.data.sort((a, b) => b.fweight - a.fweight);
