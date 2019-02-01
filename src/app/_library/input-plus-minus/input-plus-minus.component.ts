@@ -2,11 +2,12 @@ import { Component, OnInit, ViewChild, ElementRef, Input, Output, EventEmitter} 
 import {FormGroup, FormControl} from '@angular/forms';
 import { Subscription } from 'rxjs';
 import {CustomValidators  } from '../../_helpers/custom.validators';
-
+import {ViewEncapsulation} from '@angular/core';
 @Component({
   selector: 'app-input-plus-minus',
   templateUrl: './input-plus-minus.component.html',
-  styleUrls: ['./input-plus-minus.component.scss']
+  styleUrls: ['./input-plus-minus.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class InputPlusMinusComponent implements OnInit {
   @Input() parentForm : FormGroup;

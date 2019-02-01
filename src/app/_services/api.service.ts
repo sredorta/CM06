@@ -171,8 +171,6 @@ export class ApiService {
 
   //Sets current user
   setCurrent(user:IApiUserAuth) {
-    console.log("setCurrent::");
-    console.log(user);
     this._user.next(new User(user));
   }
 
@@ -203,9 +201,6 @@ export class ApiService {
       city:       order.city,
       cart:       order.cart.data          
     };
-    console.log("orderCheck");
-    console.log("Sending data");
-    console.log(data);
     return this.http.post<any>(environment.apiURL + '/order/check',data).map(res => <any>res)
   }
 
@@ -254,9 +249,6 @@ export class ApiService {
   }
 
   //Creates user and returns token
-  /*public signup(firstName:string,lastName:string,email:string,mobile:string,password:string, avatar:string) : Observable<UserToken> {   
-    return this.http.post<UserToken>(environment.apiURL +'/auth/signup', {firstName,lastName,email,mobile,password,avatar}).map(res => <UserToken>res);
-  }*/
   public signup(firstName:string,lastName:string,email:string,mobile:string,password:string, avatar: string) : Observable<any> { 
     let data = {
       'firstName' : firstName,
@@ -266,8 +258,6 @@ export class ApiService {
       'password'  : password,
       'avatar'    : avatar
     };
-    console.log("Sending data: " );
-    console.log(data);  
     return this.http.post<any>(environment.apiURL +'/auth/signup', data);
   }
 
@@ -302,8 +292,6 @@ export class ApiService {
       'password_new'  : password,
       'avatar'    : avatar
     };
-    console.log("Sending data: " );
-    console.log(data); 
     return this.http.post<any>(environment.apiURL +'/auth/update', data);
   }
 
@@ -392,8 +380,6 @@ export class ApiService {
       'weight'      : weight,
       'images'      : images
     };
-    console.log("UPDATE");
-    console.log(data);
     return this.http.post<IApiProduct>(environment.apiURL +'/products/update',data ).map(res => <IApiProduct>res);
   }
 

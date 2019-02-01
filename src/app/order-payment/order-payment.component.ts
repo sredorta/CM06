@@ -25,9 +25,6 @@ export class OrderPaymentComponent implements OnInit {
   constructor(private api : ApiService, private data: DataService) { }
 
   ngOnInit() {
-    console.log("ORDER IS:");
-    console.log(this.order);
-    console.log("TOTAL IS : " + this.order.total);
     //this.initConfig();
   }
 
@@ -50,19 +47,14 @@ export class OrderPaymentComponent implements OnInit {
 
         },
         onPaymentComplete: (data, actions) => {
-          console.log('OnPaymentComplete');
-          console.log(data);
-          console.log(actions);
           this.order.paypalOrderId = data.orderID;
           this.order.paypalPaymentId = data.paymentID;
           this.createOrder();
         },
         onCancel: (data, actions) => {
-          console.log('OnCancel');
           this.error = true;
         },
         onError: (err) => {
-          console.log('OnError');
           this.error = true;
         },
         experience: {
@@ -82,8 +74,6 @@ export class OrderPaymentComponent implements OnInit {
   private createOrder() {
         //Create a preliminary order
         this._subscriptions.push(this.api.createOrder(this.order).subscribe(res=> {
-          console.log("Order !!!");
-          console.log(res);
           //empty the cart
           let cart = new Cart();
           cart.empty;

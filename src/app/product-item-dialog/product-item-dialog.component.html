@@ -1,5 +1,55 @@
 
-<mat-dialog-actions fxLayoutAlign="center center" fxLayoutGap="10px">         
+<button mat-stroked-button type="button" color="primary" style="width:100%;" [mat-dialog-close]="true"><mat-icon>keyboard_arrow_left</mat-icon> {{'back' | translate}}</button>
+<div class="wrapper"  fxLayoutAlign="center center">
+        <div *ngIf="unknown" class="unknown">
+          <p class="unknown-title">Article inéxistant</p>
+          <p class="unknown-subtitle">Cet article n'existe plus dans notre base de donnés</p>
+        </div>
+        <div *ngIf="!unknown" class="wrapper-content">
+          <div class="header-image" >
+            <app-gallery *ngIf="product.id>0" [images]="images"></app-gallery>
+          </div>
+          <div *ngIf="product.id>0"  class="header-text">
+            <p class="header-title">{{product.title}}</p>
+            <p class="header-price">{{product.getFinalPrice() | currencyFormat}} € <span *ngIf="product.discount>0" class="header-discount" style="margin-left:20px">{{product.getDiscount()}}%</span></p>
+            <div class="left-border">
+              <p class="header-label">{{'product.item.detail.description' | translate}}</p>
+              <p class="header-description">{{product.description}}</p>
+              <p *ngIf="product.isNew" class="header-description">{{'product.new' | translate}}</p>
+              <p *ngIf="!product.isNew" class="header-description">{{'product.old' | translate}}</p>
+      
+            </div>
+            <div class="left-border">
+              <p class="header-label">{{'product.item.detail.brand' | translate}}</p>
+              <div class="header-brand" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+                <img class="header-brand-img" [src]="product.getBrandUrl()">
+                <p class="header-description"> {{product.brand}}</p>
+              </div> 
+            </div>
+            <div class="left-border">
+              <p class="header-label">{{'product.item.detail.model' | translate}}</p>
+              <p class="header-description">{{product.model}}</p> 
+            </div>
+            <p *ngIf="product.stock == 0" class="header-no-stock">{{'product.item.detail.nostock' | translate}}</p>
+            <form *ngIf="product.stock>0 && product.isDeliverable" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate> 
+                <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="20px" style="width:260px">
+                  <app-input-plus-minus style="width:260px" fieldName="quantity" [parentForm]="myForm" [default]="1" [label]="'product.item.detail.label' | translate" [hint]="'product.item.detail.hint' | translate" [placeholder]="'product.item.detail.placeholder' | translate"></app-input-plus-minus>        
+                  <div fxLayout="column" fxLayoutAlign="center center" fxFlex="1 1 auto">
+                      <div fxLayoutAlign="center center" fxLayoutGap="20px" fxFlex="1 1 auto">
+                          <button mat-raised-button type="submit" color="primary" [disabled] = "disable"><mat-icon style="margin-right:10px">add_shopping_cart</mat-icon>{{'product.item.detail.addcart' | translate}}</button>
+                      </div>
+                  </div>
+                </div>
+            </form>   
+            <div *ngIf="product.stock>0 && !product.isDeliverable" class="left-border">
+                <p class="header-label">{{'product.item.detail.nodelivery.title' | translate}}</p>
+                <p class="header-description">{{'product.item.detail.nodelivery.subtitle' | translate}}</p> 
+              </div>      
+          </div>
+        </div>
+      
+      </div>
+<!--<mat-dialog-actions fxLayoutAlign="center center" fxLayoutGap="10px">         
     <button mat-button mat-dialog-close color="primary" [mat-dialog-close]="false">{{'no' | translate}}</button>
     <button mat-raised-button mat-dialog-close color="primary" [mat-dialog-close]="true">{{'yes' | translate}}</button>
-</mat-dialog-actions> 
+</mat-dialog-actions> -->

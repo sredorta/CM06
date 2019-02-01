@@ -9,6 +9,7 @@ import {ViewEncapsulation} from '@angular/core';
 import { DataService } from '../_services/data.service';
 import {CurrencyFormatPipe} from '../_pipes/currency-format.pipe';
 import { Router} from'@angular/router';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 @Component({
   selector: 'app-product-item',
@@ -25,7 +26,7 @@ export class ProductItemComponent implements OnInit {
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private api : ApiService, private data : DataService, private router:Router) { }
+  constructor(private api : ApiService, private data : DataService, private router:Router,public dialog: MatDialog,) { }
 
   ngOnInit() {
   }
@@ -42,8 +43,19 @@ export class ProductItemComponent implements OnInit {
   }
 
   showDetail() {
-    if (!this.preview)
-      this.router.navigate(["/produit", this.product.id]);
+    if (!this.preview) {
+      //this.router.navigate(["/produit", this.product.id]);
+      let dialogRef = this.dialog.open(ProductItemDialogComponent, {
+        panelClass: 'signup-dialog',
+        width: '95%',
+        minWidth: '300px',
+        maxWidth: '800px',
+        height: '90%',
+        minHeight: '320px',
+        data:  {id: this.product.id} 
+      });
+
+    }
   }
 
 

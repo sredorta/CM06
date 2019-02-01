@@ -26,6 +26,7 @@ import {RegisteredGuard} from './_guards/registered.guard';
 import {UnregisteredGuard} from './_guards/unregistered.guard';
 
 const routes: Routes = [
+
   {
     path: '',
     component: HomeComponent,
@@ -136,6 +137,10 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     component: PayementSecuriseComponent,
   },   
+  {
+    path: "**", //In case of wrong route go to home
+    component: HomeComponent
+  },
 
 ];
 

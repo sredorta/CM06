@@ -67,3 +67,18 @@ html {
         padding-right:5px;
     }
 }
+.product-item-dialog {
+
+    mat-dialog-container {
+        width:80%;
+        min-width:320px;
+        max-width:800px;
+    }
+    @media only screen and (max-width: 400px) {
+        mat-dialog-container {
+            width:100%;
+            height:100%;
+        }
+    }   
+
+}
