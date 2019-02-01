@@ -90,7 +90,7 @@ const routes: Routes = [
     canActivate: [AdminGuard]
   },    
   {
-    path: 'vehicles',
+    path: 'véhicules',
     runGuardsAndResolvers: 'always',
     component: VehiclesComponent,
   },

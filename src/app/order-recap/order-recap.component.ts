@@ -52,13 +52,11 @@ export class OrderRecapComponent implements OnInit {
     if(this.order.delivery!=undefined && this.order.cart.data.length>0) { //Only check if delivery is set and we have items
       this.spinner = true;
       this._subscriptions.push(this.api.checkOrder(this.order).subscribe((res: any) => {
-        console.log(res);
         this.order.cart = new Cart(res.cart);
         this.order.cart.deliveryCost = res.deliveryCost;
         this.order.cart.price = res.price;
         this.order.cart.isWeightExceeded = res.isWeightExceeded;
         this.order.total = res.total;
-        console.log(this.order);
         this.spinner = false;
       }, () => this.spinner = false));  
     }
@@ -73,7 +71,6 @@ export class OrderRecapComponent implements OnInit {
 
   goToPayment() {
     //TODO add emit here of the total to pay and any other things
-    console.log("Payment !!");
     this.result.emit(this.order);
   }
 

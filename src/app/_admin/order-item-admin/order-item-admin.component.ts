@@ -26,8 +26,6 @@ export class OrderItemAdminComponent implements OnInit {
   constructor(private api : ApiService, private spinner : SpinnerOverlayService,private device: DeviceDetectorService) { }
 
   ngOnInit() {
-    console.log("Here is the order ");
-    console.log(this.order);
     this.createForm();
   }
   createForm() {
@@ -42,12 +40,9 @@ export class OrderItemAdminComponent implements OnInit {
 
   //Modify the status of the order
   onStatusSubmit(result:any) {
-      console.log(result);
       this.spinner.show();
       this._subscriptions.push(this.api.updateOrderStatus(this.order.id, result.status).subscribe(res => {
         this.spinner.hide()
-        console.log("This is the new order");
-        console.log(res);
         //Update the order with the result
         this.order = res;
         this.onUpdatedStatus.emit(res);

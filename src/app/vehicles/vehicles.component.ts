@@ -40,8 +40,6 @@ export class VehiclesComponent implements OnInit {
   constructor(private spinner : SpinnerOverlayService) { }
 
   ngOnInit() {
-    console.log("ngOnInit");
-    console.log(this.products);
   }
   onLoading(res) {
     if (res) this.spinner.show();

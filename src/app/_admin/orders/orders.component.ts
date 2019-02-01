@@ -74,7 +74,6 @@ export class OrdersComponent implements OnInit {
       )),
     ).subscribe(res => {
       this.searchString = res;
-      console.log("FILTER: " + res);
       this.applyFilter(res);
     }));    
     this.getOrders();
@@ -159,8 +158,6 @@ export class OrdersComponent implements OnInit {
   }
 
   onUpdatedOrder(order: Order) {
-    console.log("updateOrder");
-    console.log(order);
     const itemIndex = this.orders.findIndex(obj => obj.id === order.id);
     this.orders[itemIndex] = order; 
     this.initTable(this.orders);
@@ -168,8 +165,6 @@ export class OrdersComponent implements OnInit {
 
 
   rowClick(order : Order) {
-    console.log("rowClick");
-    console.log(order);
   }
 
 

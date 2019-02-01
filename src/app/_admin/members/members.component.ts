@@ -74,7 +74,6 @@ export class MembersComponent implements OnInit {
       )),
     ).subscribe(res => {
       this.searchString = res;
-      console.log("FILTER: " + res);
       this.applyFilter(res);
     }));
 
@@ -223,8 +222,6 @@ export class MembersComponent implements OnInit {
 
 
   rowClick(user : IApiUser) {
-    console.log("rowClick");
-    console.log(user);
   }
 
 

@@ -40,7 +40,6 @@ export class CartDialogComponent implements OnInit {
         this.cart.deliveryCost = res.deliveryCost;
         this.cart.price = res.price;
         this.cart.isWeightExceeded = res.isWeightExceeded;
-        console.log(this.cart);
         this.spinner.hide();
         this.loading = false;
       },()=> {

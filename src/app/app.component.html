@@ -12,7 +12,7 @@
     <div><img src="./assets/images/logo.jpg" alt_text="logo" (click)="user.isAdmin()?snav.toggle():goToRoute([''])"></div>
     <div class="wide-menu" fxLayout="row" fxLayoutAlign="center center" style="width:100%">
         <div fxFlex="1 1 auto" fxLayoutAlign="center center"><div class="menu-item" (click)="goToRoute([''])">{{'app.menu.home' | translate}}<div></div></div></div>
-        <div fxFlex="1 1 auto" fxLayoutAlign="center center"><div class="menu-item" (click)="goToRoute(['/vehicles'])">{{'app.menu.first' | translate}}<div></div></div></div>
+        <div fxFlex="1 1 auto" fxLayoutAlign="center center"><div class="menu-item" (click)="goToRoute(['/véhicules'])">{{'app.menu.first' | translate}}<div></div></div></div>
         <div fxFlex="1 1 auto" fxLayoutAlign="center center"><div class="menu-item" (click)="goToRoute(['/pièces'])">{{'app.menu.second' | translate}}<div></div></div></div>
         <div fxFlex="1 1 auto" fxLayoutAlign="center center"><div class="menu-item" (click)="goToRoute(['/contact'])">{{'app.menu.third' | translate}}<div></div></div></div>
     </div>
@@ -44,7 +44,7 @@
                  [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">      
       <mat-nav-list>  
           <a mat-list-item (click)="snav.toggle()" routerLink="" class="sidenav-item">{{'app.menu.home' | translate}}</a>
-          <a mat-list-item (click)="snav.toggle()" routerLink="/vehicles" class="sidenav-item">{{'app.menu.first' | translate}}</a>
+          <a mat-list-item (click)="snav.toggle()" routerLink="/véhicules" class="sidenav-item">{{'app.menu.first' | translate}}</a>
           <a mat-list-item (click)="snav.toggle()" routerLink="/pièces" class="sidenav-item">{{'app.menu.second' | translate}}</a>
           <a mat-list-item (click)="snav.toggle()" routerLink="/contact" class="sidenav-item">{{'app.menu.third' | translate}}</a>
           <mat-divider></mat-divider>  

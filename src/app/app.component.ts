@@ -56,7 +56,6 @@ export class AppComponent {
           } else {
             this.user = new User(res);
             //If User is adming then start polling for orders
-            console.log("BEFORE POLL !");
             this.pollOrders();
           }  
         }
@@ -104,7 +103,6 @@ export class AppComponent {
         switchMap(() => this.api.getOrdersCount())
       )
       .subscribe(res => {
-        console.log("POLL");console.log(res);
         if (res > 0)
           this.orderCount = res;
       })},5000);
@@ -147,7 +145,6 @@ export class AppComponent {
 
   //Each time a route is activated we come here
   onActivate(event) {
-    console.log("onActivate !");
     //Scroll to sidenav top !
     const contentContainer = document.querySelector('.mat-sidenav-content') || window;
     contentContainer.scrollTo(0, 0);

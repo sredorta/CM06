@@ -84,7 +84,6 @@ export class ProductsComponent implements OnInit {
       )),
     ).subscribe(res => {
       this.searchString = res;
-      console.log("FILTER: " + res);
       this.applyFilter(res);
     }));
 

@@ -45,7 +45,6 @@ export class OrderStepperComponent implements OnInit {
 
   //When first step is completed without having a user we get here
   onDataReady(data:any) {
-    console.log("WE are in onDataReady");
     this.order.user_id = null;
     this.order.firstName = data.firstName;
     this.order.lastName = data.lastName;
@@ -55,35 +54,27 @@ export class OrderStepperComponent implements OnInit {
   }
   //When address is ready
   onAddressReady(data:any) {
-    console.log("onAddressReady");
     this.order.delivery = data.delivery;
     this.order.address1 = data.address1;
     this.order.address2 = data.address2;
     this.order.city = data.city;
     this.order.cp = data.cp;
-    console.log("ORDER IS:");
-    console.log(this.order);
     this.triggerChange++; //Force onChanges to work !
     this.nextStep();
   }
 
   onOrderReady(order:Order) {
-    console.log("onOrderReady");
     this.finalOrder = order;
-    console.log(order);
     this.isEditable = false; //Not allow changes from now
     this.nextStep();
   }
 
   onPaymentReady(order:Order) {
-    console.log("We are in onPaymentReady");
-    console.log(order);
     this.nextStep();
   }
 
   //Go to nextStep
   nextStep() {
-      console.log("nextStep");
       this.step = this.step+1;
       setTimeout(()=> { this.stepper.next();}, 200);
   }

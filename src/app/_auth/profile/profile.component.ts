@@ -51,7 +51,6 @@ export class ProfileComponent implements OnInit {
       for(let orderI of res) {
           this.orders.push(new Order(orderI));
       }
-      console.log(this.orders);
     }));
   }
 
