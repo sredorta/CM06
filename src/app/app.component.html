@@ -1,12 +1,5 @@
 <div *ngIf="!initialLoading" class="container">
   <div class="toolbar banner-theme banner">
-   <!-- <div class="banner-extra" fxLayout="row" fxLayoutAlign="start center">
-        <div><img src="./assets/images/logo.jpg" alt_text="logo"></div>
-        <div>
-          <h1>Casse moto 06</h1>
-          <h2>La casse moto reference dans les alpes maritimes</h2>
-          </div>  
-    </div>  -->
   <mat-toolbar [class.mat-elevation-z8]="true">
     <button class="main-menu" mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
     <div><img src="./assets/images/logo.jpg" alt_text="logo" (click)="user.isAdmin()?snav.toggle():goToRoute([''])"></div>
@@ -71,6 +64,11 @@
         <router-outlet (activate)="onActivate($event)"></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
+</div>
+<div *ngIf="initialLoading" class="initial-wrapper">
+    <img src="./assets/images/logo.jpg" alt_text="casse moto 06">
+    <h1>Casse moto 06</h1>
+    <p>Chargement...</p>
 </div>
 
 

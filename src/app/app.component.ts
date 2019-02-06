@@ -45,7 +45,6 @@ export class AppComponent {
     this.translate.use("fr");
 
     //Initial loading
-    this.spinner.show()
     this._subscriptions.push(this.api.getConfig().subscribe( (res : IApiConfig[]) => {
       this.data.setConfig(res);
       this._subscriptions.push(this.api.getAuthUser().subscribe((res: IApiUserAuth)=> {
@@ -60,11 +59,9 @@ export class AppComponent {
           }  
         }
         this.api.setCurrent(res); 
-        this.spinner.hide();
         this.initialLoading = false;
       },()=> {
         this.initialLoading = false;
-        this.spinner.hide();
       }));
       
     }));

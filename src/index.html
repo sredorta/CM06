@@ -12,6 +12,42 @@
        width:0px;
        height:0px;
      }
+     /*Inital loading part*/
+    .initial-wrapper {
+      font-family: Roboto, "Helvetica Neue", sans-serif;
+      color:white;
+      display: flex;
+      flex-direction: column;
+      align-items:center;
+      justify-content: center;
+      background-color: #2f3e99;
+      margin-top:0px;
+      position: absolute;
+      top:0px;
+      left:0px;
+      width:100%;
+      height:100vh;
+    }
+    h1 {
+        font-size: 34px;
+    }
+    .initial-logo {
+        width:236px;
+        height:130px;
+    }
+      p {
+        animation: initial-animation 2s;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+      }
+    
+
+    @keyframes initial-animation { 
+    0% { opacity:1; }
+    80% {opacity:1;}
+    90% {opacity:0;}
+    100% { opacity:1; }
+    }
   </style>
   <script type="text/javascript" src="https://connect.facebook.net/fr_FR/sdk.js"></script>
 </head>
@@ -24,21 +60,11 @@
       <img class="dummy" src="./assets/images/logo.jpg" alt_text="casse moto 06">
       <img class="dummy" src="./assets/images/no-photo-available.jpg" alt_text="casse moto 06">
   <app-root>
-    <div class="container">
-      <div class="row">
-        <div id="spinner-loader">
-          <div class="spinner-dot"></div>
-          <div class="spinner-dot"></div>
-          <div class="spinner-dot"></div>
-          <div class="spinner-dot"></div>
-          <div class="spinner-dot"></div>
-          <div class="spinner-dot"></div>
-          <div class="spinner-dot"></div>
-          <div class="spinner-dot"></div>
-          <div class="spinner-loading"></div>
-        </div>
+      <div class="initial-wrapper">
+          <img src="./assets/images/logo.jpg" alt_text="casse moto 06" class="initial-logo">
+          <h1>Casse moto 06</h1>
+          <p>Chargement...</p>
       </div>
-    </div>    
   </app-root>
 </body>
 </html>
