@@ -62,9 +62,9 @@
                 </mat-form-field>
             </div>  
           </div> 
-          <div fxLayoutAlign="center center" style="width:100%">
+          <!--<div fxLayoutAlign="center center" style="width:100%">
               <app-input-images #avatar [isMultiple]="false" maxSize="100" [crop]="true" fieldName="avatar" [parentForm]="myForm" [defaultImage]="defaultImage" style="margin:5px"></app-input-images>            
-          </div>
+          </div>-->
           <p fxLayoutAlign="center center" [ngClass]="{'is-highlight' : highlight}">
               <mat-checkbox formControlName="terms"></mat-checkbox>
               <small style="margin-left:10px"> {{'signup.terms1' | translate}} <a href="javascript:void(0)" (click)="openTermsAndConditionsDialog()">{{'signup.terms2' | translate}}</a></small>

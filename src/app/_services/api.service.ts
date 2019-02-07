@@ -327,6 +327,7 @@ export class ApiService {
   }
 
   public updateBrand(id:string,name:string,image:string) : Observable<IApiBrand>  {
+    if (image == undefined) image = null;
     return this.http.post<IApiBrand>(environment.apiURL +'/brands/update', {'id':id, 'name':name, 'image':image}).map(res => <IApiBrand>res);
   }
 

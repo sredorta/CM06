@@ -10,7 +10,7 @@
 
 //Main app theme
 $main-app-primary: mat-palette($mat-blue, 700);
-$main-app-accent:  mat-palette($mat-brown, 700, A100, A400);
+$main-app-accent:  mat-palette($mat-pink, 700, A100, A400);
 $main-app-warn:    mat-palette($mat-deep-orange,300);
 $main-app-theme: mat-light-theme($main-app-primary, $main-app-accent, $main-app-warn);
 @include angular-material-theme($main-app-theme);

@@ -18,7 +18,7 @@
                 <mat-panel-description fxLayoutAlign="start center">{{'models.admin.create.subtitle' | translate}}</mat-panel-description>
               </mat-expansion-panel-header>
               <h3>{{'models.admin.create.header' | translate}}</h3>
-              <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate> 
+              <form [formGroup]="myForm" novalidate> 
                 <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="20px">
                   <mat-form-field appearance="outline" style="width:100%">
                       <mat-label>{{'models.admin.create.input.label' | translate}}</mat-label>

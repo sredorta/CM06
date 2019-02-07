@@ -180,6 +180,8 @@ export class BrandsComponent implements OnInit {
     this.table.renderRows();
 
     this.spinner.show();
+    console.log("IMAGE IS:");
+    console.log(value.image);
     this._subscriptions.push(this.api.updateBrand(id,value.name,value.image).subscribe((res: IApiBrand) => {
         this._updateBrand(res);
         this.spinner.hide();
