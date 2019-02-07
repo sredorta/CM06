@@ -332,6 +332,7 @@
     "product.item.detail.addcart"               : "Ajouter au pannier",
     "product.item.detail.nodelivery.title"      : "EN STOCK",
     "product.item.detail.nodelivery.subtitle"   : "Disponible uniquement en magasin",
+    "product.item.detail.link"                  : "Envoyer le lien a un ami",
     "product.new"                               : "Article neuf",
     "product.old"                               : "Article d'occasion",
 

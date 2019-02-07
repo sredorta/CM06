@@ -13,6 +13,7 @@ import {OnlyNumberDirective} from '../_directives/onlyNumber.directive';
 import { TranslateService } from '@ngx-translate/core';
 import {SpinnerOverlayService} from '../_library/spinner-overlay.service';
 import {Cart, CartItem} from '../_models/cart';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-product-item-dialog',
@@ -26,11 +27,13 @@ export class ProductItemDialogComponent implements OnInit {
   disable : boolean = false;
   myForm: FormGroup; 
   unknown: boolean = false; //Determines if a product is no longer available
+  shareUrl :string = environment.URL + '/produit/'+this.dataDialog.id;
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
   constructor(@Inject(MAT_DIALOG_DATA) public dataDialog: any, private data : DataService) { }
 
   ngOnInit() {
+    console.log(this.shareUrl);
     this.myForm =  new FormGroup({    
       quantity: new FormControl('', Validators.compose([])),    
     });   
@@ -46,9 +49,8 @@ export class ProductItemDialogComponent implements OnInit {
       } else {
         this.disable = false;
       }
-    }))
+    }));
   }
-
 
   getProduct() {
       let myProduct = this.data.getProducts().find(obj => obj.id == this.dataDialog.id);

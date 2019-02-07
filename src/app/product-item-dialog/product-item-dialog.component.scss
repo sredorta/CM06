@@ -137,3 +137,17 @@ $warn : map-get($main-app-theme,warn);
 form {
     margin-top:20px;
 }
+
+.link {
+    display:none;
+    opacity: 0.8;
+    padding:6px;
+    padding-left:15px;
+    padding-right:15px;
+    margin:5px;
+    border:1px solid;
+    border-radius: 3px;
+}
+.show {
+    display:block;
+}
