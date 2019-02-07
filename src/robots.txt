@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /admin-configuration
+Disallow: /admin-products
+Disallow: /admin-product-create
+Disallow: /admin-commandes
+Disallow: /admin-members
+Disallow: /login
+Disallow: /signup
+Disallow: /resetpassword
+Allow: /
+Sitemap: https://www.ecube-solutions.com/sitemap.xml

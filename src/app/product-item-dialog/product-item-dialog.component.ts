@@ -22,6 +22,7 @@ import { environment } from '../../environments/environment';
 })
 export class ProductItemDialogComponent implements OnInit {
 
+  show : boolean = false;
   product : Product = new Product(null);
   images : string[] = [];
   disable : boolean = false;

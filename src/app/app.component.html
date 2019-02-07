@@ -2,7 +2,7 @@
   <div class="toolbar banner-theme banner">
   <mat-toolbar [class.mat-elevation-z8]="true">
     <button class="main-menu" mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
-    <div><img src="./assets/images/logo.jpg" alt_text="logo" (click)="user.isAdmin()?snav.toggle():goToRoute([''])"></div>
+    <div><img src="./assets/images/logo.jpg" alt="logo" (click)="user.isAdmin()?snav.toggle():goToRoute([''])"></div>
     <div class="wide-menu" fxLayout="row" fxLayoutAlign="center center" style="width:100%">
         <div fxFlex="1 1 auto" fxLayoutAlign="center center"><div class="menu-item" (click)="goToRoute([''])">{{'app.menu.home' | translate}}<div></div></div></div>
         <div fxFlex="1 1 auto" fxLayoutAlign="center center"><div class="menu-item" (click)="goToRoute(['/véhicules'])">{{'app.menu.first' | translate}}<div></div></div></div>
@@ -66,9 +66,16 @@
   </mat-sidenav-container>
 </div>
 <div *ngIf="initialLoading" class="initial-wrapper">
-    <img src="./assets/images/logo.jpg" alt_text="casse moto 06">
+    <h2 class="mycolor">Pièces detachées moto et scooter d'occasion</h2>
+    <h2 class="mycolor">Pièces detachées moto et scooter neuves</h2>
+    <h2 class="mycolor">Entretien et réparation moto et scooter</h2>
+    <h2 class="mycolor">Vente de motos et scooters d'occasion</h2>
+    <img src="./assets/images/logo.jpg" alt="casse moto 06">
     <h1>Casse moto 06</h1>
     <p>Chargement...</p>
+    <a class="mycolor" href="/véhicules">Motos d'occasion</a>
+    <a class="mycolor" href="/pièces">Pièces detachées moto et scooter</a>
+    <a class="mycolor" href="/contact">Contact casse moto</a>
 </div>
 
 

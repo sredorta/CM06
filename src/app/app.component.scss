@@ -27,6 +27,10 @@
     animation-timing-function: ease-in-out;
   }
 }
+.initial-wrapper .mycolor {
+  color: #2f3e99;
+  margin:0px;
+}
 
 @keyframes initial-animation { 
 0% { opacity:1; }
