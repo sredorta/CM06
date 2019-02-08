@@ -88,6 +88,14 @@ export class AppComponent {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);   
+
+    //Subscribe to router changes and send the page at each route navigation for Google Analytics
+    this._subscriptions.push(this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        (<any>window).ga('set', 'page', event.urlAfterRedirects);
+        (<any>window).ga('send', 'pageview');
+      }
+    }));
   }  
 
   //Do polling on new orders and update the counter
