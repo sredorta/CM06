@@ -2,11 +2,13 @@
     <div class="header-container" fxLayout="column">
       <p class="initial-title">{{'home.title' | translate}}</p>
       <p class="initial-subtitle">{{'home.subtitle' | translate}}</p>
-      <div fxFlex="1 1 auto" fxLayout="column" fxLayoutAlign="end center" style="width:100%">
+      <div fxFlex="1 1 auto" fxLayout="column" fxLayoutAlign="center center" style="width:100%">
+        <button mat-stroked-button style="font-size:24px" (click)="goToMenu()">Accéder</button>
+      </div>
           <div fxLayout="column" fxLayoutAlign="center center" class="main-icon-text-wrapper"> 
             <p class="main-icon-text" [@headerAnim]="selected">{{text[selected] | translate}}</p>
           </div>
-      </div>
+
     </div>
 </app-header>
 <div fxLayout="column" fxLayoutAlign="center center">

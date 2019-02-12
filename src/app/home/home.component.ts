@@ -65,6 +65,11 @@ export class HomeComponent implements OnInit {
       this.route.navigate(route);  
   }
 
+  goToMenu() {
+    const contentContainer = document.querySelector('.mat-sidenav-content') || window;
+    contentContainer.scrollBy(0, 350);
+  }
+
   //Gets correct image 
   getImage(image:string) {
       return "./assets/images/" + image;  
