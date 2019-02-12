@@ -25,7 +25,7 @@ export class SignupComponent implements OnInit {
   validation_messages = CustomValidators.getMessages();
   myForm: FormGroup; 
   highlight: boolean = false;
-  defaultImage :string = "./assets/images/userdefault.jpg";
+  //defaultImage :string = "./assets/images/userdefault.jpg";
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
@@ -126,7 +126,7 @@ export class SignupComponent implements OnInit {
 
   resetForm() {
     this.myForm.reset();
-    this.inputImage.resetImage();
+    //this.inputImage.resetImage();
   }
 
 
