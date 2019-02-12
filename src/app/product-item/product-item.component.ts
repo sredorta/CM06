@@ -49,7 +49,7 @@ export class ProductItemComponent implements OnInit {
         panelClass: 'signup-dialog',
         width: '95%',
         minWidth: '300px',
-        maxWidth: '800px',
+        maxWidth: '1200px',
         height: '90%',
         minHeight: '320px',
         data:  {id: this.product.id} 
