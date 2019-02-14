@@ -21,7 +21,7 @@
     width:236px;
     height:130px;
   }
-  p {
+  .loading {
     animation: initial-animation 2s;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
@@ -30,6 +30,12 @@
 .initial-wrapper .mycolor {
   color: #2f3e99;
   margin:0px;
+}
+.initial-wrapper .text {
+  margin-left:10vw;
+  margin-right:10vw;
+  max-width: 600px;
+  opacity:0.4;
 }
 
 @keyframes initial-animation { 

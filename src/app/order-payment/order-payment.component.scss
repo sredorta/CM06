@@ -43,3 +43,10 @@ mat-icon {
         color: rgba(red,0.6);   
     }    
 }
+
+#paypal-checkout-button {
+    opacity:0;
+}
+#paypal-checkout-button.show {
+    opacity:1;
+}

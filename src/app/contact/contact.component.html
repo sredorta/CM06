@@ -28,7 +28,7 @@
             </div> 
         </div>
   </div>
-  <div fxLayout="row" fxLayout.xs="column-reverse" fxLayoutAlign="center start" fxLayoutGap="10px" class="map-wrapper">
+  <div fxLayout="row" fxLayout.xs="column-reverse" fxLayoutAlign="center start" fxLayoutGap="25px" class="map-wrapper">
     <div fxFlex="50%" fxFlex.xs="100%" style="width:100%">
       <agm-map [latitude]="config.latitude" [longitude]="config.longitude"  [zoom]="config.zoom" [disableDefaultUI]="false" [zoomControl]="true">
         <agm-marker [latitude]="config.latitude" [longitude]="config.longitude"></agm-marker>
@@ -41,5 +41,18 @@
     </div>
   </div>
 </div>
-
+<div fxLayout="column" fxLayoutAlign="center center" >
+  <div fxLayout="row" fxLayout.xs="column"  fxLayoutAlign="center center" fxLayoutGap="20px" style="width:100%;">
+    <div fxFlex="1 1 auto" class="photo-shop photo1"><p class="photo-title">{{'contact.shop1' | translate}}</p></div>
+    <div fxFlex="1 1 auto" class="photo-shop photo2"><p class="photo-title">{{'contact.shop2' | translate}}</p></div>
+  </div>
+  <div fxLayout="row" fxLayout.xs="column"  fxLayoutAlign="center center" fxLayoutGap="20px" style="width:100%;">
+    <div fxFlex="1 1 auto" class="photo-shop photo3"><p class="photo-title">{{'contact.shop3' | translate}}</p></div>
+    <div fxFlex="1 1 auto" class="photo-shop photo4"><p class="photo-title">{{'contact.shop4' | translate}}</p></div>
+  </div>
+  <div fxLayout="row" fxLayout.xs="column"  fxLayoutAlign="center center" fxLayoutGap="20px" style="width:100%;">
+    <div fxFlex="1 1 auto" class="photo-shop photo5"><p class="photo-title">{{'contact.shop5' | translate}}</p></div>
+    <div fxFlex="1 1 auto" class="photo-shop photo6"><p class="photo-title">{{'contact.shop6' | translate}}</p></div>
+  </div>
+</div>
 <app-footer></app-footer>

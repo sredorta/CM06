@@ -410,5 +410,11 @@
     "orders.admin.search.label"                 : "Chercher une commande",
     "orders.admin.search.placeholder"           : "Chercher",
     "orders.admin.dialog.delete.header"         : "Suppression de commande",
-    "orders.admin.dialog.delete.content"        : "ATTENTION: Cette opération est irréversible. Êtes-vous sûr de vouloir supprimer cette commande ?"
+    "orders.admin.dialog.delete.content"        : "ATTENTION: Cette opération est irréversible. Êtes-vous sûr de vouloir supprimer cette commande ?",
+    "contact.shop1"                             : "Le magasin",
+    "contact.shop2"                             : "L'atelier",
+    "contact.shop3"                             : "Les pièces d'occasion",
+    "contact.shop4"                             : "Les pièces neuves",
+    "contact.shop5"                             : "Les véhicules d'occasion",
+    "contact.shop6"                             : "L'entrée du magasin"
 }

@@ -95,3 +95,56 @@ agm-map {
         }
     }
 }
+
+.photo-shop {
+    width:100%;
+    margin:5px;
+    min-height: 300px;
+    min-width: 250px;
+    box-sizing: border-box;
+    background-size: cover;
+    transition:all 0.5s ease-in-out;
+    max-width: 450px;
+}
+
+
+@media (hover: hover) {
+    .photo-shop {
+        opacity:0.5;
+    }
+    .photo-shop:hover {
+        opacity:1;
+    }
+  }
+
+
+
+.photo-title {
+    box-sizing: border-box;
+    margin-top:0px;
+    padding-left:20px;
+    padding:10px;
+    font-size: 20px;
+    font-weight: bold;
+    width:100%;
+    background:rgba(255,255,255,0.5);
+}
+
+.photo1 {
+    background-image: url(/assets/images/photo-shop2-700-min.jpg);
+}
+.photo2 {
+    background-image: url(/assets/images/photo-shop1-700-min.jpg);
+}
+.photo3 {
+    background-image: url(/assets/images/photo-shop3-700-min.jpg);
+}
+.photo4 {
+    background-image: url(/assets/images/photo-shop4-700-min.jpg);
+}
+.photo5 {
+    background-image: url(/assets/images/photo-shop5-700-min.jpg);
+}
+.photo6 {
+    background-image: url(/assets/images/photo-shop6-700-min.jpg);
+}

@@ -1,8 +1,10 @@
+
 <div class="wrap">
   <div *ngIf="order.total" style="width:100%" fxLayout="row" fxLayoutAlign="center center">
     <p class="final">{{'order.recap.total' | translate}} {{order.total | currencyFormat}}</p><mat-icon>euro_symbol</mat-icon>
   </div>
   <ngx-paypal [config]="payPalConfig" style="width:100%"></ngx-paypal>
+  <!--<div id="paypal-checkout-button" [ngClass]="{'show' : paypalLoad == false?true:false}"></div>-->
   <div *ngIf="error" class="message">
       <div class="left-border">
           <p class="title">{{'order.error.title' | translate}}</p>
