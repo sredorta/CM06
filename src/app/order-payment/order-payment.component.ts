@@ -67,9 +67,7 @@ export class OrderPaymentComponent implements OnInit {
   }
 
   formatCardNumber(data:string) {
-    console.log(data);
     let lastChar = data.slice(-1);
-
     if ('0123456789'.indexOf(lastChar) !== -1) {
       if (data.length == 4 || data.length == 9 || data.length == 14) {
         data =data + " ";

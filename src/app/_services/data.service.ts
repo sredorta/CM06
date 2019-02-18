@@ -88,6 +88,10 @@ export class DataService {
     } 
     return this._products;
   }
+  //Force Reload of products
+  public forceProductsReload() : void {
+    this._timeStamps["products"] = 0;
+  }
 
   //Sets all available brands
   public setProducts(products: IApiProduct[], api = false) {

@@ -22,7 +22,7 @@ export class OrderStepperComponent implements OnInit {
   isEditable : boolean = true;
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private api : ApiService) { }
+  constructor(private api : ApiService, private data : DataService) { }
 
   ngOnInit() {
     //If we are logged in we skip pass one
@@ -70,6 +70,7 @@ export class OrderStepperComponent implements OnInit {
 
   onPaymentReady(order:Order) {
     this.nextStep();
+    this.data.forceProductsReload(); //Forces products to be reload on next time we go to pieces...
   }
 
   //Go to nextStep
