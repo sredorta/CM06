@@ -30,8 +30,6 @@
     "hammerjs": "^2.0.8",
     "ngx-device-detector": "^1.3.5",
     "ngx-facebook": "^2.4.0",
-    "ngx-paypal": "^4.0.2",
-    "paypal-checkout": "^4.0.257",
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.3.3",
     "zone.js": "^0.8.26"

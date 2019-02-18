@@ -39,7 +39,7 @@ import {debounceTime, delay, distinctUntilChanged, flatMap, map, tap,mergeMap} f
 
 export class OrdersComponent implements OnInit {
   dataSource = null;          //Store orders array in table format
-  displayedColumns: string[] = ['paypalOrderId','total','status','created','modify','delete'];
+  displayedColumns: string[] = ['OrderId','total','status','created','modify','delete'];
   displayedCount : number = 0;
   totalCount : number = 0;
   lastFilter : string = null;

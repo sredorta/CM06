@@ -29,6 +29,7 @@ export class AppComponent {
   cartCount : number;
   orderCount : number;
   initialLoading : boolean = true;
+  isOrderPage : boolean = false;
   private _mobileQueryListener: () => void;
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
@@ -91,6 +92,13 @@ export class AppComponent {
 
     //Subscribe to router changes and send the page at each route navigation for Google Analytics
     this._subscriptions.push(this.router.events.subscribe(event => {
+      //Do not show cart icon if we are in /commande route
+      if (this.router.url == "/commande") {
+        this.isOrderPage = true;
+      } else {
+        this.isOrderPage = false;
+      }
+      //Send google Analytics
       if (event instanceof NavigationEnd) {
         (<any>window).ga('set', 'page', event.urlAfterRedirects);
         (<any>window).ga('send', 'pageview');

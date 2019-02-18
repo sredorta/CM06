@@ -11,9 +11,9 @@
       <p style="margin-bottom:5px;margin-top:0px;" class="total">TOTAL : {{displayedCount}} / <span style="font-weight:bold">{{totalCount}}</span></p> 
         <table #myTable mat-table [dataSource]="dataSource" multiTemplateDataRows class="table">
   
-          <ng-container matColumnDef="paypalOrderId">
+          <ng-container matColumnDef="OrderId">
               <th mat-header-cell *matHeaderCellDef>{{'orders.admin.orderId' | translate}}</th>
-              <td mat-cell *matCellDef="let row" [class.expanded-row]="false"  (click)="expand = false;rowClick(row);">{{row.paypalOrderId}}</td>
+              <td mat-cell *matCellDef="let row" [class.expanded-row]="false"  (click)="expand = false;rowClick(row);">{{row.id}}</td>
           </ng-container> 
 
           <ng-container matColumnDef="total">

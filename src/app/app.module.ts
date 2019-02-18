@@ -49,8 +49,6 @@ import {MatAutocompleteModule,
 //FACEBOOK
 import {FacebookModule} from 'ngx-facebook';
 
-//PAYPAL
-import { NgxPayPalModule } from 'ngx-paypal';
 
 
 //PRIME-NG COMPONENTS
@@ -220,9 +218,6 @@ import { OrderItemAdminComponent } from './_admin/order-item-admin/order-item-ad
     AgmCoreModule.forRoot( { //GMAPS
       apiKey: environment.gmapKey
     }),
-    NgxPayPalModule, //PAYPAL
-    //ToastModule,
-    //GalleriaModule
     ],
     [  MatAutocompleteModule, //MATERIAL2
       MatBadgeModule,
