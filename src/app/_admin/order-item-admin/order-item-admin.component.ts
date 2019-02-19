@@ -33,15 +33,20 @@ export class OrderItemAdminComponent implements OnInit {
       status: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(2)
-      ]))
+      ])),
+      tracking:new FormControl('', Validators.compose([
+        Validators.minLength(11),
+        Validators.maxLength(15)
+      ])),
     });   
     this.myForm.controls["status"].setValue(this.order.status);
+    this.myForm.controls["tracking"].setValue(this.order.tracking);
   }
 
   //Modify the status of the order
   onStatusSubmit(result:any) {
       this.spinner.show();
-      this._subscriptions.push(this.api.updateOrderStatus(this.order.id, result.status).subscribe(res => {
+      this._subscriptions.push(this.api.updateOrderStatus(this.order.id, result.status, result.tracking).subscribe(res => {
         this.spinner.hide()
         //Update the order with the result
         this.order = res;
@@ -53,6 +58,7 @@ export class OrderItemAdminComponent implements OnInit {
   onStatusReset() {
     this.myForm.reset();
     this.myForm.controls["status"].setValue(this.order.status);
+    this.myForm.controls["status"].setValue(this.order.tracking);
   }
 
   ngOnDestroy() {    

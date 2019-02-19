@@ -146,6 +146,7 @@ export interface IApiOrder {
   city:string;
   cart: any[] | string;  
   status:string;
+  tracking:string;
   total:number;
   paypalOrderId:string;
   paypalPaymentId:string;
@@ -240,8 +241,8 @@ export class ApiService {
     return this.http.get<number>(environment.apiURL + '/order/getcount').map(res => <number>res);
   }
 
-  public updateOrderStatus(id,status) :Observable<Order> {
-    return this.http.post<IApiOrder>(environment.apiURL + '/order/updatestatus', {"id": id, "status":status}).map(res => new Order(res));
+  public updateOrderStatus(id,status,tracking) :Observable<Order> {
+    return this.http.post<IApiOrder>(environment.apiURL + '/order/updatestatus', {"id": id, "status":status, "tracking":tracking}).map(res => new Order(res));
   }
 
   public deleteOrder(id) :Observable<any> {

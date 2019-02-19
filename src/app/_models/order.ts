@@ -17,6 +17,7 @@ export class Order {
     paypalOrderId:string;
     paypalPaymentId:string;
     status:string;
+    tracking:string;
     created_at:string;
     updated_at:string;
     cart: Cart = new Cart();
@@ -36,6 +37,7 @@ export class Order {
             this.paypalOrderId = data.paypalOrderId;
             this.paypalPaymentId = data.paypalPaymentId;
             this.status = data.status;
+            this.tracking = data.tracking;
             let cart = new Cart();
             cart.fromJSON(data.cart.toString());
             this.cart = cart;

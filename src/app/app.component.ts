@@ -55,7 +55,7 @@ export class AppComponent {
             User.removeToken();
           } else {
             this.user = new User(res);
-            //If User is adming then start polling for orders
+            //If User is admin then start polling for orders
             this.pollOrders();
           }  
         }
@@ -65,7 +65,9 @@ export class AppComponent {
         this.initialLoading = false;
       }));
       
-    }));
+    }, error => {
+      this.initialLoading = false;
+    }, () => this.initialLoading = false ));
 
 
     //Get the user

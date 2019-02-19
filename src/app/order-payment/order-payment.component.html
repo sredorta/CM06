@@ -57,9 +57,12 @@
          <p>{{'order.payment.cvv.subtitle' | translate}}</p>
          <img src="./assets/images/cvv.jpg" alt="cvv example">
      </div>
-     <div fxLayout="column">
+     <div fxLayout="column" style="margin-top:8px">
          <img src="/assets/images/cards.jpg" alt="cards" style="width:140px">
          <button mat-raised-button type="submit" color="primary" style="margin-top:10px" [disabled]="myForm.invalid" >{{'order.payment.submit' | translate}}</button>
+        <div fxLayout="row" fxLayoutAlign="center center" class="secure-payment">
+                <mat-icon style="margin-right:10px">lock</mat-icon><p>{{'order.payment.secure' | translate}}</p>
+        </div>
     </div>
 </form>
 

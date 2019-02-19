@@ -44,40 +44,46 @@ export class OrderPaymentComponent implements OnInit {
       ])),
       ccNumber: new FormControl('', Validators.compose([
         Validators.required,
-        Validators.minLength(2)
+        Validators.minLength(2),
+        Validators.pattern('[0-9]| +')
       ])),
       ccExpiryMonth: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(1),
-        Validators.maxLength(2)
+        Validators.maxLength(2),
+        Validators.pattern('[0-9]+')
       ])),         
       ccExpiryYear: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(4),
-        Validators.maxLength(4)
+        Validators.maxLength(4),
+        Validators.pattern('[0-9]+')
       ])),       
       cvvNumber: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(3),  
+        Validators.maxLength(3), 
+        Validators.pattern('[0-9]+')
       ])),
-      //terms: new FormControl(false,null)
     });
-    //this.myForm.controls["terms"].disable();
   }
 
   formatCardNumber(data:string) {
-    let lastChar = data.slice(-1);
-    if ('0123456789'.indexOf(lastChar) !== -1) {
-      if (data.length == 4 || data.length == 9 || data.length == 14) {
-        data =data + " ";
-        this.myForm.controls['ccNumber'].patchValue(data);
+    //Redo the spaces
+    let dataTmp= data.replace(/\s/g, "");
+    data = "";
+    let index = 0;
+    for(let char of dataTmp) {
+      let lastChar = dataTmp.slice(-1);
+      if ('0123456789'.indexOf(lastChar) !== -1) {
+        data = data + char;
+        if (index == 3 || index == 7 || index == 11) {
+          data = data + " ";
+        }
+        index = index + 1;
       }
-    } else {
-      //Remove last inserted data
-      data = data.substring(0, data.length-1);
-      this.myForm.controls['ccNumber'].patchValue(data);
     }
+    this.myForm.controls['ccNumber'].patchValue(data);
   }
 
   onSubmit(data) {
