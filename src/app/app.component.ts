@@ -28,7 +28,9 @@ export class AppComponent {
   isMobile : boolean =  this.device.isMobile();
   cartCount : number;
   orderCount : number;
-  initialLoading : boolean = true;
+//  initialLoading : boolean = true;
+  configLoading : boolean = true;
+  authLoading : boolean = true;
   isOrderPage : boolean = false;
   private _mobileQueryListener: () => void;
 
@@ -48,29 +50,28 @@ export class AppComponent {
     //Initial loading
     this._subscriptions.push(this.api.getConfig().subscribe( (res : IApiConfig[]) => {
       this.data.setConfig(res);
-      this._subscriptions.push(this.api.getAuthUser().subscribe((res: IApiUserAuth)=> {
-        //If we return empty it means user has been removed in db
-        if (res) {
-          if (res.id == null) {
-            User.removeToken();
-          } else {
-            this.user = new User(res);
-            //If User is admin then start polling for orders
-            this.pollOrders();
-          }  
-        }
-        this.api.setCurrent(res); 
-        this.initialLoading = false;
-      },()=> {
-        this.initialLoading = false;
-      }));
-      
     }, error => {
-      this.initialLoading = false;
-    }, () => this.initialLoading = false ));
+      this.configLoading = false;
+    }, () => this.configLoading = false ));
 
+    this._subscriptions.push(this.api.getAuthUser().subscribe((res: IApiUserAuth)=> {
+      //If we return empty it means user has been removed in db
+      if (res) {
+        if (res.id == null) {
+          User.removeToken();
+        } else {
+          this.user = new User(res);
+          //If User is admin then start polling for orders
+          this.pollOrders();
+        }  
+      }
+      this.api.setCurrent(res); 
+      this.authLoading = false;
+    },()=> {
+      this.authLoading = false;
+    }));
 
-    //Get the user
+    //Get the user if there are any changes
     this._subscriptions.push(this.api.getCurrent().subscribe((res:User) => {
       this.user = res; 
     }));

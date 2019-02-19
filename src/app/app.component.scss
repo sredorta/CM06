@@ -3,21 +3,17 @@
 /*Inital loading part*/
 .initial-wrapper {
   color:white;
-  display: flex;
-  flex-direction: column;
-  align-items:center;
-  justify-content: center;
   background-color: #2f3e99;
   margin-top:0px;
   position: absolute;
   top:0px;
   left:0px;
+  display:block;
   width:100%;
-  height:100vh;
   h1 {
     font-size: 34px;
   }
-  img {
+  .initial-logo {
     width:236px;
     height:130px;
   }
@@ -27,15 +23,35 @@
     animation-timing-function: ease-in-out;
   }
 }
+
+.half {
+  height:100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-content: center;
+}
+.half2 {
+  min-height: 600px;
+  display: block;
+}
+.initial-wrapper h2 {
+  margin-left:10vw;
+  margin-right:10vw;
+}
+
 .initial-wrapper .mycolor {
-  color: #2f3e99;
+  color: rgba(white,0.2);
   margin:0px;
 }
+
 .initial-wrapper .text {
   margin-left:10vw;
   margin-right:10vw;
   max-width: 600px;
-  opacity:0.4;
+  opacity:0.6;
 }
 
 @keyframes initial-animation { 

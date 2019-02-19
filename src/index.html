@@ -6,7 +6,7 @@
   <!--Put in href the full address for SEO !!-->
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="La casse moto de référence des Alpes Maritimes 06. Vente de motos et scooters d'occasion, vente de pièces detachées neuves et d'occasion, entretien et réparation">
+  <meta name="description" content="La casse moto de référence des Alpes Maritimes 06. Vente de motos et scooters d'occasion, pièces detachées neuves et d'occasion, entretien et réparation">
   <meta name="keywords" content="Casse moto,06,Alpes Maritimes,pièces detachées, moto occasion, scooter occasion, réparation motos scooters, motos accidentées, Cannes, Mougins, Mouans Sartoux">
   <meta name="robots" content="index, follow">
   <meta property="og:description" content="La casse moto de référence des Alpes Maritimes 06. Vente de motos et scooters d'occasion, vente de pièces detachées neuves et d'occasion, entretien et réparation">
@@ -27,22 +27,16 @@
        height:0px;
      }
      /*Inital loading part*/
-    .initial-wrapper {
-      /*font-family: Roboto, "Helvetica Neue", sans-serif;*/
-      font-family: 'Bitter', serif;
-      color:white;
-      display: flex;
-      flex-direction: column;
-      align-items:center;
-      justify-content: center;
-      background-color: #2f3e99;
-      margin-top:0px;
-      position: absolute;
-      top:0px;
-      left:0px;
-      width:100%;
-      height:100vh;
-    }
+     .initial-wrapper {
+        color:white;
+        background-color: #2f3e99;
+        margin-top:0px;
+        position: absolute;
+        top:0px;
+        left:0px;
+        display:block;
+        width:100%;
+     }
     .initial-wrapper h1 {
         font-size: 34px;
     }
@@ -50,20 +44,39 @@
         width:236px;
         height:130px;
     }
+
+    .initial-wrapper .half {
+        height:100vh;
+        min-height: 100vh;
+        max-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items:center;
+        justify-content: center;
+    }
+    .initial-wrapper .half2 {
+        min-height: 600px;
+        display: block;
+    }
+    .initial-wrapper h2 {
+        margin-left:10vw;
+        margin-right:10vw;
+    }
+
     .initial-wrapper .loading {
         animation: initial-animation 2s;
         animation-iteration-count: infinite;
         animation-timing-function: ease-in-out;
       }
     .initial-wrapper .mycolor {
-      color: #2f3e99;
-      margin:0px;
+        color: rgba(white,0.2);
+        margin:0px;
     }
     .initial-wrapper .text {
         margin-left:10vw;
         margin-right:10vw;
         max-width: 600px;
-        opacity:0.4;
+        opacity:0.6;
     }
 
     @keyframes initial-animation { 
@@ -84,20 +97,27 @@
       <img class="dummy" src="./assets/images/logo.jpg" alt="casse moto 06">
       <img class="dummy" src="./assets/images/no-photo-available.jpg" alt="casse moto 06">
   <app-root>
-      <div class="initial-wrapper">
-          <h2 class="mycolor">Pièces detachées moto et scooter d'occasion</h2>
-          <h2 class="mycolor">Pièces detachées moto et scooter neuves</h2>
-          <h2 class="mycolor">Entretien et réparation moto et scooter</h2>
-          <h2 class="mycolor">Vente de motos et scooters d'occasion</h2>
-          <img src="./assets/images/logo.jpg" alt="casse moto 06" class="initial-logo">
-          <h1>Casse moto 06</h1>
-          <p class="loading">Chargement...</p>
-          <a class="mycolor" href="/véhicules">Motos d'occasion</a>
-          <a class="mycolor" href="/pièces">Pièces detachées moto et scooter</a>
-          <a class="mycolor" href="/contact">Contact casse moto</a>
-          <p class="text">Bienvenue à la Casse moto 06. Motos d'occasion, scooters d'occasion, des pièces neuves et pièces d'occasion pour les deux roues vous attendent à Cannes, Mougins, Mouans Sartoux </p>
-
-      </div>
+        <div class="initial-wrapper">
+                <div class="half">
+                     <img class="initial-logo" src="./assets/images/logo.jpg" alt="casse moto 06">
+                     <h1>Casse moto 06</h1>
+                     <p class="loading">Chargement...</p>
+                 </div>
+                 <div class="half2">
+                     <p class="text">Bienvenue à la Casse moto 06. Motos d'occasion, scooters d'occasion, des pièces neuves et pièces d'occasion pour les deux roues vous attendent à Cannes, Mougins, Mouans Sartoux </p>
+                     <h2>Vente de motos et scooters d'occasion</h2>
+                     <p class="text">Casse moto 06 vous propose une large séléction à la vente de motos et scooters d'occasion</p>
+                     <h2>Pièces detachées moto et scooter d'occasion</h2>
+                     <p class="text">Vente de pièces detachées moto et scooter d'occasion. Vente en ligne de pièces detachées moto et scooter d'occasion dans les Alpes maritimes et toute la France</p>
+                     <h2>Pièces detachées moto et scooter neuves</h2>
+                     <p class="text">Vente de pièces detachées moto et scooter neuves. Découvrez notre selection de pièces detachées sur Cannes, Mougins, Mouans Sartoux et tout les Alpes Maritimes</p>
+                     <h2>Entretien et réparation moto et scooter</h2>
+                     <p class="text">Casse moto 06 c'est le partenaire ideale pour l'entretien et la réparation moto et scooter</p>
+                     <a title="Casse moto 06 - Motos et scooters d'occasion" class="mycolor" href="/véhicules">Motos d'occasion</a>
+                     <a title="Casse moto 06 - Pièces detachées moto et scooter" class="mycolor" href="/pièces">Pièces detachées moto et scooter</a>
+                     <a title="Casse moto 06 - Contact" class="mycolor" href="/contact">Contact casse moto</a>
+                 </div>
+        </div>
   </app-root>
   <!-- Global site tag (gtag.js) - Google Analytics -->
 <script>

@@ -22,7 +22,7 @@ export class ErrorSheetComponent implements OnInit {
   ngOnInit() {
     setTimeout(()=> {
       this.bottomSheetRef.dismiss();
-    },4000);
+    },6000);
   }
   setClasses() {
     return {
