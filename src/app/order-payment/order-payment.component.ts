@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material';
-
+import {TermsDialogComponent} from '../_auth/terms-dialog/terms-dialog.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { Router} from '@angular/router';
 
 import { Subscription } from 'rxjs';
 import { ApiService } from '../_services/api.service';
@@ -43,8 +45,13 @@ export class OrderPaymentComponent implements OnInit {
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private api : ApiService, private data: DataService, private spinner: SpinnerOverlayService,private fb: FormBuilder,
-    private stripeService: StripeService) { }
+  constructor(private api : ApiService, 
+              private data: DataService, 
+              private spinner: SpinnerOverlayService,
+              private fb: FormBuilder,
+              private stripeService: StripeService,
+              public dialog: MatDialog, 
+              private router : Router) { }
 
   ngOnInit() {
     this.order.delivery = true; //Expect delivery to true initially
@@ -98,7 +105,6 @@ export class OrderPaymentComponent implements OnInit {
     }));
   }
 
-
   createForm() {
     this.myForm = this.fb.group({
       firstName: new FormControl('', Validators.compose([
@@ -143,6 +149,25 @@ export class OrderPaymentComponent implements OnInit {
     });
   }
 
+  //Disable all address fields 
+  disableAddressFields() {
+    this.myForm.controls['address1'].disable();
+    this.myForm.controls['address2'].disable();
+    this.myForm.controls['city'].disable();
+    this.myForm.controls['cp'].disable();
+  }
+
+  //Enable all address fields
+  enableAddressFields() {
+    this.myForm.controls['address1'].enable();
+    this.myForm.controls['address2'].enable();
+    this.myForm.controls['city'].enable();
+    this.myForm.controls['cp'].enable();
+  }
+
+
+
+
   //Returns if CardNameHolder is invalid for adding class
   getCardNameInvalid() : boolean {
     let result = false;
@@ -151,6 +176,22 @@ export class OrderPaymentComponent implements OnInit {
     }
     return result;
 
+  }
+
+  //Opens the dialog of the CGV
+  openCGVDialog() {
+    let dialogRef = this.dialog.open(TermsDialogComponent, {
+      panelClass: 'signup-dialog',
+      width: '98%',
+      height: '98%',
+      data:  null 
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (!result) {
+        this.router.navigate([""]);
+      }
+      //this.myForm.patchValue({"terms" : result});
+    });
   }
 
   //Sends all data to api and gets as if order was done
@@ -168,6 +209,7 @@ export class OrderPaymentComponent implements OnInit {
           this.order.delivery = false;
           this.myForm.controls['delivery'].patchValue('false');
           this.myForm.controls['delivery'].disable({onlySelf:true,emitEvent:false});
+          this.disableAddressFields();
           this.checked = true;
         }
         this.spinner.hide();
@@ -185,6 +227,14 @@ export class OrderPaymentComponent implements OnInit {
 
   deliveryCheckbox(checkbox : MatCheckboxChange) {
     this.checked = checkbox.checked;
+    if (checkbox.checked) {
+      this.disableAddressFields();
+      this.order.total = this.order.cart.price;
+    } else {
+      this.enableAddressFields();
+      this.order.total = Number(this.order.cart.price) + Number(this.order.cart.deliveryCost);
+      console.log("TOTAL IS: " + this.order.total);
+    }
   }
 
   buy() {
@@ -202,28 +252,6 @@ export class OrderPaymentComponent implements OnInit {
   }
 
 
-/*
-
-  onSubmit(data) {
-    //Remove spaces on ccNumber
-    data.ccNumber = data.ccNumber.replace(/\s/g, "");
-
-    //Start the payment and if order is payed create the order...
-    this.spinner.show();
-    this._subscriptions.push(this.api.createOrder(this.order, data.ccName, data.ccNumber, data.ccExpiryMonth,data.ccExpiryYear, data.cvvNumber).subscribe(res => {
-      let cart = new Cart();
-      cart.empty;
-      this.data.setCart(cart);
-      this.result.emit(this.order);
-      console.log(res);
-      this.spinner.hide();
-    },error => {
-      console.log(error);
-      this.spinner.hide();
-    },()=>this.spinner.hide()));
-
-  }
-  */
 
 
   ngOnDestroy() {    

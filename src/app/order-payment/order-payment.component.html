@@ -1,7 +1,7 @@
 
 <div class="wrap" fxLayout="column">
 <div *ngIf="cartAvailable">
-    <p class="form-title">Articles</p>
+    <p class="form-title">{{'order.payment.title.products' | translate}}</p>
     <div class="item-wrapper">
         <div *ngFor="let item of order.cart.data">
             <div fxLayout="column" class="cart-item">
@@ -19,22 +19,22 @@
         </div>
         <div class="total-wrapper">
                 <div class="total-item total" fxLayout="row" fxLayoutAlign="space-between center">
-                  <p>{{'order.recap.products.total' | translate}}</p> <p>{{order.cart.price | currencyFormat}} €</p>
+                  <p>{{'order.payment.products.total' | translate}}</p> <p>{{order.cart.price | currencyFormat}} €</p>
                 </div>
                 <div *ngIf="!order.cart.isWeightExceeded && !checked">
                   <div class="total-item" fxLayout="row" fxLayoutAlign="space-between center">
-                    <p>{{'order.recap.products.delivery.title' | translate}}</p> <p>{{order.cart.deliveryCost | currencyFormat }} €</p>
+                    <p>{{'order.payment.products.delivery.title' | translate}}</p> <p>{{order.cart.deliveryCost | currencyFormat }} €</p>
                   </div>
                   <p class="livraison-detail">{{'cart.dialog.delivery.message' | translate}}</p>
                 </div>
-                <div *ngIf="order.cart.isWeightExceeded && order.delivery == true">
-                    <p class="livraison-detail-exceeded">{{'order.recap.delivery.exceeded' | translate}}</p>
+                <div *ngIf="order.cart.isWeightExceeded">
+                    <p class="livraison-detail-exceeded">{{'order.payment.delivery.exceeded' | translate}}</p>
                 </div>
         </div>
     </div>
 </div>    
 <form novalidate (ngSubmit)="buy()" [formGroup]="myForm" style="display:block">
-        <p class="form-title">Donées personnelles</p>
+        <p class="form-title">{{'order.payment.title.data' | translate}}</p>
         <div fxLayout="row wrap" fxLayoutAlign="center center">
                 <mat-form-field appearance="outline" class="field">
                   <mat-label>{{'input.firstname.label' | translate}}</mat-label>
@@ -71,8 +71,8 @@
                   </mat-error>                 
                 </mat-form-field>
            </div>  
-           <p class="form-title">Adresse de livraison</p>
-           <mat-checkbox formControlName="delivery" (change)="deliveryCheckbox($event)"> {{'order.noaddress.checkbox' | translate}}</mat-checkbox>
+           <p class="form-title">{{'order.payment.title.address' | translate}}</p>
+           <mat-checkbox formControlName="delivery" (change)="deliveryCheckbox($event)"> {{'order.payment.noaddress.checkbox' | translate}}</mat-checkbox>
            <div [ngClass]="{'hide-address' : checked}">
             <div fxLayout="column" fxLayoutAlign="center center">
                     <mat-form-field appearance="outline" class="field wide">
@@ -108,13 +108,14 @@
                 </mat-form-field>
             </div>  
            </div>
-           <p class="form-title">Carte de credit ou debit</p>
-            <label class="card-label">NOM</label>
+           <p class="form-title">{{'order.payment.title.card' | translate}}</p>
+            <label class="card-label">{{'order.payment.cardholder.title' | translate}}</label>
             <input [ngClass]="{'card-name-invalid' : getCardNameInvalid()}" class="StripeElement card-name" matInput formControlName="cardName" placeholder="{{'input.firstname.label' | translate}} {{'input.lastname.label' | translate}}" required>
-            <label class="card-label">CARTE</label>
+            <label class="card-label">{{'order.payment.card.title' | translate}}</label>
             <div id="card-element" class="field"></div>
             <div fxLayout="column" style="margin-top:8px">
-                <button mat-raised-button type="submit" color="primary" style="margin-top:10px" [disabled]="myForm.invalid" >{{'order.payment.submit' | translate}}</button>
+                <small class="waiver">{{'order.payment.waiver' | translate}} <a href="javascript:void(0)" (click)="openCGVDialog()">{{'order.payment.waiver.span' | translate}}</a></small>
+                <button mat-raised-button type="submit" color="primary" style="margin-top:10px;max-width:250px;margin:0 auto;width:100%" [disabled]="myForm.invalid" >{{'order.payment.submit' | translate}} {{order.total | currencyFormat }} €</button>
                 <div fxLayout="row" fxLayoutAlign="center center" class="secure-payment">
                         <mat-icon style="margin-right:10px">lock</mat-icon><p>{{'order.payment.secure' | translate}}</p>
                 </div>

@@ -209,6 +209,9 @@
     "input.config.delivery2.hint"   : "Frais de livraison pour commande 2Kg - 10Kg",    
     "input.config.delivery3.label"  : "Livraison >10Kg",  
     "input.config.delivery3.hint"   : "Frais de livraison pour commande > 10Kg",
+
+
+
     "input.cardholder.label"        : "Nom",
     "input.cardholder.hint"         : "Nom du détenteur de la carte",
     "input.cardnumber.label"        : "Numéro de carte",
@@ -359,6 +362,8 @@
     "cart.dialog.empty.title"                   : "Le panier est vide",
     "cart.dialog.empty.message"                 : "Sélectionner les articles que vous désirez et revenez au panier pour passer commande",
 
+
+
     "stepper.order.first"                       : "Donnés personnelles",
     "stepper.order.second"                      : "Livraison",
     "stepper.order.third"                       : "Récapitulatif",
@@ -391,6 +396,21 @@
     "order.recap.delivery.exceeded"             : "ATTENTION: Votre commande depasse le poids maximum, veuillez nous contacter si vous voulez une livraison",
     "order.recap.total"                         : "TOTAL:",
     "order.recap.submit"                        : "Suivant",
+
+
+
+    "order.payment.title.products"              : "Articles",
+    "order.payment.title.data"                  : "Donnés personnelles",
+    "order.payment.title.address"               : "Adresse de livraison",
+    "order.payment.title.card"                  : "Carte de crédit ou debit",
+    "order.payment.products.total"              : "TOTAL",
+    "order.payment.products.delivery.title"     : "FRAIS DE LIVRAISON*",
+    "order.payment.delivery.exceeded"           : "ATTENTION: Votre commande depasse le poids maximum, veuillez nous contacter si vous voulez une livraison",
+    "order.payment.noaddress.checkbox"          : "Sans livraison, je passerai chercher ma commande",
+    "order.payment.cardholder.title"            : "NOM DU DÉTENTEUR DE LA CARTE",
+    "order.payment.card.title"                  : "CARTE DE CRÉDIT OU DEBIT",
+    "order.payment.waiver"                      : "En validant ma commande, je déclare avoir pris connaissance et accepté snas réserve les ",
+    "order.payment.waiver.span"                 : "CGV de cassemoto06.fr",
     "order.payment.total"                       : "MONTANT: ",
     "order.payment.cvv.title"                   : "Cryptogramme visuel CVV",
     "order.payment.cvv.subtitle"                : "Code de sécurité composé de trois chiffres et situé au dos de la carte à droite de l'espace dédié à la signature",
