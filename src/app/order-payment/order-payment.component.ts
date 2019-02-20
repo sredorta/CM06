@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, ElementRef, ViewChild } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material';
 import {TermsDialogComponent} from '../_auth/terms-dialog/terms-dialog.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
@@ -10,13 +10,13 @@ import { DataService } from '../_services/data.service';
 import {FormGroup,FormControl,Validators, FormBuilder} from '@angular/forms';
 import {CustomValidators } from '../_helpers/custom.validators';
 import { SpinnerOverlayService } from '../_library/spinner-overlay.service';
-import { StripeService, Elements, Element as StripeElement, ElementsOptions, ElementStyleAttributes } from "ngx-stripe";
 import { User } from '../_models/user';
 import { Order } from '../_models/order';
 import {Cart} from '../_models/cart';
 import { environment } from '../../environments/environment';
 import { EventListener } from '@angular/core/src/debug/debug_node';
-//declare let paypal:any;
+
+
 
 @Component({
   selector: 'app-order-payment',
@@ -24,6 +24,7 @@ import { EventListener } from '@angular/core/src/debug/debug_node';
   styleUrls: ['./order-payment.component.scss']
 })
 export class OrderPaymentComponent implements OnInit {
+  @ViewChild('purchase') purchase : ElementRef;
   myForm: FormGroup; 
   validation_messages = CustomValidators.getMessages();
   user : User = new User(null);
@@ -38,12 +39,8 @@ export class OrderPaymentComponent implements OnInit {
   errorAjax:boolean = false;
 
   /*CARD PART*/
-  elements: Elements;
-  card: StripeElement;
+  card:any;
   isCardFilled : boolean = false;
-  elementsOptions: ElementsOptions = {
-    locale: 'fr',
-  };
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
@@ -51,7 +48,6 @@ export class OrderPaymentComponent implements OnInit {
               private data: DataService, 
               private spinner: SpinnerOverlayService,
               private fb: FormBuilder,
-              private stripeService: StripeService,
               public dialog: MatDialog, 
               private router : Router) { }
 
@@ -84,11 +80,10 @@ export class OrderPaymentComponent implements OnInit {
           this.checkOrder();
     }));
 
-    this._subscriptions.push(this.stripeService.elements(this.elementsOptions).subscribe(elements => {
-        this.elements = elements;
+
         // Only mount the element the first time
         if (!this.card) {
-          this.card = this.elements.create('card', {
+          this.card = elements.create('card', {
             style: {
               base: {
                 iconColor: '#666EE8',
@@ -106,15 +101,47 @@ export class OrderPaymentComponent implements OnInit {
         }
         //Detect card changes and set variable to say that card is filled correctly
         let obj = this;
+        this.isCardFilled = true;
+        /* CHANGE THIS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         this.card.on('change', function(event) {
           if (event.complete && event.error == undefined) {
             obj.isCardFilled = true;
           } else {
             obj.isCardFilled = false;
           }
-        })
-    }));
+        })*/
 
+        //Not sure if required
+        stripe._betas = ['payment_intent_beta_3'];
+
+        console.log(this.purchase);
+        this.purchase.nativeElement.addEventListener('click', function(ev) {
+          console.log("Button clicked");
+          console.log(ev);
+          stripe.handleCardPayment(
+            'test', this.card, {
+              source_data: {
+                owner: {
+                  name: 'Jane Doe',
+                  email: 'janedoe@example.com',
+                  address: {
+                    line1: '123 Foo St.',
+                    postal_code: '94103',
+                    country: 'US'
+                  }
+                }
+              }
+            }
+          ).then(function(result) {
+            console.log("HERE IS THE RESULT OF PAYMENT:");
+            console.log(result);
+            if (result.error) {
+              // Display result.error.message in your UI.
+            } else {
+              // The payment has succeeded. Display a success message.
+            }
+          });
+        });
 
   }
 
@@ -250,8 +277,70 @@ export class OrderPaymentComponent implements OnInit {
     }
   }
 
-  buy() {
-    const name = this.myForm.get('cardName').value;
+  buy(data) {
+    //STEP1: Create a preOrder
+    this.order.firstName = data.firstName;
+    this.order.lastName = data.lastName;
+    this.order.email = data.email;
+    this.order.mobile = data.mobile;
+    this.order.delivery = !data.delivery;
+    if (this.order.delivery) {
+      this.order.address1 = data.address1;
+      this.order.address2 = data.address2;
+      this.order.city = data.city;
+      this.order.cp = data.cp;
+    } else {
+      this.order.address1 = null;
+      this.order.address2 = null;
+      this.order.city = null;
+      this.order.cp = null;
+    }
+
+    console.log(this.order);
+    console.log("DATA IS:");
+    console.log(data);
+    this._subscriptions.push(this.api.createOrderIntent(this.order).subscribe(res => {
+      console.log(res);
+      console.log(stripe);
+      stripe.confirmPaymentIntent(
+        res.key,
+        {
+          source: 10,
+          use_stripe_sdk: true,
+        }
+      );
+      }));
+/*
+
+      stripe.handleCardPayment(
+        res.key, this.card, {
+          source_data: {
+            owner: {
+              name: 'Jane Doe',
+              email: 'janedoe@example.com',
+              address: {
+                line1: '123 Foo St.',
+                postal_code: '94103',
+                country: 'US'
+              }
+            }
+          }
+        }
+      ).then(function(result) {
+        console.log("HERE IS THE RESULT OF PAYMENT:");
+        console.log(result);
+        if (result.error) {
+          // Display result.error.message in your UI.
+        } else {
+          // The payment has succeeded. Display a success message.
+        }
+      });
+      //Here we have created a preorder and we have the key of the intent of the payment
+
+    }));*/
+
+    //STEP2: Create the payment
+/*    const name = this.myForm.get('cardName').value;
     this.stripeService.createToken(this.card, { name }).subscribe(result => {
         if (result.token) {
           // Use the token to create a charge or a customer
@@ -261,7 +350,7 @@ export class OrderPaymentComponent implements OnInit {
           // Error creating the token
           console.log(result.error.message);
         }
-      });
+      });*/
   }
 
 

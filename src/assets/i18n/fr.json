@@ -210,19 +210,6 @@
     "input.config.delivery3.label"  : "Livraison >10Kg",  
     "input.config.delivery3.hint"   : "Frais de livraison pour commande > 10Kg",
 
-
-
-    "input.cardholder.label"        : "Nom",
-    "input.cardholder.hint"         : "Nom du détenteur de la carte",
-    "input.cardnumber.label"        : "Numéro de carte",
-    "input.cardnumber.hint"         : "Numéro de carte de crédit",
-    "input.cardmonth.label"         : "Mois",
-    "input.cardmonth.hint"          : "Mois d'expiration",
-    "input.cardyear.label"          : "Année",
-    "input.cardyear.hint"           : "Année d'expiration", 
-    "input.cardcvv.label"           : "CVV",
-    "input.cardcvv.hint"            : "Cryptogramme CVV",
-
     "validator.required"            : "Champ obligatoire",
     "validator.minlength"           : "Champ trop court",
     "validator.maxlength"           : "Champ trop long",
@@ -364,40 +351,6 @@
 
 
 
-    "stepper.order.first"                       : "Donnés personnelles",
-    "stepper.order.second"                      : "Livraison",
-    "stepper.order.third"                       : "Récapitulatif",
-    "stepper.order.fourth"                      : "Payement",
-    "stepper.order.fifth"                       : "Confirmation",
-    "order.data.connected.title"                : "Connecté",
-    "order.data.connected.subtitle"             : "Vous êtes connecté, on utilise les données fournies dans votre compte",
-    "order.data.connected.data"                 : "Données utilisés",
-    "order.data.signup"                         : "Créer un compte",
-    "order.data.login"                          : "Me connecter à mon compte",
-    "order.data.noaccount"                      : "Poursuivre sans compte",
-    "order.data.submit"                         : "Suivant",
-    "order.address.title"                       : "Adresse de livraison",
-    "order.address.subtitle"                    : "Livraisons possibles seulement en France métropolitaine",
-    "order.address.submit"                      : "Suivant",
-    "order.noaddress.title"                     : "Sans livraison",
-    "order.noaddress.subtitle"                  : "Je passerai chercher la commande au magasin",
-    "order.noaddress.checkbox"                  : "Faire la commande sans livraison",
-    "order.noaddress.submit"                    : "Suivant",
-    "order.recap.products.title"                : "Produits",
-    "order.recap.products.subtitle"             : "Produits sélectionnés",
-    "order.recap.products.total"                : "TOTAL",
-    "order.recap.products.delivery.title"       : "FRAIS DE LIVRAISON*",
-    "order.recap.data.title"                    : "Coordonnées",
-    "order.recap.data.subtitle"                 : "Coordonnées en cas de contact",
-    "order.recap.delivery.title"                : "Livraison",
-    "order.recap.delivery.subtitle"             : "Adresse de livraison",
-    "order.recap.nodelivery.title"              : "Sans livraison",
-    "order.recap.nodelivery.subtitle"           : "Vous passerez chercher la commande au magasin",
-    "order.recap.delivery.exceeded"             : "ATTENTION: Votre commande depasse le poids maximum, veuillez nous contacter si vous voulez une livraison",
-    "order.recap.total"                         : "TOTAL:",
-    "order.recap.submit"                        : "Suivant",
-
-
 
     "order.payment.title.products"              : "Articles",
     "order.payment.title.data"                  : "Donnés personnelles",
@@ -416,6 +369,7 @@
     "order.payment.cvv.subtitle"                : "Code de sécurité composé de trois chiffres et situé au dos de la carte à droite de l'espace dédié à la signature",
     "order.payment.submit"                      : "Payer",
     "order.payment.secure"                      : "Paiements 100% sécurisés",
+
     "order.success.title"                       : "Merci pour votre commande",
     "order.success.subtitle"                    : "Nous mettons tout en place pour que vous recevez votre commande dans les mieux délais",
     "order.success.email"                       : "Un email de confirmation vous à été envoyé a l'adresse ",
@@ -423,6 +377,7 @@
     "order.error.subtitle"                      : "Votre commande n'est pas prise en compte, veuillez réessayer le payement ou nous contacter",
     "order.errorajax.title"                     : "Une erreur est survenue",
     "order.errorajax.subtitle"                  : "Merci de nous contacter",
+
     "profile.orders.title"                      : "Mes commandes",
     "order.item.ref"                            : "Référence",
     "order.item.status"                         : "État",

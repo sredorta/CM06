@@ -33,7 +33,7 @@
         </div>
     </div>
 </div>    
-<form novalidate (ngSubmit)="buy()" [formGroup]="myForm" style="display:block">
+<form novalidate (ngSubmit)="buy(myForm.value)" [formGroup]="myForm" style="display:block">
         <p class="form-title">{{'order.payment.title.data' | translate}}</p>
         <div fxLayout="row wrap" fxLayoutAlign="center center">
                 <mat-form-field appearance="outline" class="field">
@@ -124,7 +124,7 @@
                 </div>
             </div>
 </form>
-
+<button id="purchase" #purchase data-secret="<%= intent.client_secret %>">Purchase</button>
 
   <div *ngIf="error" class="message">
       <div class="left-border">

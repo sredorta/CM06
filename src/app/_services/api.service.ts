@@ -205,6 +205,24 @@ export class ApiService {
     return this.http.post<any>(environment.apiURL + '/order/check',data).map(res => <any>res)
   }
 
+  public createOrderIntent(order) : Observable<any> {
+    let data = {
+      user_id:    order.user_id,
+      firstName:  order.firstName,
+      lastName:   order.lastName,
+      email:      order.email,
+      mobile:     order.mobile,
+      delivery:   order.delivery,
+      address1:   order.address1,
+      address2:   order.address2,
+      cp:         order.cp,
+      city:       order.city,
+      cart:       order.cart.data,
+      total:      order.total     
+    };
+    return this.http.post<any>(environment.apiURL + '/paymentintent',data).map(res => <any>res)
+  } 
+
   public createOrder(order:Order, ccName:string, ccNumber:string, ccExpiryMonth:string, ccExpiryYear:string, cvvNumber:string) : Observable<any> {
     let data = {
       ccName:         ccName,

@@ -49,8 +49,6 @@ import {MatAutocompleteModule,
 //FACEBOOK
 import {FacebookModule} from 'ngx-facebook';
 
-// STRIPE PAYMENT
-import { NgxStripeModule } from 'ngx-stripe';
 
 //PRIME-NG COMPONENTS
 /*import {PasswordModule} from 'primeng/password';
@@ -264,7 +262,6 @@ import { OrderItemAdminComponent } from './_admin/order-item-admin/order-item-ad
           deps: [HttpClient]
       }
     }),
-    NgxStripeModule.forRoot(environment.stripePublic),
   ],
   entryComponents: [ErrorSheetComponent, SpinnerOverlayComponent, TermsDialogComponent, MakeSureDialogComponent, ProductItemDialogComponent, CartDialogComponent],
   providers: [
