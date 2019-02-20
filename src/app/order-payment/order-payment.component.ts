@@ -1,14 +1,18 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
-import { Order } from '../_models/order';
-import {Cart} from '../_models/cart';
-import { environment } from '../../environments/environment';
+import { MatCheckboxChange } from '@angular/material';
+
+
 import { Subscription } from 'rxjs';
 import { ApiService } from '../_services/api.service';
 import { DataService } from '../_services/data.service';
-import {FormGroup,FormControl,Validators} from '@angular/forms';
+import {FormGroup,FormControl,Validators, FormBuilder} from '@angular/forms';
 import {CustomValidators } from '../_helpers/custom.validators';
 import { SpinnerOverlayService } from '../_library/spinner-overlay.service';
-
+import { StripeService, Elements, Element as StripeElement, ElementsOptions, ElementStyleAttributes } from "ngx-stripe";
+import { User } from '../_models/user';
+import { Order } from '../_models/order';
+import {Cart} from '../_models/cart';
+import { environment } from '../../environments/environment';
 //declare let paypal:any;
 
 @Component({
@@ -17,74 +21,188 @@ import { SpinnerOverlayService } from '../_library/spinner-overlay.service';
   styleUrls: ['./order-payment.component.scss']
 })
 export class OrderPaymentComponent implements OnInit {
-  @Input() order : Order;
-  @Output() result = new EventEmitter<Order>();
   myForm: FormGroup; 
   validation_messages = CustomValidators.getMessages();
+  user : User = new User(null);
+  order : Order = new Order(null);
+  defaultImage :string = "./assets/images/no-photo-available.jpg";
+  cartAvailable : boolean = false;
+  checked: boolean = false;
+
   showCVV : boolean = false;
 
   error: boolean = false;
   errorAjax:boolean = false;
 
-
+  /*CARD PART*/
+  elements: Elements;
+  card: StripeElement;
+  elementsOptions: ElementsOptions = {
+    locale: 'fr',
+  };
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private api : ApiService, private data: DataService, private spinner: SpinnerOverlayService) { }
+  constructor(private api : ApiService, private data: DataService, private spinner: SpinnerOverlayService,private fb: FormBuilder,
+    private stripeService: StripeService) { }
 
   ngOnInit() {
+    this.order.delivery = true; //Expect delivery to true initially
+
     this.createForm();
+    //If we are logged in fill the personal data part
+    this._subscriptions.push(this.api.getAuthUser().subscribe(res=> {
+      this.user = new User(res);
+        if (this.user.isAvailable()) {
+          this.myForm.controls['firstName'].patchValue(this.user.firstName);
+          this.myForm.controls['lastName'].patchValue(this.user.lastName);
+          this.myForm.controls['mobile'].patchValue(this.user.mobile);
+          this.myForm.controls['email'].patchValue(this.user.email);
+          this.myForm.controls['cardName'].patchValue((this.user.firstName + " " + this.user.lastName).toUpperCase());
+
+          this.order.user_id = this.user.id;
+          this.order.firstName = this.user.firstName;
+          this.order.lastName = this.user.lastName;
+          this.order.mobile = this.user.mobile;
+          this.order.email = this.user.email;
+        }
+    }));
+
+
+
+    this._subscriptions.push(this.data.getCart().subscribe(res => {
+          this.order.cart = res;
+          this.checkOrder();
+    }));
+
+    this._subscriptions.push(this.stripeService.elements(this.elementsOptions).subscribe(elements => {
+        this.elements = elements;
+        // Only mount the element the first time
+        if (!this.card) {
+          this.card = this.elements.create('card', {
+            style: {
+              base: {
+                iconColor: '#666EE8',
+                color: '#31325F',
+                fontWeight: 300,
+                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                fontSize: '14px',
+                '::placeholder': {
+                  color: '#CFD7E0'
+                },
+              }
+            }
+          });
+          this.card.mount('#card-element');
+        }
+    }));
   }
 
+
   createForm() {
-    this.myForm =  new FormGroup({    
-      ccName: new FormControl('', Validators.compose([
+    this.myForm = this.fb.group({
+      firstName: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(2)
       ])),
-      ccNumber: new FormControl('', Validators.compose([
+      lastName: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.minLength(2)
+      ])),         
+      mobile: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10),       
+        CustomValidators.validMobile
+      ])),       
+      email: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.email
+      ])),
+      delivery: new FormControl(false, Validators.compose([
+        Validators.required])),
+      address1: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(2),
-        Validators.pattern('[0-9]| +')
+        Validators.maxLength(200)
       ])),
-      ccExpiryMonth: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.minLength(1),
-        Validators.maxLength(2),
-        Validators.pattern('[0-9]+')
+      address2: new FormControl('', Validators.compose([
+        Validators.maxLength(200)
       ])),         
-      ccExpiryYear: new FormControl('', Validators.compose([
+      city: new FormControl('', Validators.compose([
         Validators.required,
-        Validators.minLength(4),
-        Validators.maxLength(4),
-        Validators.pattern('[0-9]+')
+        Validators.minLength(2),
+        Validators.maxLength(100),
       ])),       
-      cvvNumber: new FormControl('', Validators.compose([
+      cp: new FormControl('', Validators.compose([
         Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(3), 
-        Validators.pattern('[0-9]+')
-      ])),
+        Validators.minLength(5),
+        Validators.maxLength(5)
+      ])),        
+      cardName: ['', [Validators.required, Validators.minLength(4)]]
     });
   }
 
-  formatCardNumber(data:string) {
-    //Redo the spaces
-    let dataTmp= data.replace(/\s/g, "");
-    data = "";
-    let index = 0;
-    for(let char of dataTmp) {
-      let lastChar = dataTmp.slice(-1);
-      if ('0123456789'.indexOf(lastChar) !== -1) {
-        data = data + char;
-        if (index == 3 || index == 7 || index == 11) {
-          data = data + " ";
-        }
-        index = index + 1;
-      }
+  //Returns if CardNameHolder is invalid for adding class
+  getCardNameInvalid() : boolean {
+    let result = false;
+    for(let validation of this.validation_messages) {
+      if (this.myForm.get('cardName').hasError(validation.type) && (this.myForm.get('cardName').dirty)) result = true;
     }
-    this.myForm.controls['ccNumber'].patchValue(data);
+    return result;
+
   }
+
+  //Sends all data to api and gets as if order was done
+  checkOrder() {
+    this.order.cart.fromStorage()
+    if(this.order.cart.data.length>0) { //Only check if we have items and purge any 0 items
+      this.spinner.show();
+      this._subscriptions.push(this.api.checkOrder(this.order).subscribe((res: any) => {
+        this.order.cart = new Cart(res.cart);
+        this.order.cart.deliveryCost = res.deliveryCost;
+        this.order.cart.price = res.price;
+        this.order.cart.isWeightExceeded = res.isWeightExceeded;
+        this.order.total = res.total;
+        if (this.order.cart.isWeightExceeded) {
+          this.order.delivery = false;
+          this.myForm.controls['delivery'].patchValue('false');
+          this.myForm.controls['delivery'].disable({onlySelf:true,emitEvent:false});
+          this.checked = true;
+        }
+        this.spinner.hide();
+        this.cartAvailable = true;
+      }, () => this.spinner.hide()))  
+    }
+  }
+
+  getImageUrl(url:string) {
+    if (url==undefined || url == "") {
+      return "url(" + this.defaultImage + ")";
+    }
+    return "url(" + url + ")";
+  }
+
+  deliveryCheckbox(checkbox : MatCheckboxChange) {
+    this.checked = checkbox.checked;
+  }
+
+  buy() {
+    const name = this.myForm.get('cardName').value;
+    this.stripeService.createToken(this.card, { name }).subscribe(result => {
+        if (result.token) {
+          // Use the token to create a charge or a customer
+          // https://stripe.com/docs/charges
+          console.log(result.token);
+        } else if (result.error) {
+          // Error creating the token
+          console.log(result.error.message);
+        }
+      });
+  }
+
+
+/*
 
   onSubmit(data) {
     //Remove spaces on ccNumber
@@ -105,7 +223,7 @@ export class OrderPaymentComponent implements OnInit {
     },()=>this.spinner.hide()));
 
   }
-  
+  */
 
 
   ngOnDestroy() {    

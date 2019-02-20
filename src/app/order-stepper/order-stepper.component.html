@@ -21,7 +21,7 @@
         <mat-step [completed]="step>4" [editable]="isEditable">
             <ng-template matStepLabel>{{'stepper.order.fourth' | translate}}</ng-template>
             <div fxLayout="row" fxLayoutAlign="center center" style="width:100%">
-              <app-order-payment *ngIf="step==4" [order]="finalOrder" (result)="onPaymentReady($event)"></app-order-payment>
+              <!--<app-order-payment *ngIf="step==4" [order]="finalOrder" (result)="onPaymentReady($event)" style="width:100%"></app-order-payment>-->
             </div>      
         </mat-step>
         <mat-step [completed]="step>5" >

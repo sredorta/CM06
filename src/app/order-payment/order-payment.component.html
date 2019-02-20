@@ -1,69 +1,127 @@
 
 <div class="wrap" fxLayout="column">
-  <div *ngIf="order.total" style="width:100%" fxLayout="row" fxLayoutAlign="center center">
-    <p class="final">{{'order.payment.total' | translate}} {{order.total | currencyFormat}}</p><mat-icon class="final-icon">euro_symbol</mat-icon>
-  </div>
-  <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)" novalidate> 
-    <div fxLayout="column" fxLayoutAlign="center center">
-          <mat-form-field appearance="outline" class="field">
-            <mat-label>{{'input.cardholder.label' | translate}}</mat-label>
-            <input matInput formControlName="ccName" placeholder="{{'input.cardholder.label' | translate}}" required>
-            <mat-hint>{{'input.cardholder.hint' | translate}}</mat-hint>
-            <mat-error *ngFor="let validation of validation_messages">
-                <mat-error class="error-message" *ngIf="myForm.get('ccName').hasError(validation.type) && (myForm.get('ccName').dirty || myForm.get('ccName').touched)">{{validation.message | translate}}</mat-error>
-            </mat-error>                 
-          </mat-form-field>    
-          <mat-form-field appearance="outline" class="field">
-            <mat-label>{{'input.cardnumber.label' | translate}}</mat-label>
-            <input matInput formControlName="ccNumber" placeholder="XXXX XXXX XXXX XXXX" required  inputmode="numeric" pattern="[0-9]| *" maxlength="19" minlength="19" (keyup)="formatCardNumber($event.target.value)">
-            <mat-hint>{{'input.cardnumber.hint' | translate}}</mat-hint>
-            <mat-error *ngFor="let validation of validation_messages">
-                <mat-error class="error-message" *ngIf="myForm.get('ccNumber').hasError(validation.type) && (myForm.get('ccNumber').dirty || myForm.get('ccNumber').touched)">{{validation.message | translate}}</mat-error>
-            </mat-error>                 
-          </mat-form-field>  
-    </div>
-    <div fxLayout="row"  fxLayoutGap = "10px" fxLayoutAlign="center center" style="width:100%">
-        <mat-form-field appearance="outline" class="field-small">
-          <mat-label>{{'input.cardmonth.label' | translate}}</mat-label>
-          <input matInput formControlName="ccExpiryMonth" placeholder="XX" required OnlyNumber inputmode="numeric" pattern="[0-9]*" maxlength="2" minlength="1">
-          <mat-hint>{{'input.cardmonth.hint' | translate}}</mat-hint>
-          <mat-error *ngFor="let validation of validation_messages">
-              <mat-error class="error-message" *ngIf="myForm.get('ccExpiryMonth').hasError(validation.type) && (myForm.get('ccExpiryMonth').dirty || myForm.get('ccExpiryMonth').touched)">{{validation.message | translate}}</mat-error>
-          </mat-error>                 
-        </mat-form-field>
-    
-        <mat-form-field appearance="outline" class="field-small">
-          <mat-label>{{'input.cardyear.label' | translate}}</mat-label>
-          <input matInput formControlName="ccExpiryYear" placeholder="XXXX" required OnlyNumber inputmode="numeric" pattern="[0-9]*" maxlength="4" minlength="4">
-          <mat-hint>{{'input.cardyear.hint' | translate}}</mat-hint>
-          <mat-error *ngFor="let validation of validation_messages">
-              <mat-error class="error-message" *ngIf="myForm.get('ccExpiryYear').hasError(validation.type) && (myForm.get('ccExpiryYear').dirty || myForm.get('ccExpiryYear').touched)">{{validation.message | translate}}</mat-error>
-          </mat-error>
-        </mat-form-field>    
-    </div>  
-    <div fxLayout="row" fxLayoutAlign="start center">
-          <mat-form-field appearance="outline" class="field-small">
-            <mat-label>{{'input.cardcvv.label' | translate}}</mat-label>
-            <input matInput formControlName="cvvNumber" placeholder="XXX" required OnlyNumber inputmode="numeric" pattern="[0-9]*" maxlength="3" minlength="3">
-            <mat-hint>{{'input.cardcvv.hint' | translate}}</mat-hint>
-            <mat-error *ngFor="let validation of validation_messages">
-                <mat-error class="error-message" *ngIf="myForm.get('cvvNumber').hasError(validation.type) && (myForm.get('cvvNumber').dirty || myForm.get('cvvNumber').touched)">{{validation.message | translate}}</mat-error>
-            </mat-error>                 
-          </mat-form-field>
-          <mat-icon class="cvv-icon" (click)="showCVV = !showCVV">info</mat-icon>
-     </div>  
-     <div *ngIf="showCVV" class="cvv-help">
-         <p>{{'order.payment.cvv.title' | translate}}</p>
-         <p>{{'order.payment.cvv.subtitle' | translate}}</p>
-         <img src="./assets/images/cvv.jpg" alt="cvv example">
-     </div>
-     <div fxLayout="column" style="margin-top:8px">
-         <img src="/assets/images/cards.jpg" alt="cards" style="width:140px">
-         <button mat-raised-button type="submit" color="primary" style="margin-top:10px" [disabled]="myForm.invalid" >{{'order.payment.submit' | translate}}</button>
-        <div fxLayout="row" fxLayoutAlign="center center" class="secure-payment">
-                <mat-icon style="margin-right:10px">lock</mat-icon><p>{{'order.payment.secure' | translate}}</p>
+<div *ngIf="cartAvailable">
+    <p class="form-title">Articles</p>
+    <div class="item-wrapper">
+        <div *ngFor="let item of order.cart.data">
+            <div fxLayout="column" class="cart-item">
+                <p class="product-title">{{item.title}}</p>
+                <div fxLayout="row">
+                    <div fxLayoutAlign="center center" mat-card-avatar [style.backgroundImage]="getImageUrl(item.url)" class="image"></div>
+                    <div fxFlex="1 1 auto" fxLayout="column" fxLayoutAlign="center center" class="counter">
+                        <p class="product-count">x {{item.quantity}}</p>
+                    </div>
+                    <div fxFlex="1 1 auto" fxLayoutAlign="end center" class="price-wrapper">
+                        <p class="product-price">{{item.tprice | currencyFormat}} €</p>
+                    </div>
+                </div>
+            </div>  
+        </div>
+        <div class="total-wrapper">
+                <div class="total-item total" fxLayout="row" fxLayoutAlign="space-between center">
+                  <p>{{'order.recap.products.total' | translate}}</p> <p>{{order.cart.price | currencyFormat}} €</p>
+                </div>
+                <div *ngIf="!order.cart.isWeightExceeded && !checked">
+                  <div class="total-item" fxLayout="row" fxLayoutAlign="space-between center">
+                    <p>{{'order.recap.products.delivery.title' | translate}}</p> <p>{{order.cart.deliveryCost | currencyFormat }} €</p>
+                  </div>
+                  <p class="livraison-detail">{{'cart.dialog.delivery.message' | translate}}</p>
+                </div>
+                <div *ngIf="order.cart.isWeightExceeded && order.delivery == true">
+                    <p class="livraison-detail-exceeded">{{'order.recap.delivery.exceeded' | translate}}</p>
+                </div>
         </div>
     </div>
+</div>    
+<form novalidate (ngSubmit)="buy()" [formGroup]="myForm" style="display:block">
+        <p class="form-title">Donées personnelles</p>
+        <div fxLayout="row wrap" fxLayoutAlign="center center">
+                <mat-form-field appearance="outline" class="field">
+                  <mat-label>{{'input.firstname.label' | translate}}</mat-label>
+                  <input matInput formControlName="firstName" placeholder="{{'input.firstname.label' | translate}}" required>
+                  <mat-hint>{{'input.firstname.hint' | translate}}</mat-hint>
+                  <mat-error *ngFor="let validation of validation_messages">
+                      <mat-error class="error-message" *ngIf="myForm.get('firstName').hasError(validation.type) && (myForm.get('firstName').dirty || myForm.get('firstName').touched)">{{validation.message | translate}}</mat-error>
+                  </mat-error>                 
+                </mat-form-field>          
+              <mat-form-field appearance="outline" class="field">
+                <mat-label>{{'input.lastname.label' | translate}}</mat-label>
+                <input matInput formControlName="lastName" placeholder="{{'input.lastname.label' | translate}}" required>
+                <mat-hint>{{'input.lastname.hint' | translate}}</mat-hint>
+                <mat-error *ngFor="let validation of validation_messages">
+                    <mat-error class="error-message" *ngIf="myForm.get('lastName').hasError(validation.type) && (myForm.get('lastName').dirty || myForm.get('lastName').touched)">{{validation.message | translate}}</mat-error>
+                </mat-error>                 
+              </mat-form-field>
+          </div>
+          <div fxLayout="row wrap" fxLayoutAlign="center center">
+              <mat-form-field appearance="outline" class="field">
+                <mat-label>{{'input.phone.label' | translate}}</mat-label>
+                <input matInput formControlName="mobile" placeholder="06XXXXXXXX" required OnlyNumber inputmode="numeric" pattern="[0-9]*">
+                <mat-hint>{{'input.phone.hint' | translate}}</mat-hint>
+                <mat-error *ngFor="let validation of validation_messages">
+                    <mat-error class="error-message" *ngIf="myForm.get('mobile').hasError(validation.type) && (myForm.get('mobile').dirty || myForm.get('mobile').touched)">{{validation.message | translate}}</mat-error>
+                </mat-error>
+              </mat-form-field>      
+                <mat-form-field appearance="outline" class="field">
+                  <mat-label>{{'input.email.label' | translate}}</mat-label>
+                  <input matInput formControlName="email" placeholder="{{'input.email.label' | translate}}" required>
+                  <mat-hint>{{'input.email.hint' | translate}}</mat-hint>
+                  <mat-error *ngFor="let validation of validation_messages">
+                      <mat-error class="error-message" *ngIf="myForm.get('email').hasError(validation.type) && (myForm.get('email').dirty || myForm.get('email').touched)">{{validation.message | translate}}</mat-error>
+                  </mat-error>                 
+                </mat-form-field>
+           </div>  
+           <p class="form-title">Adresse de livraison</p>
+           <mat-checkbox formControlName="delivery" (change)="deliveryCheckbox($event)"> {{'order.noaddress.checkbox' | translate}}</mat-checkbox>
+           <div [ngClass]="{'hide-address' : checked}">
+            <div fxLayout="column" fxLayoutAlign="center center">
+                    <mat-form-field appearance="outline" class="field wide">
+                    <mat-label>{{'input.address1.label' | translate}}</mat-label>
+                    <input matInput formControlName="address1" placeholder="{{'input.address1.label' | translate}}" required>
+                    <mat-hint>{{'input.address1.hint' | translate}}</mat-hint>
+                    <mat-error *ngFor="let validation of validation_messages">
+                        <mat-error class="error-message" *ngIf="myForm.get('address1').hasError(validation.type) && (myForm.get('address1').dirty || myForm.get('address1').touched)">{{validation.message | translate}}</mat-error>
+                    </mat-error>                 
+                    </mat-form-field>          
+                <mat-form-field appearance="outline" class="field wide">
+                    <mat-label>{{'input.address2.label' | translate}}</mat-label>
+                    <input matInput formControlName="address2" placeholder="{{'input.address2.label' | translate}}">
+                    <mat-hint>{{'input.address2.hint' | translate}}</mat-hint>              
+                </mat-form-field>
+            </div>
+            <div fxLayout="row wrap" fxLayoutAlign="center center">
+                <mat-form-field appearance="outline" class="field">
+                    <mat-label>{{'input.city.label' | translate}}</mat-label>
+                    <input matInput formControlName="city" placeholder="{{'input.city.label' | translate}}" required >
+                    <mat-hint>{{'input.city.hint' | translate}}</mat-hint>
+                    <mat-error *ngFor="let validation of validation_messages">
+                        <mat-error class="error-message" *ngIf="myForm.get('city').hasError(validation.type) && (myForm.get('city').dirty || myForm.get('city').touched)">{{validation.message | translate}}</mat-error>
+                    </mat-error>
+                </mat-form-field>      
+                <mat-form-field appearance="outline" class="field">
+                    <mat-label>{{'input.cp.label' | translate}}</mat-label>
+                    <input matInput formControlName="cp" placeholder="{{'input.cp.label' | translate}}" required OnlyNumber inputmode="numeric" pattern="[0-9]*">
+                    <mat-hint>{{'input.cp.hint' | translate}}</mat-hint>
+                    <mat-error *ngFor="let validation of validation_messages">
+                        <mat-error class="error-message" *ngIf="myForm.get('cp').hasError(validation.type) && (myForm.get('cp').dirty || myForm.get('cp').touched)">{{validation.message | translate}}</mat-error>
+                    </mat-error>                 
+                </mat-form-field>
+            </div>  
+           </div>
+           <p class="form-title">Carte de credit ou debit</p>
+            <label class="card-label">NOM</label>
+            <input [ngClass]="{'card-name-invalid' : getCardNameInvalid()}" class="StripeElement card-name" matInput formControlName="cardName" placeholder="{{'input.firstname.label' | translate}} {{'input.lastname.label' | translate}}" required>
+            <label class="card-label">CARTE</label>
+            <div id="card-element" class="field"></div>
+            <div fxLayout="column" style="margin-top:8px">
+                <button mat-raised-button type="submit" color="primary" style="margin-top:10px" [disabled]="myForm.invalid" >{{'order.payment.submit' | translate}}</button>
+                <div fxLayout="row" fxLayoutAlign="center center" class="secure-payment">
+                        <mat-icon style="margin-right:10px">lock</mat-icon><p>{{'order.payment.secure' | translate}}</p>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center center">
+                        <img src="/assets/images/cards.jpg" alt="cards" style="width:140px">
+                </div>
+            </div>
 </form>
 
 

@@ -8,7 +8,7 @@ export const environment = {
   URL: 'http://localhost:4200',
   gmapKey: 'AIzaSyDJX3_xSyhfZCyA2Z20f1d74X8sHOkX9dE',
   fbKey : '397476587654542',
-  payPalKey: 'AezsO1aLaK794S1JMb6BJPHhflVEHIrBJdawBSRO_ufHO_A85fexSF1vD6Z6yPicBfzeAOWtaOBcMkhK',
+  stripePublic: 'pk_test_DMr1gUUG0TYRn9mdvdACvAZQ'
 };
 
 /*
