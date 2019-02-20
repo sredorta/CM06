@@ -15,6 +15,7 @@ import { User } from '../_models/user';
 import { Order } from '../_models/order';
 import {Cart} from '../_models/cart';
 import { environment } from '../../environments/environment';
+import { EventListener } from '@angular/core/src/debug/debug_node';
 //declare let paypal:any;
 
 @Component({
@@ -39,6 +40,7 @@ export class OrderPaymentComponent implements OnInit {
   /*CARD PART*/
   elements: Elements;
   card: StripeElement;
+  isCardFilled : boolean = false;
   elementsOptions: ElementsOptions = {
     locale: 'fr',
   };
@@ -102,7 +104,18 @@ export class OrderPaymentComponent implements OnInit {
           });
           this.card.mount('#card-element');
         }
+        //Detect card changes and set variable to say that card is filled correctly
+        let obj = this;
+        this.card.on('change', function(event) {
+          if (event.complete && event.error == undefined) {
+            obj.isCardFilled = true;
+          } else {
+            obj.isCardFilled = false;
+          }
+        })
     }));
+
+
   }
 
   createForm() {
