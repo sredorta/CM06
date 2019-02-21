@@ -140,6 +140,17 @@ $warn : map-get($main-app-theme,warn);
     font-style: italic;
     margin-bottom:20px;
 }
+.card-error {
+    animation: "highlight" 3s ease-in-out; 
+}
+
+/*Header animation*/
+@keyframes highlight {
+0% { border-color: white; }    
+10% { border-color: #fa755a; }
+90% { border-color: #fa755a; }
+100% {border-color:white;}
+}  
 /*
 .left-border {
     transition:all 0.5s ease-in-out;

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, ElementRef, ViewChild } from '@angular/core';
-import { MatCheckboxChange } from '@angular/material';
+import { MatCheckboxChange, MatButton } from '@angular/material';
 import {TermsDialogComponent} from '../_auth/terms-dialog/terms-dialog.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { Router} from '@angular/router';
@@ -15,6 +15,7 @@ import { Order } from '../_models/order';
 import {Cart} from '../_models/cart';
 import { environment } from '../../environments/environment';
 import { EventListener } from '@angular/core/src/debug/debug_node';
+import {Observable, of, Subject} from 'rxjs';
 
 
 
@@ -24,7 +25,7 @@ import { EventListener } from '@angular/core/src/debug/debug_node';
   styleUrls: ['./order-payment.component.scss']
 })
 export class OrderPaymentComponent implements OnInit {
-  @ViewChild('purchase') purchase : ElementRef;
+  //@ViewChild('purchase') purchase : ElementRef;
   myForm: FormGroup; 
   validation_messages = CustomValidators.getMessages();
   user : User = new User(null);
@@ -33,14 +34,15 @@ export class OrderPaymentComponent implements OnInit {
   cartAvailable : boolean = false;
   checked: boolean = false;
 
-  showCVV : boolean = false;
 
   error: boolean = false;
   errorAjax:boolean = false;
 
   /*CARD PART*/
   card:any;
-  isCardFilled : boolean = false;
+  isCardFilled : boolean = false;  //Contains if the Card is correctly filled
+  cardError : boolean = false;     //Adds class if isCardFilled false and submit
+  @ViewChild('card') elem : ElementRef;
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
@@ -53,7 +55,6 @@ export class OrderPaymentComponent implements OnInit {
 
   ngOnInit() {
     this.order.delivery = true; //Expect delivery to true initially
-
     this.createForm();
     //If we are logged in fill the personal data part
     this._subscriptions.push(this.api.getAuthUser().subscribe(res=> {
@@ -73,18 +74,16 @@ export class OrderPaymentComponent implements OnInit {
         }
     }));
 
-
-
+    //Get the current cart and then check if there are no changes on the products and update it
     this._subscriptions.push(this.data.getCart().subscribe(res => {
           this.order.cart = res;
           this.checkOrder();
     }));
 
-
-        // Only mount the element the first time
-        if (!this.card) {
-          this.card = elements.create('card', {
-            style: {
+    //Create the creditCard part of Stripe
+    if (!this.card) { // Only mount the element the first time
+      this.card = elements.create('card', {
+          style: {
               base: {
                 iconColor: '#666EE8',
                 color: '#31325F',
@@ -96,55 +95,26 @@ export class OrderPaymentComponent implements OnInit {
                 },
               }
             }
-          });
-          this.card.mount('#card-element');
-        }
-        //Detect card changes and set variable to say that card is filled correctly
-        let obj = this;
-        this.isCardFilled = true;
-        /* CHANGE THIS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        this.card.on('change', function(event) {
+      });
+      this.card.mount('#card-element');
+    }
+
+    //Detect card changes and set variable to say that card is filled correctly
+    let obj = this;
+    this.card.on('change', function(event) {
           if (event.complete && event.error == undefined) {
             obj.isCardFilled = true;
           } else {
             obj.isCardFilled = false;
           }
-        })*/
-
-        //Not sure if required
-        stripe._betas = ['payment_intent_beta_3'];
-
-        console.log(this.purchase);
-        this.purchase.nativeElement.addEventListener('click', function(ev) {
-          console.log("Button clicked");
-          console.log(ev);
-          stripe.handleCardPayment(
-            'test', this.card, {
-              source_data: {
-                owner: {
-                  name: 'Jane Doe',
-                  email: 'janedoe@example.com',
-                  address: {
-                    line1: '123 Foo St.',
-                    postal_code: '94103',
-                    country: 'US'
-                  }
-                }
-              }
-            }
-          ).then(function(result) {
-            console.log("HERE IS THE RESULT OF PAYMENT:");
-            console.log(result);
-            if (result.error) {
-              // Display result.error.message in your UI.
-            } else {
-              // The payment has succeeded. Display a success message.
-            }
-          });
-        });
-
+          obj.cardError = false ; //Remove additional error class
+          console.log(obj.elem.nativeElement);
+    });
   }
 
+
+
+  //Creates the form that handles everything except the card details
   createForm() {
     this.myForm = this.fb.group({
       firstName: new FormControl('', Validators.compose([
@@ -184,8 +154,8 @@ export class OrderPaymentComponent implements OnInit {
         Validators.required,
         Validators.minLength(5),
         Validators.maxLength(5)
-      ])),        
-      cardName: ['', [Validators.required, Validators.minLength(4)]]
+      ])),       
+      cardName: ['', [Validators.required, Validators.minLength(4)]],
     });
   }
 
@@ -205,9 +175,6 @@ export class OrderPaymentComponent implements OnInit {
     this.myForm.controls['cp'].enable();
   }
 
-
-
-
   //Returns if CardNameHolder is invalid for adding class
   getCardNameInvalid() : boolean {
     let result = false;
@@ -215,7 +182,6 @@ export class OrderPaymentComponent implements OnInit {
       if (this.myForm.get('cardName').hasError(validation.type) && (this.myForm.get('cardName').dirty)) result = true;
     }
     return result;
-
   }
 
   //Opens the dialog of the CGV
@@ -230,7 +196,6 @@ export class OrderPaymentComponent implements OnInit {
       if (!result) {
         this.router.navigate([""]);
       }
-      //this.myForm.patchValue({"terms" : result});
     });
   }
 
@@ -258,13 +223,15 @@ export class OrderPaymentComponent implements OnInit {
     }
   }
 
+  //Gets images of products
   getImageUrl(url:string) {
     if (url==undefined || url == "") {
       return "url(" + this.defaultImage + ")";
     }
     return "url(" + url + ")";
   }
-
+  
+  //Handles the show or hide of the address depending on the checkbox
   deliveryCheckbox(checkbox : MatCheckboxChange) {
     this.checked = checkbox.checked;
     if (checkbox.checked) {
@@ -273,11 +240,21 @@ export class OrderPaymentComponent implements OnInit {
     } else {
       this.enableAddressFields();
       this.order.total = Number(this.order.cart.price) + Number(this.order.cart.deliveryCost);
-      console.log("TOTAL IS: " + this.order.total);
     }
   }
 
+  //Do the payment
   buy(data) {
+    //STEP0: Validate data
+    if (this.myForm.invalid) {
+      return;
+    }
+    if (!this.isCardFilled) {
+      console.log("Card not filled");
+      this.cardError = true;
+      return;
+    }
+    this.spinner.show();
     //STEP1: Create a preOrder
     this.order.firstName = data.firstName;
     this.order.lastName = data.lastName;
@@ -295,64 +272,50 @@ export class OrderPaymentComponent implements OnInit {
       this.order.city = null;
       this.order.cp = null;
     }
-
-    console.log(this.order);
-    console.log("DATA IS:");
-    console.log(data);
     this._subscriptions.push(this.api.createOrderIntent(this.order).subscribe(res => {
-      console.log(res);
-      console.log(stripe);
-      stripe.confirmPaymentIntent(
-        res.key,
-        {
-          source: 10,
-          use_stripe_sdk: true,
-        }
-      );
-      }));
-/*
-
+      let obj = this;
       stripe.handleCardPayment(
         res.key, this.card, {
           source_data: {
             owner: {
-              name: 'Jane Doe',
-              email: 'janedoe@example.com',
+              name: obj.order.firstName + " " + obj.order.lastName,
+              email: obj.order.email,
+              phone: obj.order.mobile,
               address: {
-                line1: '123 Foo St.',
-                postal_code: '94103',
-                country: 'US'
+                line1: obj.order.address1,
+                line2: obj.order.address2,
+                city: obj.order.city,
+                postal_code: obj.order.cp,
+                country: 'FR'                
               }
             }
-          }
+          },
+          receipt_email: obj.order.email
         }
       ).then(function(result) {
         console.log("HERE IS THE RESULT OF PAYMENT:");
         console.log(result);
         if (result.error) {
+          obj.showPaymentError(result);
+          obj.spinner.hide();
           // Display result.error.message in your UI.
         } else {
+          obj.showPaymentSuccess(result);
+          obj.spinner.hide();
           // The payment has succeeded. Display a success message.
         }
       });
-      //Here we have created a preorder and we have the key of the intent of the payment
-
-    }));*/
-
-    //STEP2: Create the payment
-/*    const name = this.myForm.get('cardName').value;
-    this.stripeService.createToken(this.card, { name }).subscribe(result => {
-        if (result.token) {
-          // Use the token to create a charge or a customer
-          // https://stripe.com/docs/charges
-          console.log(result.token);
-        } else if (result.error) {
-          // Error creating the token
-          console.log(result.error.message);
-        }
-      });*/
+    }));
   }
 
+  showPaymentError(data : any) {
+    console.log("showPaymentError");
+  }
+
+  showPaymentSuccess(data: any) {
+    console.log("showPaymentSuccess");
+    console.log(data);
+  }
 
 
 
@@ -361,6 +324,7 @@ export class OrderPaymentComponent implements OnInit {
     for (let subscription of this._subscriptions) {
       subscription.unsubscribe();
     }
+    this.card.destroy(); //Destroy the card
   } 
 }
 

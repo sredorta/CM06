@@ -122,7 +122,7 @@
   <!--Include STRIPE-->
   <script src="https://js.stripe.com/v3/"></script>
   <script type="text/javascript">
-    var stripe = Stripe('pk_test_DMr1gUUG0TYRn9mdvdACvAZQ'); // use your test publishable key
+    var stripe = Stripe('pk_test_DMr1gUUG0TYRn9mdvdACvAZQ',{ betas: ['payment_intent_beta_3']}); // use your test publishable key
     var elements = stripe.elements({locale:'fr'});
   </script>
   <!-- Global site tag (gtag.js) - Google Analytics -->
