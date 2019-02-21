@@ -19,6 +19,7 @@ import { ConditionsGeneralesVenteComponent } from './conditions-generales-vente/
 import { PayementSecuriseComponent } from './payement-securise/payement-securise.component';
 import { ConfigurationComponent } from './_admin/configuration/configuration.component';
 import { OrderPaymentComponent } from './order-payment/order-payment.component';
+
 import { OrdersComponent} from './_admin/orders/orders.component';
 //Guards
 import {AdminGuard} from './_guards/admin.guard';
@@ -117,6 +118,7 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     component: OrderPaymentComponent,    
   },
+
   {
     path: 'livraison',
     runGuardsAndResolvers: 'always',

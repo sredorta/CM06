@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, ElementRef, ViewChild,NgZone } from '@angular/core';
 import { MatCheckboxChange, MatButton } from '@angular/material';
 import {TermsDialogComponent} from '../_auth/terms-dialog/terms-dialog.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
@@ -34,9 +34,8 @@ export class OrderPaymentComponent implements OnInit {
   cartAvailable : boolean = false;
   checked: boolean = false;
 
-
-  error: boolean = false;
-  errorAjax:boolean = false;
+  showPaymentSuccess : boolean = false;
+  showPaymentFail : boolean = false;
 
   /*CARD PART*/
   card:any;
@@ -51,9 +50,10 @@ export class OrderPaymentComponent implements OnInit {
               private spinner: SpinnerOverlayService,
               private fb: FormBuilder,
               public dialog: MatDialog, 
-              private router : Router) { }
+              private router : Router,private ngZone: NgZone) { }
 
   ngOnInit() {
+    this.showPaymentSuccess = true;
     this.order.delivery = true; //Expect delivery to true initially
     this.createForm();
     //If we are logged in fill the personal data part
@@ -79,8 +79,11 @@ export class OrderPaymentComponent implements OnInit {
           this.order.cart = res;
           this.checkOrder();
     }));
+  }
 
-    //Create the creditCard part of Stripe
+
+  ngAfterViewInit() {
+/*    //Create the creditCard part of Stripe
     if (!this.card) { // Only mount the element the first time
       this.card = elements.create('card', {
           style: {
@@ -110,8 +113,8 @@ export class OrderPaymentComponent implements OnInit {
           obj.cardError = false ; //Remove additional error class
           console.log(obj.elem.nativeElement);
     });
+  */
   }
-
 
 
   //Creates the form that handles everything except the card details
@@ -273,6 +276,7 @@ export class OrderPaymentComponent implements OnInit {
       this.order.cp = null;
     }
     this._subscriptions.push(this.api.createOrderIntent(this.order).subscribe(res => {
+
       let obj = this;
       stripe.handleCardPayment(
         res.key, this.card, {
@@ -296,26 +300,23 @@ export class OrderPaymentComponent implements OnInit {
         console.log("HERE IS THE RESULT OF PAYMENT:");
         console.log(result);
         if (result.error) {
-          obj.showPaymentError(result);
+          obj.showPaymentFail = true;
           obj.spinner.hide();
+          obj.router.navigate["/paiement-refusé"];
           // Display result.error.message in your UI.
         } else {
-          obj.showPaymentSuccess(result);
+          //Empty the cart
+          let cart = new Cart();
+          cart.empty();
+          obj.data.setCart(cart);
+          obj.showPaymentSuccess = true;
           obj.spinner.hide();
           // The payment has succeeded. Display a success message.
         }
-      });
+    });
     }));
   }
 
-  showPaymentError(data : any) {
-    console.log("showPaymentError");
-  }
-
-  showPaymentSuccess(data: any) {
-    console.log("showPaymentSuccess");
-    console.log(data);
-  }
 
 
 

@@ -151,42 +151,55 @@ $warn : map-get($main-app-theme,warn);
 90% { border-color: #fa755a; }
 100% {border-color:white;}
 }  
-/*
-.left-border {
-    transition:all 0.5s ease-in-out;
-    border-left: 5px solid rgba(red,0.2);
-    padding-left:10px;
-    margin:8px;
-    margin-top:20px;
-    padding-top:3px;
-    padding-bottom:3px;
-    .title {
-        margin-top:0px;
-        margin-bottom:8px;
-        font-size: 18px;
-        line-height: 18px;
-        font-weight: bold;
-        color: rgba(red,0.4);     
+
+/*RESULT PART*/
+.result-wrapper {
+    height:100%;
+    width:100%;
+    max-width:600px;
+    min-width:250px;
+    padding:20px;
+    margin:0 auto;
+    color:white;
+    box-sizing: border-box;
+    .mat-icon-wrapper {
+        width:150px;
+        height:150px;
+        border:5px solid white;
+        border-radius: 50%;
+        margin:0 auto;
+        margin-top:20px;
+        margin-bottom:20px;
     }
-    .subtitle {
-        font-size:15px;
-        margin-top:5px;
-        margin-bottom:5px;
-        color: rgba(red,0.6);     
+    mat-icon {
+        font-size:150px;
     }
-    .subtitle-small {
-        font-size:12px;
-        opacity:0.8;
-        margin-top:5px;
-        margin-bottom:3px;
-        color: rgba(red,0.6);   
-    }    
+    h1 {
+        margin:0 auto;
+    }
+    p {
+        font-size: 16px;
+    }
+    .not-important {
+        margin-top:50px;
+        opacity: 0.8;
+        font-size: 14px;
+    }
+}
+.success {
+    //background-color: #4CAF50;
+    background-image:
+    linear-gradient(
+      to bottom right, 
+      #4CAF50, #8BC34A
+    ); 
 }
 
-#paypal-checkout-button {
-    opacity:0;
+.fail {
+    //background-color: #F44336;   
+    background-image:
+    linear-gradient(
+      to bottom right, 
+      red, #f06d06
+    ); 
 }
-#paypal-checkout-button.show {
-    opacity:1;
-}
-*/

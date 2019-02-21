@@ -136,15 +136,12 @@ import { PayementSecuriseComponent } from './payement-securise/payement-securise
 import { environment } from '../environments/environment';
 import { CartDialogComponent } from './cart-dialog/cart-dialog.component';
 import { ConfigurationComponent } from './_admin/configuration/configuration.component';
-import { OrderStepperComponent } from './order-stepper/order-stepper.component';
-import { OrderPersonalDataComponent } from './order-personal-data/order-personal-data.component';
 import { SpinnerOverlayComponentComponent } from './_library/spinner-overlay-component/spinner-overlay-component.component';
-import { OrderAddressComponent } from './order-address/order-address.component';
-import { OrderRecapComponent } from './order-recap/order-recap.component';
 import { OrderPaymentComponent } from './order-payment/order-payment.component';
 import { OrderItemComponent } from './order-item/order-item.component';
 import { OrdersComponent } from './_admin/orders/orders.component';
 import { OrderItemAdminComponent } from './_admin/order-item-admin/order-item-admin.component';
+
 
 
 
@@ -193,11 +190,7 @@ import { OrderItemAdminComponent } from './_admin/order-item-admin/order-item-ad
     PayementSecuriseComponent,
     CartDialogComponent,
     ConfigurationComponent,
-    OrderStepperComponent,
-    OrderPersonalDataComponent,
     SpinnerOverlayComponentComponent,
-    OrderAddressComponent,
-    OrderRecapComponent,
     OrderPaymentComponent,
     OrderItemComponent,
     OrdersComponent,

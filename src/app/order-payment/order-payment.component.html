@@ -1,5 +1,5 @@
 
-<div class="wrap" fxLayout="column">
+<div *ngIf="!showPaymentSuccess && !showPaymentFail" class="wrap" fxLayout="column">
 <div *ngIf="cartAvailable">
     <p class="form-title">{{'order.payment.title.products' | translate}}</p>
     <div class="item-wrapper">
@@ -124,17 +124,21 @@
                 </div>
             </div>
     </form>
+</div>
+<div *ngIf="showPaymentSuccess" class="result-wrapper success">
+    <div class="mat-icon-wrapper" fxLayoutAling="center center"><mat-icon>check</mat-icon></div>
+    <div fxLayout="column" fxLayoutAlign="center center">
+        <h1>Paiement accepté</h1>
+        <p>Vous allez recevoir un email de confirmation</p>
+        <p class="not-important">Si vous ne recevez rien dans votre boîte de réception, veuillez vérifier votre dossier de courrier indésirable</p>
 
-  <div *ngIf="error" class="message">
-      <div class="left-border">
-          <p class="title">{{'order.error.title' | translate}}</p>
-          <p class="subtitle">{{'order.error.subtitle' | translate}}</p>
-      </div>
-  </div>
-  <div *ngIf="errorAjax" class="message">
-      <div class="left-border">
-          <p class="title">{{'order.errorajax.title' | translate}}</p>
-          <p class="subtitle">{{'order.errorajax.subtitle' | translate}}</p>
-      </div>
-  </div>
+    </div>
+</div>
+<div *ngIf="showPaymentFail"  class="result-wrapper fail">
+        <div class="mat-icon-wrapper" fxLayoutAling="center center"><mat-icon>close</mat-icon></div>
+        <div fxLayout="column" fxLayoutAlign="center center">
+            <h1>Paiement refusé</h1>
+            <p>Essaier avec une autre carte ou contactez-nous</p>
+                
+        </div>
 </div>
