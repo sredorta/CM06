@@ -101,7 +101,7 @@ export class OrdersComponent implements OnInit {
     this.displayedCount = this.totalCount;
     //Override filter
     this.dataSource.filterPredicate = function(data, filter: string): boolean {
-          return data.paypalOrderId.toLowerCase().includes(filter) || data.status.toLowerCase().includes(filter) || data.firstName.toLowerCase().includes(filter) || data.lastName.toLowerCase().includes(filter);
+          return  data.status.toLowerCase().includes(filter) || data.firstName.toLowerCase().includes(filter) || data.lastName.toLowerCase().includes(filter);
     };
     //Apply filter with value of the string of search !!!!!!!
     this.applyFilter(this.searchString);

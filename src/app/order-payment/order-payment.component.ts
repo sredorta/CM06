@@ -25,7 +25,6 @@ import {Observable, of, Subject} from 'rxjs';
   styleUrls: ['./order-payment.component.scss']
 })
 export class OrderPaymentComponent implements OnInit {
-  //@ViewChild('purchase') purchase : ElementRef;
   myForm: FormGroup; 
   validation_messages = CustomValidators.getMessages();
   user : User = new User(null);
@@ -53,7 +52,7 @@ export class OrderPaymentComponent implements OnInit {
               private router : Router,private ngZone: NgZone) { }
 
   ngOnInit() {
-    this.showPaymentSuccess = true;
+    //this.showPaymentSuccess = true;
     this.order.delivery = true; //Expect delivery to true initially
     this.createForm();
     //If we are logged in fill the personal data part
@@ -83,7 +82,7 @@ export class OrderPaymentComponent implements OnInit {
 
 
   ngAfterViewInit() {
-/*    //Create the creditCard part of Stripe
+    //Create the creditCard part of Stripe
     if (!this.card) { // Only mount the element the first time
       this.card = elements.create('card', {
           style: {
@@ -111,9 +110,8 @@ export class OrderPaymentComponent implements OnInit {
             obj.isCardFilled = false;
           }
           obj.cardError = false ; //Remove additional error class
-          console.log(obj.elem.nativeElement);
     });
-  */
+  
   }
 
 
@@ -302,7 +300,6 @@ export class OrderPaymentComponent implements OnInit {
         if (result.error) {
           obj.showPaymentFail = true;
           obj.spinner.hide();
-          obj.router.navigate["/paiement-refusé"];
           // Display result.error.message in your UI.
         } else {
           //Empty the cart
@@ -311,6 +308,8 @@ export class OrderPaymentComponent implements OnInit {
           obj.data.setCart(cart);
           obj.showPaymentSuccess = true;
           obj.spinner.hide();
+          //Force products to be reloaded to update stock
+          obj.data.forceProductsReload();
           // The payment has succeeded. Display a success message.
         }
     });
