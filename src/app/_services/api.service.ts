@@ -148,8 +148,6 @@ export interface IApiOrder {
   status:string;
   tracking:string;
   total:number;
-  paypalOrderId:string;
-  paypalPaymentId:string;
   created_at:string;
   updated_at:string;
 }

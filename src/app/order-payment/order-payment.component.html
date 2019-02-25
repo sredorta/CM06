@@ -115,7 +115,7 @@
             <div #card id="card-element" class="field" [ngClass]="{'card-error' : cardError}"></div>
             <div fxLayout="column" style="margin-top:8px">
                 <small class="waiver">{{'order.payment.waiver' | translate}} <a href="javascript:void(0)" (click)="openCGVDialog()">{{'order.payment.waiver.span' | translate}}</a></small>
-                <button  mat-raised-button type="submit" color="primary" style="margin-top:10px;max-width:250px;margin:0 auto;width:100%">{{'order.payment.submit' | translate}} {{order.total | currencyFormat }} €</button>
+                <button  mat-raised-button type="submit" color="primary" style="margin-top:10px;max-width:250px;margin:0 auto;width:100%" [disabled]="order.cart.price  == 0">{{'order.payment.submit' | translate}} {{order.total | currencyFormat }} €</button>
                 <div fxLayout="row" fxLayoutAlign="center center" class="secure-payment">
                         <mat-icon style="margin-right:10px">lock</mat-icon><p>{{'order.payment.secure' | translate}}</p>
                 </div>
@@ -128,17 +128,17 @@
 <div *ngIf="showPaymentSuccess" class="result-wrapper success">
     <div class="mat-icon-wrapper" fxLayoutAling="center center"><mat-icon>check</mat-icon></div>
     <div fxLayout="column" fxLayoutAlign="center center">
-        <h1>Paiement accepté</h1>
-        <p>Vous allez recevoir un email de confirmation</p>
-        <p class="not-important">Si vous ne recevez rien dans votre boîte de réception, veuillez vérifier votre dossier de courrier indésirable</p>
+        <h1>{{'order.payment.success.title' | translate}}</h1>
+        <p>{{'order.payment.success.subtitle1' | translate}}</p>
+        <p class="not-important">{{'order.payment.success.subtitle2' | translate}}</p>
 
     </div>
 </div>
 <div *ngIf="showPaymentFail"  class="result-wrapper fail">
         <div class="mat-icon-wrapper" fxLayoutAling="center center"><mat-icon>close</mat-icon></div>
         <div fxLayout="column" fxLayoutAlign="center center">
-            <h1>Paiement refusé</h1>
-            <p>Essaier avec une autre carte ou contactez-nous</p>
+            <h1>{{'order.payment.fail.title' | translate}}</h1>
+            <p>{{'order.payment.fail.subtitle' | translate}}</p>
                 
         </div>
 </div>

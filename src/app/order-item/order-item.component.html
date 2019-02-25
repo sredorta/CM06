@@ -2,7 +2,7 @@
   <div fxLayout="row" fxLayoutAlign="center center" class="main" (click)="expansion = !expansion">
     <div fxLayout="column" style="width:170px">
       <p class="title">{{'order.item.ref' | translate}}</p>
-      <p>{{order.paypalOrderId}}</p>
+      <p>{{order.id}}</p>
     </div>
     <div fxFlex="1 1 auto" fxLayout="column">
       <p class="title">{{'order.item.status' | translate}}</p>
@@ -38,22 +38,3 @@
     <p style="margin-top:0px">{{order.updated_at | niceDateFormat}}</p>
   </div>
 </div>
-
-<!--
-id:number;
-firstName:string;
-lastName:string;
-email:string;
-mobile:string;
-delivery:boolean;
-address1:string;
-address2:string;
-cp:string;
-city:string;
-cart: any[];  
-status:string;
-total:number;
-paypalOrderId:string;
-paypalPaymentId:string;
-created_at:string;
-updated_at:string;-->

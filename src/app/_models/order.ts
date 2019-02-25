@@ -14,8 +14,6 @@ export class Order {
     cp:string;
     city:string;
     total:number;
-    paypalOrderId:string;
-    paypalPaymentId:string;
     status:string;
     tracking:string;
     created_at:string;
@@ -34,8 +32,6 @@ export class Order {
             this.cp = data.cp;
             this.city = data.city;
             this.total = data.total;
-            this.paypalOrderId = data.paypalOrderId;
-            this.paypalPaymentId = data.paypalPaymentId;
             this.status = data.status;
             this.tracking = data.tracking;
             let cart = new Cart();
