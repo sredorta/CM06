@@ -7,6 +7,8 @@ import {ApiService, IApiProduct, EApiImageSizes} from '../_services/api.service'
 import {SpinnerOverlayService} from '../_library/spinner-overlay.service';
 import { Subscription } from 'rxjs';
 import { isTemplateExpression } from 'typescript';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-cart-dialog',
   templateUrl: './cart-dialog.component.html',
@@ -22,7 +24,7 @@ export class CartDialogComponent implements OnInit {
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private data : DataService, private api : ApiService, public spinner : SpinnerOverlayService) { }
+  constructor(private data : DataService, private api : ApiService, public spinner : SpinnerOverlayService, public router: Router) { }
 
   ngOnInit() {
     this.initCart();
@@ -38,6 +40,9 @@ export class CartDialogComponent implements OnInit {
         this.cart.toStorage();
         this.data.setCart(this.cart);
         this.cart.deliveryCost = res.deliveryCost;
+        if (this.cart.price != res.price) {
+          this.reloadProducts();
+        }
         this.cart.price = res.price;
         this.cart.isWeightExceeded = res.isWeightExceeded;
         this.spinner.hide();
@@ -48,6 +53,7 @@ export class CartDialogComponent implements OnInit {
       }));
     }
   }
+
   getImageUrl(url:string) {
     if (url==undefined || url == "") {
       return "url(" + this.defaultImage + ")";
@@ -55,6 +61,12 @@ export class CartDialogComponent implements OnInit {
     return "url(" + url + ")";
   }
 
+  reloadProducts() {
+    this._subscriptions.push(this.api.getProducts().subscribe(res => {
+      this.data.setProducts(res);
+      this.router.navigate([""]);
+    }));
+  }
 
   //Increments counter of the specific index
   plusCount(item:CartItem) {

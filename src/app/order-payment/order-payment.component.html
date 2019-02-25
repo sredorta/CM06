@@ -115,7 +115,7 @@
             <div #card id="card-element" class="field" [ngClass]="{'card-error' : cardError}"></div>
             <div fxLayout="column" style="margin-top:8px">
                 <small class="waiver">{{'order.payment.waiver' | translate}} <a href="javascript:void(0)" (click)="openCGVDialog()">{{'order.payment.waiver.span' | translate}}</a></small>
-                <button  mat-raised-button type="submit" color="primary" style="margin-top:10px;max-width:250px;margin:0 auto;width:100%" [disabled]="order.cart.price  == 0">{{'order.payment.submit' | translate}} {{order.total | currencyFormat }} €</button>
+                <button  mat-raised-button type="submit" color="primary" style="margin-top:10px;max-width:250px;margin:0 auto;width:100%" [disabled]="order.cart.price == 0">{{'order.payment.submit' | translate}} {{order.total | currencyFormat }} €</button>
                 <div fxLayout="row" fxLayoutAlign="center center" class="secure-payment">
                         <mat-icon style="margin-right:10px">lock</mat-icon><p>{{'order.payment.secure' | translate}}</p>
                 </div>

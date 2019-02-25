@@ -295,8 +295,6 @@ export class OrderPaymentComponent implements OnInit {
           receipt_email: obj.order.email
         }
       ).then(function(result) {
-        console.log("HERE IS THE RESULT OF PAYMENT:");
-        console.log(result);
         if (result.error) {
           obj.showPaymentFail = true;
           obj.spinner.hide();
@@ -313,6 +311,9 @@ export class OrderPaymentComponent implements OnInit {
           // The payment has succeeded. Display a success message.
         }
     });
+    }, error => {
+      this.spinner.hide();
+      this.data.forceProductsReload();
     }));
   }
 
