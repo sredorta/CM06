@@ -25,8 +25,9 @@ export class DataService {
   private _products : IApiProduct[] = [];    //Stores downloaded products
   private _users : IApiUser[] = [];          //Stores downloaded users
   private _HOLDDATASECONDS : number = 60*60; //Hold data for 1hr and if not reload 
-  private _timeStamps : string[] = [];      //Stores timestamps
+  private _timeStamps : string[] = [];       //Stores timestamps
   private _cart = new BehaviorSubject<Cart>(new Cart()); //Stores the current user
+  private _cookies = new BehaviorSubject<Boolean>(false);//Cookies accepted or not
 
 
 
@@ -129,6 +130,14 @@ export class DataService {
   //Sets current user
   setCart(cart: Cart) {
     this._cart.next(new Cart(cart.data));
+  }
+
+  setCookies(value: Boolean) {
+    this._cookies.next(value);
+  }
+
+  getCookies() : Observable<Boolean> {
+    return this._cookies;
   }
 
 }

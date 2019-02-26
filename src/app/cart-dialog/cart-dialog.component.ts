@@ -36,13 +36,15 @@ export class CartDialogComponent implements OnInit {
       this.spinner.show();
       this.loading = true;
       this._subscriptions.push(this.api.checkCart(this.cart).subscribe((res:any)=> {
+        console.log(this.cart);
+        console.log(res);
+        if (this.cart.data.length != res.cart.length) {
+          this.reloadProducts(res);
+        }
         this.cart = new Cart(res.cart);
         this.cart.toStorage();
         this.data.setCart(this.cart);
         this.cart.deliveryCost = res.deliveryCost;
-        if (this.cart.price != res.price) {
-          this.reloadProducts();
-        }
         this.cart.price = res.price;
         this.cart.isWeightExceeded = res.isWeightExceeded;
         this.spinner.hide();
@@ -61,9 +63,16 @@ export class CartDialogComponent implements OnInit {
     return "url(" + url + ")";
   }
 
-  reloadProducts() {
+  reloadProducts(res:any) {
+    this.cart = new Cart(res.cart);
+    this.cart.toStorage();
+    this.data.setCart(this.cart);
+    this.cart.deliveryCost = res.deliveryCost;
+    this.cart.price = res.price;
+    this.cart.isWeightExceeded = res.isWeightExceeded;
     this._subscriptions.push(this.api.getProducts().subscribe(res => {
       this.data.setProducts(res);
+      this.spinner.hide();
       this.router.navigate([""]);
     }));
   }

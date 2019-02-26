@@ -414,5 +414,7 @@
     "contact.shop3"                             : "Les pièces d'occasion",
     "contact.shop4"                             : "Les pièces neuves",
     "contact.shop5"                             : "Les véhicules d'occasion",
-    "contact.shop6"                             : "L'entrée du magasin"
+    "contact.shop6"                             : "L'entrée du magasin",
+    "cookies.title"                             : "Utilisation de Cookies",
+    "cookies.subtitle"                          : "En poursuivant votre navigation sur ce site, vous acceptez l'utilisation de Cookies pour la réalisation de statistiques de visites et pour les fonctionnalitées de partage dans les reseaux sociaux"
 }

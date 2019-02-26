@@ -312,8 +312,12 @@ export class OrderPaymentComponent implements OnInit {
         }
     });
     }, error => {
-      this.spinner.hide();
+      //We got an error, totals not matching or some elements not available
+      let cart = new Cart();
+      cart.empty();
+      this.data.setCart(cart);
       this.data.forceProductsReload();
+      this.spinner.hide();
     }));
   }
 

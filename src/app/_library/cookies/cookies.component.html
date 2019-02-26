@@ -1,0 +1,11 @@
+<div fxLayout="row" fxLayoutAlign="start center">
+  <img src="./assets/images/cookies.jpeg"  alt="cookies">
+  <p class="title">{{'cookies.title' | translate}}</p>
+</div>
+<p class="text">{{'cookies.subtitle' | translate}} </p>
+
+<div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="15px">
+  <button mat-button (click)="reject()" color="primary">{{'terms.cancel' | translate}}</button>
+  <button mat-raised-button  color="primary" (click)="accept()">{{'terms.accept' | translate}}</button>
+
+</div>

@@ -10,9 +10,14 @@ import {DataService} from '../../_services/data.service';
 })
 export class FooterComponent implements OnInit {
   config : Config = new Config(this.data.getConfig());
-  constructor(private fb:FacebookService, private data : DataService) { }
+  cookies : Boolean = false;
+  constructor(private fb:FacebookService, private data : DataService) { 
+  }
 
   ngOnInit() {
+    this.data.getCookies().subscribe(res => {
+      this.cookies = res;
+      if (this.cookies) {
         //FB part to be moved to footer
         let initParams: InitParams = {
           appId: environment.fbKey,
@@ -20,6 +25,10 @@ export class FooterComponent implements OnInit {
           version: 'v2.8'
         };
         this.fb.init(initParams);
+      }
+    });
+
+
   }
 
 }

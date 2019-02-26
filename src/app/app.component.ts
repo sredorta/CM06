@@ -1,8 +1,11 @@
 import {MediaMatcher} from '@angular/cdk/layout';
 import {ChangeDetectorRef, Component, OnDestroy, ViewEncapsulation} from '@angular/core';
+import {MatBottomSheet, MatBottomSheetRef} from '@angular/material';
+
 import { Router, Event, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import {LoginComponent} from './_auth/login/login.component';
+import {CookiesComponent} from './_library/cookies/cookies.component';
 import { TranslateService } from '@ngx-translate/core'; //NGX-TRANSLATE
 import {User} from './_models/user';
 import {ApiService, IApiUserAuth, EApiImageSizes, IApiBrand, IApiProduct, IApiConfig} from './_services/api.service';
@@ -44,7 +47,8 @@ export class AppComponent {
               private translate: TranslateService, 
               private dialog: MatDialog,
               changeDetectorRef: ChangeDetectorRef, 
-              media: MediaMatcher) {
+              media: MediaMatcher,
+              private bottomSheet: MatBottomSheet) {
     this.translate.use("fr");
 
     //Initial loading
@@ -52,7 +56,7 @@ export class AppComponent {
       this.data.setConfig(res);
     }, error => {
       this.configLoading = false;
-    }, () => this.configLoading = false ));
+    }, () => {this.configLoading = false; this.showCookies()} ));
 
     this._subscriptions.push(this.api.getAuthUser().subscribe((res: IApiUserAuth)=> {
       //If we return empty it means user has been removed in db
@@ -85,10 +89,6 @@ export class AppComponent {
       this.cartCount = res.getCount();
     }));
 
-   
-
-
-
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);   
@@ -101,14 +101,21 @@ export class AppComponent {
       } else {
         this.isOrderPage = false;
       }
-      //Send google Analytics
-      if (event instanceof NavigationEnd) {
-        (<any>window).ga('set', 'page', event.urlAfterRedirects);
-        (<any>window).ga('send', 'pageview');
+      //Send google Analytics if cookies accepted
+      if (localStorage.getItem("cookies") == "accepted") {
+        if (event instanceof NavigationEnd) {
+          (<any>window).ga('set', 'page', event.urlAfterRedirects);
+          (<any>window).ga('send', 'pageview');
+        }
       }
     }));
   }  
 
+  showCookies() {
+     if(localStorage.getItem("cookies") === null)
+      this.bottomSheet.open(CookiesComponent, {});
+  
+  }
   //Do polling on new orders and update the counter
   pollOrders() {
     if (this.user.isAdmin()) {

@@ -141,6 +141,7 @@ import { OrderPaymentComponent } from './order-payment/order-payment.component';
 import { OrderItemComponent } from './order-item/order-item.component';
 import { OrdersComponent } from './_admin/orders/orders.component';
 import { OrderItemAdminComponent } from './_admin/order-item-admin/order-item-admin.component';
+import { CookiesComponent } from './_library/cookies/cookies.component';
 
 
 
@@ -195,6 +196,7 @@ import { OrderItemAdminComponent } from './_admin/order-item-admin/order-item-ad
     OrderItemComponent,
     OrdersComponent,
     OrderItemAdminComponent,
+    CookiesComponent,
     //End of library
   ],
   imports: [
@@ -256,7 +258,7 @@ import { OrderItemAdminComponent } from './_admin/order-item-admin/order-item-ad
       }
     }),
   ],
-  entryComponents: [ErrorSheetComponent, SpinnerOverlayComponent, TermsDialogComponent, MakeSureDialogComponent, ProductItemDialogComponent, CartDialogComponent],
+  entryComponents: [ErrorSheetComponent, CookiesComponent, SpinnerOverlayComponent, TermsDialogComponent, MakeSureDialogComponent, ProductItemDialogComponent, CartDialogComponent],
   providers: [
     HttpClient, ApiService, DataService, SpinnerOverlayService, MakeSureDialogComponent,CartDialogComponent, ProductItemDialogComponent, CurrencyFormatPipe, MobileFormatPipe,DeviceDetectorService,
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }, 
