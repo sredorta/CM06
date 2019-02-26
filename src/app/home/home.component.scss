@@ -61,7 +61,11 @@ $accent: map-get($main-app-theme,accent);
     width:100%;
 }
 
-
+@media only screen and (max-width: 500px) {
+    .main-icon-text {
+        font-size:22px;
+    }
+}
 
 
 

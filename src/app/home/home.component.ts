@@ -33,8 +33,7 @@ export class HomeComponent implements OnInit {
   isMobile = this.device.isMobile();
   products : Array<Product> = [];
   selected :number = 0;  //Used for animations in the gui
-  text : string[] = ["home.header1","home.header2","home.header3","home.header4"]
-  imgSrc : string = "./assets/images/icon-moto.jpg";
+  text : string[] = ["home.header1","home.header2","home.header3","home.header4", "home.header5"]
 
   constructor(private api: ApiService, 
               private route: Router,
@@ -45,13 +44,7 @@ export class HomeComponent implements OnInit {
     //Interval for animations
     setInterval(()=> {
       this.selected = this.selected + 1;
-      if (this.selected>3) this.selected = 0;
-      switch (this.selected) {
-        case 0: this.imgSrc = "./assets/images/icon-moto.jpg"; break;
-        case 1: this.imgSrc = "./assets/images/icon-pieces.jpg"; break;
-        case 2: this.imgSrc = "./assets/images/icon-pieces-new.jpg"; break;
-        case 3: this.imgSrc = "./assets/images/icon-service.jpg"; break;
-      }
+      if (this.selected>4) this.selected = 0;
     },5000);
   }
 
