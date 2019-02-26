@@ -58,6 +58,10 @@ export class AppComponent {
       this.configLoading = false;
     }, () => {this.configLoading = false; this.showCookies()} ));
 
+    //SetUp cookies status
+    if (localStorage.getItem("cookies") == "accepted") 
+    this.data.setCookies(true);
+
     this._subscriptions.push(this.api.getAuthUser().subscribe((res: IApiUserAuth)=> {
       //If we return empty it means user has been removed in db
       if (res) {

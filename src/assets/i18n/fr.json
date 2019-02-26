@@ -39,6 +39,29 @@
     "home.header3"                  : "PIÈCES NEUVES",
     "home.header4"                  : "ENTRETIEN",
     "home.header5"                  : "RÉPARATION",
+    "home.description1.header"      : "Vente de motos et scooters d'occasion",
+    "home.description1.subtitle1"   : "La Casse moto 06 vous propose une",
+    "home.description1.span1"       : "large selection de motos d'occasion et de scooters d'occasion",
+    "home.description1.subtitle2"   : "à la vente. Toutes nos motos et scooters sont demontés, controlés et remontés dans notre atelier avant toute vente. Tous nos vehicules sont vendus avec une garantie de 3 mois",
+    "home.description1.subtitle3"   : "Passez voir le véhicule que vous avez repere sur notre site si vous êtes dans la region de Nice, Cannes, Grasse, Mouans Sartoux",
+
+    "home.description2.header"      : "Pièces detachées moto et scooter d'occasion",
+    "home.description2.subtitle1"   : "Gràce à notre systeme de vente en ligne de ",
+    "home.description2.span1"       : "pièces detachées d'occasion pour motos et scooters",
+    "home.description2.subtitle2"   : ", vous pouvez visualiser en temps reel notre stock et commander directement via ce site. Chaque pièce est netoyé et controlé avant la mise en vente. Toutes les photos des pièces sur ce site, se sont des photos réelles des pièces prises par nous mêmes",
+
+    "home.description3.header"      : "Pièces detachées moto et scooter neuves",
+    "home.description3.subtitle1"   : "La Casse moto 06 vous propose aussi une ",
+    "home.description3.span1"       : "large selection de pièces detachées moto et scooter neuves",
+    "home.description3.subtitle2"   : ". Il n'y à pas plus simple ! Sélectioner les pièces dont vous avez besoin, commander les pièces sur ce site et faites vous livrer chez vous.",
+    "home.description3.subtitle3"   : "Si vous êtes à Nice, Cannes, Grasse, Mouans Sartoux... il est aussi possible de commander les pièces moto et scooter neuves et passez les chercher dans notre magasin à Mouans Sartoux",
+
+    "home.description4.header"      : "Entretien et réparation moto et scooter",
+    "home.description4.subtitle1"   : "Casse moto 06 c'est le partenaire ideale pour l'entretien et la réparation de votre moto ou scooter. Une équipe de professionnels est disponible et à votre écoute pour réaliser les interventions nécessaires au bon fonctionnement de votre deux-roues",
+    "home.description4.subtitle2"   : "Pour de plus amples informations, contactez ",
+    "home.description4.span1"       : "Casse Moto 06",
+
+
     "footer.item1"                  : "Livraison",
     "footer.item2"                  : "Mentions légales",
     "footer.item3"                  : "Conditions générales de vente",
