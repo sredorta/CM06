@@ -240,8 +240,6 @@ export class ApiService {
       city:       order.city,
       cart:       order.cart.data      
     };
-    console.log("Sending data :");
-    console.log(data);
     return this.http.post<any>(environment.apiURL + '/payment',data).map(res => <any>res)
 
   }

@@ -8,4 +8,4 @@ Disallow: /login
 Disallow: /signup
 Disallow: /resetpassword
 Allow: /
-Sitemap: https://www.ecube-solutions.com/sitemap.xml
+Sitemap: https://www.cassemoto06.fr/sitemap.xml

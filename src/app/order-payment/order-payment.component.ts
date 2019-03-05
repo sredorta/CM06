@@ -251,7 +251,6 @@ export class OrderPaymentComponent implements OnInit {
       return;
     }
     if (!this.isCardFilled) {
-      console.log("Card not filled");
       this.cardError = true;
       return;
     }

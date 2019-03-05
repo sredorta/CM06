@@ -34,7 +34,6 @@ export class ProductItemDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public dataDialog: any, private data : DataService) { }
 
   ngOnInit() {
-    console.log(this.shareUrl);
     this.myForm =  new FormGroup({    
       quantity: new FormControl('', Validators.compose([])),    
     });   

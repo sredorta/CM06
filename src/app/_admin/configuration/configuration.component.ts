@@ -6,7 +6,8 @@ import { DataService } from '../../_services/data.service';
 import { SpinnerOverlayService } from '../../_library/spinner-overlay.service';
 import { Subscription } from 'rxjs';
 import {Config, EApiConfigKeys} from '../../_models/config';
-
+import {MatBottomSheet, MatBottomSheetRef} from '@angular/material';
+import {ErrorSheetComponent} from "../../_helpers/error-sheet/error-sheet.component";
 
 @Component({
   selector: 'app-configuration',
@@ -19,12 +20,20 @@ export class ConfigurationComponent implements OnInit {
   config : Config = new Config(this.data.getConfig());
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private api: ApiService, private data: DataService, private spinner: SpinnerOverlayService) { }
+  constructor(private bottomSheet: MatBottomSheet,private api: ApiService, private data: DataService, private spinner: SpinnerOverlayService) { }
 
   ngOnInit() {
     this.createForm();
   }
 
+  openBottomSheet(type:string, code:number,  message:string): void {
+    this.bottomSheet.open(ErrorSheetComponent, {
+        data: { type: type,
+                code: code,
+                message: message
+              }
+        });
+}
   createForm() {
     this.myForm =  new FormGroup({    
       message_title: new FormControl('', Validators.compose([
@@ -170,6 +179,7 @@ export class ConfigurationComponent implements OnInit {
       this.data.setConfig(res);
       //TODO get new config and update the this.data.setConfig
       this.spinner.hide();
+      this.openBottomSheet("success",200,"Modifications prises en compte");
 
     },()=>this.spinner.hide()));
   }

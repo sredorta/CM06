@@ -36,8 +36,6 @@ export class CartDialogComponent implements OnInit {
       this.spinner.show();
       this.loading = true;
       this._subscriptions.push(this.api.checkCart(this.cart).subscribe((res:any)=> {
-        console.log(this.cart);
-        console.log(res);
         if (this.cart.data.length != res.cart.length) {
           this.reloadProducts(res);
         }

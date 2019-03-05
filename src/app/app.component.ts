@@ -59,8 +59,12 @@ export class AppComponent {
     }, () => {this.configLoading = false; this.showCookies()} ));
 
     //SetUp cookies status
-    if (localStorage.getItem("cookies") == "accepted") 
-    this.data.setCookies(true);
+    if (localStorage.getItem("cookies") == "accepted") {
+      this.data.setCookies(true);
+      (<any>window).ga('create', 'UA-134152067-1', 'auto');// add your tracking ID here.
+      (<any>window).ga('set', 'page', "");
+      (<any>window).ga('send', 'pageview');
+    }
 
     this._subscriptions.push(this.api.getAuthUser().subscribe((res: IApiUserAuth)=> {
       //If we return empty it means user has been removed in db

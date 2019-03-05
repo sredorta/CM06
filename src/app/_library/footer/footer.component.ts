@@ -16,7 +16,6 @@ export class FooterComponent implements OnInit {
 
   ngOnInit() {
     this.data.getCookies().subscribe(res => {
-      console.log("Setting cookies to: " + res);
       this.cookies = res;
       if (this.cookies) {
         //FB part to be moved to footer
