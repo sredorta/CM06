@@ -15,9 +15,27 @@
     </mat-form-field>
   </div>
 
-<!--    <p>Filtrer par marque:</p>
-    <app-search-brand *ngIf="brands.length>0" [brands]="brands"></app-search-brand>-->
-
+    <mat-form-field appearance="outline" style="min-width:250px">
+      <mat-label>Marque</mat-label>
+      <mat-select #brandList [(ngModel)]="selectedBrand" (selectionChange)="onBrandChange()">
+          <mat-option value="all"><span style="font-weight: bold">Toutes les marques</span></mat-option>
+        <mat-option *ngFor="let brand of brands" value="{{brand.name}}">
+          <div class="brand-option">
+            <div fxLayoutAlign="end start" mat-card-avatar [style.backgroundImage]="getBrandImageUrl(brand)" class="image-brand"></div>
+            <div>{{brand.name}}</div>
+          </div>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf='selectedBrand!="all"' appearance="outline" style="min-width:250px;max-width:250px;display:block">
+        <mat-label>Modèle</mat-label>
+        <mat-select #modelList [(ngModel)]="selectedModel"  (selectionChange)="onModelChange()">
+          <mat-option value="all"><span style="font-weight: bold">Tous les modèles</span></mat-option>
+          <mat-option *ngFor="let model of modelsOfCurrentBrand" [value]="model">
+              {{model}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
   </div>
 

@@ -16,8 +16,16 @@ export class SearchProductComponent implements OnInit {
   @Output() result = new EventEmitter<Product[]>();  //Brand selection  
   @Output() loading = new EventEmitter<boolean>(false);  //Brand selection 
   @ViewChild('sortList') sortElem : MatSelect; 
+  @ViewChild('modelList') modelElem : MatSelect; 
+
   products : Product[] = [];
   brands : IApiBrand[] = [];
+  defaultImage :string = "./assets/images/no-photo-available.jpg";
+  selectedBrand:string = "all";
+  selectedModel:string = "all";
+  currentSearch:string = "";
+  modelsOfCurrentBrand:string[] = [];
+
   private _dataSource;
   keyUp = new Subject<string>();
   searchString : string = "";
@@ -35,6 +43,7 @@ export class SearchProductComponent implements OnInit {
       )),
     ).subscribe(res => {
       this.searchString = res;
+      this.currentSearch = res;
       this.applyFilter(res);
     }));
     this.getProducts();
@@ -66,7 +75,11 @@ export class SearchProductComponent implements OnInit {
     }
   } 
 
-
+  getBrandImageUrl(brand: IApiBrand) {
+    if (brand.image)
+      return "url(" + brand.image.sizes['thumbnail'].url + ")";
+    return "url(" + this.defaultImage + ")";  
+  }
 
   pushProducts() {
     for (let product of this.data.getProducts()) {
@@ -141,6 +154,52 @@ export class SearchProductComponent implements OnInit {
     this.orderBy(selection.value);
     this.result.emit(this._dataSource.filteredData);
   }
+
+
+  //When brand has been changed by user
+  onBrandChange() {
+    //Get all the models of the specified brand
+    if (this.selectedBrand!="all") {
+      let filteredByBrandProducts : Product[] = this.products.filter(x => x.brand == this.selectedBrand);
+      //Actualize models of current brand
+      this.modelsOfCurrentBrand = []
+      for (var i = 0; i < filteredByBrandProducts.length; i++) {
+        if (!this.modelsOfCurrentBrand.includes(filteredByBrandProducts[i].model))
+          this.modelsOfCurrentBrand.push(filteredByBrandProducts[i].model);
+      }
+      this.modelsOfCurrentBrand = this.modelsOfCurrentBrand.sort();
+      this._dataSource = new MatTableDataSource(filteredByBrandProducts);
+      this._setFilter();
+      this.applyFilter(this.currentSearch);
+      this.result.emit(this._dataSource.filteredData);
+      this.selectedModel = "all";
+    } else {
+      this.selectedModel = "all";
+      this.modelsOfCurrentBrand = [];
+      this._dataSource = new MatTableDataSource(this.products);
+      this._setFilter();
+      this.applyFilter(this.currentSearch);
+      this.result.emit(this._dataSource.filteredData);
+    }
+  }
+
+  //When a model is selected
+  onModelChange() {
+    if (this.selectedModel!="all") {
+      let filteredByModelProducts : Product[] = this.products.filter(x => x.brand == this.selectedBrand && x.model == this.selectedModel).sort();
+      this._dataSource = new MatTableDataSource(filteredByModelProducts);
+      this._setFilter();
+      this.applyFilter(this.currentSearch);
+      this.result.emit(this._dataSource.filteredData);
+    } else {
+      let filteredByModelProducts : Product[] = this.products.filter(x => x.brand == this.selectedBrand);
+      this._dataSource = new MatTableDataSource(filteredByModelProducts);
+      this._setFilter();
+      this.applyFilter(this.currentSearch);
+      this.result.emit(this._dataSource.filteredData);
+    }
+  }
+
 
 
   ngOnDestroy() {    

@@ -5,6 +5,7 @@ import {DataService} from '../../_services/data.service';
 import {ApiService} from '../../_services/api.service';
 import {SpinnerOverlayService} from '../../_library/spinner-overlay.service';
 import { Subscription } from 'rxjs';
+import { Router} from '@angular/router';
 
 @Component({
   selector: 'app-product-create-stepper',
@@ -24,7 +25,7 @@ export class ProductCreateStepperComponent implements OnInit {
 
   constructor(private api : ApiService,
               private data: DataService,
-              private spinner: SpinnerOverlayService,) { }
+              private spinner: SpinnerOverlayService, private router : Router) { }
 
   ngOnInit() {
     this.getProducts();
@@ -69,4 +70,7 @@ export class ProductCreateStepperComponent implements OnInit {
       subscription.unsubscribe();
     }
   } 
+  onBackToProducts() {
+      this.router.navigate(["/admin-products"]);
+  }
 }

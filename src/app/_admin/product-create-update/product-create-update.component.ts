@@ -13,6 +13,7 @@ import {Product} from '../../_models/product';
 import {CurrencyFormatPipe} from '../../_pipes/currency-format.pipe';
 import {CurrencyFormatDirective} from '../../_directives/currency-format.directive';
 import {SpinnerOverlayService} from '../../_library/spinner-overlay.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product-create-update',
@@ -36,7 +37,7 @@ export class ProductCreateUpdateComponent implements OnInit {
 
   private _subscriptions : Subscription[] = new Array<Subscription>();
 
-  constructor(private api : ApiService, private data : DataService, private router : Router, private spinner: SpinnerOverlayService) { }
+  constructor(private api : ApiService, private data : DataService, private router : Router, private spinner: SpinnerOverlayService, private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.myForm =  new FormGroup({    
@@ -110,6 +111,14 @@ export class ProductCreateUpdateComponent implements OnInit {
   onCreateProductReset() {
       this.myForm.reset();
       this.imagesElem.resetImage();
+      this.myForm.controls['isVehicle'].setValue(false); 
+      this.myForm.controls['isNew'].setValue(false); 
+      this.myForm.controls['isDeliverable'].setValue(true); 
+      this.myForm.controls['price'].setValue(0);
+      this.myForm.controls['discount'].setValue(0);
+      this.myForm.controls['weight'].setValue(0); 
+      this.stock = 1;
+      this.myForm.controls['stock'].setValue(1); 
   }
 
   //On create product
@@ -127,7 +136,10 @@ export class ProductCreateUpdateComponent implements OnInit {
         this.products = this.data.getProducts();
         this.products.push(res);
         this.data.setProducts(this.products);
-        this.router.navigate(["/admin-products"]);
+        //Reset form and stay on navigation step
+        this.onCreateProductReset();
+        this.snackBar.open("Produit enregisté dans la base de données", "Ok", {duration: 3000});
+        //this.router.navigate(["/admin-products"]);
       }, () => this.spinner.hide()));
     else {
       //Case of update product
